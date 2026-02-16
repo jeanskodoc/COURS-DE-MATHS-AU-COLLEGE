@@ -1,2880 +1,379 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Plateforme Mathématiques Collège Togo 🇹🇬</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* ===== VARIABLES ET STYLES GÉNÉRAUX ===== */
-    :root {
-      --primary: #006b3c; /* Vert togolais plus foncé */
-      --secondary: #ffcc00; /* Jaune togolais plus vif */
-      --accent: #d21034; /* Rouge togolais */
-      --dark: #0a2318;
-      --light: #f5fff9;
-      --panel: #ffffff;
-      --text: #1a3c2b;
-      --text-muted: #5a7c6b;
-      --border: #c8e0d5;
-      --success: #27ae60;
-      --warning: #f39c12;
-      --danger: #e74c3c;
-      --shadow: 0 3px 10px rgba(0, 107, 60, 0.08);
-      --shadow-hover: 0 5px 15px rgba(0, 107, 60, 0.12);
-      --radius: 10px;
-      --radius-sm: 6px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f0f9f4 0%, #e6f4ef 100%);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 0;
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    /* ===== HEADER COMPACT ===== */
-    .header-container {
-      background: linear-gradient(90deg, 
-        var(--primary) 0%, 
-        var(--primary) 20%, 
-        var(--secondary) 20%, 
-        var(--secondary) 40%, 
-        var(--accent) 40%, 
-        var(--accent) 60%, 
-        white 60%, 
-        white 80%, 
-        var(--primary) 80%
-      );
-      color: white;
-      padding: 1rem;
-      box-shadow: var(--shadow);
-      position: relative;
-    }
-
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 0.3rem;
-      color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .subtitle {
-      font-size: 0.9rem;
-      opacity: 0.95;
-    }
-
-    /* ===== NAVIGATION PRINCIPALE COMPACTE ===== */
-    .nav-main {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: white;
-      padding: 0.8rem 1rem;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .nav-btn-main {
-      background: var(--panel);
-      border: 2px solid var(--border);
-      color: var(--text);
-      padding: 0.7rem 1.5rem;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.25s ease;
-      font-weight: 600;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      min-width: 140px;
-      justify-content: center;
-      white-space: nowrap;
-    }
-
-    .nav-btn-main:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--primary);
-      background-color: rgba(0, 107, 60, 0.05);
-    }
-
-    .nav-btn-main.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    /* ===== CONTAINER PRINCIPAL ===== */
-    .app {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    /* ===== MODULES ===== */
-    .module-section {
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
-
-    .module-section.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== LAYOUT COURS ===== */
-    .lesson-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 1.5rem;
-      min-height: 600px;
-    }
-
-    /* ===== SIDEBAR COMPACTE ===== */
-    .sidebar {
-      background: var(--panel);
-      padding: 1.2rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      height: 70vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow);
-    }
-
-    .sidebar h3 {
-      color: var(--primary);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      margin: 1.5rem 0 1rem 0;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--secondary);
-      letter-spacing: 0.5px;
-    }
-
-    .lesson-link {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.7rem 0.8rem;
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-      border-left: 3px solid transparent;
-    }
-
-    .lesson-link:hover {
-      background: rgba(0, 107, 60, 0.08);
-      border-color: var(--border);
-      transform: translateX(5px);
-      border-left-color: var(--primary);
-    }
-
-    .lesson-link.active {
-      background: var(--primary);
-      color: white;
-      font-weight: bold;
-      border-left-color: var(--secondary);
-    }
-
-    /* ===== CONTENU PRINCIPAL ===== */
-    .content-panel {
-      background: var(--panel);
-      padding: 1.8rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      min-height: 500px;
-      box-shadow: var(--shadow);
-    }
-
-    /* ===== ONGLETS COMPACTS ===== */
-    .sub-tabs {
-      display: flex;
-      gap: 0.5rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .sub-tab {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      padding: 0.6rem 1.2rem;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      min-width: 120px;
-      justify-content: center;
-    }
-
-    .sub-tab:hover {
-      color: var(--primary);
-      background: rgba(0, 107, 60, 0.05);
-    }
-
-    .sub-tab.active {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }
-
-    .sub-tab-content {
-      display: none;
-    }
-
-    .sub-tab-content.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    /* ===== ÉLÉMENTS DE COURS ===== */
-    .theory-box {
-      background: rgba(0, 107, 60, 0.05);
-      padding: 1.2rem;
-      border-left: 4px solid var(--primary);
-      margin-bottom: 1.2rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .def-title, .thm-title, .prop-title {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 0.8rem;
-      display: block;
-      margin-bottom: 0.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ===== BOUTONS COMPACTS ===== */
-    .btn-gen {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      margin-bottom: 1rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      min-width: 160px;
-      justify-content: center;
-      box-shadow: 0 2px 4px rgba(0, 107, 60, 0.2);
-    }
-
-    .btn-gen:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 107, 60, 0.25);
-      background-color: #005a32;
-    }
-
-    .btn-validate {
-      background: var(--secondary);
-      color: var(--dark);
-      border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      min-width: 120px;
-      justify-content: center;
-    }
-
-    .btn-validate:hover {
-      background-color: #e6b800;
-      transform: translateY(-2px);
-      box-shadow: 0 3px 6px rgba(255, 204, 0, 0.2);
-    }
-
-    .btn-reset {
-      background: var(--danger);
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .btn-reset:hover {
-      background-color: #c0392b;
-      transform: translateY(-1px);
-    }
-
-    /* ===== CARTES CALCULATRICES COMPACTES ===== */
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .calc-card {
-      background: var(--panel);
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .calc-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 107, 60, 0.12);
-    }
-
-    .calc-card h3 {
-      color: var(--primary);
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    /* ===== INPUTS COMPACTS ===== */
-    input, select, textarea {
-      width: 100%;
-      padding: 0.75rem;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      margin-bottom: 0.8rem;
-      font-size: 0.95rem;
-      transition: border 0.2s ease;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(0, 107, 60, 0.1);
-    }
-
-    .screen-calc {
-      background: var(--dark);
-      color: #00ff88;
-      font-family: 'Courier New', monospace;
-      padding: 1rem;
-      border-radius: var(--radius-sm);
-      min-height: 70px;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      border: 1px solid rgba(0, 255, 136, 0.2);
-      overflow-y: auto;
-      max-height: 200px;
-    }
-
-    /* ===== DÉMONSTRATIONS COMPACTES ===== */
-    .proof-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .proof-block {
-      border-left: 4px solid var(--secondary);
-      background: rgba(255, 204, 0, 0.06);
-      padding: 1.2rem;
-      margin-top: 1.2rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      display: none;
-    }
-
-    /* ===== FOOTER COMPACT ===== */
-    .footer {
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 1.5rem;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-    }
-
-    .footer p:first-child {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    /* ===== STYLES AJOUTÉS POUR LES NOUVEAUX CONTENUS ===== */
-    .competence-box {
-      background: rgba(255, 204, 0, 0.08);
-      padding: 1.2rem;
-      border-left: 4px solid var(--secondary);
-      margin-bottom: 1.2rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    }
-
-    .objectives-list {
-      padding-left: 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .objectives-list li {
-      margin-bottom: 0.6rem;
-      position: relative;
-    }
-
-    .capacite-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1.2rem;
-      font-size: 0.9rem;
-    }
-
-    .capacite-table th, .capacite-table td {
-      border: 1px solid var(--border);
-      padding: 0.8rem;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .capacite-table th {
-      background-color: rgba(0, 107, 60, 0.1);
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .activite-item {
-      margin-bottom: 1.2rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px dashed var(--border);
-    }
-
-    .activite-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .activite-duree {
-      background-color: rgba(0, 107, 60, 0.1);
-      padding: 0.3rem 0.7rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    /* Styles pour les quiz */
-    .quiz-opt {
-      background: white;
-      border: 2px solid var(--border);
-      padding: 0.9rem;
-      border-radius: var(--radius-sm);
-      margin-bottom: 0.6rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .quiz-opt:hover {
-      background: rgba(0, 107, 60, 0.05);
-      border-color: var(--primary);
-    }
-
-    .quiz-opt.selected {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    /* Styles pour les démonstrations améliorées */
-    .demo-step {
-      margin-bottom: 1rem;
-      padding-left: 1.2rem;
-      border-left: 2px solid var(--secondary);
-    }
-
-    .demo-step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--secondary);
-      color: var(--dark);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-right: 0.6rem;
-    }
-
-    .demo-formula {
-      font-family: 'Courier New', monospace;
-      background: rgba(0, 0, 0, 0.05);
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      margin: 0.4rem 0;
-      display: inline-block;
-    }
-
-    .demo-result {
-      background: rgba(39, 174, 96, 0.1);
-      border-left: 3px solid var(--success);
-      padding: 1rem;
-      margin-top: 1.2rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    }
-
-    /* Styles pour les calculatrices améliorées */
-    .calc-input-group {
-      display: flex;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-    }
-
-    .calc-input-group input {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .calc-buttons {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .calc-buttons button {
-      flex: 1;
-      min-width: 80px;
-      padding: 0.7rem 0.5rem;
-    }
-
-    /* Styles pour la progression */
-    .progress-card {
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--panel);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-
-    .progress-value {
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin: 0.8rem 0;
-      color: var(--primary);
-    }
-
-    .progress-chart {
-      height: 12px;
-      background: var(--border);
-      border-radius: 6px;
-      margin: 1.2rem 0;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 6px;
-      transition: width 0.5s ease;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .lesson-layout {
-        grid-template-columns: 220px 1fr;
-        gap: 1.2rem;
-      }
-      
-      .calc-grid, .proof-container {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .lesson-layout {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      
-      .sidebar {
-        height: 50vh;
-        max-height: 400px;
-      }
-      
-      .nav-main {
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 0.8rem;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-      }
-      
-      .nav-btn-main {
-        min-width: 130px;
-        padding: 0.6rem 1rem;
-        font-size: 0.85rem;
-      }
-      
-      .calc-grid, .proof-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .app {
-        padding: 0.8rem;
-      }
-      
-      .content-panel {
-        padding: 1.5rem;
-      }
-      
-      .btn-gen, .btn-validate {
-        min-width: 140px;
-        width: 100%;
-      }
-      
-      .calc-card {
-        padding: 1.2rem;
-      }
-      
-      .calc-input-group {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header-container {
-        padding: 0.8rem;
-      }
-      
-      h1 {
-        font-size: 1.4rem;
-      }
-      
-      .subtitle {
-        font-size: 0.8rem;
-      }
-      
-      .sub-tab {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.85rem;
-        min-width: 100px;
-      }
-      
-      .content-panel {
-        padding: 1.2rem;
-      }
-      
-      .calc-card {
-        padding: 1rem;
-      }
-      
-      .btn-gen, .btn-validate, .btn-reset {
-        width: 100%;
-        margin-bottom: 0.8rem;
-      }
-      
-      .calc-buttons {
-        flex-direction: column;
-      }
-      
-      .calc-buttons button {
-        width: 100%;
-      }
-      
-      .nav-main {
-        padding: 0.6rem;
-      }
-      
-      .nav-btn-main {
-        min-width: 110px;
-        padding: 0.5rem 0.8rem;
-        font-size: 0.8rem;
-      }
-      
-      .progress-value {
-        font-size: 1.8rem;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .nav-main {
-        justify-content: space-between;
-      }
-      
-      .nav-btn-main {
-        min-width: calc(50% - 0.25rem);
-        font-size: 0.75rem;
-      }
-      
-      .sub-tab {
-        min-width: calc(50% - 0.25rem);
-        justify-content: center;
-        padding: 0.5rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Progressions annuelles · Maths Togo 6e/5e/4e/3e</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0b4d3a;
+            --primary: #1b6e54;
+            --primary-light: #d0f0e4;
+            --accent: #f3b33d;
+            --bg-light: #f0f8f5;
+            --text: #1b4637;
+            --white: #ffffff;
+            --tab-inactive: #e2f0ea;
+            --border: #b7dbc9;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 1.5rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* BANDEAU OFFICIEL */
+        .bandeau {
+            background: linear-gradient(148deg, var(--primary-dark), var(--primary));
+            color: white;
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2rem) clamp(1.5rem, 5vw, 2.8rem);
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px -8px rgba(0,40,20,0.25);
+        }
+
+        .bandeau h1 {
+            font-size: clamp(1.1rem, 5vw, 1.9rem);
+            font-weight: 600;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .bandeau h2 {
+            font-size: clamp(0.95rem, 4vw, 1.3rem);
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        .badge-prog {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 800;
+            padding: 0.4rem clamp(1rem, 3vw, 2.2rem);
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: clamp(0.7rem, 3vw, 1rem);
+            box-shadow: 0 4px 8px #b57f1a;
+            white-space: normal;
+            text-align: center;
+        }
+
+        /* SYSTÈME D'ONGLETS */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-button {
+            background: var(--tab-inactive);
+            border: none;
+            border-radius: 40px 40px 0 0;
+            padding: 0.8rem 2rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid var(--border);
+            border-bottom: none;
+            margin-bottom: -2px;
+            flex: 0 1 auto;
+        }
+
+        .tab-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #c5e0d6;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--white);
+            border-radius: 30px;
+            padding: 1.8rem 1.5rem;
+            border: 4px solid var(--primary-light);
+            box-shadow: 0 15px 25px -10px rgba(0,40,20,0.2);
+            overflow-x: auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* TABLEAUX DE PROGRESSION */
+        .prog-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px #c4ddd1;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+        }
+
+        .prog-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .prog-table td {
+            border: 1px solid var(--border);
+            padding: 10px 8px;
+            vertical-align: top;
+        }
+
+        .prog-table tr:nth-child(even) {
+            background: #f9fdfb;
+        }
+
+        .semaine-badge {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .theme-tag {
+            background: #e6f2ef;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            background: #fef7e5;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            text-align: center;
+            border-left: 8px solid var(--accent);
+        }
+
+        /* adaptation mobile */
+        @media (max-width: 600px) {
+            .tabs {
+                justify-content: stretch;
+            }
+            .tab-button {
+                flex: 1 1 auto;
+                text-align: center;
+                padding: 0.6rem 0.5rem;
+                font-size: 0.95rem;
+            }
+            .prog-table th, .prog-table td {
+                padding: 6px 4px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- En-tête compact -->
-  <div class="header-container">
-    <div class="header-content">
-      <h1><i class="fas fa-graduation-cap"></i> Plateforme Mathématiques Collège Togo</h1>
-      <div class="subtitle">🇹🇬 Cours, Exercices, Calculatrices & Démonstrations</div>
+<div class="container">
+    <!-- BANDEAU OFFICIEL -->
+    <div class="bandeau">
+        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE ET DE L'ARTISANAT</h1>
+        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie</h2>
+        <div class="badge-prog">PROGRESSIONS ANNUELLES · MATHÉMATIQUES 6e / 5e / 4e / 3e · PAREC</div>
+        <p style="margin-top:1rem; font-size:1.1rem;">Tableaux complets extraits des programmes officiels (6e à 3e)</p>
     </div>
-  </div>
 
-  <!-- Navigation compacte -->
-  <nav class="nav-main" id="mainNav">
-    <button class="nav-btn-main active" data-target="cours" onclick="switchModule('cours')">
-      <i class="fas fa-book-open"></i> Cours
-    </button>
-    <button class="nav-btn-main" data-target="calc" onclick="switchModule('calc')">
-      <i class="fas fa-calculator"></i> Calculatrices
-    </button>
-    <button class="nav-btn-main" data-target="demo" onclick="switchModule('demo')">
-      <i class="fas fa-shapes"></i> Démonstrations
-    </button>
-    <button class="nav-btn-main" data-target="progress" onclick="switchModule('progress')">
-      <i class="fas fa-chart-line"></i> Progression
-    </button>
-  </nav>
+    <!-- ONGLETS -->
+    <div class="tabs">
+        <button class="tab-button active" data-tab="tab6">6ème</button>
+        <button class="tab-button" data-tab="tab5">5ème</button>
+        <button class="tab-button" data-tab="tab4">4ème</button>
+        <button class="tab-button" data-tab="tab3">3ème</button>
+    </div>
 
-  <div class="app">
-    <!-- MODULE 1 : COURS -->
-    <section id="module-cours" class="module-section active">
-      <div class="lesson-layout">
-        <aside class="sidebar" id="sidebar-container">
-          <!-- Rempli par JS -->
-        </aside>
+    <!-- CONTENU DES ONGLETS -->
+    <!-- 6ème -->
+    <div id="tab6" class="tab-content active">
+        <h3 style="color: var(--primary); margin-bottom:1rem; font-size:1.6rem;">📘 Progression annuelle – Classe de Sixième</h3>
+        <table class="prog-table">
+            <thead>
+                <tr><th>Mois</th><th>Semaines</th><th>Thèmes</th><th>Leçons</th><th>Nb heures</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Sept.</td><td>1-2</td><td>Configurations du plan</td><td>Droites du plan</td><td>8 H</td></tr>
+                <tr><td>Oct.</td><td>3-5</td><td>Calcul numérique</td><td>Arithmétique</td><td>10 H</td></tr>
+                <tr><td>Oct.</td><td>5-6</td><td>Configurations du plan</td><td>Segments</td><td>6 H</td></tr>
+                <tr><td>Nov.</td><td>7-8</td><td>Calcul numérique</td><td>Nombres décimaux / Programme de calcul</td><td>8 H</td></tr>
+                <tr><td>Nov.</td><td>9</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Nov.</td><td>10</td><td>Configurations du plan</td><td>Angles</td><td>6 H</td></tr>
+                <tr><td>Déc.</td><td>11-12</td><td>Calcul numérique</td><td>Fractions</td><td>6 H</td></tr>
+                <tr><td>Janv.</td><td>13</td><td>Configurations du plan</td><td>Cercles</td><td>4 H</td></tr>
+                <tr><td>Janv.</td><td>14</td><td>Organisation des données</td><td>Situations de proportionnalité</td><td>4 H</td></tr>
+                <tr><td>Janv.</td><td>15</td><td>Configurations du plan</td><td>Triangles</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>17</td><td>Organisation des données</td><td>Pourcentages et échelles</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>18-19</td><td>Configurations du plan</td><td>Parallélogrammes</td><td>6 H</td></tr>
+                <tr><td>Fév.</td><td>19-20</td><td>Calcul numérique</td><td>Nombres décimaux relatifs</td><td>8 H</td></tr>
+                <tr><td>Mars</td><td>21</td><td>Applications du plan</td><td>Figures symétriques / droite</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>22</td><td>Applications du plan</td><td>Figures symétriques / point</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>23-24</td><td>Configurations de l'espace</td><td>Cube, Pavé droit</td><td>6 H</td></tr>
+                <tr><td>Avril</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:1rem; font-style:italic;">Source : Programme 6e – PAREC 2018-2019 (total environ 102 h)</p>
+    </div>
 
-        <div class="content-panel">
-          <h2 id="current-lesson-title" style="color:var(--primary); margin-bottom:1.2rem; font-size:1.3rem;">
-            <i class="fas fa-star"></i> Sélectionnez une leçon
-          </h2>
-          
-          <div class="sub-tabs">
-            <button class="sub-tab active" onclick="switchSubTab('theory')">
-              <i class="fas fa-book"></i> Cours
-            </button>
-            <button class="sub-tab" onclick="switchSubTab('example')">
-              <i class="fas fa-lightbulb"></i> Exemples
-            </button>
-            <button class="sub-tab" onclick="switchSubTab('exercise')">
-              <i class="fas fa-pen"></i> Exercices
-            </button>
-            <button class="sub-tab" onclick="switchSubTab('quiz')">
-              <i class="fas fa-question-circle"></i> Quiz
-            </button>
-          </div>
+    <!-- 5ème -->
+    <div id="tab5" class="tab-content">
+        <h3 style="color: var(--primary); margin-bottom:1rem; font-size:1.6rem;">📗 Progression annuelle – Classe de Cinquième</h3>
+        <table class="prog-table">
+            <thead>
+                <tr><th>Mois</th><th>Semaines</th><th>Thèmes</th><th>Leçons</th><th>Nb heures</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Sept.</td><td>1-2</td><td>Configurations du plan</td><td>Distance et segments</td><td>8 H</td></tr>
+                <tr><td>Oct.</td><td>3-4</td><td>Calcul numérique</td><td>Nombres décimaux relatifs</td><td>8 H</td></tr>
+                <tr><td>Oct.</td><td>5-6</td><td>Configurations du plan</td><td>Angles</td><td>6 H</td></tr>
+                <tr><td>Oct.</td><td>6-7</td><td>Calcul numérique</td><td>Puissances</td><td>4 H</td></tr>
+                <tr><td>Nov.</td><td>8</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Nov.</td><td>9-10</td><td>Applications du plan</td><td>Figures symétriques / droite, point</td><td>8 H</td></tr>
+                <tr><td>Nov.</td><td>10-12</td><td>Calcul numérique</td><td>Arithmétique</td><td>8 H</td></tr>
+                <tr><td>Déc.</td><td>12-13</td><td>Configurations du plan</td><td>Triangles</td><td>6 H</td></tr>
+                <tr><td>Janv.</td><td>14-15</td><td>Calcul numérique</td><td>Fractions</td><td>6 H</td></tr>
+                <tr><td>Janv.</td><td>15</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>16</td><td>Configurations du plan</td><td>Cercle</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>17-18</td><td>Programmes de calcul – Calcul littéral</td><td>Notion d'équation</td><td>6 H</td></tr>
+                <tr><td>Fév.</td><td>19-20</td><td>Configurations du plan</td><td>Polygones</td><td>6 H</td></tr>
+                <tr><td>Mars</td><td>20-21</td><td>Organisation des données</td><td>Proportionnalité</td><td>4 H</td></tr>
+                <tr><td>Mars</td><td>21-22</td><td>Outils vectoriels / géométrie analytique</td><td>Repérage (droite, quadrillage)</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>22-23</td><td>Organisation des données</td><td>Pourcentages et échelles</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>23-24</td><td>Configurations de l'espace</td><td>Prisme droit</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>24-25</td><td>Configurations de l'espace</td><td>Cylindre droit</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2 H</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:1rem; font-style:italic;">Source : Programme 5e – PAREC 2018-2019 (total environ 102 h)</p>
+    </div>
 
-          <div id="view-theory" class="sub-tab-content active"></div>
-          
-          <div id="view-example" class="sub-tab-content">
-            <div class="theory-box">
-              <button class="btn-gen" onclick="generateExample()">
-                <i class="fas fa-magic"></i> Générer un exemple
-              </button>
-              <div id="example-output" style="margin-top:1.2rem;"></div>
-            </div>
-          </div>
-          
-          <div id="view-exercise" class="sub-tab-content">
-            <div class="theory-box">
-              <button class="btn-gen" onclick="generateExercise()">
-                <i class="fas fa-plus"></i> Nouvel exercice
-              </button>
-              <div id="exercise-ui" style="display:none; margin-top:1.2rem;">
-                <div id="ex-q" style="margin-bottom:1rem; font-weight:600; color:var(--primary); font-size:1rem;"></div>
-                <div style="display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center;">
-                  <input type="text" id="ex-input" placeholder="Votre réponse..." style="flex:1; min-width:200px; padding:0.8rem;">
-                  <button class="btn-validate" onclick="checkExercise()">
-                    <i class="fas fa-check"></i> Valider
-                  </button>
-                </div>
-                <div id="ex-feedback" style="display:none; margin-top:1.2rem;"></div>
-              </div>
-            </div>
-          </div>
-          
-          <div id="view-quiz" class="sub-tab-content">
-            <div class="theory-box">
-              <button class="btn-gen" onclick="generateQuiz()">
-                <i class="fas fa-brain"></i> Nouveau quiz
-              </button>
-              <div id="quiz-ui" style="display:none; margin-top:1.2rem;">
-                <div id="quiz-q" style="margin-bottom:1rem; font-weight:600; color:var(--primary); font-size:1rem;"></div>
-                <div class="quiz-opt" onclick="selectQuiz(true)" id="opt-t">
-                  <i class="fas fa-check-circle"></i> VRAI
-                </div>
-                <div class="quiz-opt" onclick="selectQuiz(false)" id="opt-f">
-                  <i class="fas fa-times-circle"></i> FAUX
-                </div>
-                <button class="btn-validate" onclick="checkQuiz()" style="margin-top:1rem; width:100%;">
-                  <i class="fas fa-paper-plane"></i> Valider
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- 4ème -->
+    <div id="tab4" class="tab-content">
+        <h3 style="color: var(--primary); margin-bottom:1rem; font-size:1.6rem;">📙 Progression annuelle – Classe de Quatrième</h3>
+        <table class="prog-table">
+            <thead>
+                <tr><th>Mois</th><th>Semaines</th><th>Thèmes</th><th>Leçons</th><th>Nb heures</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Sept.</td><td>1</td><td>Applications du plan</td><td>Symétrie orthogonale, centrale</td><td>4 H</td></tr>
+                <tr><td>Sept.</td><td>2-3</td><td>Programme de calcul – Calcul littéral</td><td>Calcul sur expressions algébriques</td><td>6 H</td></tr>
+                <tr><td>Oct.</td><td>3-4</td><td>Configurations du plan</td><td>Distance et droites</td><td>6 H</td></tr>
+                <tr><td>Oct.</td><td>5-6</td><td>Calcul numérique</td><td>Nombres rationnels</td><td>6 H</td></tr>
+                <tr><td>Oct.-Nov.</td><td>6-8</td><td>Configurations du plan</td><td>Triangles – Polygones réguliers</td><td>8 H</td></tr>
+                <tr><td>Nov.</td><td>8</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Nov.</td><td>9-11</td><td>Programme de calcul – Calcul littéral</td><td>Équations – Inéquations</td><td>8 H</td></tr>
+                <tr><td>Déc.</td><td>11-12</td><td>Configurations de l'espace</td><td>Perspective cavalière</td><td>4 H</td></tr>
+                <tr><td>Déc.</td><td>12-13</td><td>Calcul numérique</td><td>Nombres décimaux, calcul approché</td><td>6 H</td></tr>
+                <tr><td>Janv.</td><td>14-15</td><td>Configurations de l'espace</td><td>Droites et plans, positions relatives</td><td>8 H</td></tr>
+                <tr><td>Fév.</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>17</td><td>Organisation des données</td><td>Proportionnalité</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>18-20</td><td>Configurations du plan</td><td>Angles – Cercles</td><td>10 H</td></tr>
+                <tr><td>Mars</td><td>20-21</td><td>Applications du plan</td><td>Projection</td><td>4 H</td></tr>
+                <tr><td>Mars</td><td>21-22</td><td>Organisation des données</td><td>Statistiques</td><td>4 H</td></tr>
+                <tr><td>Mars</td><td>22-23</td><td>Applications du plan</td><td>Translation</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>23-24</td><td>Outil vectoriel – géométrie analytique</td><td>Vecteurs – Repérage</td><td>5 H</td></tr>
+                <tr><td>Avril</td><td>24-25</td><td>Configurations de l'espace</td><td>Sphère</td><td>3 H</td></tr>
+                <tr><td>Avril</td><td>25-26</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:1rem; font-style:italic;">Source : Programme 4e – PAREC (total environ 102 h)</p>
+    </div>
 
-    <!-- MODULE 2 : CALCULATRICES COMPLÈTES -->
-    <section id="module-calc" class="module-section">
-      <h2 style="color:var(--primary); margin-bottom:1.5rem; font-size:1.3rem;">
-        <i class="fas fa-calculator"></i> Calculatrices Mathématiques
-      </h2>
-      <div class="calc-grid">
-        
-        <!-- CALCUL LITTÉRAL AVANCÉ -->
-        <div class="calc-card">
-          <h3><i class="fas fa-code"></i> Calcul Littéral</h3>
-          <textarea id="lit-expr" placeholder="Expression (ex: 2(x+3)-5x, (x+2)², x²-4)" rows="2"></textarea>
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="expandLiteral()">
-              Développer
-            </button>
-            <button class="btn-gen" onclick="factorLiteral()">
-              Factoriser
-            </button>
-            <button class="btn-gen" onclick="simplifyLiteral()">
-              Simplifier
-            </button>
-          </div>
-          <div id="lit-res" class="screen-calc"></div>
-        </div>
+    <!-- 3ème -->
+    <div id="tab3" class="tab-content">
+        <h3 style="color: var(--primary); margin-bottom:1rem; font-size:1.6rem;">📕 Progression annuelle – Classe de Troisième</h3>
+        <table class="prog-table">
+            <thead>
+                <tr><th>Mois</th><th>Semaines</th><th>Thèmes</th><th>Leçons</th><th>Nb heures</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Sept.</td><td>1-2</td><td>Programme de calcul – Calcul littéral</td><td>Monômes, polynômes, fractions rationnelles</td><td>6 H</td></tr>
+                <tr><td>Sept.-Oct.</td><td>2-4</td><td>Configurations du plan</td><td>Propriété de Thalès</td><td>8 H</td></tr>
+                <tr><td>Oct.</td><td>4-5</td><td>Calcul numérique</td><td>Nombres réels – Racines carrées</td><td>6 H</td></tr>
+                <tr><td>Oct.-Nov.</td><td>6-7</td><td>Configurations du plan</td><td>Trigonométrie dans le triangle rectangle</td><td>8 H</td></tr>
+                <tr><td>Nov.</td><td>8</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Nov.</td><td>9-10</td><td>Outil vectoriel – géométrie analytique</td><td>Vecteurs</td><td>5 H</td></tr>
+                <tr><td>Nov.-Déc.</td><td>10-11</td><td>Calcul numérique</td><td>Nombres réels : intervalle, calcul approché</td><td>6 H</td></tr>
+                <tr><td>Déc.</td><td>11-12</td><td>Outil vectoriel – géométrie analytique</td><td>Coordonnées et calculs dans un repère</td><td>5 H</td></tr>
+                <tr><td>Janv.</td><td>13-14</td><td>Programme de calcul – Calcul littéral</td><td>Équations – Inéquations dans IR</td><td>6 H</td></tr>
+                <tr><td>Janv.</td><td>14-15</td><td>Configurations de l'espace</td><td>Pyramide, Cône de révolution</td><td>8 H</td></tr>
+                <tr><td>Fév.</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+                <tr><td>Fév.</td><td>17</td><td>Configurations de l'espace</td><td>Pyramide, Cône (suite)</td><td>–</td></tr>
+                <tr><td>Fév.</td><td>17-18</td><td>Programme de calcul – Calcul littéral</td><td>Équations – Inéquations dans IR x IR</td><td>6 H</td></tr>
+                <tr><td>Fév.-Mars</td><td>19-20</td><td>Outil vectoriel – géométrie analytique</td><td>Équations de droites</td><td>6 H</td></tr>
+                <tr><td>Mars</td><td>20-21</td><td>Organisation des données</td><td>Applications linéaires, affines</td><td>5 H</td></tr>
+                <tr><td>Mars</td><td>21-22</td><td>Configurations du plan</td><td>Angles inscrits dans un cercle</td><td>4 H</td></tr>
+                <tr><td>Mars-Avr.</td><td>22-23</td><td>Organisation des données</td><td>Statistiques</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>23-24</td><td>Applications du plan</td><td>Symétries, translations (composées)</td><td>4 H</td></tr>
+                <tr><td>Avril</td><td>24-25</td><td>Applications du plan</td><td>Homothéties</td><td>3 H</td></tr>
+                <tr><td>Avril-Mai</td><td>25-26</td><td>Évaluation</td><td>Semaine d'intégration</td><td>4 H</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:1rem; font-style:italic;">Source : Programme 3e – PAREC 2021-2022 (total environ 102 h)</p>
+    </div>
 
-        <!-- ARITHMÉTIQUE AVANCÉE -->
-        <div class="calc-card">
-          <h3><i class="fas fa-sort-numeric-up"></i> Arithmétique</h3>
-          <div class="calc-input-group">
-            <input type="number" id="arith-a" placeholder="A">
-            <input type="number" id="arith-b" placeholder="B">
-          </div>
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="calcPgcd()">
-              PGCD
-            </button>
-            <button class="btn-gen" onclick="calcPpcm()">
-              PPCM
-            </button>
-            <button class="btn-gen" onclick="calcPrimeFactors()">
-              Fact. premiers
-            </button>
-          </div>
-          <div id="arith-res" class="screen-calc"></div>
-        </div>
+    <div class="footer-note">
+        ⚡ Progressions annuelles extraites des programmes officiels togolais (PAREC).<br>
+        Les durées sont indicatives (total ~102h par année, hors évaluations).
+    </div>
+</div>
 
-        <!-- CALCUL NUMÉRIQUE AVANCÉ -->
-        <div class="calc-card">
-          <h3><i class="fas fa-square-root-alt"></i> Calcul Numérique</h3>
-          <input type="text" id="calc-expr" placeholder="Expression (ex: 3+4*5, √(9+16), 2³)">
-          <div class="calc-buttons">
-            <button class="btn-validate" onclick="evalCalc()">
-              Calculer
-            </button>
-            <button class="btn-reset" onclick="resetCalc()">
-              Effacer
-            </button>
-          </div>
-          <div id="calc-res" class="screen-calc"></div>
-        </div>
+<script>
+    // GESTION DES ONGLETS
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
 
-        <!-- FRACTIONS AVANCÉES -->
-        <div class="calc-card">
-          <h3><i class="fas fa-divide"></i> Fractions</h3>
-          <div class="calc-input-group">
-            <input type="number" id="frac-a" placeholder="Numérateur 1">
-            <input type="number" id="frac-b" placeholder="Dénominateur 1">
-          </div>
-          <div class="calc-input-group">
-            <input type="number" id="frac-c" placeholder="Numérateur 2">
-            <input type="number" id="frac-d" placeholder="Dénominateur 2">
-          </div>
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="simplifierFraction()">
-              Simplifier
-            </button>
-            <button class="btn-gen" onclick="addFractions()">
-              Addition
-            </button>
-            <button class="btn-gen" onclick="multiplyFractions()">
-              Multiplication
-            </button>
-          </div>
-          <div id="frac-res" class="screen-calc"></div>
-        </div>
+    tabs.forEach(button => {
+        button.addEventListener('click', () => {
+            // Désactiver tous les onglets
+            tabs.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
 
-        <!-- ÉQUATIONS AVANCÉES -->
-        <div class="calc-card">
-          <h3><i class="fas fa-balance-scale"></i> Équations</h3>
-          <select id="eq-type" onchange="toggleEqInputs()">
-            <option value="1">1er degré: ax+b=0</option>
-            <option value="2">2nd degré: ax²+bx+c=0</option>
-            <option value="system">Système 2 équations</option>
-          </select>
-          <div id="eq-inputs-1">
-            <div class="calc-input-group">
-              <input type="number" id="eq-a" placeholder="a">
-              <input type="number" id="eq-b" placeholder="b">
-            </div>
-          </div>
-          <div id="eq-inputs-2" style="display:none;">
-            <div class="calc-input-group">
-              <input type="number" id="eq-a2" placeholder="a">
-              <input type="number" id="eq-b2" placeholder="b">
-              <input type="number" id="eq-c2" placeholder="c">
-            </div>
-          </div>
-          <button class="btn-validate" onclick="solveEquation()" style="width:100%; margin-top:0.8rem;">
-            Résoudre
-          </button>
-          <div id="eq-res" class="screen-calc"></div>
-        </div>
-
-        <!-- GÉOMÉTRIE COMPLÈTE -->
-        <div class="calc-card">
-          <h3><i class="fas fa-draw-polygon"></i> Géométrie</h3>
-          <select id="geo-mode" onchange="toggleGeoInputs()">
-            <option value="pythagore">Théorème de Pythagore</option>
-            <option value="thales">Théorème de Thalès</option>
-            <option value="volume">Volumes</option>
-            <option value="aire">Aires</option>
-            <option value="trigo">Trigonométrie</option>
-          </select>
-          <div id="inputs-pythagore">
-            <div class="calc-input-group">
-              <input type="number" id="p-a" placeholder="Côté a">
-              <input type="number" id="p-b" placeholder="Côté b">
-            </div>
-          </div>
-          <div id="inputs-thales" style="display:none;">
-            <div class="calc-input-group">
-              <input type="number" id="t-am" placeholder="AM">
-              <input type="number" id="t-ab" placeholder="AB">
-              <input type="number" id="t-ac" placeholder="AC">
-            </div>
-          </div>
-          <div id="inputs-volume" style="display:none;">
-            <select id="volume-shape">
-              <option value="cube">Cube</option>
-              <option value="sphere">Sphère</option>
-              <option value="cylinder">Cylindre</option>
-              <option value="cone">Cône</option>
-              <option value="pyramid">Pyramide</option>
-            </select>
-            <div class="calc-input-group">
-              <input type="number" id="v-dim1" placeholder="Dimension 1">
-              <input type="number" id="v-dim2" placeholder="Dimension 2">
-              <input type="number" id="v-dim3" placeholder="Dimension 3">
-            </div>
-          </div>
-          <button class="btn-validate" onclick="calcGeo()" style="width:100%; margin-top:0.8rem;">
-            Calculer
-          </button>
-          <div id="geo-res" class="screen-calc"></div>
-        </div>
-
-        <!-- RACINES CARRÉES -->
-        <div class="calc-card">
-          <h3><i class="fas fa-square-root-variable"></i> Racines Carrées</h3>
-          <input type="number" id="sqrt-n" placeholder="Nombre">
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="calculateSqrt()">
-              √x
-            </button>
-            <button class="btn-gen" onclick="simplifySqrt()">
-              Simplifier √
-            </button>
-            <button class="btn-gen" onclick="sqrtOperations()">
-              Opérations
-            </button>
-          </div>
-          <div id="sqrt-res" class="screen-calc"></div>
-        </div>
-
-        <!-- VECTEURS ET COORDONNÉES -->
-        <div class="calc-card">
-          <h3><i class="fas fa-arrows-alt"></i> Vecteurs & Coordonnées</h3>
-          <div class="calc-input-group">
-            <input type="number" id="vec-x1" placeholder="x1">
-            <input type="number" id="vec-y1" placeholder="y1">
-          </div>
-          <div class="calc-input-group">
-            <input type="number" id="vec-x2" placeholder="x2">
-            <input type="number" id="vec-y2" placeholder="y2">
-          </div>
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="calcVector()">
-              Vecteur AB
-            </button>
-            <button class="btn-gen" onclick="calcDistance()">
-              Distance
-            </button>
-            <button class="btn-gen" onclick="calcMidpoint()">
-              Milieu
-            </button>
-          </div>
-          <div id="vec-res" class="screen-calc"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULE 3 : DÉMONSTRATIONS COMPLÈTES -->
-    <section id="module-demo" class="module-section">
-      <h2 style="color:var(--primary); margin-bottom:1.5rem; font-size:1.3rem;">
-        <i class="fas fa-shapes"></i> Démonstrations Mathématiques
-      </h2>
-      <div class="proof-container">
-        
-        <!-- PYTHAGORE COMPLÈTE -->
-        <div class="calc-card">
-          <h3><i class="fas fa-triangle"></i> Théorème de Pythagore</h3>
-          <div class="calc-input-group">
-            <input type="number" id="demo-p-a" placeholder="Côté a">
-            <input type="number" id="demo-p-b" placeholder="Côté b">
-            <input type="number" id="demo-p-c" placeholder="Côté c">
-          </div>
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="demontrerPythagoreDirect()">
-              Théorème direct
-            </button>
-            <button class="btn-gen" onclick="demontrerPythagoreRecip()">
-              Réciproque
-            </button>
-          </div>
-          <div id="res-demo-pyth" class="proof-block" style="display:none;"></div>
-        </div>
-
-        <!-- THALÈS COMPLÈTE -->
-        <div class="calc-card">
-          <h3><i class="fas fa-project-diagram"></i> Théorème de Thalès</h3>
-          <div class="calc-input-group">
-            <input type="number" id="demo-th-am" placeholder="AM">
-            <input type="number" id="demo-th-ab" placeholder="AB">
-            <input type="number" id="demo-th-an" placeholder="AN">
-            <input type="number" id="demo-th-ac" placeholder="AC">
-          </div>
-          <div class="calc-buttons">
-            <button class="btn-gen" onclick="demontrerThalesDirect()">
-              Théorème direct
-            </button>
-            <button class="btn-gen" onclick="demontrerThalesRecip()">
-              Réciproque
-            </button>
-          </div>
-          <div id="res-demo-thales" class="proof-block" style="display:none;"></div>
-        </div>
-
-        <!-- TRIGONOMÉTRIE -->
-        <div class="calc-card">
-          <h3><i class="fas fa-superscript"></i> Trigonométrie</h3>
-          <div class="calc-input-group">
-            <input type="number" id="demo-trig-angle" placeholder="Angle (°)">
-            <input type="number" id="demo-trig-side" placeholder="Côté connu">
-          </div>
-          <select id="demo-trig-type">
-            <option value="sinus">Sinus</option>
-            <option value="cosinus">Cosinus</option>
-            <option value="tangente">Tangente</option>
-          </select>
-          <button class="btn-gen" onclick="demontrerTrigonométrie()" style="width:100%; margin-top:0.8rem;">
-            Démontrer
-          </button>
-          <div id="res-demo-trig" class="proof-block" style="display:none;"></div>
-        </div>
-
-        <!-- ANGLES INSCRITS -->
-        <div class="calc-card">
-          <h3><i class="fas fa-circle"></i> Angles inscrits</h3>
-          <div class="calc-input-group">
-            <input type="number" id="demo-angle-central" placeholder="Angle au centre">
-            <input type="number" id="demo-angle-inscrit" placeholder="Angle inscrit">
-          </div>
-          <button class="btn-gen" onclick="demontrerAnglesInscrits()" style="width:100%; margin-top:0.8rem;">
-            Démontrer la relation
-          </button>
-          <div id="res-demo-angles" class="proof-block" style="display:none;"></div>
-        </div>
-
-        <!-- RACINES CARRÉES -->
-        <div class="calc-card">
-          <h3><i class="fas fa-square-root-alt"></i> Propriétés des racines</h3>
-          <div class="calc-input-group">
-            <input type="number" id="demo-sqrt-a" placeholder="Nombre a">
-            <input type="number" id="demo-sqrt-b" placeholder="Nombre b">
-          </div>
-          <select id="demo-sqrt-prop">
-            <option value="multiplication">√(a×b) = √a × √b</option>
-            <option value="division">√(a/b) = √a / √b</option>
-            <option value="addition">√a + √b ≠ √(a+b)</option>
-          </select>
-          <button class="btn-gen" onclick="demontrerRacines()" style="width:100%; margin-top:0.8rem;">
-            Démontrer
-          </button>
-          <div id="res-demo-sqrt" class="proof-block" style="display:none;"></div>
-        </div>
-
-        <!-- CALCUL LITTÉRAL -->
-        <div class="calc-card">
-          <h3><i class="fas fa-code"></i> Identités remarquables</h3>
-          <select id="demo-identite">
-            <option value="carre-somme">(a+b)² = a²+2ab+b²</option>
-            <option value="carre-difference">(a-b)² = a²-2ab+b²</option>
-            <option value="produit-somme">(a+b)(a-b) = a²-b²</option>
-          </select>
-          <div class="calc-input-group">
-            <input type="number" id="demo-id-a" placeholder="a">
-            <input type="number" id="demo-id-b" placeholder="b">
-          </div>
-          <button class="btn-gen" onclick="demontrerIdentites()" style="width:100%; margin-top:0.8rem;">
-            Démontrer
-          </button>
-          <div id="res-demo-ident" class="proof-block" style="display:none;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULE 4 : SUIVI DE PROGRESSION -->
-    <section id="module-progress" class="module-section">
-      <h2 style="color:var(--primary); margin-bottom:1.5rem; font-size:1.3rem;">
-        <i class="fas fa-chart-line"></i> Suivi de Progression
-      </h2>
-      <div class="calc-grid">
-        
-        <!-- STATISTIQUES GÉNÉRALES -->
-        <div class="progress-card">
-          <h3><i class="fas fa-chart-bar"></i> Statistiques générales</h3>
-          <div class="progress-value" id="progress-overall">0%</div>
-          <div class="progress-chart">
-            <div class="progress-bar" id="progress-bar-overall" style="width: 0%"></div>
-          </div>
-          <p>Leçons complétées : <span id="lessons-completed">0</span>/<span id="lessons-total">0</span></p>
-          <p>Exercices réussis : <span id="exercises-solved">0</span></p>
-          <p>Quiz réussis : <span id="quiz-passed">0</span></p>
-        </div>
-
-        <!-- PROGRESSION PAR NIVEAU -->
-        <div class="calc-card">
-          <h3><i class="fas fa-layer-group"></i> Progression par niveau</h3>
-          <div id="level-progress">
-            <!-- Rempli par JavaScript -->
-          </div>
-        </div>
-
-        <!-- DERNIÈRES ACTIVITÉS -->
-        <div class="calc-card">
-          <h3><i class="fas fa-history"></i> Dernières activités</h3>
-          <div id="recent-activities">
-            <p>Aucune activité récente</p>
-          </div>
-        </div>
-
-        <!-- OBJECTIFS -->
-        <div class="calc-card">
-          <h3><i class="fas fa-bullseye"></i> Objectifs du jour</h3>
-          <ul id="daily-goals">
-            <li><input type="checkbox"> Compléter une leçon</li>
-            <li><input type="checkbox"> Résoudre 3 exercices</li>
-            <li><input type="checkbox"> Réussir un quiz</li>
-            <li><input type="checkbox"> Utiliser une calculatrice</li>
-          </ul>
-          <button class="btn-gen" onclick="updateProgress()" style="width:100%; margin-top:0.8rem;">
-            <i class="fas fa-sync-alt"></i> Actualiser
-          </button>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>🇹🇬 Plateforme Mathématiques Collège Togo - Ministère de l'Éducation</p>
-    <p style="opacity:0.9; margin-top:0.5rem; font-size:0.85rem;">
-      <i class="fas fa-envelope"></i> jeanskodoc22@gmail.com | 
-      <i class="fas fa-phone"></i> +228 92 87 16 05
-    </p>
-  </footer>
-
-  <script>
-    // ===== DONNÉES DES COURS =====
-    const lessonsData = {
-      "6ème": [
-        {
-          id: "nombres-decimaux",
-          title: "Nombres décimaux",
-          theory: `
-            <h3><i class="fas fa-hashtag"></i> Nombres décimaux</h3>
-            <p>Un nombre décimal est un nombre qui peut s'écrire avec une virgule et un nombre fini de chiffres après la virgule.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Un nombre décimal est un nombre qui peut s'écrire sous la forme a/10ⁿ où a est un entier relatif et n un entier naturel.
-            </div>
-            
-            <div class="theory-box">
-              <span class="thm-title">PROPRIÉTÉ</span>
-              Tout nombre entier est un nombre décimal (avec 0 chiffre après la virgule).
-            </div>
-            
-            <h4>Exemples :</h4>
-            <ul>
-              <li>15,32 est un nombre décimal</li>
-              <li>-4,5 est un nombre décimal</li>
-              <li>7 est un nombre décimal (car 7,0)</li>
-            </ul>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "operations-fondamentales",
-          title: "Opérations fondamentales",
-          theory: `
-            <h3><i class="fas fa-calculator"></i> Les quatre opérations</h3>
-            <p>Les quatre opérations fondamentales sont : l'addition, la soustraction, la multiplication et la division.</p>
-            
-            <div class="theory-box">
-              <span class="prop-title">ADDITION</span>
-              L'addition est commutative : a + b = b + a<br>
-              L'addition est associative : (a + b) + c = a + (b + c)
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">MULTIPLICATION</span>
-              La multiplication est commutative : a × b = b × a<br>
-              La multiplication est distributive sur l'addition : a × (b + c) = a×b + a×c
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "grandeurs-mesures",
-          title: "Grandeurs et mesures",
-          theory: `
-            <h3><i class="fas fa-ruler"></i> Grandeurs et mesures</h3>
-            <p>Les grandeurs mesurables : longueur, masse, durée, contenance.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">UNITÉS DE LONGUEUR</span>
-              km - hm - dam - m - dm - cm - mm<br>
-              Chaque unité est 10 fois plus grande que la suivante.
-            </div>
-            
-            <div class="theory-box">
-              <span class="def-title">UNITÉS DE MASSE</span>
-              kg - hg - dag - g - dg - cg - mg<br>
-              Conversions similaires aux longueurs.
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "symetrie",
-          title: "Symétrie axiale",
-          theory: `
-            <h3><i class="fas fa-balance-scale"></i> Symétrie axiale</h3>
-            <p>Deux figures sont symétriques par rapport à une droite si elles se superposent par pliage le long de cette droite.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Le symétrique d'un point M par rapport à une droite (d) est le point M' tel que (d) soit la médiatrice de [MM'].
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">PROPRIÉTÉS</span>
-              • La symétrie axiale conserve les longueurs<br>
-              • La symétrie axiale conserve les angles<br>
-              • La symétrie axiale conserve l'alignement
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        }
-      ],
-      "5ème": [
-        {
-          id: "calcul-litteral",
-          title: "Calcul littéral",
-          theory: `
-            <h3><i class="fas fa-code"></i> Calcul littéral</h3>
-            <p>Le calcul littéral consiste à manipuler des expressions contenant des lettres (variables).</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Une expression littérale est une expression mathématique qui contient des lettres représentant des nombres.
-            </div>
-            
-            <h4>Règles de base :</h4>
-            <ol>
-              <li>On peut additionner/soustraire les termes semblables</li>
-              <li>La multiplication est prioritaire sur l'addition</li>
-              <li>On peut développer en utilisant la distributivité</li>
-            </ol>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "fractions",
-          title: "Fractions",
-          theory: `
-            <h3><i class="fas fa-divide"></i> Fractions</h3>
-            <p>Une fraction représente une partie d'un tout.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Une fraction a/b représente a parts d'un tout divisé en b parts égales.
-            </div>
-            
-            <div class="theory-box">
-              <span class="thm-title">ÉGALITÉ DE FRACTIONS</span>
-              Deux fractions a/b et c/d sont égales si et seulement si a×d = b×c.
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "relatifs",
-          title: "Nombres relatifs",
-          theory: `
-            <h3><i class="fas fa-plus-minus"></i> Nombres relatifs</h3>
-            <p>Les nombres relatifs sont les nombres positifs et négatifs.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Un nombre relatif est formé d'un signe (+ ou -) et d'une valeur absolue.
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">ADDITION DE RELATIFS</span>
-              • Même signe : on ajoute les valeurs absolues, on garde le signe<br>
-              • Signes différents : on soustrait les valeurs absolues, on prend le signe du plus grand
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "parallelogrammes",
-          title: "Parallélogrammes",
-          theory: `
-            <h3><i class="fas fa-shapes"></i> Parallélogrammes</h3>
-            <p>Un parallélogramme est un quadrilatère dont les côtés opposés sont parallèles.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Un quadrilatère ABCD est un parallélogramme si (AB) // (CD) et (AD) // (BC).
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">PROPRIÉTÉS</span>
-              • Les côtés opposés sont égaux<br>
-              • Les angles opposés sont égaux<br>
-              • Les diagonales se coupent en leur milieu
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        }
-      ],
-      "4ème": [
-        {
-          id: "theoreme-pythagore",
-          title: "Théorème de Pythagore",
-          theory: `
-            <h3><i class="fas fa-triangle"></i> Théorème de Pythagore</h3>
-            <p>Dans un triangle rectangle, le carré de l'hypoténuse est égal à la somme des carrés des deux autres côtés.</p>
-            
-            <div class="theory-box">
-              <span class="thm-title">THÉORÈME DE PYTHAGORE</span>
-              Si ABC est un triangle rectangle en A, alors :<br>
-              BC² = AB² + AC²
-            </div>
-            
-            <div class="theory-box">
-              <span class="thm-title">RÉCIPROQUE</span>
-              Si dans un triangle ABC on a BC² = AB² + AC², alors le triangle est rectangle en A.
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "puissances",
-          title: "Puissances",
-          theory: `
-            <h3><i class="fas fa-superscript"></i> Puissances</h3>
-            <p>Une puissance est une manière abrégée d'écrire une multiplication répétée.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              Pour tout nombre a et tout entier n ≥ 1 :<br>
-              aⁿ = a × a × ... × a (n fois)
-            </div>
-            
-            <h4>Propriétés :</h4>
-            <ul>
-              <li>aᵐ × aⁿ = aᵐ⁺ⁿ</li>
-              <li>aᵐ ÷ aⁿ = aᵐ⁻ⁿ</li>
-              <li>(aᵐ)ⁿ = aᵐ×ⁿ</li>
-            </ul>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "proportionnalite",
-          title: "Proportionnalité",
-          theory: `
-            <h3><i class="fas fa-chart-line"></i> Proportionnalité</h3>
-            <p>Deux grandeurs sont proportionnelles si les valeurs de l'une s'obtiennent en multipliant les valeurs de l'autre par un même nombre.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">COEFFICIENT DE PROPORTIONNALITÉ</span>
-              Si y = k × x, alors k est le coefficient de proportionnalité.
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">PRODUIT EN CROIX</span>
-              Si a/b = c/d alors a × d = b × c
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "statistiques",
-          title: "Statistiques",
-          theory: `
-            <h3><i class="fas fa-chart-bar"></i> Statistiques</h3>
-            <p>Les statistiques permettent d'analyser et de représenter des données.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">MOYENNE</span>
-              Moyenne = (somme des valeurs) ÷ (nombre de valeurs)
-            </div>
-            
-            <div class="theory-box">
-              <span class="def-title">MÉDIANE</span>
-              La médiane est la valeur qui sépare la série en deux groupes de même effectif.
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        }
-      ],
-      "3ème": [
-        {
-          id: "theoreme-thales",
-          title: "Théorème de Thalès",
-          theory: `
-            <h3><i class="fas fa-project-diagram"></i> Théorème de Thalès</h3>
-            <p>Dans un triangle, une droite parallèle à un côté coupe les deux autres côtés en segments proportionnels.</p>
-            
-            <div class="theory-box">
-              <span class="thm-title">THÉORÈME DE THALÈS</span>
-              Si (DE) // (BC) alors :<br>
-              AD/AB = AE/AC = DE/BC
-            </div>
-            
-            <div class="theory-box">
-              <span class="thm-title">RÉCIPROQUE</span>
-              Si AD/AB = AE/AC et si les points A, D, B et A, E, C sont alignés, alors (DE) // (BC).
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "trigonometrie",
-          title: "Trigonométrie",
-          theory: `
-            <h3><i class="fas fa-superscript"></i> Trigonométrie</h3>
-            <p>La trigonométrie permet de calculer les côtés et angles d'un triangle rectangle.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITIONS</span>
-              Dans un triangle rectangle :<br>
-              sin(angle) = côté opposé / hypoténuse<br>
-              cos(angle) = côté adjacent / hypoténuse<br>
-              tan(angle) = côté opposé / côté adjacent
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "fonctions-affines",
-          title: "Fonctions affines",
-          theory: `
-            <h3><i class="fas fa-chart-line"></i> Fonctions affines</h3>
-            <p>Une fonction affine est de la forme f(x) = ax + b, où a est le coefficient directeur et b l'ordonnée à l'origine.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">DÉFINITION</span>
-              f est une fonction affine si pour tous réels x₁ et x₂ :<br>
-              f(x₂) - f(x₁) = a(x₂ - x₁) où a est constant.
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">REPRÉSENTATION GRAPHIQUE</span>
-              La représentation graphique d'une fonction affine est une droite.
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        },
-        {
-          id: "probabilites",
-          title: "Probabilités",
-          theory: `
-            <h3><i class="fas fa-dice"></i> Probabilités</h3>
-            <p>La probabilité mesure la chance qu'un événement se produise.</p>
-            
-            <div class="theory-box">
-              <span class="def-title">PROBABILITÉ</span>
-              La probabilité d'un événement A est :<br>
-              P(A) = nombre de cas favorables / nombre de cas possibles
-            </div>
-            
-            <div class="theory-box">
-              <span class="prop-title">PROPRIÉTÉS</span>
-              • 0 ≤ P(A) ≤ 1<br>
-              • P(événement certain) = 1<br>
-              • P(événement impossible) = 0
-            </div>
-          `,
-          examples: [],
-          exercises: []
-        }
-      ]
-    };
-
-    // ===== VARIABLES GLOBALES =====
-    let currentLesson = null;
-    let currentLevel = "6ème";
-    let userProgress = {
-      completedLessons: [],
-      solvedExercises: 0,
-      passedQuizzes: 0,
-      lastActivities: []
-    };
-
-    // ===== FONCTIONS D'AFFICHAGE =====
-    function initApp() {
-      populateSidebar();
-      loadProgress();
-      updateProgressDisplay();
-      toggleEqInputs();
-      toggleGeoInputs();
-    }
-
-    function populateSidebar() {
-      const sidebar = document.getElementById('sidebar-container');
-      sidebar.innerHTML = '';
-      
-      for (const level in lessonsData) {
-        const levelDiv = document.createElement('div');
-        levelDiv.innerHTML = `<h3><i class="fas fa-graduation-cap"></i> ${level}</h3>`;
-        
-        lessonsData[level].forEach(lesson => {
-          const lessonBtn = document.createElement('div');
-          lessonBtn.className = 'lesson-link';
-          lessonBtn.innerHTML = `<i class="fas fa-book"></i> ${lesson.title}`;
-          lessonBtn.onclick = () => loadLesson(level, lesson.id);
-          levelDiv.appendChild(lessonBtn);
+            // Activer l'onglet cliqué
+            button.classList.add('active');
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
         });
-        
-        sidebar.appendChild(levelDiv);
-      }
-    }
-
-    function loadLesson(level, lessonId) {
-      currentLevel = level;
-      const lesson = lessonsData[level].find(l => l.id === lessonId);
-      if (!lesson) return;
-      
-      currentLesson = lesson;
-      document.getElementById('current-lesson-title').innerHTML = 
-        `<i class="fas fa-star"></i> ${level} - ${lesson.title}`;
-      
-      document.getElementById('view-theory').innerHTML = lesson.theory;
-      
-      if (!userProgress.completedLessons.includes(lessonId)) {
-        userProgress.completedLessons.push(lessonId);
-        userProgress.lastActivities.push(`Leçon complétée: ${lesson.title}`);
-        if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-        saveProgress();
-        updateProgressDisplay();
-      }
-      
-      switchSubTab('theory');
-    }
-
-    function switchModule(moduleId) {
-      document.querySelectorAll('.module-section').forEach(sec => {
-        sec.classList.remove('active');
-      });
-      document.querySelectorAll('.nav-btn-main').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      
-      document.getElementById(`module-${moduleId}`).classList.add('active');
-      document.querySelector(`[data-target="${moduleId}"]`).classList.add('active');
-    }
-
-    function switchSubTab(tabId) {
-      document.querySelectorAll('.sub-tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.querySelectorAll('.sub-tab-content').forEach(content => {
-        content.classList.remove('active');
-      });
-      
-      document.querySelector(`[onclick="switchSubTab('${tabId}')"]`).classList.add('active');
-      document.getElementById(`view-${tabId}`).classList.add('active');
-    }
-
-    // ===== GÉNÉRATION D'EXEMPLES =====
-    function generateExample() {
-      if (!currentLesson) return;
-      
-      const examples = {
-        "nombres-decimaux": [
-          "15,32 + 4,68 = 20",
-          "7,5 × 4 = 30",
-          "12,4 ÷ 2 = 6,2",
-          "3,14 × 2 = 6,28"
-        ],
-        "operations-fondamentales": [
-          "15 + 27 = 42",
-          "48 - 19 = 29",
-          "7 × 8 = 56",
-          "81 ÷ 9 = 9"
-        ],
-        "theoreme-pythagore": [
-          "Triangle rectangle : côtés 3cm et 4cm, hypoténuse = √(3²+4²) = 5cm",
-          "Triangle rectangle : hypoténuse 10cm, un côté 6cm, autre côté = √(10²-6²) = 8cm",
-          "Triangle rectangle : côtés 5cm et 12cm, hypoténuse = √(5²+12²) = 13cm"
-        ],
-        "theoreme-thales": [
-          "Si AM/AB = 2/3 et AN/AC = 2/3, alors (MN) // (BC)",
-          "Avec AB = 6cm, AC = 9cm, AM = 2cm, alors AN = 3cm (car proportionnalité)",
-          "Si AD = 4cm, DB = 2cm, AE = 6cm, alors EC = 3cm (Thalès)"
-        ],
-        "trigonometrie": [
-          "Angle 30°, côté opposé 5cm, hypoténuse = 5/sin(30°) = 10cm",
-          "Angle 45°, côté adjacent 8cm, côté opposé = 8 × tan(45°) = 8cm",
-          "Angle 60°, hypoténuse 12cm, côté adjacent = 12 × cos(60°) = 6cm"
-        ],
-        "fractions": [
-          "1/2 + 1/3 = 3/6 + 2/6 = 5/6",
-          "2/5 × 3/4 = 6/20 = 3/10",
-          "7/8 ÷ 1/2 = 7/8 × 2/1 = 14/8 = 7/4"
-        ],
-        "relatifs": [
-          "(-5) + (+3) = -2",
-          "(-4) × (-3) = +12",
-          "(+8) - (-2) = +10"
-        ],
-        "puissances": [
-          "2³ = 2 × 2 × 2 = 8",
-          "10² = 100",
-          "5³ × 5² = 5⁵ = 3125"
-        ]
-      };
-      
-      const defaultEx = "Exemple : Appliquez la formule avec des valeurs numériques.";
-      const example = examples[currentLesson.id] ? 
-        examples[currentLesson.id][Math.floor(Math.random() * examples[currentLesson.id].length)] : 
-        defaultEx;
-      
-      document.getElementById('example-output').innerHTML = `
-        <div style="background:white; padding:1.2rem; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-          <strong style="color:var(--primary);">Exemple généré :</strong><br>
-          <div style="margin-top:0.5rem; font-size:1rem;">${example}</div>
-        </div>
-      `;
-    }
-
-    // ===== GÉNÉRATION D'EXERCICES =====
-    function generateExercise() {
-      if (!currentLesson) return;
-      
-      const exercises = {
-        "nombres-decimaux": [
-          { q: "Calculez : 12,5 + 7,3", a: "19,8" },
-          { q: "Calculez : 4,8 × 5", a: "24" },
-          { q: "Calculez : 15,6 ÷ 3", a: "5,2" },
-          { q: "Calculez : 3,14 × 10", a: "31,4" }
-        ],
-        "operations-fondamentales": [
-          { q: "Calculez : 128 + 347", a: "475" },
-          { q: "Calculez : 503 - 189", a: "314" },
-          { q: "Calculez : 23 × 14", a: "322" },
-          { q: "Calculez : 144 ÷ 12", a: "12" }
-        ],
-        "theoreme-pythagore": [
-          { q: "Triangle rectangle avec côtés 6cm et 8cm. Quelle est l'hypoténuse ?", a: "10" },
-          { q: "Hypoténuse 13cm, un côté 5cm. Quel est l'autre côté ?", a: "12" },
-          { q: "Triangle rectangle avec côtés 9cm et 12cm. Quelle est l'hypoténuse ?", a: "15" }
-        ],
-        "theoreme-thales": [
-          { q: "AB=12cm, AC=15cm, AM=4cm. Calculez AN.", a: "5" },
-          { q: "AD/AB = 3/4 et AE=9cm. Calculez AC.", a: "12" },
-          { q: "AB=10cm, AC=14cm, AN=7cm. Calculez AM.", a: "5" }
-        ],
-        "trigonometrie": [
-          { q: "Angle 30°, côté opposé 5cm. Calculez l'hypoténuse.", a: "10" },
-          { q: "Angle 45°, hypoténuse 10cm. Calculez le côté opposé.", a: "7.07" },
-          { q: "Angle 60°, côté adjacent 6cm. Calculez l'hypoténuse.", a: "12" }
-        ],
-        "fractions": [
-          { q: "Calculez : 1/3 + 1/4", a: "7/12" },
-          { q: "Calculez : 2/5 × 3/7", a: "6/35" },
-          { q: "Calculez : 3/4 ÷ 2/3", a: "9/8" }
-        ],
-        "relatifs": [
-          { q: "Calculez : (-7) + (+4)", a: "-3" },
-          { q: "Calculez : (-3) × (-5)", a: "15" },
-          { q: "Calculez : (+12) ÷ (-4)", a: "-3" }
-        ],
-        "puissances": [
-          { q: "Calculez : 2⁴", a: "16" },
-          { q: "Calculez : 3³", a: "27" },
-          { q: "Calculez : 10⁵ ÷ 10²", a: "1000" }
-        ]
-      };
-      
-      const defaultEx = { q: "Résolvez l'exercice en appliquant la méthode vue en cours.", a: "42" };
-      const exercise = exercises[currentLesson.id] ? 
-        exercises[currentLesson.id][Math.floor(Math.random() * exercises[currentLesson.id].length)] : 
-        defaultEx;
-      
-      document.getElementById('ex-q').textContent = exercise.q;
-      document.getElementById('exercise-ui').style.display = 'block';
-      document.getElementById('ex-feedback').style.display = 'none';
-      document.getElementById('ex-input').value = '';
-      window.currentExerciseAnswer = exercise.a;
-    }
-
-    function checkExercise() {
-      const userAnswer = document.getElementById('ex-input').value.trim();
-      const feedback = document.getElementById('ex-feedback');
-      
-      if (userAnswer === window.currentExerciseAnswer || 
-          Math.abs(parseFloat(userAnswer) - parseFloat(window.currentExerciseAnswer)) < 0.01) {
-        feedback.innerHTML = `
-          <div style="color:var(--success); background:rgba(39,174,96,0.1); padding:1rem; border-radius:var(--radius-sm); border-left:4px solid var(--success);">
-            <i class="fas fa-check-circle"></i> <strong>Correct !</strong> Bonne réponse.
-          </div>
-        `;
-        userProgress.solvedExercises++;
-        userProgress.lastActivities.push(`Exercice réussi: ${currentLesson?.title || ''}`);
-        if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-        saveProgress();
-        updateProgressDisplay();
-      } else {
-        feedback.innerHTML = `
-          <div style="color:var(--danger); background:rgba(231,76,60,0.1); padding:1rem; border-radius:var(--radius-sm); border-left:4px solid var(--danger);">
-            <i class="fas fa-times-circle"></i> <strong>Incorrect.</strong> La réponse attendue était : ${window.currentExerciseAnswer}
-          </div>
-        `;
-      }
-      feedback.style.display = 'block';
-    }
-
-    // ===== QUIZ =====
-    let currentQuizAnswer = null;
-    
-    function generateQuiz() {
-      if (!currentLesson) return;
-      
-      const quizzes = {
-        "nombres-decimaux": [
-          { q: "15,32 est un nombre décimal", a: true },
-          { q: "Tout nombre entier est un nombre décimal", a: true },
-          { q: "π (pi) est un nombre décimal", a: false },
-          { q: "1/3 = 0,333... est un nombre décimal", a: false }
-        ],
-        "operations-fondamentales": [
-          { q: "L'addition est commutative", a: true },
-          { q: "La soustraction est commutative", a: false },
-          { q: "La multiplication est distributive sur l'addition", a: true },
-          { q: "La division est associative", a: false }
-        ],
-        "theoreme-pythagore": [
-          { q: "Le théorème de Pythagore s'applique à tous les triangles", a: false },
-          { q: "Si a² + b² = c², alors le triangle est rectangle", a: true },
-          { q: "Dans un triangle rectangle, l'hypoténuse est le plus grand côté", a: true },
-          { q: "Pythagore était un philosophe grec", a: true }
-        ],
-        "theoreme-thales": [
-          { q: "Thalès s'applique seulement dans un triangle rectangle", a: false },
-          { q: "Si (DE) // (BC) alors AD/AB = AE/AC", a: true },
-          { q: "La réciproque de Thalès permet de démontrer le parallélisme", a: true },
-          { q: "Thalès était un mathématicien égyptien", a: false }
-        ],
-        "trigonometrie": [
-          { q: "sin(90°) = 1", a: true },
-          { q: "cos(0°) = 0", a: false },
-          { q: "tan(45°) = 1", a: true },
-          { q: "Pour un angle aigu, sin(angle) < cos(angle) toujours", a: false }
-        ],
-        "fractions": [
-          { q: "1/2 = 2/4", a: true },
-          { q: "Pour additionner deux fractions, on additionne les numérateurs et les dénominateurs", a: false },
-          { q: "Toute fraction peut s'écrire sous forme décimale", a: false },
-          { q: "3/5 est plus grand que 1/2", a: true }
-        ],
-        "relatifs": [
-          { q: "Le produit de deux nombres négatifs est positif", a: true },
-          { q: "La somme de deux nombres négatifs est positive", a: false },
-          { q: "0 est à la fois positif et négatif", a: false },
-          { q: "L'opposé de -5 est +5", a: true }
-        ],
-        "puissances": [
-          { q: "2³ = 8", a: true },
-          { q: "10⁰ = 0", a: false },
-          { q: "5² × 5³ = 5⁵", a: true },
-          { q: "(2³)² = 2⁶", a: true }
-        ]
-      };
-      
-      const defaultQuiz = { q: "Cette affirmation est-elle vraie ?", a: true };
-      const quiz = quizzes[currentLesson.id] ? 
-        quizzes[currentLesson.id][Math.floor(Math.random() * quizzes[currentLesson.id].length)] : 
-        defaultQuiz;
-      
-      document.getElementById('quiz-q').textContent = quiz.q;
-      document.getElementById('quiz-ui').style.display = 'block';
-      currentQuizAnswer = quiz.a;
-      
-      document.querySelectorAll('.quiz-opt').forEach(opt => {
-        opt.classList.remove('selected');
-      });
-    }
-
-    function selectQuiz(isTrue) {
-      document.querySelectorAll('.quiz-opt').forEach(opt => {
-        opt.classList.remove('selected');
-      });
-      
-      if (isTrue) {
-        document.getElementById('opt-t').classList.add('selected');
-      } else {
-        document.getElementById('opt-f').classList.add('selected');
-      }
-    }
-
-    function checkQuiz() {
-      const selected = document.querySelector('.quiz-opt.selected');
-      if (!selected) {
-        alert("Veuillez choisir une réponse !");
-        return;
-      }
-      
-      const userAnswer = selected.id === 'opt-t';
-      const feedback = document.createElement('div');
-      feedback.style.marginTop = '1.2rem';
-      
-      if (userAnswer === currentQuizAnswer) {
-        feedback.innerHTML = `
-          <div style="color:var(--success); background:rgba(39,174,96,0.1); padding:1rem; border-radius:var(--radius-sm); border-left:4px solid var(--success);">
-            <i class="fas fa-check-circle"></i> <strong>Bonne réponse !</strong>
-          </div>
-        `;
-        userProgress.passedQuizzes++;
-        userProgress.lastActivities.push(`Quiz réussi: ${currentLesson?.title || ''}`);
-        if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-        saveProgress();
-        updateProgressDisplay();
-      } else {
-        feedback.innerHTML = `
-          <div style="color:var(--danger); background:rgba(231,76,60,0.1); padding:1rem; border-radius:var(--radius-sm); border-left:4px solid var(--danger);">
-            <i class="fas fa-times-circle"></i> <strong>Mauvaise réponse.</strong> La réponse correcte était : ${currentQuizAnswer ? 'VRAI' : 'FAUX'}
-          </div>
-        `;
-      }
-      
-      document.getElementById('quiz-ui').appendChild(feedback);
-    }
-
-    // ===== CALCULATRICES =====
-    function expandLiteral() {
-      const expr = document.getElementById('lit-expr').value;
-      if (!expr) return;
-      
-      const examples = {
-        "2(x+3)": "2x + 6",
-        "(x+2)²": "x² + 4x + 4",
-        "3(x-1)+2x": "5x - 3",
-        "(x+3)(x-2)": "x² + x - 6",
-        "x(2x+5)": "2x² + 5x",
-        "(2x-1)²": "4x² - 4x + 1"
-      };
-      
-      let result = examples[expr] || `Développement de : ${expr}`;
-      document.getElementById('lit-res').textContent = `Développé : ${result}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Développement littéral");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function factorLiteral() {
-      const expr = document.getElementById('lit-expr').value;
-      if (!expr) return;
-      
-      const examples = {
-        "x²+4x+4": "(x+2)²",
-        "x²-9": "(x+3)(x-3)",
-        "2x+6": "2(x+3)",
-        "x²+5x+6": "(x+2)(x+3)",
-        "4x²-1": "(2x+1)(2x-1)",
-        "x²-5x+6": "(x-2)(x-3)"
-      };
-      
-      let result = examples[expr] || `Factorisation de : ${expr}`;
-      document.getElementById('lit-res').textContent = `Factorisé : ${result}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Factorisation");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function simplifyLiteral() {
-      const expr = document.getElementById('lit-expr').value;
-      if (!expr) return;
-      
-      const examples = {
-        "2x+3x": "5x",
-        "x²+x²": "2x²",
-        "3(x+1)-2x": "x+3",
-        "2a+3b-a+b": "a+4b",
-        "3x²-2x²+5x": "x²+5x",
-        "4y-2y+7": "2y+7"
-      };
-      
-      let result = examples[expr] || `Simplifié : ${expr}`;
-      document.getElementById('lit-res').textContent = `Simplifié : ${result}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Simplification littérale");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function calcPgcd() {
-      const a = parseInt(document.getElementById('arith-a').value) || 0;
-      const b = parseInt(document.getElementById('arith-b').value) || 0;
-      
-      function pgcd(x, y) {
-        while(y) {
-          const t = y;
-          y = x % y;
-          x = t;
-        }
-        return Math.abs(x);
-      }
-      
-      const result = pgcd(a, b);
-      document.getElementById('arith-res').textContent = `PGCD(${a}, ${b}) = ${result}`;
-      
-      userProgress.lastActivities.push("Calculatrice: PGCD calculé");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function calcPpcm() {
-      const a = parseInt(document.getElementById('arith-a').value) || 0;
-      const b = parseInt(document.getElementById('arith-b').value) || 0;
-      
-      function pgcd(x, y) {
-        while(y) {
-          const t = y;
-          y = x % y;
-          x = t;
-        }
-        return Math.abs(x);
-      }
-      
-      const ppcm = a && b ? Math.abs(a * b) / pgcd(a, b) : 0;
-      document.getElementById('arith-res').textContent = `PPCM(${a}, ${b}) = ${ppcm}`;
-      
-      userProgress.lastActivities.push("Calculatrice: PPCM calculé");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function calcPrimeFactors() {
-      const a = parseInt(document.getElementById('arith-a').value) || 0;
-      let n = Math.abs(a);
-      let factors = [];
-      
-      if (n < 2) {
-        document.getElementById('arith-res').textContent = `${a} n'a pas de décomposition en facteurs premiers`;
-        return;
-      }
-      
-      for (let i = 2; i <= Math.sqrt(n); i++) {
-        while (n % i === 0) {
-          factors.push(i);
-          n /= i;
-        }
-      }
-      
-      if (n > 1) factors.push(n);
-      
-      const result = factors.length ? factors.join(' × ') : `${a} est premier`;
-      document.getElementById('arith-res').textContent = `${a} = ${result}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Facteurs premiers");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function evalCalc() {
-      const expr = document.getElementById('calc-expr').value;
-      if (!expr) return;
-      
-      try {
-        let safeExpr = expr
-          .replace(/√(\d+)/g, 'Math.sqrt($1)')
-          .replace(/\^/g, '**')
-          .replace(/²/g, '**2')
-          .replace(/³/g, '**3')
-          .replace(/π/g, 'Math.PI');
-        
-        const result = eval(safeExpr);
-        document.getElementById('calc-res').textContent = `${expr} = ${result}`;
-        
-        userProgress.lastActivities.push("Calculatrice: Expression évaluée");
-        if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-      } catch (e) {
-        document.getElementById('calc-res').textContent = "Erreur : Expression invalide";
-      }
-    }
-
-    function resetCalc() {
-      document.getElementById('calc-expr').value = '';
-      document.getElementById('calc-res').textContent = '';
-    }
-
-    function simplifierFraction() {
-      const a = parseInt(document.getElementById('frac-a').value) || 0;
-      const b = parseInt(document.getElementById('frac-b').value) || 1;
-      
-      function pgcd(x, y) {
-        while(y) {
-          const t = y;
-          y = x % y;
-          x = t;
-        }
-        return Math.abs(x);
-      }
-      
-      const d = pgcd(a, b);
-      const num = a / d;
-      const den = b / d;
-      
-      document.getElementById('frac-res').textContent = `${a}/${b} = ${num}/${den}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Fraction simplifiée");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function addFractions() {
-      const a = parseInt(document.getElementById('frac-a').value) || 0;
-      const b = parseInt(document.getElementById('frac-b').value) || 1;
-      const c = parseInt(document.getElementById('frac-c').value) || 0;
-      const d = parseInt(document.getElementById('frac-d').value) || 1;
-      
-      const num = a*d + c*b;
-      const den = b*d;
-      
-      function pgcd(x, y) {
-        while(y) {
-          const t = y;
-          y = x % y;
-          x = t;
-        }
-        return Math.abs(x);
-      }
-      
-      const div = pgcd(num, den);
-      const simpleNum = num / div;
-      const simpleDen = den / div;
-      
-      document.getElementById('frac-res').textContent = `${a}/${b} + ${c}/${d} = ${num}/${den} = ${simpleNum}/${simpleDen}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Addition de fractions");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function multiplyFractions() {
-      const a = parseInt(document.getElementById('frac-a').value) || 0;
-      const b = parseInt(document.getElementById('frac-b').value) || 1;
-      const c = parseInt(document.getElementById('frac-c').value) || 0;
-      const d = parseInt(document.getElementById('frac-d').value) || 1;
-      
-      const num = a*c;
-      const den = b*d;
-      
-      function pgcd(x, y) {
-        while(y) {
-          const t = y;
-          y = x % y;
-          x = t;
-        }
-        return Math.abs(x);
-      }
-      
-      const div = pgcd(num, den);
-      const simpleNum = num / div;
-      const simpleDen = den / div;
-      
-      document.getElementById('frac-res').textContent = `${a}/${b} × ${c}/${d} = ${num}/${den} = ${simpleNum}/${simpleDen}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Multiplication de fractions");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function toggleEqInputs() {
-      const type = document.getElementById('eq-type').value;
-      document.getElementById('eq-inputs-1').style.display = type === '1' ? 'block' : 'none';
-      document.getElementById('eq-inputs-2').style.display = type === '2' ? 'block' : 'none';
-    }
-
-    function solveEquation() {
-      const type = document.getElementById('eq-type').value;
-      let result = "";
-      
-      if (type === '1') {
-        const a = parseFloat(document.getElementById('eq-a').value) || 0;
-        const b = parseFloat(document.getElementById('eq-b').value) || 0;
-        
-        if (a === 0) {
-          result = b === 0 ? "Tous les x sont solutions" : "Aucune solution";
-        } else {
-          const x = -b / a;
-          result = `x = ${x.toFixed(2)}`;
-        }
-        
-        userProgress.lastActivities.push("Calculatrice: Équation 1er degré résolue");
-      } else if (type === '2') {
-        const a = parseFloat(document.getElementById('eq-a2').value) || 0;
-        const b = parseFloat(document.getElementById('eq-b2').value) || 0;
-        const c = parseFloat(document.getElementById('eq-c2').value) || 0;
-        
-        if (a === 0) {
-          result = "Ce n'est pas une équation du second degré";
-        } else {
-          const delta = b*b - 4*a*c;
-          
-          if (delta < 0) {
-            result = "Pas de solution réelle";
-          } else if (delta === 0) {
-            const x = -b / (2*a);
-            result = `Une solution : x = ${x.toFixed(2)}`;
-          } else {
-            const x1 = (-b - Math.sqrt(delta)) / (2*a);
-            const x2 = (-b + Math.sqrt(delta)) / (2*a);
-            result = `Deux solutions : x1 = ${x1.toFixed(2)}, x2 = ${x2.toFixed(2)}`;
-          }
-        }
-        
-        userProgress.lastActivities.push("Calculatrice: Équation 2nd degré résolue");
-      } else if (type === 'system') {
-        result = "Système d'équations : utilisez la méthode de substitution ou de combinaison";
-      }
-      
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-      document.getElementById('eq-res').textContent = result;
-    }
-
-    function toggleGeoInputs() {
-      const mode = document.getElementById('geo-mode').value;
-      document.querySelectorAll('[id^="inputs-"]').forEach(el => {
-        el.style.display = 'none';
-      });
-      document.getElementById(`inputs-${mode}`).style.display = 'block';
-    }
-
-    function calcGeo() {
-      const mode = document.getElementById('geo-mode').value;
-      let result = "";
-      
-      if (mode === 'pythagore') {
-        const a = parseFloat(document.getElementById('p-a').value) || 0;
-        const b = parseFloat(document.getElementById('p-b').value) || 0;
-        const c = Math.sqrt(a*a + b*b);
-        result = `√(${a}² + ${b}²) = ${c.toFixed(2)}`;
-        userProgress.lastActivities.push("Calculatrice: Pythagore calculé");
-      } else if (mode === 'thales') {
-        const am = parseFloat(document.getElementById('t-am').value) || 0;
-        const ab = parseFloat(document.getElementById('t-ab').value) || 1;
-        const ac = parseFloat(document.getElementById('t-ac').value) || 1;
-        
-        if (ab === 0) {
-          result = "AB ne peut pas être zéro";
-        } else {
-          const an = (am * ac) / ab;
-          result = `AN = (AM × AC) / AB = (${am} × ${ac}) / ${ab} = ${an.toFixed(2)}`;
-        }
-        userProgress.lastActivities.push("Calculatrice: Thalès calculé");
-      } else if (mode === 'volume') {
-        const shape = document.getElementById('volume-shape').value;
-        const d1 = parseFloat(document.getElementById('v-dim1').value) || 0;
-        const d2 = parseFloat(document.getElementById('v-dim2').value) || 0;
-        const d3 = parseFloat(document.getElementById('v-dim3').value) || 0;
-        
-        switch(shape) {
-          case 'cube':
-            const vCube = d1 * d1 * d1;
-            result = `Volume cube = ${d1}³ = ${vCube.toFixed(2)}`;
-            break;
-          case 'sphere':
-            const vSphere = (4/3) * Math.PI * Math.pow(d1, 3);
-            result = `Volume sphère = 4/3 × π × ${d1}³ = ${vSphere.toFixed(2)}`;
-            break;
-          case 'cylinder':
-            const vCylinder = Math.PI * d1 * d1 * d2;
-            result = `Volume cylindre = π × ${d1}² × ${d2} = ${vCylinder.toFixed(2)}`;
-            break;
-          case 'cone':
-            const vCone = (1/3) * Math.PI * d1 * d1 * d2;
-            result = `Volume cône = 1/3 × π × ${d1}² × ${d2} = ${vCone.toFixed(2)}`;
-            break;
-          case 'pyramid':
-            const vPyramid = (1/3) * d1 * d2 * d3;
-            result = `Volume pyramide = 1/3 × ${d1} × ${d2} × ${d3} = ${vPyramid.toFixed(2)}`;
-            break;
-        }
-        userProgress.lastActivities.push("Calculatrice: Volume calculé");
-      } else if (mode === 'aire') {
-        const d1 = parseFloat(document.getElementById('v-dim1').value) || 0;
-        const d2 = parseFloat(document.getElementById('v-dim2').value) || 0;
-        const aireRectangle = d1 * d2;
-        const aireCercle = Math.PI * d1 * d1;
-        result = `Aire rectangle = ${d1} × ${d2} = ${aireRectangle.toFixed(2)}\n`;
-        result += `Aire cercle = π × ${d1}² = ${aireCercle.toFixed(2)}`;
-        userProgress.lastActivities.push("Calculatrice: Aire calculée");
-      } else if (mode === 'trigo') {
-        const angle = parseFloat(document.getElementById('v-dim1').value) || 30;
-        const angleRad = angle * Math.PI / 180;
-        const sinVal = Math.sin(angleRad);
-        const cosVal = Math.cos(angleRad);
-        const tanVal = Math.tan(angleRad);
-        result = `sin(${angle}°) = ${sinVal.toFixed(3)}\n`;
-        result += `cos(${angle}°) = ${cosVal.toFixed(3)}\n`;
-        result += `tan(${angle}°) = ${tanVal.toFixed(3)}`;
-        userProgress.lastActivities.push("Calculatrice: Trigonométrie calculée");
-      }
-      
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-      document.getElementById('geo-res').textContent = result;
-    }
-
-    function calculateSqrt() {
-      const n = parseFloat(document.getElementById('sqrt-n').value) || 0;
-      if (n < 0) {
-        document.getElementById('sqrt-res').textContent = "Erreur : nombre négatif";
-        return;
-      }
-      const result = Math.sqrt(n);
-      document.getElementById('sqrt-res').textContent = `√${n} = ${result.toFixed(4)}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Racine carrée");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function simplifySqrt() {
-      const n = parseInt(document.getElementById('sqrt-n').value) || 0;
-      if (n < 0) {
-        document.getElementById('sqrt-res').textContent = "Erreur : nombre négatif";
-        return;
-      }
-      
-      let a = 1;
-      let b = n;
-      
-      for (let i = Math.floor(Math.sqrt(n)); i > 1; i--) {
-        if (n % (i*i) === 0) {
-          a = i;
-          b = n / (i*i);
-          break;
-        }
-      }
-      
-      if (a === 1) {
-        document.getElementById('sqrt-res').textContent = `√${n} ne se simplifie pas`;
-      } else {
-        document.getElementById('sqrt-res').textContent = `√${n} = ${a}√${b}`;
-      }
-      
-      userProgress.lastActivities.push("Calculatrice: Racine simplifiée");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function sqrtOperations() {
-      const n = parseFloat(document.getElementById('sqrt-n').value) || 0;
-      const result = Math.sqrt(n);
-      document.getElementById('sqrt-res').textContent = 
-        `√${n} = ${result.toFixed(4)}\n` +
-        `(√${n})² = ${n}\n` +
-        `√${n} × √${n} = ${n}\n` +
-        `√${n} ÷ √${n} = 1 (si n ≠ 0)`;
-      
-      userProgress.lastActivities.push("Calculatrice: Opérations sur racines");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function calcVector() {
-      const x1 = parseFloat(document.getElementById('vec-x1').value) || 0;
-      const y1 = parseFloat(document.getElementById('vec-y1').value) || 0;
-      const x2 = parseFloat(document.getElementById('vec-x2').value) || 0;
-      const y2 = parseFloat(document.getElementById('vec-y2').value) || 0;
-      
-      const dx = x2 - x1;
-      const dy = y2 - y1;
-      const norme = Math.sqrt(dx*dx + dy*dy);
-      
-      document.getElementById('vec-res').textContent = 
-        `Vecteur AB = (${dx}, ${dy})\n` +
-        `Norme = √(${dx}² + ${dy}²) = ${norme.toFixed(2)}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Vecteur calculé");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function calcDistance() {
-      const x1 = parseFloat(document.getElementById('vec-x1').value) || 0;
-      const y1 = parseFloat(document.getElementById('vec-y1').value) || 0;
-      const x2 = parseFloat(document.getElementById('vec-x2').value) || 0;
-      const y2 = parseFloat(document.getElementById('vec-y2').value) || 0;
-      
-      const distance = Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
-      document.getElementById('vec-res').textContent = 
-        `Distance AB = √[(${x2}-${x1})² + (${y2}-${y1})²] = ${distance.toFixed(2)}`;
-      
-      userProgress.lastActivities.push("Calculatrice: Distance calculée");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function calcMidpoint() {
-      const x1 = parseFloat(document.getElementById('vec-x1').value) || 0;
-      const y1 = parseFloat(document.getElementById('vec-y1').value) || 0;
-      const x2 = parseFloat(document.getElementById('vec-x2').value) || 0;
-      const y2 = parseFloat(document.getElementById('vec-y2').value) || 0;
-      
-      const mx = (x1 + x2) / 2;
-      const my = (y1 + y2) / 2;
-      
-      document.getElementById('vec-res').textContent = 
-        `Milieu de AB : ((${x1}+${x2})/2, (${y1}+${y2})/2) = (${mx.toFixed(2)}, ${my.toFixed(2)})`;
-      
-      userProgress.lastActivities.push("Calculatrice: Milieu calculé");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    // ===== DÉMONSTRATIONS =====
-    function demontrerPythagoreDirect() {
-      const a = parseFloat(document.getElementById('demo-p-a').value) || 3;
-      const b = parseFloat(document.getElementById('demo-p-b').value) || 4;
-      const c = parseFloat(document.getElementById('demo-p-c').value) || 5;
-      
-      const demo = document.getElementById('res-demo-pyth');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Hypothèse :</strong> Triangle rectangle avec côtés a=${a}, b=${b}, hypoténuse c=${c}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Calcul :</strong> a² + b² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${a*a + b*b}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Calcul :</strong> c² = ${c}² = ${c*c}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">4</span>
-          <strong>Vérification :</strong> ${a*a + b*b} ${a*a + b*b === c*c ? '=' : '≠'} ${c*c}
-        </div>
-        <div class="demo-result">
-          <strong>Conclusion :</strong> ${a*a + b*b === c*c ? 
-            `Le théorème est vérifié : ${a}² + ${b}² = ${c}²` : 
-            `Le théorème n'est pas vérifié pour ces valeurs`}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Pythagore direct");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerPythagoreRecip() {
-      const a = parseFloat(document.getElementById('demo-p-a').value) || 3;
-      const b = parseFloat(document.getElementById('demo-p-b').value) || 4;
-      const c = parseFloat(document.getElementById('demo-p-c').value) || 5;
-      
-      const demo = document.getElementById('res-demo-pyth');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Hypothèse :</strong> Triangle avec côtés a=${a}, b=${b}, c=${c}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Condition :</strong> On vérifie si c² = a² + b²
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Calcul :</strong> ${c}² = ${c*c}<br>
-          <strong>Calcul :</strong> ${a}² + ${b}² = ${a*a + b*b}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">4</span>
-          <strong>Comparaison :</strong> ${c*c} ${c*c === a*a + b*b ? '=' : '≠'} ${a*a + b*b}
-        </div>
-        <div class="demo-result">
-          <strong>Conclusion :</strong> ${c*c === a*a + b*b ? 
-            `Le triangle est rectangle (réciproque vérifiée)` : 
-            `Le triangle n'est pas rectangle`}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Réciproque Pythagore");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerThalesDirect() {
-      const am = parseFloat(document.getElementById('demo-th-am').value) || 2;
-      const ab = parseFloat(document.getElementById('demo-th-ab').value) || 6;
-      const an = parseFloat(document.getElementById('demo-th-an').value) || 3;
-      const ac = parseFloat(document.getElementById('demo-th-ac').value) || 9;
-      
-      const demo = document.getElementById('res-demo-thales');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Hypothèse :</strong> (MN) // (BC) dans le triangle ABC
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Rapport 1 :</strong> AM/AB = ${am}/${ab} = ${(am/ab).toFixed(3)}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Rapport 2 :</strong> AN/AC = ${an}/${ac} = ${(an/ac).toFixed(3)}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">4</span>
-          <strong>Égalité :</strong> ${(am/ab).toFixed(3)} ${Math.abs(am/ab - an/ac) < 0.001 ? '=' : '≠'} ${(an/ac).toFixed(3)}
-        </div>
-        <div class="demo-result">
-          <strong>Théorème de Thalès :</strong> Si (MN) // (BC) alors AM/AB = AN/AC
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Thalès direct");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerThalesRecip() {
-      const am = parseFloat(document.getElementById('demo-th-am').value) || 2;
-      const ab = parseFloat(document.getElementById('demo-th-ab').value) || 6;
-      const an = parseFloat(document.getElementById('demo-th-an').value) || 3;
-      const ac = parseFloat(document.getElementById('demo-th-ac').value) || 9;
-      
-      const demo = document.getElementById('res-demo-thales');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Hypothèse :</strong> AM/AB = AN/AC
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Calcul :</strong> AM/AB = ${am}/${ab} = ${(am/ab).toFixed(3)}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Calcul :</strong> AN/AC = ${an}/${ac} = ${(an/ac).toFixed(3)}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">4</span>
-          <strong>Comparaison :</strong> ${(am/ab).toFixed(3)} ${Math.abs(am/ab - an/ac) < 0.001 ? '=' : '≠'} ${(an/ac).toFixed(3)}
-        </div>
-        <div class="demo-result">
-          <strong>Réciproque de Thalès :</strong> 
-          ${Math.abs(am/ab - an/ac) < 0.001 ? 
-            `Puisque AM/AB = AN/AC, alors (MN) // (BC)` : 
-            `Les rapports ne sont pas égaux, on ne peut pas conclure`}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Réciproque Thalès");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerTrigonométrie() {
-      const angle = parseFloat(document.getElementById('demo-trig-angle').value) || 30;
-      const side = parseFloat(document.getElementById('demo-trig-side').value) || 5;
-      const type = document.getElementById('demo-trig-type').value;
-      
-      const angleRad = angle * Math.PI / 180;
-      let formule = "";
-      let result = 0;
-      let calcul = "";
-      
-      switch(type) {
-        case 'sinus':
-          formule = `sin(${angle}°) = côté opposé / hypoténuse`;
-          result = side / Math.sin(angleRad);
-          calcul = `${side} / ${Math.sin(angleRad).toFixed(3)}`;
-          break;
-        case 'cosinus':
-          formule = `cos(${angle}°) = côté adjacent / hypoténuse`;
-          result = side / Math.cos(angleRad);
-          calcul = `${side} / ${Math.cos(angleRad).toFixed(3)}`;
-          break;
-        case 'tangente':
-          formule = `tan(${angle}°) = côté opposé / côté adjacent`;
-          result = side / Math.tan(angleRad);
-          calcul = `${side} / ${Math.tan(angleRad).toFixed(3)}`;
-          break;
-      }
-      
-      const demo = document.getElementById('res-demo-trig');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Formule :</strong> ${formule}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Valeur trigonométrique :</strong> 
-          ${type}(${angle}°) = ${eval(`Math.${type}(${angleRad})`).toFixed(3)}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Calcul :</strong> ${calcul} = ${result.toFixed(2)}
-        </div>
-        <div class="demo-result">
-          <strong>Résultat :</strong> ${type === 'sinus' ? 'Hypoténuse' : type === 'cosinus' ? 'Hypoténuse' : 'Côté adjacent'} = ${result.toFixed(2)}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Trigonométrie");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerAnglesInscrits() {
-      const central = parseFloat(document.getElementById('demo-angle-central').value) || 60;
-      const inscrit = parseFloat(document.getElementById('demo-angle-inscrit').value) || 30;
-      
-      const demo = document.getElementById('res-demo-angles');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Propriété :</strong> L'angle au centre est le double de l'angle inscrit qui intercepte le même arc.
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Vérification :</strong> Angle inscrit × 2 = ${inscrit}° × 2 = ${inscrit*2}°
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Comparaison :</strong> ${central}° ${central === inscrit*2 ? '=' : '≠'} ${inscrit*2}°
-        </div>
-        <div class="demo-result">
-          <strong>Conclusion :</strong> ${central === inscrit*2 ? 
-            `La propriété est vérifiée : angle au centre = 2 × angle inscrit` :
-            `Ces angles ne vérifient pas la propriété`}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Angles inscrits");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerRacines() {
-      const a = parseFloat(document.getElementById('demo-sqrt-a').value) || 4;
-      const b = parseFloat(document.getElementById('demo-sqrt-b').value) || 9;
-      const prop = document.getElementById('demo-sqrt-prop').value;
-      
-      let formule = "";
-      let verification = "";
-      let result = true;
-      
-      switch(prop) {
-        case 'multiplication':
-          formule = `√(a × b) = √a × √b`;
-          const sqrtProd = Math.sqrt(a*b);
-          const sqrtMul = Math.sqrt(a) * Math.sqrt(b);
-          verification = `√(${a} × ${b}) = √${a*b} = ${sqrtProd.toFixed(2)}\n` +
-                       `√${a} × √${b} = ${Math.sqrt(a).toFixed(2)} × ${Math.sqrt(b).toFixed(2)} = ${sqrtMul.toFixed(2)}`;
-          result = Math.abs(sqrtProd - sqrtMul) < 0.001;
-          break;
-        case 'division':
-          formule = `√(a / b) = √a / √b (b ≠ 0)`;
-          if (b === 0) {
-            verification = "Division par zéro impossible";
-            result = false;
-          } else {
-            const sqrtDiv = Math.sqrt(a/b);
-            const sqrtDiv2 = Math.sqrt(a) / Math.sqrt(b);
-            verification = `√(${a} / ${b}) = √${(a/b).toFixed(2)} = ${sqrtDiv.toFixed(2)}\n` +
-                         `√${a} / √${b} = ${Math.sqrt(a).toFixed(2)} / ${Math.sqrt(b).toFixed(2)} = ${sqrtDiv2.toFixed(2)}`;
-            result = Math.abs(sqrtDiv - sqrtDiv2) < 0.001;
-          }
-          break;
-        case 'addition':
-          formule = `√a + √b ≠ √(a + b)`;
-          const sqrtSum = Math.sqrt(a) + Math.sqrt(b);
-          const sqrtSum2 = Math.sqrt(a+b);
-          verification = `√${a} + √${b} = ${sqrtSum.toFixed(2)}\n` +
-                       `√(${a} + ${b}) = √${a+b} = ${sqrtSum2.toFixed(2)}`;
-          result = Math.abs(sqrtSum - sqrtSum2) > 0.001;
-          break;
-      }
-      
-      const demo = document.getElementById('res-demo-sqrt');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Propriété :</strong> ${formule}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Vérification numérique :</strong><br>
-          <pre style="margin:0.5rem 0; font-family:monospace; background:rgba(0,0,0,0.03); padding:0.5rem; border-radius:4px;">${verification}</pre>
-        </div>
-        <div class="demo-result">
-          <strong>Conclusion :</strong> ${result ? 
-            `La propriété est vérifiée avec ces valeurs` :
-            `Ces valeurs ne vérifient pas la propriété`}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Propriétés racines");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    function demontrerIdentites() {
-      const a = parseFloat(document.getElementById('demo-id-a').value) || 3;
-      const b = parseFloat(document.getElementById('demo-id-b').value) || 2;
-      const identite = document.getElementById('demo-identite').value;
-      
-      let formule = "";
-      let developpement = "";
-      let result = "";
-      let calculDirect = 0;
-      
-      switch(identite) {
-        case 'carre-somme':
-          formule = `(a + b)² = a² + 2ab + b²`;
-          developpement = `(${a} + ${b})² = ${a}² + 2×${a}×${b} + ${b}² = ${a*a} + ${2*a*b} + ${b*b}`;
-          calculDirect = (a+b)*(a+b);
-          result = `= ${calculDirect}`;
-          break;
-        case 'carre-difference':
-          formule = `(a - b)² = a² - 2ab + b²`;
-          developpement = `(${a} - ${b})² = ${a}² - 2×${a}×${b} + ${b}² = ${a*a} - ${2*a*b} + ${b*b}`;
-          calculDirect = (a-b)*(a-b);
-          result = `= ${calculDirect}`;
-          break;
-        case 'produit-somme':
-          formule = `(a + b)(a - b) = a² - b²`;
-          developpement = `(${a} + ${b})(${a} - ${b}) = ${a}² - ${b}² = ${a*a} - ${b*b}`;
-          calculDirect = (a+b)*(a-b);
-          result = `= ${calculDirect}`;
-          break;
-      }
-      
-      const demo = document.getElementById('res-demo-ident');
-      demo.style.display = 'block';
-      demo.innerHTML = `
-        <div class="demo-step">
-          <span class="demo-step-number">1</span>
-          <strong>Identité remarquable :</strong> ${formule}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">2</span>
-          <strong>Application avec a=${a}, b=${b} :</strong><br>
-          ${developpement}
-        </div>
-        <div class="demo-step">
-          <span class="demo-step-number">3</span>
-          <strong>Calcul :</strong> ${result}
-        </div>
-        <div class="demo-result">
-          <strong>Vérification :</strong> L'identité est correctement appliquée. Calcul direct = ${calculDirect}
-        </div>
-      `;
-      
-      userProgress.lastActivities.push("Démonstration: Identités remarquables");
-      if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-    }
-
-    // ===== PROGRESSION =====
-    function saveProgress() {
-      localStorage.setItem('mathProgress', JSON.stringify(userProgress));
-      localStorage.setItem('lastSave', new Date().toISOString());
-    }
-
-    function loadProgress() {
-      const saved = localStorage.getItem('mathProgress');
-      if (saved) {
-        userProgress = JSON.parse(saved);
-      }
-    }
-
-    function updateProgress() {
-      updateProgressDisplay();
-      
-      const goals = document.querySelectorAll('#daily-goals input');
-      let completedGoals = 0;
-      goals.forEach(goal => {
-        if (goal.checked) completedGoals++;
-      });
-      
-      if (completedGoals === goals.length) {
-        userProgress.lastActivities.push("🎉 Tous les objectifs du jour atteints !");
-        if (userProgress.lastActivities.length > 5) userProgress.lastActivities.shift();
-        saveProgress();
-      }
-      
-      document.getElementById('recent-activities').innerHTML = userProgress.lastActivities.map(act => 
-        `<p style="margin-bottom:0.5rem; padding:0.5rem; background:rgba(0,107,60,0.05); border-radius:4px; border-left:3px solid var(--primary);">
-          <i class="fas fa-check-circle" style="color:var(--success); margin-right:0.5rem;"></i> ${act}
-        </p>`
-      ).join('');
-    }
-
-    function updateProgressDisplay() {
-      let totalLessons = 0;
-      for (const level in lessonsData) {
-        totalLessons += lessonsData[level].length;
-      }
-      
-      const completed = userProgress.completedLessons.length;
-      const progressPercent = totalLessons > 0 ? Math.round((completed / totalLessons) * 100) : 0;
-      
-      document.getElementById('progress-overall').textContent = `${progressPercent}%`;
-      document.getElementById('progress-bar-overall').style.width = `${progressPercent}%`;
-      document.getElementById('lessons-completed').textContent = completed;
-      document.getElementById('lessons-total').textContent = totalLessons;
-      document.getElementById('exercises-solved').textContent = userProgress.solvedExercises;
-      document.getElementById('quiz-passed').textContent = userProgress.passedQuizzes;
-      
-      const levelProgress = document.getElementById('level-progress');
-      let levelHTML = '';
-      
-      for (const level in lessonsData) {
-        const levelLessons = lessonsData[level];
-        const completedInLevel = levelLessons.filter(lesson => 
-          userProgress.completedLessons.includes(lesson.id)
-        ).length;
-        const levelPercent = levelLessons.length > 0 ? 
-          Math.round((completedInLevel / levelLessons.length) * 100) : 0;
-        
-        levelHTML += `
-          <div style="margin-bottom:1rem;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-              <span style="font-weight:600;">${level}</span>
-              <span style="color:var(--primary); font-weight:600;">${levelPercent}%</span>
-            </div>
-            <div class="progress-chart" style="height:8px;">
-              <div class="progress-bar" style="width:${levelPercent}%"></div>
-            </div>
-            <div style="font-size:0.85rem; opacity:0.8; margin-top:0.3rem;">
-              ${completedInLevel}/${levelLessons.length} leçons
-            </div>
-          </div>
-        `;
-      }
-      
-      levelProgress.innerHTML = levelHTML;
-      
-      const recentHTML = userProgress.lastActivities.length > 0 ?
-        userProgress.lastActivities.slice(0, 5).map(act => 
-          `<p style="margin-bottom:0.5rem; padding:0.6rem; background:rgba(0,107,60,0.05); border-radius:var(--radius-sm); border-left:3px solid var(--primary);">
-            <i class="fas fa-check-circle" style="color:var(--success); margin-right:0.5rem;"></i> ${act}
-          </p>`
-        ).join('') :
-        '<p style="text-align:center; opacity:0.7; padding:1rem;">Aucune activité récente</p>';
-      
-      document.getElementById('recent-activities').innerHTML = recentHTML;
-      
-      const goals = document.querySelectorAll('#daily-goals input');
-      goals[0].checked = completed > 0;
-      goals[1].checked = userProgress.solvedExercises >= 3;
-      goals[2].checked = userProgress.passedQuizzes >= 1;
-      goals[3].checked = userProgress.lastActivities.some(act => act.includes("Calculatrice"));
-    }
-
-    // ===== INITIALISATION =====
-    document.addEventListener('DOMContentLoaded', initApp);
-  </script>
+    });
+</script>
 </body>
 </html>
