@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Outils IA & GeoGebra · Génération et visualisation</title>
+    <!-- Font Awesome 6 (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f5e45;          /* vert profond togolais */
+            --primary-light: #d0f0e4;
+            --secondary: #f3b33d;         /* jaune / acacia */
+            --accent: #d21034;             /* rouge dynamique */
+            --dark: #0a2318;
+            --light: #f8fff9;
+            --gray-soft: #eef5f2;
+            --shadow-sm: 0 4px 12px -4px rgba(15,94,69,0.15);
+            --shadow: 0 12px 24px -10px rgba(15,94,69,0.2);
+            --shadow-hover: 0 16px 28px -12px rgba(15,94,69,0.3);
+            --radius: 20px;
+            --radius-sm: 14px;
+            --transition: all 0.2s ease;
+            --deepseek-blue: #4D6BFE;
+            --deepseek-dark: #3A56C5;
+            --android-green: #3DDC84;
+            --geogebra-orange: #F79720;
+        }
+
+        body {
+            background: linear-gradient(145deg, #ebf7f1 0%, #d9eee4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #1a3c2b;
+            line-height: 1.4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER COMPACT ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            animation: slideDown 0.6s ease;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 18px -8px var(--primary);
+            transition: var(--transition);
+        }
+        .logo-icon:hover {
+            transform: rotate(5deg) scale(1.02);
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 20%, #1b6e54 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #2f5e4a;
+            max-width: 600px;
+            margin: 0.5rem auto 0;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(4px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .flags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+        .flag {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 6px 10px rgba(0,60,30,0.2));
+            animation: wave 3s infinite ease-in-out;
+        }
+        .flag:nth-child(2) { animation-delay: 0.2s; }
+        .flag:nth-child(3) { animation-delay: 0.4s; }
+
+        /* ===== SECTIONS COMMUNES ===== */
+        .ia-section {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 900px;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .ia-section h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .ia-section p {
+            font-size: 0.9rem;
+            color: #2d5a47;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== BOUTONS COMPACTS ET RESPONSIVES ===== */
+        .ia-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .ia-btn {
+            flex: 0 1 auto;
+            min-width: 160px;
+            max-width: 220px;
+            background: white;
+            padding: 1rem 0.8rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+            box-shadow: 0 8px 16px -10px rgba(15,94,69,0.2);
+            border: 2px solid transparent;
+            backdrop-filter: blur(4px);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .ia-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 0;
+        }
+
+        .ia-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -12px var(--primary);
+        }
+
+        .ia-btn:hover::before {
+            opacity: 1;
+        }
+
+        .ia-btn i, .ia-btn span, .ia-btn small {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ia-btn i {
+            font-size: 2rem;
+        }
+
+        .ia-btn span {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .ia-btn small {
+            font-size: 0.7rem;
+            color: #4c7563;
+            opacity: 0.9;
+            line-height: 1.2;
+        }
+
+        /* Couleurs des boutons */
+        .btn-pc { border-top: 4px solid var(--deepseek-blue); }
+        .btn-pc i { color: var(--deepseek-blue); }
+        .btn-android { border-top: 4px solid var(--android-green); }
+        .btn-android i { color: var(--android-green); }
+        .btn-geogebra { border-top: 4px solid var(--geogebra-orange); }
+        .btn-geogebra i { color: var(--geogebra-orange); }
+
+        /* ===== BOUTON RETOUR ===== */
+        .back-button {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .btn-back {
+            background: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 6px 12px -6px rgba(15,94,69,0.2);
+            border: 2px solid transparent;
+            font-size: 0.9rem;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 16px -8px var(--primary);
+        }
+
+        .btn-back i {
+            font-size: 1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #2f5e4a;
+            font-size: 0.75rem;
+            padding: 1.2rem 1rem;
+            border-top: 2px dashed var(--primary-light);
+            max-width: 800px;
+            width: 100%;
+        }
+        .footer p { margin-bottom: 0.2rem; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+
+        /* ===== RESPONSIVE FIN ===== */
+        @media (max-width: 768px) {
+            .ia-section {
+                padding: 1.2rem;
+                margin: 1rem auto;
+            }
+            .ia-section h2 {
+                font-size: 1.3rem;
+            }
+            .ia-buttons {
+                gap: 0.8rem;
+            }
+            .ia-btn {
+                min-width: 140px;
+                max-width: 200px;
+                padding: 0.9rem 0.6rem;
+            }
+            .ia-btn i {
+                font-size: 1.8rem;
+            }
+            .ia-btn span {
+                font-size: 0.9rem;
+            }
+            .ia-btn small {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .ia-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .ia-btn {
+                min-width: 200px;
+                max-width: 260px;
+                width: 100%;
+                padding: 0.9rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.5rem;
+            }
+            .subtitle {
+                font-size: 0.85rem;
+                padding: 0.3rem 1rem;
+            }
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.6rem;
+            }
+            .flag {
+                font-size: 1.5rem;
+            }
+            .ia-section h2 {
+                font-size: 1.2rem;
+            }
+            .ia-section p {
+                font-size: 0.85rem;
+            }
+            .btn-back {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .ia-btn {
+                min-width: 180px;
+                padding: 0.8rem 0.5rem;
+            }
+            .ia-btn i {
+                font-size: 1.6rem;
+            }
+            .ia-btn span {
+                font-size: 0.85rem;
+            }
+            .ia-btn small {
+                font-size: 0.6rem;
+            }
+        }
+
+        /* mode sombre */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #1db954;
+                --deepseek-blue: #5D7BFE;
+                --android-green: #4EDB8C;
+                --geogebra-orange: #F9A825;
+            }
+            body {
+                background: linear-gradient(145deg, #0d231b, #12382a);
+                color: #e2f0e9;
+            }
+            .ia-section, .btn-back {
+                background: rgba(20, 50, 40, 0.8);
+                backdrop-filter: blur(8px);
+                border-color: #2a5f4a;
+                color: #e0f0e5;
+            }
+            .subtitle {
+                background: #1e4235;
+                color: #d0e8dd;
+            }
+            .ia-btn {
+                background: #1e3f33;
+                color: #e0f0e5;
+            }
+            .ia-btn small {
+                color: #b0d5c4;
+            }
+        }
+
+        /* effet tactile */
+        .clicked {
+            transform: scale(0.96) !important;
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER COMPACT -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h1 class="title">Outils IA & GeoGebra</h1>
+            </div>
+            <div class="flags">
+                <div class="flag">🇹🇬</div>
+                <div class="flag">🤖</div>
+                <div class="flag">📐</div>
+            </div>
+            <p class="subtitle">
+                Fiches · Épreuves · Visualisation géométrique
+            </p>
+        </header>
+
+        <!-- SECTION DEEPSEEK -->
+        <div class="ia-section">
+            <h2>
+                <i class="fas fa-magic" style="color: var(--secondary);"></i>
+                Génération par IA
+            </h2>
+            <p>
+                Créez fiches et épreuves sur mesure avec DeepSeek.
+            </p>
+            <div class="ia-buttons">
+                <!-- PC -->
+                <a href="https://webcatalog.io/fr/apps/deepseek" class="ia-btn btn-pc" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-desktop"></i>
+                    <span>DeepSeek PC</span>
+                    <small>version web</small>
+                </a>
+                <!-- Android -->
+                <a href="https://play.google.com/store/apps/details?id=com.deepseek.chat" class="ia-btn btn-android" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-android"></i>
+                    <span>DeepSeek Android</span>
+                    <small>Google Play</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- SECTION GEOGEBRA -->
+        <div class="ia-section">
+            <h2>
+                <i class="fas fa-shapes" style="color: var(--geogebra-orange);"></i>
+                Visualisation géométrique
+            </h2>
+            <p>
+                Accédez à GeoGebra pour des constructions interactives.
+            </p>
+            <div class="ia-buttons">
+                <!-- GeoGebra (universel) -->
+                <a href="https://www.geogebra.org" class="ia-btn btn-geogebra" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-shapes"></i>
+                    <span>GeoGebra</span>
+                    <small>outil gratuit</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- BOUTON RETOUR -->
+        <div class="back-button">
+            <a href="index.html" class="btn-back">
+                <i class="fas fa-arrow-left"></i>
+                <span>Accueil</span>
+            </a>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>🇹🇬 Plateforme Mathématiques Collège Togo</p>
+            <p style="font-size: 0.7rem;">KOLA Maniwah Essohouna · <i class="fab fa-whatsapp" style="color: #25D366;"></i> +228 92 87 16 05</p>
+            <p style="margin-top: 0.5rem; font-size: 0.6rem;">© 2026 – Tous droits réservés</p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // Effet tactile minimal
+            document.querySelectorAll('.ia-btn, .btn-back').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    this.classList.add('clicked');
+                    setTimeout(() => this.classList.remove('clicked'), 150);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
