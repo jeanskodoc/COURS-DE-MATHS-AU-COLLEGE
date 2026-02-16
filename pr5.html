@@ -2,2145 +2,1011 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Fiche de Leçon - Mathématiques 5ème (Togo)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Fiche de leçon Maths 5e · Togo · Programme officiel complet</title>
     <style>
-        :root {
-            --primary-color: #0066cc;
-            --secondary-color: #e6f2ff;
-            --accent-color: #28a745;
-            --warning-color: #856404;
-            --warning-bg: #fff3cd;
-            --border-color: #ddd;
-            --shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
-        
+
+        :root {
+            --primary-dark: #0b4d3a;
+            --primary: #1b6e54;
+            --primary-light: #d0f0e4;
+            --accent: #f3b33d;
+            --bg-light: #f0f8f5;
+            --text: #1b4637;
+            --white: #ffffff;
+            --shadow: 0 10px 20px -8px rgba(0,40,20,0.25);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-            padding: 0;
-            margin: 0;
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 1rem;
             min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 3px solid var(--primary-color);
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-        
-        .header h1 {
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-        
-        .header h2 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 1em;
-        }
-        
-        .generateur-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-        }
-        
-        .generateur-section h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            font-size: 1.2em;
-        }
-        
-        .form-group {
             display: flex;
             flex-direction: column;
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-            font-size: 0.9em;
-        }
-        
-        .form-group select, .form-group input, .form-group textarea {
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-            width: 100%;
-        }
-        
-        .form-group select:focus, .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0,102,204,0.1);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 70px;
-            font-family: inherit;
-        }
-        
-        .btn {
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 5px;
-            text-decoration: none;
-            white-space: nowrap;
-            height: 36px;
         }
-        
-        .btn-generer {
-            background-color: var(--accent-color);
-            color: white;
+
+        .container {
             width: 100%;
-            margin-top: 10px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        
-        .btn-generer:hover {
-            background-color: #218838;
-            transform: translateY(-1px);
-        }
-        
-        .btn-small {
-            background-color: #6c757d;
+
+        /* BANDEAU RESPONSIVE */
+        .bandeau {
+            background: linear-gradient(148deg, var(--primary-dark), var(--primary));
             color: white;
-            flex: 1;
-            min-width: 120px;
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2rem) clamp(1.5rem, 5vw, 2.8rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.8rem);
+            box-shadow: var(--shadow);
+            width: 100%;
         }
-        
-        .btn-small:hover {
-            background-color: #545b62;
-            transform: translateY(-1px);
+
+        .bandeau h1 {
+            font-size: clamp(1.1rem, 5vw, 1.9rem);
+            font-weight: 600;
+            line-height: 1.3;
+            word-break: break-word;
         }
-        
-        .btn-imprimer {
-            background-color: #17a2b8;
-            color: white;
+
+        .bandeau h2 {
+            font-size: clamp(0.95rem, 4vw, 1.3rem);
+            font-weight: 400;
+            margin-top: 0.5rem;
         }
-        
-        .btn-imprimer:hover {
-            background-color: #138496;
-            transform: translateY(-1px);
+
+        .badge-prog {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 800;
+            padding: 0.4rem clamp(1rem, 3vw, 2.2rem);
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: clamp(0.7rem, 3vw, 1rem);
+            box-shadow: 0 4px 8px #b57f1a;
+            white-space: normal;
+            text-align: center;
         }
-        
-        .btn-pdf {
-            background-color: #dc3545;
-            color: white;
+
+        /* CARTE GÉNÉRATEUR */
+        .card-outil {
+            background: var(--white);
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2.4rem) clamp(1.2rem, 4vw, 3rem);
+            margin-bottom: clamp(1.8rem, 5vw, 2.8rem);
+            border: 2px solid #c3e3d6;
+            box-shadow: var(--shadow);
+            width: 100%;
         }
-        
-        .btn-pdf:hover {
-            background-color: #c82333;
-            transform: translateY(-1px);
-        }
-        
-        .btn-word {
-            background-color: #28a745;
-            color: white;
-        }
-        
-        .btn-word:hover {
-            background-color: #218838;
-            transform: translateY(-1px);
-        }
-        
-        .btn-reinitialiser {
-            background-color: #6c757d;
-            color: white;
-        }
-        
-        .btn-reinitialiser:hover {
-            background-color: #545b62;
-            transform: translateY(-1px);
-        }
-        
-        .fiche-preview {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-            margin-top: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .fiche-preview.hidden {
-            display: none;
-        }
-        
-        .actions-fiche {
+
+        .card-outil h3 {
+            font-size: clamp(1.3rem, 5vw, 2rem);
+            color: var(--primary);
+            border-bottom: 4px solid #c4ecd9;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
             display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            min-width: 160px;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #c6e2d7;
+            border-radius: 50px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            background: #f9fffd;
+            transition: 0.2s;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(27,110,84,0.2);
+        }
+
+        .btn-generer {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            width: 100%;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 15px 25px -10px var(--primary);
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .btn-generer:hover {
+            background: #0f543f;
+            transform: translateY(-2px);
+        }
+
+        /* FICHE GÉNÉRÉE */
+        .fiche-finale {
+            background: var(--white);
+            border-radius: clamp(25px, 6vw, 60px);
+            padding: clamp(1.2rem, 4vw, 3rem) clamp(1.2rem, 4vw, 3.5rem);
+            border: 4px solid #a5d7c4;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fiche-header {
+            text-align: center;
+            border-bottom: 3px dashed var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .fiche-header h2 {
+            font-size: clamp(1.6rem, 6vw, 2.6rem);
+            color: var(--primary);
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        /* sections guide */
+        .section-guide {
+            background: #f6fdfa;
+            border-radius: clamp(18px, 4vw, 40px);
+            padding: clamp(1rem, 3vw, 1.8rem) clamp(1.2rem, 4vw, 2.5rem);
+            margin-bottom: 1.8rem;
+            border-left: clamp(8px, 2vw, 16px) solid var(--primary);
+            box-shadow: 0 6px 12px #c1ddd1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .section-guide h4 {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: #1a5b45;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
             gap: 8px;
-            margin-top: 20px;
             flex-wrap: wrap;
         }
-        
-        .fiche-section {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 3px solid var(--primary-color);
-            break-inside: avoid;
+
+        .badge-consigne {
+            background: #fef7e5;
+            border-left: clamp(4px, 1.5vw, 8px) solid var(--accent);
+            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1rem, 3vw, 2rem);
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 3vw, 1.05rem);
+            margin: 1rem 0;
+            box-shadow: 0 3px 8px #d9e6df;
+            word-break: break-word;
         }
-        
-        .fiche-section h4 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1em;
+
+        .bullet-list {
+            margin-left: 1.2rem;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            padding-right: 0.5rem;
         }
-        
-        .warning-note {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-color);
-            border-radius: 4px;
-            color: var(--warning-color);
-            font-size: 0.85em;
+
+        .bullet-list li {
+            margin-bottom: 0.4rem;
+            word-break: break-word;
         }
-        
-        .programme-table {
+
+        /* tableau responsive */
+        .table-cap {
             width: 100%;
             border-collapse: collapse;
-            margin: 10px 0;
             background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px #c4ddd1;
+            margin-top: 1rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
         }
-        
-        .programme-table th, .programme-table td {
-            border: 1px solid var(--border-color);
-            padding: 8px;
+
+        .table-cap th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 10px 8px;
             text-align: left;
+        }
+
+        .table-cap td {
+            border: 1px solid #b7dbc9;
+            padding: 10px 8px;
             vertical-align: top;
+            word-break: break-word;
         }
-        
-        .programme-table th {
-            background-color: #f8f9fa;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .activite-item {
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px dashed #eee;
-        }
-        
-        .activite-header {
+
+        /* actions */
+        .actions {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            justify-content: center;
         }
-        
-        .activite-duree {
-            background-color: var(--secondary-color);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
+
+        .btn-print {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 60px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 120px;
+            flex: 1 0 auto;
+            max-width: 200px;
+            white-space: nowrap;
         }
-        
-        /* Styles pour l'impression */
-        @media print {
-            @page {
-                margin: 1.5cm;
-                size: A4;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
-                font-size: 12pt;
-                line-height: 1.4;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            
-            .no-print {
-                display: none !important;
-            }
-            
-            .fiche-preview {
-                display: block !important;
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            
-            .fiche-section {
-                page-break-inside: avoid;
-                margin-bottom: 12pt;
-            }
+
+        .btn-print:hover {
+            background: #e2f3eb;
         }
-        
-        /* Styles responsives */
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header {
-                padding: 12px;
-            }
-            
-            .generateur-section {
-                padding: 15px;
-            }
-            
-            .fiche-preview {
-                padding: 15px;
-            }
-            
-            .actions-fiche {
-                flex-direction: column;
-            }
-            
-            .btn-small {
-                width: 100%;
-            }
-        }
-        
+
         @media (max-width: 480px) {
-            .btn {
-                font-size: 12px;
-                padding: 7px 12px;
-                height: 34px;
-            }
-            
-            .btn-small {
-                min-width: 100%;
-            }
+            body { padding: 0.5rem; }
+            .btn-print { white-space: normal; min-width: unset; flex-basis: 100%; }
+            .form-group { flex-basis: 100%; }
+        }
+
+        @media print {
+            .no-print, .card-outil, .actions { display: none !important; }
+            .fiche-finale { border: none; box-shadow: none; padding: 1.2cm; }
+            .section-guide { break-inside: avoid; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header no-print">
-            <h1>MINISTÈRE DES ENSEIGNEMENTS PRIMAIRES, SECONDAIRES, TECHNIQUES ET DE L'ARTISANAT</h1>
-            <h2>RÉPUBLIQUE TOGOLAISE</h2>
-            <h2>DIRECTION DE L'ENSEIGNEMENT SECONDAIRE GÉNÉRAL</h2>
-            <h2>GÉNÉRATEUR DE FICHE DE LEÇON - MATHÉMATIQUES 5ème</h2>
-            <p>PAREC 2018-2019</p>
-        </div>
-
-        <!-- Générateur de fiche de leçon automatique -->
-        <div class="generateur-section no-print">
-            <h2>📄 Générateur Automatique de Fiche de Leçon</h2>
-            <p>Sélectionnez une leçon pour générer automatiquement une fiche pédagogique complète conforme au programme officiel.</p>
-            
-            <form id="ficheForm">
-                <div class="form-group">
-                    <label for="leconSelect">Sélectionnez une leçon :</label>
-                    <select id="leconSelect" required>
-                        <option value="">Choisissez une leçon</option>
-                        <optgroup label="Configurations de l'espace">
-                            <option value="prisme-droit">Prisme droit</option>
-                            <option value="cylindre-droit">Cylindre droit</option>
-                        </optgroup>
-                        <optgroup label="Configurations du plan">
-                            <option value="distance-segments">Distance et segments</option>
-                            <option value="angles">Angles</option>
-                            <option value="triangles">Triangles</option>
-                            <option value="cercle">Cercle</option>
-                            <option value="polygones">Polygones</option>
-                        </optgroup>
-                        <optgroup label="Applications du plan">
-                            <option value="figures-symetriques">Figures symétriques par rapport à une droite, par rapport à un point</option>
-                        </optgroup>
-                        <optgroup label="Outil vectoriel, géométrie analytique">
-                            <option value="reperage-point">Repérage d'un point sur une droite, sur un quadrillage</option>
-                        </optgroup>
-                        <optgroup label="Calcul numérique">
-                            <option value="division-euclidienne">Division euclidienne</option>
-                            <option value="nombres-premiers">Nombres premiers, PPCM, PGCD</option>
-                            <option value="fractions">Fractions</option>
-                            <option value="nombres-decimaux-relatifs">Nombres décimaux relatifs</option>
-                            <option value="puissances">Puissances</option>
-                        </optgroup>
-                        <optgroup label="Programme de calcul, Calcul littéral">
-                            <option value="notion-equation">Notion d'équation</option>
-                        </optgroup>
-                        <optgroup label="Organisation des données">
-                            <option value="proportionnalite">Proportionnalité, pourcentage, échelle</option>
-                        </optgroup>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="dureeLecon">Durée de la leçon :</label>
-                    <input type="text" id="dureeLecon" placeholder="Ex: 4 heures" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="dateLecon">Date prévue :</label>
-                    <input type="date" id="dateLecon" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="objectifsPersonnalises">Objectifs personnalisés (optionnel) :</label>
-                    <textarea id="objectifsPersonnalises" rows="3" placeholder="Ajoutez vos objectifs spécifiques si nécessaire..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="strategiesPersonnalisees">Stratégies personnalisées (optionnel) :</label>
-                    <textarea id="strategiesPersonnalisees" rows="3" placeholder="Ajoutez vos stratégies pédagogiques spécifiques si nécessaire..."></textarea>
-                </div>
-                
-                <button type="button" class="btn btn-generer" id="btnGenererFiche">🎯 Générer la Fiche Automatiquement</button>
-            </form>
-        </div>
-        
-        <!-- Prévisualisation de la fiche -->
-        <div class="fiche-preview hidden" id="fichePreview">
-            <div id="contenuFiche"></div>
-            
-            <div class="warning-note no-print">
-                ⚠️ Cette fiche a été générée automatiquement. Veuillez vérifier et adapter le contenu selon le contexte de votre classe.
-            </div>
-            
-            <div class="actions-fiche no-print">
-                <button class="btn btn-small btn-imprimer" onclick="imprimerFiche()">🖨️ Imprimer</button>
-                <button class="btn btn-small btn-pdf" onclick="exporterEnPDF()">📄 PDF</button>
-                <button class="btn btn-small btn-word" onclick="exporterEnWord()">📝 Word</button>
-                <button class="btn btn-small btn-reinitialiser" onclick="reinitialiserFiche()">🔄 Nouvelle Fiche</button>
-            </div>
-        </div>
+<div class="container">
+    <!-- BANDEAU OFFICIEL 5ème -->
+    <div class="bandeau no-print">
+        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE ET SECONDAIRE</h1>
+        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie – PROGRAMME 5e (PAREC 2018-2019)</h2>
+        <div class="badge-prog">MATHÉMATIQUES 5ème – GUIDE D'EXÉCUTION INTÉGRAL</div>
+        <p style="margin-top:1rem; font-size:clamp(0.9rem,3vw,1.2rem);">Prisme · Cylindre · Distance · Angles · Triangles · Cercle · Polygones · Symétrie · Repérage · Arithmétique · Fractions · Relatifs · Puissances · Équations · Proportionnalité</p>
     </div>
 
-    <script>
-        // Base de données complète des leçons
-        const lecons = {
-            'prisme-droit': {
-                theme: 'Configurations de l\'espace',
-                titre: 'Prisme droit',
-                duree: '4 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier un prisme droit',
-                    'Décrire un prisme droit et ses éléments constitutifs',
-                    'Construire le patron d\'un prisme droit',
-                    'Réaliser un prisme droit à partir de son patron',
-                    'Calculer l\'aire latérale, l\'aire de base et l\'aire totale d\'un prisme droit',
-                    'Calculer le volume d\'un prisme droit'
-                ],
-                prerequis: [
-                    'Connaissances des solides de base',
-                    'Notions de géométrie dans l\'espace',
-                    'Calcul d\'aires de figures planes',
-                    'Formules de calcul de volumes',
-                    'Utilisation des instruments de géométrie'
-                ],
-                materiel: [
-                    'Modèles de prismes droits en 3D',
-                    'Papier cartonné, ciseaux, colle',
-                    'Règle, équerre, compas',
-                    'Matériel de projection (vidéoprojecteur)',
-                    'Fiches d\'exercices',
-                    'Calculatrices'
-                ],
-                strategies: [
-                    'Démarche inductive à partir de l\'observation de solides réels',
-                    'Travail en petits groupes collaboratifs',
-                    'Manipulation et construction concrète',
-                    'Échanges et synthèses collectives',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '45 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation des prismes droits, identification des éléments (faces, arêtes, sommets, base, surface latérale)'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de construction',
-                        description: 'Réalisation du patron d\'un prisme droit et assemblage'
-                    },
-                    {
-                        duree: '45 minutes',
-                        titre: 'Phase de calculs',
-                        description: 'Application des formules d\'aires latérale et totale, calcul du volume'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Résolution de problèmes concrets faisant intervenir les prismes droits'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de manipulation',
-                    'Évaluation des patrons réalisés (précision, soin)',
-                    'Exercices d\'application notés sur le calcul d\'aires et de volumes',
-                    'Questionnaire de synthèse sur les caractéristiques des prismes droits',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier un solide<br>Décrire un solide',
-                        contenu: 'Prisme droit : définitions, vocabulaire, caractéristiques du solide'
-                    },
-                    {
-                        capacite: 'Construire le patron d\'un solide',
-                        contenu: 'Patron d\'un prisme droit'
-                    },
-                    {
-                        capacite: 'Réaliser le solide à partir du patron',
-                        contenu: 'Prisme droit, patron'
-                    },
-                    {
-                        capacite: 'Calculer des grandeurs',
-                        contenu: 'Aire latérale, aire de base, aire totale, volume d\'un prisme droit à base triangulaire, rectangle (ou carré)'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes : observation des solides, découverte des différentes parties du prisme droit : face (forme, nombre), arête (nombre), sommet (nombre), surface latérale, bases.',
-                    consignes: 'Mettre la classe en situation d\'observation réelle du solide (prévoir le matériel individuel et collectif). Faire distinguer et nommer par les élèves les différentes parties du solide.',
-                    evaluation: 'Reconnaissance du prisme droit dans un groupe de solides. Désignation par leurs noms des différentes parties du solide.'
-                }
-            },
-            'cylindre-droit': {
-                theme: 'Configurations de l\'espace',
-                titre: 'Cylindre droit',
-                duree: '4 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier un cylindre droit',
-                    'Décrire un cylindre droit et ses éléments constitutifs',
-                    'Construire le patron d\'un cylindre droit',
-                    'Réaliser un cylindre droit à partir de son patron',
-                    'Calculer l\'aire latérale, l\'aire totale et le volume d\'un cylindre droit'
-                ],
-                prerequis: [
-                    'Connaissances des solides de base',
-                    'Notions de géométrie dans l\'espace',
-                    'Calcul d\'aires de figures planes (cercle, rectangle)',
-                    'Formules de calcul de volumes',
-                    'Utilisation des instruments de géométrie'
-                ],
-                materiel: [
-                    'Modèles de cylindres droits en 3D',
-                    'Papier cartonné, ciseaux, colle',
-                    'Règle, équerre, compas',
-                    'Matériel de projection (vidéoprojecteur)',
-                    'Fiches d\'exercices',
-                    'Calculatrices'
-                ],
-                strategies: [
-                    'Démarche inductive à partir de l\'observation de solides réels',
-                    'Travail en petits groupes collaboratifs',
-                    'Manipulation et construction concrète',
-                    'Échanges et synthèses collectives',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '45 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation des cylindres droits, identification des éléments (bases, surface latérale)'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de construction',
-                        description: 'Réalisation du patron d\'un cylindre droit et assemblage'
-                    },
-                    {
-                        duree: '45 minutes',
-                        titre: 'Phase de calculs',
-                        description: 'Application des formules d\'aires latérale et totale, calcul du volume'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Résolution de problèmes concrets faisant intervenir les cylindres droits'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de manipulation',
-                    'Évaluation des patrons réalisés (précision, soin)',
-                    'Exercices d\'application notés sur le calcul d\'aires et de volumes',
-                    'Questionnaire de synthèse sur les caractéristiques des cylindres droits',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier un solide<br>Décrire un solide',
-                        contenu: 'Cylindre droit : définitions, vocabulaire, caractéristiques de ce solide. Description d\'un cylindre : vocabulaire'
-                    },
-                    {
-                        capacite: 'Construire le patron d\'un solide',
-                        contenu: 'Patron d\'un cylindre de révolution'
-                    },
-                    {
-                        capacite: 'Réaliser le solide à partir du patron',
-                        contenu: 'Cylindre et patron'
-                    },
-                    {
-                        capacite: 'Calculer des grandeurs',
-                        contenu: 'Aire latérale, aire totale, volume d\'un cylindre'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes : découverte des différentes parties du cylindre droit : bases et surface latérale.',
-                    consignes: 'Défaire le solide et faire découvrir le patron obtenu. Présenter éventuellement d\'autres formes du patron. Veiller à ce que chaque apprenant réalise personnellement le solide à partir d\'un patron.',
-                    evaluation: 'Construction du patron. Réalisation du solide.'
-                }
-            },
-            'distance-segments': {
-                theme: 'Configurations du plan',
-                titre: 'Distance et segments',
-                duree: '8 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Mesurer et comparer des grandeurs (longueurs, distances)',
-                    'Caractériser une configuration géométrique (segment, médiatrice)',
-                    'Construire la médiatrice d\'un segment à l\'aide de la règle et du compas',
-                    'Justifier des propriétés géométriques (appartenance, égalité de distances)'
-                ],
-                prerequis: [
-                    'Notions de base en géométrie',
-                    'Utilisation des instruments de géométrie',
-                    'Mesure de longueurs',
-                    'Vocabulaire géométrique élémentaire'
-                ],
-                materiel: [
-                    'Règles, compas, équerres',
-                    'Feuilles de papier',
-                    'Matériel de projection',
-                    'Fiches d\'exercices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des constructions',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Mesure et comparaison de grandeurs (longueur d\'un segment, distance de deux points)'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Caractérisation d\'un segment et de la médiatrice d\'un segment'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Construction de la médiatrice d\'un segment et régionnement du plan'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Justification de propriétés géométriques'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de construction',
-                    'Exercices d\'application notés sur les mesures et constructions',
-                    'Problèmes de justification utilisant les propriétés géométriques',
-                    'Questionnaire de synthèse sur les segments et les distances',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Mesurer des grandeurs<br>Comparer des grandeurs',
-                        contenu: 'Distance de deux points, inégalité triangulaire (propriété)'
-                    },
-                    {
-                        capacite: 'Caractériser une configuration',
-                        contenu: 'Segment, médiatrice d\'un segment'
-                    },
-                    {
-                        capacite: 'Construire',
-                        contenu: 'Médiatrice d\'un segment (à l\'aide de la règle et du compas), régionnement du plan par la médiatrice d\'un segment'
-                    },
-                    {
-                        capacite: 'Justifier une propriété, un programme de construction...',
-                        contenu: 'Point milieu d\'un segment, appartenance d\'un point à un segment, à la médiatrice d\'un segment: propriétés, droite médiatrice d\'un segment et régionnement du plan (définition et propriétés)'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions déjà installées en classe de 6e. En classe de 5e, les élèves découvriront que tout point équidistant des deux extrémités d\'un segment appartient à la médiatrice de ce segment.',
-                    evaluation: 'Mesure et comparaison des grandeurs (longueur d\'un segment, distance de deux points). Construction/reproduction de configurations (prévues dans le contenu).'
-                }
-            },
-            'angles': {
-                theme: 'Configurations du plan',
-                titre: 'Angles',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier les différents types d\'angles',
-                    'Comparer et calculer des mesures d\'angles',
-                    'Construire des angles et des angles particuliers',
-                    'Justifier des égalités angulaires'
-                ],
-                prerequis: [
-                    'Notions d\'angles (angle aigu, obtus, droit)',
-                    'Mesure d\'angles en degrés',
-                    'Utilisation du rapporteur',
-                    'Vocabulaire géométrique de base'
-                ],
-                materiel: [
-                    'Rapporteurs, règles, compas',
-                    'Feuilles de papier',
-                    'Matériel de projection',
-                    'Fiches d\'exercices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des exercices d\'application',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification des angles complémentaires, supplémentaires, opposés par le sommet'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Comparaison et calcul de mesures d\'angles'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Construction d\'angles et d\'angles particuliers'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Justification d\'égalités angulaires'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur le calcul d\'angles',
-                    'Problèmes de justification utilisant les propriétés des angles',
-                    'Questionnaire de synthèse sur les angles',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier une configuration',
-                        contenu: 'Angles complémentaires, supplémentaires, opposés par le sommet'
-                    },
-                    {
-                        capacite: 'Comparer des grandeurs<br>Calculer des grandeurs',
-                        contenu: 'Mesures d\'angles, égalité angulaire'
-                    },
-                    {
-                        capacite: 'Construire',
-                        contenu: 'Angles, angles particuliers'
-                    },
-                    {
-                        capacite: 'Justifier une propriété, un programme de construction...',
-                        contenu: 'Égalité angulaire, nature de deux angles (angles complémentaires, supplémentaires, opposés par le sommet)'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions d\'angles déjà installées en classe de 6e. Faire nommer des angles. Faire utiliser du vocabulaire approprié pour décrire des configurations.',
-                    evaluation: 'Identification d\'une configuration : angles complémentaires, supplémentaires, opposés par le sommet. Utilisation du vocabulaire approprié pour décrire des configurations.'
-                }
-            },
-            'triangles': {
-                theme: 'Configurations du plan',
-                titre: 'Triangles',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier les différents types de triangles',
-                    'Caractériser les triangles particuliers (isocèle, équilatéral, rectangle)',
-                    'Construire des triangles et leurs droites particulières',
-                    'Calculer des mesures d\'angles dans un triangle',
-                    'Justifier des propriétés des triangles'
-                ],
-                prerequis: [
-                    'Notions de base sur les triangles',
-                    'Mesure d\'angles',
-                    'Utilisation des instruments de géométrie',
-                    'Vocabulaire géométrique'
-                ],
-                materiel: [
-                    'Règles, compas, équerres, rapporteurs',
-                    'Feuilles de papier',
-                    'Matériel de projection',
-                    'Fiches d\'exercices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des constructions',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification des triangles et triangles particuliers'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Caractérisation des triangles particuliers et étude de la somme des angles'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Construction de triangles et de leurs droites particulières'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Calcul de mesures d\'angles et justification de propriétés'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de construction',
-                    'Exercices d\'application notés sur les triangles',
-                    'Problèmes de justification utilisant les propriétés des triangles',
-                    'Questionnaire de synthèse sur les triangles',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier une configuration',
-                        contenu: 'Triangles, triangles particuliers (isocèle, équilatéral, rectangle), droites particulières d\'un triangle...'
-                    },
-                    {
-                        capacite: 'Caractériser une configuration',
-                        contenu: 'Triangle isocèle, triangle équilatéral, triangle rectangle, somme des angles d\'un triangle'
-                    },
-                    {
-                        capacite: 'Construire',
-                        contenu: 'Triangles, triangles particuliers, droites particulières d\'un triangle'
-                    },
-                    {
-                        capacite: 'Calculer des grandeurs',
-                        contenu: 'Mesures d\'angles dans un triangle'
-                    },
-                    {
-                        capacite: 'Justifier une propriété, un programme de construction...',
-                        contenu: 'Nature d\'un triangle, appartenance d\'un point à une droite particulière d\'un triangle'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de triangles déjà installées en classe de 6e. Faire nommer les triangles particuliers et leurs éléments caractéristiques.',
-                    evaluation: 'Identification d\'une configuration : triangle isocèle, triangle équilatéral, triangle rectangle, droites particulières d\'un triangle. Utilisation du vocabulaire approprié pour décrire des configurations.'
-                }
-            },
-            'cercle': {
-                theme: 'Configurations du plan',
-                titre: 'Cercle',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier les éléments d\'un cercle',
-                    'Caractériser les positions relatives d\'un point et d\'un cercle',
-                    'Construire des cercles et des configurations circulaires',
-                    'Calculer des longueurs et des mesures d\'angles dans un cercle',
-                    'Justifier des propriétés des cercles'
-                ],
-                prerequis: [
-                    'Notions de base sur les cercles',
-                    'Utilisation du compas',
-                    'Mesure de longueurs',
-                    'Vocabulaire géométrique'
-                ],
-                materiel: [
-                    'Compas, règles, rapporteurs',
-                    'Feuilles de papier',
-                    'Matériel de projection',
-                    'Fiches d\'exercices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des constructions',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification des éléments d\'un cercle'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Caractérisation des positions relatives d\'un point et d\'un cercle'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Construction de cercles et de configurations circulaires'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Calcul de longueurs et justification de propriétés'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de construction',
-                    'Exercices d\'application notés sur les cercles',
-                    'Problèmes de justification utilisant les propriétés des cercles',
-                    'Questionnaire de synthèse sur les cercles',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier une configuration',
-                        contenu: 'Cercle, disque, positions relatives d\'un point et d\'un cercle'
-                    },
-                    {
-                        capacite: 'Caractériser une configuration',
-                        contenu: 'Cercle, disque, positions relatives d\'un point et d\'un cercle'
-                    },
-                    {
-                        capacite: 'Construire',
-                        contenu: 'Cercle, disque, configurations circulaires'
-                    },
-                    {
-                        capacite: 'Calculer des grandeurs',
-                        contenu: 'Longueur d\'un segment, mesure d\'un angle'
-                    },
-                    {
-                        capacite: 'Justifier une propriété, un programme de construction...',
-                        contenu: 'Appartenance d\'un point à un cercle, à un disque'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de cercle déjà installées en classe de 6e. Faire nommer les éléments d\'un cercle et les positions relatives d\'un point et d\'un cercle.',
-                    evaluation: 'Identification d\'une configuration : cercle, disque, positions relatives d\'un point et d\'un cercle. Utilisation du vocabulaire approprié pour décrire des configurations.'
-                }
-            },
-            'polygones': {
-                theme: 'Configurations du plan',
-                titre: 'Polygones',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier les polygones',
-                    'Caractériser les polygones particuliers (carré, rectangle, losange, parallélogramme)',
-                    'Construire des polygones et des polygones particuliers',
-                    'Calculer des grandeurs (périmètres, aires)',
-                    'Justifier des propriétés des polygones'
-                ],
-                prerequis: [
-                    'Notions de base sur les polygones',
-                    'Utilisation des instruments de géométrie',
-                    'Calcul de périmètres et d\'aires',
-                    'Vocabulaire géométrique'
-                ],
-                materiel: [
-                    'Règles, compas, équerres',
-                    'Feuilles de papier quadrillé',
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des constructions',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification des polygones et polygones particuliers'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Caractérisation des polygones particuliers'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Construction de polygones et de polygones particuliers'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Calcul de périmètres et d\'aires, justification de propriétés'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de construction',
-                    'Exercices d\'application notés sur les polygones',
-                    'Problèmes de justification utilisant les propriétés des polygones',
-                    'Questionnaire de synthèse sur les polygones',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier une configuration',
-                        contenu: 'Polygones, polygones particuliers (carré, rectangle, losange, parallélogramme)'
-                    },
-                    {
-                        capacite: 'Caractériser une configuration',
-                        contenu: 'Carré, rectangle, losange, parallélogramme'
-                    },
-                    {
-                        capacite: 'Construire',
-                        contenu: 'Polygones, polygones particuliers'
-                    },
-                    {
-                        capacite: 'Calculer des grandeurs',
-                        contenu: 'Périmètre, aire'
-                    },
-                    {
-                        capacite: 'Justifier une propriété, un programme de construction...',
-                        contenu: 'Nature d\'un polygone, appartenance d\'un point à un polygone'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de polygones déjà installées en classe de 6e. Faire nommer les polygones particuliers et leurs éléments caractéristiques.',
-                    evaluation: 'Identification d\'une configuration : carré, rectangle, losange, parallélogramme. Utilisation du vocabulaire approprié pour décrire des configurations.'
-                }
-            },
-            'figures-symetriques': {
-                theme: 'Applications du plan',
-                titre: 'Figures symétriques par rapport à une droite, par rapport à un point',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier des figures symétriques',
-                    'Construire l\'image d\'une figure par une symétrie axiale ou centrale',
-                    'Caractériser des figures symétriques',
-                    'Justifier des propriétés de symétrie'
-                ],
-                prerequis: [
-                    'Notions de base sur la symétrie',
-                    'Utilisation des instruments de géométrie',
-                    'Vocabulaire géométrique',
-                    'Construction géométrique élémentaire'
-                ],
-                materiel: [
-                    'Règles, compas, équerres',
-                    'Feuilles de papier',
-                    'Matériel de projection',
-                    'Fiches d\'exercices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des constructions',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de figures symétriques'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Construction d\'images de figures par symétrie axiale et centrale'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Caractérisation de figures symétriques'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Justification de propriétés de symétrie'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités de construction',
-                    'Exercices d\'application notés sur les symétries',
-                    'Problèmes de justification utilisant les propriétés de symétrie',
-                    'Questionnaire de synthèse sur les symétries',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier une application du plan',
-                        contenu: 'Symétrie orthogonale, symétrie centrale'
-                    },
-                    {
-                        capacite: 'Construire',
-                        contenu: 'Image d\'une figure par une symétrie orthogonale, image d\'une figure par une symétrie centrale'
-                    },
-                    {
-                        capacite: 'Caractériser une configuration',
-                        contenu: 'Figure symétrique par rapport à une droite, figure symétrique par rapport à un point'
-                    },
-                    {
-                        capacite: 'Justifier une propriété, un programme de construction...',
-                        contenu: 'Symétrie d\'une figure, appartenance d\'un point à une figure symétrique'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de symétrie déjà installées en classe de 6e. Faire nommer les éléments caractéristiques des figures symétriques.',
-                    evaluation: 'Identification d\'une configuration : figure symétrique par rapport à une droite, figure symétrique par rapport à un point. Utilisation du vocabulaire approprié pour décrire des configurations.'
-                }
-            },
-            'reperage-point': {
-                theme: 'Outil vectoriel, géométrie analytique',
-                titre: 'Repérage d\'un point sur une droite, sur un quadrillage',
-                duree: '4 heures',
-                competence: 'Résoudre des problèmes faisant appel aux configurations de l\'espace et du plan, aux applications du plan, à l\'outil vectoriel et à la géométrie analytique.',
-                objectifs: [
-                    'Reconnaître et identifier un repère',
-                    'Lire et déterminer les coordonnées d\'un point',
-                    'Placer un point dans un repère',
-                    'Utiliser le repérage pour résoudre des problèmes géométriques'
-                ],
-                prerequis: [
-                    'Notions de base sur le repérage',
-                    'Utilisation d\'une droite graduée',
-                    'Vocabulaire géométrique',
-                    'Calcul numérique élémentaire'
-                ],
-                materiel: [
-                    'Papier quadrillé',
-                    'Règles, équerres',
-                    'Matériel de projection',
-                    'Fiches d\'exercices'
-                ],
-                strategies: [
-                    'Observation et manipulation en petits groupes',
-                    'Méthode démonstrative',
-                    'Travail individuel sur des exercices d\'application',
-                    'Approche par résolution de problèmes'
-                ],
-                activites: [
-                    {
-                        duree: '45 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de repères'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Lecture et détermination de coordonnées de points'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Placement de points dans un repère'
-                    },
-                    {
-                        duree: '45 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Utilisation du repérage pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur le repérage',
-                    'Problèmes utilisant le repérage',
-                    'Questionnaire de synthèse sur le repérage',
-                    'Grille d\'observation des compétences géométriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Repère, coordonnées d\'un point'
-                    },
-                    {
-                        capacite: 'Lire',
-                        contenu: 'Coordonnées d\'un point'
-                    },
-                    {
-                        capacite: 'Déterminer',
-                        contenu: 'Coordonnées d\'un point'
-                    },
-                    {
-                        capacite: 'Placer',
-                        contenu: 'Point dans un repère'
-                    }
-                ],
-                guide: {
-                    strategies: 'Observation et manipulation en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de repérage déjà installées en classe de 6e. Faire nommer les éléments d\'un repère.',
-                    evaluation: 'Identification d\'un repère, de coordonnées d\'un point. Lecture de coordonnées d\'un point. Placement d\'un point dans un repère.'
-                }
-            },
-            'division-euclidienne': {
-                theme: 'Calcul numérique',
-                titre: 'Division euclidienne',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier une division euclidienne',
-                    'Effectuer une division euclidienne',
-                    'Utiliser la division euclidienne pour résoudre des problèmes',
-                    'Vérifier le résultat d\'une division euclidienne'
-                ],
-                prerequis: [
-                    'Notions de division',
-                    'Tables de multiplication',
-                    'Calcul mental',
-                    'Vocabulaire mathématique de base'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Tableaux de calcul'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation de nombres'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de divisions euclidiennes'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Effectuer une division euclidienne'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Utilisation de la division euclidienne pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Vérification du résultat d\'une division euclidienne'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur les divisions euclidiennes',
-                    'Problèmes nécessitant l\'utilisation de la division euclidienne',
-                    'Questionnaire de synthèse sur la division euclidienne',
-                    'Grille d\'observation des compétences numériques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Division euclidienne'
-                    },
-                    {
-                        capacite: 'Effectuer',
-                        contenu: 'Division euclidienne'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Division euclidienne pour résoudre des problèmes'
-                    },
-                    {
-                        capacite: 'Vérifier',
-                        contenu: 'Résultat d\'une division euclidienne'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de division déjà installées en classe de 6e. Faire nommer les éléments d\'une division euclidienne.',
-                    evaluation: 'Identification d\'une division euclidienne. Effectuer une division euclidienne. Utilisation de la division euclidienne pour résoudre des problèmes.'
-                }
-            },
-            'nombres-premiers': {
-                theme: 'Calcul numérique',
-                titre: 'Nombres premiers, PPCM, PGCD',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier des nombres premiers',
-                    'Décomposer un nombre en produit de facteurs premiers',
-                    'Calculer le PPCM et le PGCD de deux nombres',
-                    'Utiliser ces notions pour résoudre des problèmes'
-                ],
-                prerequis: [
-                    'Notions de nombres entiers',
-                    'Tables de multiplication',
-                    'Division euclidienne',
-                    'Vocabulaire mathématique'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Tableaux de nombres premiers'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation de nombres'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de nombres premiers'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Décomposition d\'un nombre en produit de facteurs premiers'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Calcul du PPCM et du PGCD de deux nombres'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Utilisation de ces notions pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur les nombres premiers, PPCM et PGCD',
-                    'Problèmes nécessitant l\'utilisation de ces notions',
-                    'Questionnaire de synthèse sur les nombres premiers, PPCM et PGCD',
-                    'Grille d\'observation des compétences numériques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Nombres premiers, PPCM, PGCD'
-                    },
-                    {
-                        capacite: 'Décomposer',
-                        contenu: 'Nombre en produit de facteurs premiers'
-                    },
-                    {
-                        capacite: 'Calculer',
-                        contenu: 'PPCM, PGCD'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Nombres premiers, PPCM, PGCD pour résoudre des problèmes'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de nombres entiers déjà installées en classe de 6e. Faire nommer les nombres premiers.',
-                    evaluation: 'Identification de nombres premiers. Décomposition d\'un nombre en produit de facteurs premiers. Calcul du PPCM et du PGCD de deux nombres.'
-                }
-            },
-            'fractions': {
-                theme: 'Calcul numérique',
-                titre: 'Fractions',
-                duree: '8 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier des fractions',
-                    'Comparer et simplifier des fractions',
-                    'Effectuer des opérations sur les fractions',
-                    'Utiliser les fractions pour résoudre des problèmes'
-                ],
-                prerequis: [
-                    'Notions de fractions',
-                    'Tables de multiplication',
-                    'Calcul mental',
-                    'Vocabulaire mathématique'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Tableaux de fractions'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation de fractions'
-                ],
-                activites: [
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de fractions'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Comparaison et simplification de fractions'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Opérations sur les fractions'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Utilisation des fractions pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur les fractions',
-                    'Problèmes nécessitant l\'utilisation des fractions',
-                    'Questionnaire de synthèse sur les fractions',
-                    'Grille d\'observation des compétences numériques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Fractions'
-                    },
-                    {
-                        capacite: 'Comparer',
-                        contenu: 'Fractions'
-                    },
-                    {
-                        capacite: 'Simplifier',
-                        contenu: 'Fractions'
-                    },
-                    {
-                        capacite: 'Effectuer',
-                        contenu: 'Opérations sur les fractions'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Fractions pour résoudre des problèmes'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de fractions déjà installées en classe de 6e. Faire nommer les éléments d\'une fraction.',
-                    evaluation: 'Identification de fractions. Comparaison de fractions. Simplification de fractions. Effectuer des opérations sur les fractions.'
-                }
-            },
-            'nombres-decimaux-relatifs': {
-                theme: 'Calcul numérique',
-                titre: 'Nombres décimaux relatifs',
-                duree: '8 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier des nombres décimaux relatifs',
-                    'Comparer et ordonner des nombres décimaux relatifs',
-                    'Effectuer des opérations sur les nombres décimaux relatifs',
-                    'Utiliser les nombres décimaux relatifs pour résoudre des problèmes'
-                ],
-                prerequis: [
-                    'Notions de nombres décimaux',
-                    'Notions de nombres relatifs',
-                    'Calcul mental',
-                    'Vocabulaire mathématique'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Droites graduées'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation de nombres'
-                ],
-                activites: [
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de nombres décimaux relatifs'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Comparaison et ordonnancement de nombres décimaux relatifs'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Opérations sur les nombres décimaux relatifs'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Utilisation des nombres décimaux relatifs pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur les nombres décimaux relatifs',
-                    'Problèmes nécessitant l\'utilisation des nombres décimaux relatifs',
-                    'Questionnaire de synthèse sur les nombres décimaux relatifs',
-                    'Grille d\'observation des compétences numériques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Nombres décimaux relatifs'
-                    },
-                    {
-                        capacite: 'Comparer',
-                        contenu: 'Nombres décimaux relatifs'
-                    },
-                    {
-                        capacite: 'Ordonner',
-                        contenu: 'Nombres décimaux relatifs'
-                    },
-                    {
-                        capacite: 'Effectuer',
-                        contenu: 'Opérations sur les nombres décimaux relatifs'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Nombres décimaux relatifs pour résoudre des problèmes'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de nombres décimaux et de nombres relatifs déjà installées en classe de 6e. Faire nommer les nombres décimaux relatifs.',
-                    evaluation: 'Identification de nombres décimaux relatifs. Comparaison de nombres décimaux relatifs. Ordonnancement de nombres décimaux relatifs. Effectuer des opérations sur les nombres décimaux relatifs.'
-                }
-            },
-            'puissances': {
-                theme: 'Calcul numérique',
-                titre: 'Puissances',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier des puissances',
-                    'Calculer des puissances',
-                    'Utiliser les propriétés des puissances',
-                    'Utiliser les puissances pour résoudre des problèmes'
-                ],
-                prerequis: [
-                    'Notions de multiplication',
-                    'Tables de multiplication',
-                    'Calcul mental',
-                    'Vocabulaire mathématique'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Tableaux de puissances'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation de nombres'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de puissances'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Calcul de puissances'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Utilisation des propriétés des puissances'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Utilisation des puissances pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur les puissances',
-                    'Problèmes nécessitant l\'utilisation des puissances',
-                    'Questionnaire de synthèse sur les puissances',
-                    'Grille d\'observation des compétences numériques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Puissances'
-                    },
-                    {
-                        capacite: 'Calculer',
-                        contenu: 'Puissances'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Propriétés des puissances'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Puissances pour résoudre des problèmes'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de multiplication déjà installées en classe de 6e. Faire nommer les éléments d\'une puissance.',
-                    evaluation: 'Identification de puissances. Calcul de puissances. Utilisation des propriétés des puissances.'
-                }
-            },
-            'notion-equation': {
-                theme: 'Programme de calcul, Calcul littéral',
-                titre: 'Notion d\'équation',
-                duree: '6 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier une équation',
-                    'Résoudre une équation du premier degré à une inconnue',
-                    'Utiliser les équations pour résoudre des problèmes',
-                    'Vérifier la solution d\'une équation'
-                ],
-                prerequis: [
-                    'Notions de calcul littéral',
-                    'Opérations sur les nombres',
-                    'Vocabulaire mathématique',
-                    'Raisonnement logique'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Tableaux d\'équations'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation d\'équations'
-                ],
-                activites: [
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification d\'équations'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Résolution d\'équations du premier degré à une inconnue'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Utilisation des équations pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Vérification de la solution d\'une équation'
-                    },
-                    {
-                        duree: '30 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur les équations',
-                    'Problèmes nécessitant l\'utilisation d\'équations',
-                    'Questionnaire de synthèse sur les équations',
-                    'Grille d\'observation des compétences algébriques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Équation'
-                    },
-                    {
-                        capacite: 'Résoudre',
-                        contenu: 'Équation du premier degré à une inconnue'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Équations pour résoudre des problèmes'
-                    },
-                    {
-                        capacite: 'Vérifier',
-                        contenu: 'Solution d\'une équation'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de calcul littéral déjà installées en classe de 6e. Faire nommer les éléments d\'une équation.',
-                    evaluation: 'Identification d\'une équation. Résolution d\'une équation du premier degré à une inconnue. Utilisation des équations pour résoudre des problèmes.'
-                }
-            },
-            'proportionnalite': {
-                theme: 'Organisation des données',
-                titre: 'Proportionnalité, pourcentage, échelle',
-                duree: '8 heures',
-                competence: 'Résoudre des problèmes faisant appel aux programmes de calcul, au calcul numérique et à l\'organisation des données.',
-                objectifs: [
-                    'Reconnaître et identifier des situations de proportionnalité',
-                    'Calculer des pourcentages',
-                    'Utiliser des échelles',
-                    'Utiliser la proportionnalité pour résoudre des problèmes'
-                ],
-                prerequis: [
-                    'Notions de proportionnalité',
-                    'Calcul de pourcentages',
-                    'Utilisation d\'échelles',
-                    'Vocabulaire mathématique'
-                ],
-                materiel: [
-                    'Matériel de projection',
-                    'Fiches d\'exercices',
-                    'Calculatrices',
-                    'Tableaux de proportionnalité'
-                ],
-                strategies: [
-                    'Travail individuel ou en petits groupes',
-                    'Méthode démonstrative',
-                    'Approche par résolution de problèmes',
-                    'Manipulation de données'
-                ],
-                activites: [
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de découverte',
-                        description: 'Observation et identification de situations de proportionnalité'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'apprentissage',
-                        description: 'Calcul de pourcentages'
-                    },
-                    {
-                        duree: '120 minutes',
-                        titre: 'Phase d\'application',
-                        description: 'Utilisation d\'échelles'
-                    },
-                    {
-                        duree: '90 minutes',
-                        titre: 'Phase de consolidation',
-                        description: 'Utilisation de la proportionnalité pour résoudre des problèmes'
-                    },
-                    {
-                        duree: '60 minutes',
-                        titre: 'Phase de synthèse',
-                        description: 'Bilan collectif et élaboration de la trace écrite'
-                    }
-                ],
-                evaluation: [
-                    'Évaluation formative : Observation pendant les activités',
-                    'Exercices d\'application notés sur la proportionnalité',
-                    'Problèmes nécessitant l\'utilisation de la proportionnalité',
-                    'Questionnaire de synthèse sur la proportionnalité',
-                    'Grille d\'observation des compétences numériques'
-                ],
-                capacites: [
-                    {
-                        capacite: 'Reconnaître/Identifier',
-                        contenu: 'Situation de proportionnalité, pourcentage, échelle'
-                    },
-                    {
-                        capacite: 'Calculer',
-                        contenu: 'Pourcentage'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Échelle'
-                    },
-                    {
-                        capacite: 'Utiliser',
-                        contenu: 'Proportionnalité pour résoudre des problèmes'
-                    }
-                ],
-                guide: {
-                    strategies: 'Travail individuel ou en petits groupes. Méthode démonstrative, faire faire (travail individuel).',
-                    consignes: 'Renforcer et clarifier les notions de proportionnalité déjà installées en classe de 6e. Faire nommer les situations de proportionnalité.',
-                    evaluation: 'Identification d\'une situation de proportionnalité. Calcul de pourcentages. Utilisation d\'échelles. Utilisation de la proportionnalité pour résoudre des problèmes.'
-                }
-            }
-        };
+    <!-- GÉNÉRATEUR -->
+    <div class="card-outil no-print">
+        <h3>📘 GÉNÉRATEUR DE FICHE – PROGRAMME 5ème TOGO</h3>
+        <div class="form-row">
+            <div class="form-group">
+                <label>📌 Leçon</label>
+                <select id="leconSelect">
+                    <option value="">-- Choisir une leçon --</option>
+                    <optgroup label="⚙️ Configurations espace">
+                        <option value="prisme-droit">Prisme droit</option>
+                        <option value="cylindre-droit">Cylindre droit</option>
+                    </optgroup>
+                    <optgroup label="📐 Configurations plan">
+                        <option value="distance-segments">Distance et segments</option>
+                        <option value="angles-5e">Angles (complémentaires, supplémentaires, opposés)</option>
+                        <option value="triangles-5e">Triangles (somme des angles)</option>
+                        <option value="cercle-5e">Cercle circonscrit</option>
+                        <option value="polygones">Polygones (parallélogrammes, trapèze, symétrie)</option>
+                    </optgroup>
+                    <optgroup label="🔄 Applications plan">
+                        <option value="symetrie-5e">Figures symétriques (droite/point) – approfondissement</option>
+                    </optgroup>
+                    <optgroup label="📊 Outils vectoriels / repérage">
+                        <option value="reperage">Repérage sur droite et quadrillage</option>
+                    </optgroup>
+                    <optgroup label="🧮 Calcul numérique">
+                        <option value="division-euclidienne">Division euclidienne</option>
+                        <option value="nombres-premiers">Nombres premiers – PPCM – PGCD</option>
+                        <option value="fractions-5e">Fractions (irréductible, opérations)</option>
+                        <option value="relatifs-5e">Nombres décimaux relatifs (somme, différence, multiplication)</option>
+                        <option value="puissances">Puissances (exposant naturel)</option>
+                    </optgroup>
+                    <optgroup label="📝 Calcul littéral / équations">
+                        <option value="equations">Notion d'équation (x+a=b, ax=b)</option>
+                    </optgroup>
+                    <optgroup label="📈 Organisation données">
+                        <option value="proportionnalite-5e">Proportionnalité – pourcentage – échelle</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>⏱️ Durée</label>
+                <input type="text" id="dureeField" value="6 heures" placeholder="ex: 8h">
+            </div>
+            <div class="form-group">
+                <label>📅 Date</label>
+                <input type="date" id="dateField">
+            </div>
+        </div>
+        <button class="btn-generer" id="btnGenerer">✨ GÉNÉRER LA FICHE (contenus · stratégies · consignes · évaluation)</button>
+    </div>
 
-        // Initialisation quand le DOM est chargé
-        document.addEventListener('DOMContentLoaded', function() {
-            // Récupérer les éléments
-            const leconSelect = document.getElementById('leconSelect');
-            const dureeLecon = document.getElementById('dureeLecon');
-            const dateLecon = document.getElementById('dateLecon');
-            const objectifsPersonnalises = document.getElementById('objectifsPersonnalises');
-            const strategiesPersonnalisees = document.getElementById('strategiesPersonnalisees');
-            const btnGenererFiche = document.getElementById('btnGenererFiche');
-            const fichePreview = document.getElementById('fichePreview');
-            const contenuFiche = document.getElementById('contenuFiche');
-            
-            // Fonction pour générer la fiche
-            function genererFiche() {
-                const leconId = leconSelect.value;
-                
-                if (!leconId) {
-                    alert('Veuillez sélectionner une leçon.');
-                    return;
-                }
-                
-                const lecon = lecons[leconId];
-                if (!lecon) {
-                    alert('Leçon non trouvée.');
-                    return;
-                }
-                
-                const duree = dureeLecon.value || lecon.duree;
-                const date = dateLecon.value;
-                const objectifsPerso = objectifsPersonnalises.value;
-                const strategiesPerso = strategiesPersonnalisees.value;
-                
-                const dateCreation = new Date().toLocaleDateString('fr-FR');
-                const datePrevue = date ? new Date(date).toLocaleDateString('fr-FR') : 'À déterminer';
+    <!-- FICHE GÉNÉRÉE -->
+    <div class="fiche-finale hidden" id="ficheGeneree">
+        <div id="contenuFiche"></div>
+        <div class="actions no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print" onclick="alert('Imprimer → Enregistrer en PDF')">📄 PDF</button>
+            <button class="btn-print" onclick="exportWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">🔄 Nouvelle</button>
+        </div>
+        <div style="margin-top:1.5rem; background:#fdf3da; padding:0.8rem 1.5rem; border-radius:60px; font-size:clamp(0.8rem,2.5vw,0.95rem); text-align:center;" class="no-print">
+            ⚡ Fiche conforme au programme officiel de 5ème – Guide d'exécution intégré.
+        </div>
+    </div>
+</div>
 
-                const ficheHTML = `
-                    <div style="text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--primary-color);">
-                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">FICHE PÉDAGOGIQUE DE LEÇON</h3>
-                        <p style="font-weight: bold; font-size: 1.1em; margin-bottom: 5px;">${lecon.titre}</p>
-                        <p style="color: #666; font-size: 0.9em;">Générée le ${dateCreation} | Date prévue: ${datePrevue}</p>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>INFORMATIONS GÉNÉRALES</h4>
-                        <table class="programme-table">
-                            <tr>
-                                <td style="background-color: var(--secondary-color);"><strong>Discipline</strong></td>
-                                <td>Mathématiques</td>
-                            </tr>
-                            <tr>
-                                <td style="background-color: var(--secondary-color);"><strong>Niveau</strong></td>
-                                <td>Classe de 5ème</td>
-                            </tr>
-                            <tr>
-                                <td style="background-color: var(--secondary-color);"><strong>Thème</strong></td>
-                                <td>${lecon.theme}</td>
-                            </tr>
-                            <tr>
-                                <td style="background-color: var(--secondary-color);"><strong>Durée</strong></td>
-                                <td>${duree}</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>COMPÉTENCE VISÉE</h4>
-                        <div style="padding: 10px; background-color: var(--secondary-color); border-radius: 4px;">
-                            <p style="margin: 0;">${lecon.competence}</p>
-                        </div>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>OBJECTIFS SPÉCIFIQUES</h4>
-                        <div style="padding-left: 15px;">
-                            ${lecon.objectifs.map(obj => `<p style="margin: 5px 0;">• ${obj}</p>`).join('')}
-                            ${objectifsPerso ? `<div style="margin-top: 10px;"><strong>Objectifs personnalisés :</strong>${objectifsPerso.split('\n').map(line => `<p style="margin: 5px 0;">• ${line}</p>`).join('')}</div>` : ''}
-                        </div>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>PRÉREQUIS</h4>
-                        <div style="padding-left: 15px;">
-                            ${lecon.prerequis.map(pre => `<p style="margin: 5px 0;">• ${pre}</p>`).join('')}
-                        </div>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>MATÉRIEL NÉCESSAIRE</h4>
-                        <div style="padding-left: 15px;">
-                            ${lecon.materiel.map(mat => `<p style="margin: 5px 0;">• ${mat}</p>`).join('')}
-                        </div>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>CAPACITÉS ET CONTENUS</h4>
-                        <table class="programme-table">
-                            <tr>
-                                <th style="width: 40%;">Capacités</th>
-                                <th>Contenus</th>
-                            </tr>
-                            ${lecon.capacites.map(cap => `
-                                <tr>
-                                    <td>${cap.capacite}</td>
-                                    <td>${cap.contenu}</td>
-                                </tr>
-                            `).join('')}
-                        </table>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>STRATÉGIES PÉDAGOGIQUES</h4>
-                        <div style="padding-left: 15px;">
-                            ${lecon.strategies.map(strat => `<p style="margin: 5px 0;">• ${strat}</p>`).join('')}
-                            ${strategiesPerso ? `<div style="margin-top: 10px;"><strong>Stratégies personnalisées :</strong>${strategiesPerso.split('\n').map(line => `<p style="margin: 5px 0;">• ${line}</p>`).join('')}</div>` : ''}
-                        </div>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>DÉROULEMENT DES ACTIVITÉS</h4>
-                        ${lecon.activites.map((act, index) => `
-                            <div class="activite-item">
-                                <div class="activite-header">
-                                    <strong style="color: var(--primary-color);">Activité ${index + 1}: ${act.titre}</strong>
-                                    <span class="activite-duree">${act.duree}</span>
-                                </div>
-                                <p style="margin: 0; color: #555;">${act.description}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>MODALITÉS D\'ÉVALUATION</h4>
-                        <div style="padding-left: 15px;">
-                            ${lecon.evaluation.map(eval => `<p style="margin: 5px 0;">• ${eval}</p>`).join('')}
-                        </div>
-                    </div>
-
-                    <div class="fiche-section">
-                        <h4>GUIDE PÉDAGOGIQUE</h4>
-                        <div style="background-color: #f9f9f9; padding: 12px; border-radius: 4px; border-left: 3px solid var(--primary-color);">
-                            <div style="margin-bottom: 10px;">
-                                <strong style="color: var(--primary-color);">Stratégies :</strong>
-                                <p style="margin: 5px 0;">${lecon.guide.strategies}</p>
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <strong style="color: var(--primary-color);">Consignes :</strong>
-                                <p style="margin: 5px 0;">${lecon.guide.consignes}</p>
-                            </div>
-                            <div>
-                                <strong style="color: var(--primary-color);">Évaluation :</strong>
-                                <p style="margin: 5px 0;">${lecon.guide.evaluation}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                contenuFiche.innerHTML = ficheHTML;
-                fichePreview.classList.remove('hidden');
-                
-                // Faire défiler jusqu'à la fiche
-                setTimeout(() => {
-                    fichePreview.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-            }
-
-            // Ajouter l'événement au bouton
-            btnGenererFiche.addEventListener('click', genererFiche);
-            
-            // Remplir automatiquement la durée
-            leconSelect.addEventListener('change', function() {
-                const leconId = this.value;
-                if (leconId && lecons[leconId]) {
-                    dureeLecon.value = lecons[leconId].duree;
-                }
-            });
-            
-            // Date par défaut
-            const aujourdhui = new Date();
-            dateLecon.value = aujourdhui.toISOString().split('T')[0];
-            
-            // Raccourci clavier
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                    genererFiche();
-                }
-            });
-        });
-
-        // Fonction pour imprimer la fiche
-        function imprimerFiche() {
-            const fichePreview = document.getElementById('fichePreview');
-            if (fichePreview.classList.contains('hidden')) {
-                alert('Veuillez d\'abord générer une fiche.');
-                return;
-            }
-            
-            window.print();
+<script>
+(function() {
+    // ==================== BASE DE DONNÉES COMPLÈTE CLASSE DE 5ème ====================
+    const lecons = {
+        // --- PRISME DROIT ---
+        'prisme-droit': {
+            theme: 'Configurations de l\'espace',
+            titre: 'Prisme droit',
+            contenusSynth: [
+                'Prisme droit : définitions, vocabulaire (faces, arêtes, sommets, bases, surface latérale)',
+                'Patron d’un prisme droit',
+                'Aire latérale, aire de base, aire totale, volume (base triangulaire ou rectangulaire)'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes : observation de prismes droits réels',
+                'Découverte des différentes parties : faces (forme, nombre), arêtes, sommets, surface latérale, bases',
+                'Défaire le solide pour découvrir le patron, puis construction individuelle'
+            ],
+            consignes: [
+                'Mettre la classe en situation d’observation réelle de prismes droits (matériel individuel/collectif)',
+                'Faire distinguer et nommer les différentes parties du solide',
+                'Défaire le solide et faire découvrir le patron obtenu ; présenter éventuellement d’autres formes de patron',
+                'Veiller à ce que chaque apprenant réalise personnellement le solide à partir d’un patron'
+            ],
+            evaluation: [
+                'Reconnaissance du prisme droit dans un groupe de solides',
+                'Désignation par leurs noms des différentes parties',
+                'Construction du patron et réalisation du solide',
+                'Calcul des grandeurs (aire latérale, totale, volume) par application des formules'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître/Identifier un solide', contenu: 'Prisme droit : définitions, vocabulaire, caractéristiques' },
+                { capacite: 'Décrire un solide', contenu: 'Vocabulaire : faces, arêtes, sommets, bases, surface latérale' },
+                { capacite: 'Construire le patron', contenu: 'Patron d’un prisme droit' },
+                { capacite: 'Réaliser le solide à partir du patron', contenu: 'Prisme droit et patron' },
+                { capacite: 'Calculer des grandeurs', contenu: 'Aire latérale, aire de base, aire totale, volume d’un prisme droit à base triangulaire ou rectangulaire' }
+            ],
+            prerequis: ['Notions de base en géométrie (cube, pavé droit)', 'Utilisation des instruments'],
+            materiel: ['Modèles de prismes droits', 'Papier cartonné, ciseaux, colle', 'Règle, équerre, compas']
+        },
+        // --- CYLINDRE DROIT ---
+        'cylindre-droit': {
+            theme: 'Configurations de l\'espace',
+            titre: 'Cylindre droit',
+            contenusSynth: [
+                'Cylindre droit : définitions, vocabulaire (bases, surface latérale, génératrice)',
+                'Patron d’un cylindre de révolution',
+                'Aire latérale, aire totale, volume d’un cylindre'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes : observation de cylindres réels',
+                'Découverte des différentes parties : bases circulaires, surface latérale, génératrices',
+                'Défaire un cylindre pour découvrir le patron (rectangle + deux cercles)',
+                'Construction individuelle à partir du patron'
+            ],
+            consignes: [
+                'Présenter des objets cylindriques (boîte de conserve, rouleau)',
+                'Faire distinguer les bases et la surface latérale',
+                'Montrer le patron en déroulant la surface latérale',
+                'Veiller à la précision du tracé des cercles et du rectangle'
+            ],
+            evaluation: [
+                'Reconnaissance du cylindre droit dans un groupe de solides',
+                'Désignation des bases, de la surface latérale',
+                'Construction correcte du patron et réalisation du solide',
+                'Calcul de l’aire latérale, totale et du volume'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître/Identifier un solide', contenu: 'Cylindre droit : définitions, vocabulaire, caractéristiques' },
+                { capacite: 'Décrire un solide', contenu: 'Vocabulaire : bases circulaires, surface latérale, génératrice' },
+                { capacite: 'Construire le patron', contenu: 'Patron d’un cylindre de révolution' },
+                { capacite: 'Réaliser le solide à partir du patron', contenu: 'Cylindre et patron' },
+                { capacite: 'Calculer des grandeurs', contenu: 'Aire latérale, aire totale, volume d’un cylindre' }
+            ],
+            prerequis: ['Cercle, périmètre, aire du disque', 'Notions de pavé droit'],
+            materiel: ['Objets cylindriques', 'Papier cartonné, compas, ciseaux', 'Règle']
+        },
+        // --- DISTANCE ET SEGMENTS (5e) ---
+        'distance-segments': {
+            theme: 'Configurations du plan',
+            titre: 'Distance et segments',
+            contenusSynth: [
+                'Distance de deux points, inégalité triangulaire',
+                'Caractérisation d’un segment, de la médiatrice',
+                'Régionnement du plan par la médiatrice'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Méthode démonstrative ; faire faire',
+                'Construction de points vérifiant MA = MB, MA < MB, MA > MB'
+            ],
+            consignes: [
+                'Renforcer les notions de 6e (segment, milieu, médiatrice)',
+                'Faire découvrir que tout point équidistant des extrémités d’un segment appartient à la médiatrice (réciproque)',
+                'Faire construire des points avec des conditions de distance'
+            ],
+            evaluation: [
+                'Mesure et comparaison de longueurs, distance de deux points',
+                'Construction de la médiatrice (règle et compas)',
+                'Appartenance d’un point à une région délimitée par la médiatrice'
+            ],
+            capacitesDetails: [
+                { capacite: 'Mesurer des grandeurs', contenu: 'Distance de deux points, inégalité triangulaire' },
+                { capacite: 'Caractériser une configuration', contenu: 'Segment, médiatrice d’un segment' },
+                { capacite: 'Construire', contenu: 'Médiatrice (règle et compas), régionnement du plan par la médiatrice' },
+                { capacite: 'Justifier', contenu: 'Point milieu, appartenance à la médiatrice, propriétés' }
+            ],
+            prerequis: ['Segments, milieu, médiatrice (6e)'],
+            materiel: ['Règle graduée, compas, équerre']
+        },
+        // --- ANGLES (5e) ---
+        'angles-5e': {
+            theme: 'Configurations du plan',
+            titre: 'Angles – complémentaires, supplémentaires, opposés par le sommet',
+            contenusSynth: [
+                'Angles complémentaires, supplémentaires, opposés par le sommet',
+                'Égalité angulaire'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Méthode démonstrative ; faire mesurer, calculer'
+            ],
+            consignes: [
+                'Renforcer les notions d’angles vues en 6e',
+                'Faire utiliser le vocabulaire approprié',
+                'Faire mobiliser les connaissances pour calculer des mesures'
+            ],
+            evaluation: [
+                'Identification d’angles complémentaires, supplémentaires, opposés',
+                'Calcul de mesures d’angles',
+                'Justification de la nature de deux angles'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître/Identifier', contenu: 'Angles complémentaires, supplémentaires, opposés par le sommet' },
+                { capacite: 'Comparer/Calculer', contenu: 'Mesures d’angles, égalité angulaire' },
+                { capacite: 'Construire', contenu: 'Angles, angles particuliers' },
+                { capacite: 'Justifier', contenu: 'Égalité angulaire, nature de deux angles' }
+            ],
+            prerequis: ['Angles (6e)', 'Utilisation du rapporteur'],
+            materiel: ['Rapporteurs, règles, équerres']
+        },
+        // --- TRIANGLES (5e) : somme des angles, caractérisation ---
+        'triangles-5e': {
+            theme: 'Configurations du plan',
+            titre: 'Triangles – somme des angles, caractérisation',
+            contenusSynth: [
+                'Triangles particuliers (isocèle, équilatéral, rectangle) – caractérisation par les angles',
+                'Somme des angles d’un triangle (180°)',
+                'Droites particulières : hauteur, médiatrice, bissectrice, médiane'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Faire mesurer les angles de divers triangles pour découvrir la somme de 180°',
+                'Construction de triangles avec contraintes'
+            ],
+            consignes: [
+                'Renforcer les notions de triangles déjà installées en 6e',
+                'Faire mesurer les trois angles et constater la somme constante',
+                'Utiliser la somme des angles pour calculer des mesures inconnues'
+            ],
+            evaluation: [
+                'Identification de triangles particuliers',
+                'Calcul de mesures d’angles dans un triangle',
+                'Construction de triangles connaissant des angles et côtés',
+                'Justification de la nature d’un triangle ou d’une droite'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître/Identifier', contenu: 'Triangles particuliers (isocèle, équilatéral, rectangle), droites particulières' },
+                { capacite: 'Caractériser', contenu: 'Triangle isocèle, équilatéral, rectangle (angles)' },
+                { capacite: 'Construire/Reproduire', contenu: 'Triangles (mesures de côtés et angles), droites particulières' },
+                { capacite: 'Calculer', contenu: 'Somme des angles d’un triangle, égalité angulaire' },
+                { capacite: 'Justifier', contenu: 'Égalité angulaire, nature d’un triangle, nature d’une droite (hauteur, médiatrice, bissectrice, médiane)' }
+            ],
+            prerequis: ['Angles, triangles (6e)'],
+            materiel: ['Rapporteurs, règles, compas, équerres']
+        },
+        // --- CERCLE (5e) : cercle circonscrit ---
+        'cercle-5e': {
+            theme: 'Configurations du plan',
+            titre: 'Cercle – cercle circonscrit à un triangle',
+            contenusSynth: [
+                'Cercle, cercle circonscrit à un triangle (notamment triangle rectangle)',
+                'Régionnement du plan : intérieur, extérieur d’un cercle'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Faire découvrir le point de concours des médiatrices comme centre du cercle circonscrit',
+                'Construction de cercles circonscrits'
+            ],
+            consignes: [
+                'Renforcer les notions de cercle vues en 6e',
+                'Faire construire les médiatrices d’un triangle pour trouver le centre du cercle circonscrit'
+            ],
+            evaluation: [
+                'Identification du cercle circonscrit à un triangle',
+                'Construction du cercle circonscrit (médiatrices)',
+                'Appartenance d’un point à l’intérieur/extérieur d’un cercle'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître/Identifier', contenu: 'Cercles, cercle circonscrit à un triangle (rectangle)' },
+                { capacite: 'Construire/Reproduire', contenu: 'Cercles, cercle circonscrit à un triangle, régionnement intérieur/extérieur' },
+                { capacite: 'Justifier', contenu: 'Appartenance d’un point à un cercle, à l’intérieur/extérieur (caractérisation)' }
+            ],
+            prerequis: ['Cercle (6e)', 'Médiatrices'],
+            materiel: ['Compas, règle, équerre']
+        },
+        // --- POLYGONES (5e) ---
+        'polygones': {
+            theme: 'Configurations du plan',
+            titre: 'Polygones – parallélogrammes particuliers, trapèze, symétrie',
+            contenusSynth: [
+                'Notion de polygone (triangle, quadrilatère)',
+                'Parallélogrammes particuliers : losange, rectangle, carré ; trapèze',
+                'Éléments de symétrie (axe, centre) dans triangles particuliers (isocèle, équilatéral) et parallélogrammes particuliers'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Découverte par les élèves des éléments de symétrie des polygones particuliers',
+                'Construction de polygones particuliers'
+            ],
+            consignes: [
+                'Renforcer les notions de 6e (parallélogrammes)',
+                'Faire découvrir les axes et centres de symétrie des figures',
+                'Faire calculer l’aire d’un parallélogramme, d’un trapèze'
+            ],
+            evaluation: [
+                'Identification de polygones particuliers (triangles isocèle/équilatéral, losange, rectangle, carré, trapèze)',
+                'Reconnaissance d’axes/centres de symétrie',
+                'Calcul de l’aire d’un parallélogramme, d’un trapèze',
+                'Justification de la nature d’un polygone'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître/Identifier', contenu: 'Polygones (triangles, quadrilatères), triangles particuliers, parallélogrammes particuliers, trapèze' },
+                { capacite: 'Caractériser', contenu: 'Éléments de symétrie (axe, centre) des triangles particuliers et parallélogrammes particuliers' },
+                { capacite: 'Construire/Reproduire', contenu: 'Triangles particuliers, parallélogrammes particuliers' },
+                { capacite: 'Calculer', contenu: 'Aire d’un parallélogramme, d’un trapèze' },
+                { capacite: 'Justifier', contenu: 'Nature d’un polygone (triangle isocèle/équilatéral, losange, rectangle, carré)' }
+            ],
+            prerequis: ['Parallélogrammes (6e)', 'Symétrie'],
+            materiel: ['Règle, équerre, compas, rapporteur']
+        },
+        // --- SYMÉTRIE (5e) approfondissement ---
+        'symetrie-5e': {
+            theme: 'Applications du plan',
+            titre: 'Figures symétriques – approfondissement',
+            contenusSynth: [
+                'Configurations symétriques par rapport à une droite et par rapport à un point',
+                'Éléments de symétrie (axe, centre) d’une configuration',
+                'Conservation : alignement, distances, angles, parallélisme, perpendicularité, milieu'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Construction de symétriques (points, segments, droites, angles, cercles)',
+                'Utilisation des propriétés de conservation'
+            ],
+            consignes: [
+                'Renforcer les notions de symétrie vues en 6e',
+                'S’assurer de la maîtrise du programme de construction',
+                'Faire justifier en utilisant les propriétés de conservation'
+            ],
+            evaluation: [
+                'Identification de configurations symétriques et d’éléments de symétrie (axe, centre)',
+                'Construction de points/figures symétriques',
+                'Justification de l’alignement, égalité de distances, d’angles, parallélisme, perpendicularité, milieu'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître des éléments de symétrie', contenu: 'Figures admettant un axe ou un centre de symétrie' },
+                { capacite: 'Construire', contenu: 'Points symétriques (droite/point) ; figures symétriques (segments, droites, angles, cercles) – programme de construction' },
+                { capacite: 'Justifier', contenu: 'Alignement (conservation), égalité de distances, égalité angulaire, parallélisme, perpendicularité, milieu (propriétés de conservation)' }
+            ],
+            prerequis: ['Symétrie axiale et centrale (6e)'],
+            materiel: ['Papier calque, règle, équerre, compas']
+        },
+        // --- REPÉRAGE (droite graduée, quadrillage) ---
+        'reperage': {
+            theme: 'Outils vectoriels, géométrie analytique',
+            titre: 'Repérage sur une droite et sur un quadrillage',
+            contenusSynth: [
+                'Droite graduée, abscisse (nombres décimaux relatifs)',
+                'Notion de couple, déplacement sur quadrillage (couple d’entiers relatifs)',
+                'Coordonnées d’un nœud, d’un point'
+            ],
+            strategies: [
+                'Observation et manipulation en petits groupes',
+                'Utilisation de frises chronologiques, de plans quadrillés',
+                'Codage de déplacements (couple)'
+            ],
+            consignes: [
+                'Faire visualiser le rangement des décimaux relatifs sur une droite graduée',
+                'Faire lire le couple de coordonnées d’un nœud/point',
+                'Faire placer un point sur quadrillage connaissant ses coordonnées'
+            ],
+            evaluation: [
+                'Construction sur une droite graduée de points connaissant leurs abscisses',
+                'Lecture du couple de coordonnées d’un nœud/point',
+                'Placement sur quadrillage d’un point connaissant son couple'
+            ],
+            capacitesDetails: [
+                { capacite: 'Visualiser le rangement des nombres décimaux relatifs', contenu: 'Droite graduée' },
+                { capacite: 'Coder un déplacement', contenu: 'Notion de couple ; déplacement sur quadrillage : couple d’entiers relatifs' },
+                { capacite: 'Lire le couple de coordonnées', contenu: 'Couple de coordonnées d’un nœud, d’un point' },
+                { capacite: 'Placer un point sur un quadrillage', contenu: 'Couple de coordonnées d’un point' }
+            ],
+            prerequis: ['Nombres relatifs', 'Lecture de tableaux'],
+            materiel: ['Règle graduée', 'Quadrillages', 'Frise chronologique']
+        },
+        // --- DIVISION EUCLIDIENNE ---
+        'division-euclidienne': {
+            theme: 'Calcul numérique',
+            titre: 'Division euclidienne',
+            contenusSynth: [
+                'Expressions : a = bq + r (r < b) ; pour a non multiple de b : bq < a < b(q+1)',
+                'Vocabulaire : dividende, diviseur, quotient, reste',
+                'Encadrement d’un entier par deux multiples consécutifs'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Situations de partage, de distribution',
+                'Recours aux définitions et égalités'
+            ],
+            consignes: [
+                'Partir de situations concrètes pour donner du sens à la division euclidienne',
+                'Faire traduire les situations par des égalités',
+                'Proposer des encadrements'
+            ],
+            evaluation: [
+                'Reconnaissance de la division euclidienne',
+                'Écriture de l’égalité a = bq + r',
+                'Calcul du quotient et reste',
+                'Encadrement par deux multiples consécutifs'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître la division euclidienne', contenu: 'Expressions de la division euclidienne (quotient, reste, diviseur, dividende) : a = bq + r, r < b ; bq < a < b(q+1)' },
+                { capacite: 'Lire et écrire', contenu: 'Traduction d’une situation en écriture euclidienne' },
+                { capacite: 'Calculer', contenu: 'Quotient et reste ; encadrement par deux multiples consécutifs' },
+                { capacite: 'Justifier', contenu: 'Caractérisation de la division euclidienne' }
+            ],
+            prerequis: ['Multiples, diviseurs (6e)'],
+            materiel: ['Fiches d’exercices']
+        },
+        // --- NOMBRES PREMIERS, PPCM, PGCD ---
+        'nombres-premiers': {
+            theme: 'Calcul numérique',
+            titre: 'Nombres premiers – PPCM – PGCD',
+            contenusSynth: [
+                'Définition d’un nombre premier',
+                'Liste des nombres premiers < 100',
+                'Définition du PPCM, du PGCD',
+                'Décomposition en produit de facteurs premiers',
+                'Détermination du PGCD et PPCM (par décomposition ou divisions successives)'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Recherche de diviseurs, de multiples',
+                'Utilisation des critères de divisibilité'
+            ],
+            consignes: [
+                'Partir de situations nécessitant le calcul du PGCD ou PPCM',
+                'Le PGCD est déterminé en appliquant la définition ou en cherchant le diviseur commun rendant une fraction irréductible',
+                'Ne pas enseigner la règle utilisant la décomposition en facteurs premiers (observation uniquement)',
+                'Faire rechercher diverses procédures pour déterminer multiples et diviseurs'
+            ],
+            evaluation: [
+                'Reconnaissance de nombres premiers',
+                'Décomposition en produit de facteurs premiers',
+                'Calcul du PGCD et PPCM de deux nombres',
+                'Utilisation du PPCM/PGCD pour résoudre un problème'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître un nombre premier', contenu: 'Définition, nombres premiers < 100, définition du PPCM et PGCD' },
+                { capacite: 'Calculer', contenu: 'Décomposition en produit de facteurs premiers ; détermination du PGCD et PPCM (par nombres premiers, divisions successives, critères) ; recherche de multiples/diviseurs' },
+                { capacite: 'Justifier', contenu: 'Nombres premiers, PPCM et PGCD de deux entiers' }
+            ],
+            prerequis: ['Multiples, diviseurs, critères de divisibilité'],
+            materiel: ['Tableau de nombres']
+        },
+        // --- FRACTIONS (5e) ---
+        'fractions-5e': {
+            theme: 'Calcul numérique',
+            titre: 'Fractions – irréductible, opérations',
+            contenusSynth: [
+                'Fraction irréductible, fraction décimale',
+                'Écriture q + r/b (avec r/b < 1)',
+                'Simplification, conversion décimal ↔ fractionnaire (si possible)',
+                'Comparaison de deux fractions',
+                'Réduction au même dénominateur (utilisation possible du PPCM)',
+                'Somme, différence (dénominateurs différents), produit de deux fractions',
+                'Transformation en fraction irréductible'
+            ],
+            strategies: [
+                'Observation et manipulation de fractions',
+                'Méthode démonstrative ; faire faire',
+                'Utilisation de situations de partage'
+            ],
+            consignes: [
+                'Partir de situations de partage ou de distribution',
+                'Demander de traduire les situations par des écritures fractionnaires diverses (a/b, q + r/b, irréductible)',
+                'Proposer des problèmes nécessitant opérations sur fractions'
+            ],
+            evaluation: [
+                'Reconnaissance de fractions décimales et irréductibles',
+                'Traduction de situations en fractions',
+                'Simplification, somme, différence, produit',
+                'Comparaison, encadrement par deux décimaux'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître des fractions', contenu: 'Fraction irréductible, fraction décimale' },
+                { capacite: 'Lire et écrire', contenu: 'Écriture q + r/b (r<b) ; simplification ; conversion décimal ↔ fractionnaire (si possible)' },
+                { capacite: 'Comparer', contenu: 'Règles de comparaison, comparaison à l’unité, encadrement par deux décimaux consécutifs' },
+                { capacite: 'Calculer', contenu: 'Réduction au même dénominateur (PPCM possible), somme/différence, produit de deux fractions, transformation en fraction irréductible' },
+                { capacite: 'Justifier', contenu: 'Fraction irréductible, décomposition des fractions' }
+            ],
+            prerequis: ['Fractions (6e)', 'Diviseurs, multiples'],
+            materiel: ['Matériel de partage', 'Bandelettes fractionnées']
+        },
+        // --- NOMBRES DÉCIMAUX RELATIFS (5e) opérations ---
+        'relatifs-5e': {
+            theme: 'Calcul numérique',
+            titre: 'Nombres décimaux relatifs – addition, soustraction, multiplication',
+            contenusSynth: [
+                'Ensemble ID, signe, distance à zéro (| |), opposé',
+                'Repérage sur droite graduée, abscisse',
+                'Comparaison, rangement',
+                'Addition, soustraction, multiplication de décimaux relatifs'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Situations de gain/perte, température, etc.',
+                'Exploitation de frises graduées'
+            ],
+            consignes: [
+                'Renforcer les notions de 6e (nombres relatifs)',
+                'Présenter des situations diverses mobilisant des relatifs',
+                'Proposer des problèmes utilisant les opérations'
+            ],
+            evaluation: [
+                'Reconnaissance des nombres décimaux relatifs',
+                'Traduction de situations par des relatifs',
+                'Repérage sur droite graduée',
+                'Calculs de somme, différence, multiplication',
+                'Comparaison et rangement'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître', contenu: 'Ensemble ID des nombres décimaux relatifs' },
+                { capacite: 'Lire/Écrire/Représenter', contenu: 'Signe, distance à zéro, opposé ; repérage sur droite graduée ; abscisse' },
+                { capacite: 'Comparer', contenu: 'Règles de comparaison, rangement croissant/décroissant' },
+                { capacite: 'Calculer', contenu: 'Addition, soustraction, multiplication de décimaux relatifs' },
+                { capacite: 'Justifier', contenu: 'Nombre décimal relatif, abscisse d’un point' }
+            ],
+            prerequis: ['Nombres relatifs (6e)', 'Droite graduée'],
+            materiel: ['Frise, thermomètre', 'Règle graduée']
+        },
+        // --- PUISSANCES (exposant naturel) ---
+        'puissances': {
+            theme: 'Calcul numérique',
+            titre: 'Puissances (exposant entier naturel)',
+            contenusSynth: [
+                'Définition : a^n (n entier naturel non nul)',
+                'Produit de deux puissances d’un même nombre',
+                'Puissance d’un produit de deux nombres'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Situations utilisant des répétitions (aires, volumes)',
+                'Observation de produits particuliers'
+            ],
+            consignes: [
+                'Présenter des situations permettant de mobiliser des puissances',
+                'Faire lire et écrire des puissances',
+                'Proposer des calculs simples sur puissances'
+            ],
+            evaluation: [
+                'Reconnaissance de puissances de nombres décimaux à exposant naturel',
+                'Traduction de situations par des puissances',
+                'Calcul de produits de puissances, puissance d’un produit'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une puissance', contenu: 'Définition de la puissance d’un nombre décimal relatif à exposant entier naturel non nul' },
+                { capacite: 'Lire des puissances', contenu: 'Lecture de a^n' },
+                { capacite: 'Écrire des puissances', contenu: 'Écriture de la puissance d’un nombre décimal relatif à exposant entier naturel non nul' },
+                { capacite: 'Calculer', contenu: 'Produit de deux puissances d’un même nombre ; puissance d’un produit de deux nombres décimaux' },
+                { capacite: 'Justifier', contenu: 'Puissances d’un nombre décimal relatif' }
+            ],
+            prerequis: ['Multiplication', 'Notation'],
+            materiel: ['Fiches d’exercices']
+        },
+        // --- NOTION D'ÉQUATION (x+a=b, ax=b) ---
+        'equations': {
+            theme: 'Programmes de calcul, Calcul littéral',
+            titre: 'Notion d’équation',
+            contenusSynth: [
+                'Notion d’équation, inconnue, solution',
+                'Équations du type x + a = b (dans ID)',
+                'Équations du type a x = b (dans ID)',
+                'Liens avec des programmes de calcul'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Partir de situations concrètes débouchant sur une équation',
+                'Utiliser des programmes de calcul'
+            ],
+            consignes: [
+                'Proposer des situations simples permettant des mises en équation',
+                'Demander de traduire une situation par une équation',
+                'Faire résoudre en utilisant les propriétés des opérations sur les relatifs'
+            ],
+            evaluation: [
+                'Identification d’équations des types x+a=b ou ax=b',
+                'Traduction d’une situation concrète en équation',
+                'Résolution de problèmes par mise en équation'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une équation', contenu: 'Notion d’équation, inconnue, solution ; équations x+a=b, ax=b ; liens avec programmes de calcul' },
+                { capacite: 'Lire/écrire une équation', contenu: 'Traduction d’une situation en équation' },
+                { capacite: 'Calculer / Résoudre', contenu: 'Exemples simples de résolution d’équations x+a=b ou ax=b ; programmes de calcul' },
+                { capacite: 'Justifier', contenu: 'Équations, solutions' }
+            ],
+            prerequis: ['Opérations sur relatifs', 'Programmes de calcul'],
+            materiel: ['Fiches de situations']
+        },
+        // --- PROPORTIONNALITÉ, POURCENTAGE, ÉCHELLE (5e) ---
+        'proportionnalite-5e': {
+            theme: 'Organisation des données',
+            titre: 'Proportionnalité – pourcentage – échelle',
+            contenusSynth: [
+                'Reconnaître une situation de proportionnalité (tableau, graphique)',
+                'Coefficient de proportionnalité (vitesse, masse volumique, débit)',
+                'Pourcentage, échelle',
+                'Représentation graphique (point par point) d’un tableau de proportionnalité'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Partir de situations de la vie courante et des sciences',
+                'Utiliser des graphiques pour reconnaître la proportionnalité'
+            ],
+            consignes: [
+                'Proposer des situations (vie courante, sciences) et demander si elles relèvent de la proportionnalité',
+                'Faire vérifier par un tableau ou un graphique',
+                'Faire calculer des grandeurs (quatrième proportionnelle, pourcentage, échelle)',
+                'Faire reproduire un dessin à une échelle donnée'
+            ],
+            evaluation: [
+                'Identification de situations de proportionnalité (tableau, graphique)',
+                'Représentation graphique d’un tableau de proportionnalité',
+                'Calcul d’une quatrième proportionnelle, de pourcentages, d’échelle',
+                'Agrandissement/réduction de figures'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une situation de proportionnalité', contenu: 'À partir d’un graphique' },
+                { capacite: 'Calculer une grandeur', contenu: 'Coefficient de proportionnalité (vitesse, masse volumique, débit) ; pourcentage ; échelle' },
+                { capacite: 'Construire une représentation graphique', contenu: 'Représentation graphique (point par point) d’un tableau de proportionnalité' }
+            ],
+            prerequis: ['Proportionnalité (6e)', 'Opérations'],
+            materiel: ['Tableaux, graphiques', 'Cartes géographiques', 'Instruments de dessin']
         }
+    };
 
-        // Fonction pour exporter en PDF
-        function exporterEnPDF() {
-            const fichePreview = document.getElementById('fichePreview');
-            if (fichePreview.classList.contains('hidden')) {
-                alert('Veuillez d\'abord générer une fiche.');
-                return;
-            }
-            
-            alert('Pour exporter en PDF :\n1. Cliquez sur "Imprimer"\n2. Dans la fenêtre d\'impression, choisissez "Enregistrer au format PDF"\n3. Sélectionnez l\'emplacement et enregistrez.');
-        }
+    // --- Initialisation et fonctions ---
+    const select = document.getElementById('leconSelect');
+    const dureeInput = document.getElementById('dureeField');
+    const dateInput = document.getElementById('dateField');
+    const btn = document.getElementById('btnGenerer');
+    const ficheDiv = document.getElementById('ficheGeneree');
+    const contenuFiche = document.getElementById('contenuFiche');
 
-        // Fonction pour exporter en Word
-        function exporterEnWord() {
-            const fichePreview = document.getElementById('fichePreview');
-            if (fichePreview.classList.contains('hidden')) {
-                alert('Veuillez d\'abord générer une fiche.');
-                return;
-            }
-            
-            const leconSelect = document.getElementById('leconSelect');
-            const titre = leconSelect.options[leconSelect.selectedIndex].text;
-            const dateCreation = new Date().toLocaleDateString('fr-FR');
-            
-            const wordContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title>${titre}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 2cm; }
-                        h3 { color: #0066cc; text-align: center; }
-                        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
-                        td, th { border: 1px solid #ddd; padding: 8px; }
-                        .section { margin-bottom: 15px; }
-                    </style>
-                </head>
-                <body>
-                    <h3>Fiche de Leçon - ${titre}</h3>
-                    <p>Générée le ${dateCreation}</p>
-                    ${document.getElementById('contenuFiche').innerHTML}
-                </body>
-                </html>
-            `;
-            
-            const blob = new Blob([wordContent], { type: 'application/msword' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `fiche-leçon-${titre.replace(/\s+/g, '-')}.doc`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
 
-        // Fonction pour réinitialiser
-        function reinitialiserFiche() {
-            document.getElementById('ficheForm').reset();
-            document.getElementById('fichePreview').classList.add('hidden');
-            document.getElementById('leconSelect').focus();
-            
-            // Remettre la date du jour
-            const aujourdhui = new Date();
-            document.getElementById('dateLecon').value = aujourdhui.toISOString().split('T')[0];
-        }
-    </script>
+    select.addEventListener('change', function() {
+        if (lecons[this.value]) dureeInput.value = '6 heures'; // valeur par défaut
+    });
+
+    function generer() {
+        const id = select.value;
+        if (!id || !lecons[id]) { alert('Veuillez sélectionner une leçon.'); return; }
+        const lec = lecons[id];
+        const duree = dureeInput.value || '6 heures';
+        const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('fr-FR') : 'À déterminer';
+
+        const contenuItems = lec.contenusSynth.map(c => `<li>${c}</li>`).join('');
+        const stratItems = lec.strategies.map(s => `<li>${s}</li>`).join('');
+        const consignesDiv = lec.consignes.map(c => `<div class="badge-consigne">📣 ${c}</div>`).join('');
+        const evalItems = lec.evaluation.map(e => `<li>${e}</li>`).join('');
+        const capRows = lec.capacitesDetails.map(item => 
+            `<tr><td style="font-weight:600; width:35%;">${item.capacite}</td><td>${item.contenu}</td></tr>`
+        ).join('');
+
+        const html = `
+            <div class="fiche-header">
+                <h2>${lec.titre}</h2>
+                <p style="font-size:clamp(0.9rem,2.5vw,1.15rem);">Thème : ${lec.theme} — Durée : ${duree} — Date : ${date}</p>
+            </div>
+            <div class="section-guide"><h4>📋 CONTENUS (synthèse programme)</h4><ul class="bullet-list">${contenuItems}</ul></div>
+            <div class="section-guide"><h4>🧠 STRATÉGIES PÉDAGOGIQUES</h4><ul class="bullet-list">${stratItems}</ul></div>
+            <div class="section-guide"><h4>🗣️ CONSIGNES</h4>${consignesDiv}</div>
+            <div class="section-guide"><h4>✅ ÉVALUATION</h4><ul class="bullet-list">${evalItems}</ul></div>
+            <div class="section-guide"><h4>🔎 CAPACITÉS & CONTENUS ASSOCIÉS</h4>
+                <table class="table-cap"><tr><th>Capacité</th><th>Contenu (programme officiel)</th></tr>${capRows}</table>
+            </div>
+            <div class="section-guide"><h4>📦 PRÉREQUIS & MATÉRIEL</h4>
+                <p><strong>Prérequis :</strong> ${lec.prerequis.join(', ')}</p>
+                <p><strong>Matériel :</strong> ${lec.materiel.join(' · ')}</p>
+            </div>
+        `;
+        contenuFiche.innerHTML = html;
+        ficheDiv.classList.remove('hidden');
+        ficheDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    btn.addEventListener('click', generer);
+    document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') generer(); });
+
+    window.exportWord = function() {
+        if (ficheDiv.classList.contains('hidden')) return alert('Générez d’abord une fiche.');
+        const content = contenuFiche.innerHTML;
+        const style = '<style>body { font-family: Arial; margin: 2cm; } .section-guide { margin-bottom:20px; } .table-cap { border-collapse: collapse; width:100%; } .table-cap td, .table-cap th { border:1px solid #aaa; padding:8px; } .badge-consigne { background:#fef7e5; padding:10px; border-left:6px solid #f3b33d; }</style>';
+        const full = `<!DOCTYPE html><html><head><meta charset="UTF-8">${style}</head><body>${content}</body></html>`;
+        const blob = new Blob([full], {type: 'application/msword'});
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'Fiche_5e_guide.doc'; link.click();
+    };
+    window.resetFiche = function() {
+        ficheDiv.classList.add('hidden');
+        select.value = '';
+        dureeInput.value = '6 heures';
+        dateInput.value = today;
+    };
+})();
+</script>
 </body>
 </html>
