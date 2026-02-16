@@ -2,836 +2,497 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plateforme Mathématiques Collège Togo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Mathématiques Collège Togo · Plateforme complète</title>
+    <!-- Font Awesome 6 (CDN) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         :root {
-            --primary: #006b3c;
-            --secondary: #ffcc00;
-            --accent: #d21034;
+            --primary: #0f5e45;          /* vert profond togolais */
+            --primary-light: #d0f0e4;
+            --secondary: #f3b33d;         /* jaune / acacia */
+            --accent: #d21034;             /* rouge dynamique */
             --dark: #0a2318;
-            --light: #f5fff9;
-            --shadow-sm: 0 2px 8px rgba(0, 107, 60, 0.1);
-            --shadow: 0 4px 12px rgba(0, 107, 60, 0.15);
-            --shadow-hover: 0 6px 16px rgba(0, 107, 60, 0.2);
-            --radius: 12px;
-            --radius-sm: 8px;
+            --light: #f8fff9;
+            --gray-soft: #eef5f2;
+            --shadow-sm: 0 8px 20px -6px rgba(15,94,69,0.15);
+            --shadow: 0 20px 30px -10px rgba(15,94,69,0.25);
+            --shadow-hover: 0 25px 35px -8px rgba(15,94,69,0.3);
+            --radius: 28px;                /* légèrement réduit */
+            --radius-sm: 18px;
+            --transition: all 0.25s ease;
         }
 
         body {
-            background: linear-gradient(135deg, #f0f9f4 0%, #e6f4ef 100%);
+            background: linear-gradient(145deg, #ebf7f1 0%, #d9eee4 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: clamp(15px, 3vw, 25px);
+            padding: clamp(1rem, 4vw, 2rem);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             color: #1a3c2b;
             line-height: 1.5;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
-        /* Header */
+        /* ===== HEADER MODERNE ===== */
         .header {
             text-align: center;
-            margin-bottom: clamp(30px, 5vw, 50px);
-            animation: fadeInDown 0.6s ease;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+            animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .logo {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: clamp(10px, 2vw, 15px);
-            margin-bottom: clamp(15px, 3vw, 20px);
+            gap: 0.8rem;
         }
 
         .logo-icon {
             background: var(--primary);
             color: white;
-            width: clamp(50px, 10vw, 60px);
-            height: clamp(50px, 10vw, 60px);
-            border-radius: 50%;
+            width: clamp(65px, 10vw, 80px);
+            height: clamp(65px, 10vw, 80px);
+            border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.5rem, 4vw, 1.8rem);
-            box-shadow: var(--shadow);
+            font-size: clamp(2rem, 4.5vw, 2.5rem);
+            box-shadow: 0 15px 25px -10px var(--primary);
+            transition: var(--transition);
+        }
+        .logo-icon:hover {
+            transform: rotate(5deg) scale(1.02);
         }
 
         .title {
-            font-size: clamp(1.6rem, 5vw, 2.2rem);
-            color: var(--primary);
-            font-weight: 700;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 20%, #1b6e54 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
             line-height: 1.2;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            text-shadow: 0 2px 10px rgba(15,94,69,0.15);
         }
 
         .subtitle {
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-            color: #5a7c6b;
-            max-width: 600px;
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+            color: #2f5e4a;
+            max-width: 650px;
             margin: 0 auto;
-            padding: 0 clamp(10px, 3vw, 20px);
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.8rem;
+            border-radius: 60px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(255,255,255,0.7);
         }
 
         .flags {
             display: flex;
             justify-content: center;
-            gap: clamp(10px, 3vw, 20px);
-            margin-top: clamp(15px, 3vw, 20px);
+            gap: 1.5rem;
+            margin-top: 1.2rem;
             flex-wrap: wrap;
         }
-
         .flag {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            animation: bounce 2s infinite;
+            font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+            filter: drop-shadow(0 8px 12px rgba(0,60,30,0.2));
+            animation: wave 3s infinite ease-in-out;
         }
-
         .flag:nth-child(2) { animation-delay: 0.2s; }
         .flag:nth-child(3) { animation-delay: 0.4s; }
 
-        /* Description */
-        .platform-description {
-            background: white;
-            padding: clamp(20px, 4vw, 30px);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin: clamp(25px, 4vw, 40px) auto;
-            max-width: 900px;
-            border-left: 4px solid var(--secondary);
-            animation: fadeInUp 0.6s ease 0.2s both;
-        }
-
-        .platform-description h2 {
-            color: var(--primary);
-            margin-bottom: clamp(15px, 3vw, 20px);
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: clamp(15px, 3vw, 20px);
-            margin-bottom: clamp(20px, 3vw, 30px);
-        }
-
-        .feature {
-            background: rgba(0, 107, 60, 0.03);
-            padding: clamp(15px, 3vw, 20px);
-            border-radius: var(--radius-sm);
-            border-left: 3px solid var(--primary);
-        }
-
-        .feature i {
-            color: var(--primary);
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            margin-bottom: 10px;
-        }
-
-        .feature h3 {
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-        }
-
-        .feature p {
-            font-size: clamp(0.85rem, 2vw, 0.9rem);
-            color: #5a7c6b;
-        }
-
-        /* Instructions */
-        .instructions {
-            background: white;
-            padding: clamp(20px, 4vw, 25px);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin: clamp(25px, 4vw, 40px) auto;
-            max-width: 800px;
-            animation: fadeInUp 0.6s ease 0.3s both;
-        }
-
-        .instructions h3 {
-            color: var(--primary);
-            margin-bottom: clamp(12px, 2.5vw, 15px);
-            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .instructions ol {
-            padding-left: clamp(20px, 4vw, 25px);
-        }
-
-        .instructions li {
-            margin-bottom: clamp(8px, 2vw, 10px);
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-        }
-
-        /* Boutons principaux */
+        /* ===== BOUTONS PRINCIPAUX (desktop/tablette) ===== */
         .buttons-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: clamp(15px, 3vw, 20px);
-            margin: clamp(30px, 5vw, 40px) auto;
-            max-width: 1000px;
-            animation: fadeInUp 0.6s ease 0.4s both;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            margin: 2.5rem auto 2rem;
+            max-width: 1100px;
         }
 
         .btn {
             background: white;
             border: none;
-            padding: clamp(18px, 4vw, 22px) clamp(15px, 3vw, 20px);
+            padding: 1.4rem 0.8rem;         /* hauteur réduite */
             border-radius: var(--radius);
             text-decoration: none;
             color: var(--primary);
-            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 0.6rem;
+            transition: var(--transition);
+            box-shadow: 0 12px 25px -12px rgba(15,94,69,0.2);
+            border: 2px solid transparent;
+            backdrop-filter: blur(4px);
+            min-height: 160px;                /* hauteur cohérente */
             justify-content: center;
-            gap: clamp(12px, 2.5vw, 15px);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: var(--shadow);
             position: relative;
+            isolation: isolate;
             overflow: hidden;
-            text-align: center;
-            min-height: 120px;
         }
 
         .btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: rgba(0, 107, 60, 0.03);
-            transition: height 0.3s ease;
-            z-index: 0;
-        }
-
-        .btn:hover::after {
-            height: 100%;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
         }
 
         .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 30px -12px var(--primary);
         }
 
-        .btn:active {
-            transform: translateY(-2px);
+        .btn:hover::before {
+            opacity: 1;
         }
 
         .btn i {
-            font-size: clamp(2rem, 5vw, 2.2rem);
-            z-index: 1;
+            font-size: 2.2rem;               /* icônes légèrement réduites */
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.05));
         }
 
         .btn span {
-            z-index: 1;
-            line-height: 1.2;
-        }
-
-        .btn-home {
-            border-top: 4px solid var(--primary);
-        }
-
-        .btn-6eme {
-            border-top: 4px solid #ff6b6b;
-        }
-
-        .btn-5eme {
-            border-top: 4px solid #4ecdc4;
-        }
-
-        .btn-4eme {
-            border-top: 4px solid #45b7d1;
-        }
-
-        .btn-3eme {
-            border-top: 4px solid #96ceb4;
+            font-size: 1.2rem;
+            letter-spacing: -0.01em;
+            font-weight: 600;
         }
 
         .btn-desc {
-            font-size: clamp(0.75rem, 2vw, 0.8rem);
-            color: #5a7c6b;
-            font-weight: normal;
-            opacity: 0.8;
-            z-index: 1;
+            font-size: 0.8rem;
+            color: #4c7563;
+            font-weight: 400;
+            opacity: 0.9;
+            max-width: 180px;
+            text-align: center;
             line-height: 1.3;
         }
 
-        /* Navigation par onglets pour mobile */
-        .tabs-container {
-            display: none;
-            margin: clamp(20px, 4vw, 30px) auto;
-            max-width: 800px;
-            animation: fadeInUp 0.6s ease 0.4s both;
+        .btn small {
+            font-size: 0.7rem;
+            opacity: 0.75;
+            display: block;
+            margin-top: 0.2rem;
         }
 
+        /* couleurs personnalisées par niveau */
+        .btn-home { border-top: 5px solid var(--primary); }
+        .btn-6eme { border-top: 5px solid #ff7b7b; }
+        .btn-5eme { border-top: 5px solid #4ecdc4; }
+        .btn-4eme { border-top: 5px solid #45b7d1; }
+        .btn-3eme { border-top: 5px solid #96ceb4; }
+        .btn-progression { border-top: 5px solid #f3b33d; }
+
+        /* ===== ONGLETS MOBILE ===== */
+        .tabs-container {
+            display: none;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
         .tabs {
             display: flex;
             background: white;
-            border-radius: var(--radius);
-            padding: 5px;
-            box-shadow: var(--shadow-sm);
+            border-radius: 50px;
+            padding: 0.5rem;
+            box-shadow: 0 10px 20px -8px rgba(15,94,69,0.2);
+            gap: 0.3rem;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
-
-        .tabs::-webkit-scrollbar {
-            display: none;
-        }
-
+        .tabs::-webkit-scrollbar { display: none; }
         .tab {
-            flex: 1;
-            min-width: 140px;
-            padding: clamp(12px, 3vw, 14px) clamp(10px, 2vw, 15px);
+            flex: 1 0 auto;
+            min-width: 90px;
+            padding: 0.7rem 0.4rem;
             text-decoration: none;
-            color: #5a7c6b;
-            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+            color: #3f6a58;
             font-weight: 600;
+            border-radius: 40px;
+            transition: 0.2s;
             text-align: center;
-            border-radius: var(--radius-sm);
-            transition: all 0.2s ease;
-            white-space: nowrap;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            font-size: 0.85rem;
         }
-
         .tab i {
-            font-size: clamp(1.1rem, 3vw, 1.2rem);
+            font-size: 1.2rem;
         }
-
-        .tab:hover {
-            background: rgba(0, 107, 60, 0.05);
-            color: var(--primary);
-        }
-
         .tab.active {
             background: var(--primary);
             color: white;
         }
+        .tab:active {
+            transform: scale(0.96);
+        }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
-            margin-top: clamp(40px, 6vw, 60px);
-            color: #5a7c6b;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            padding: clamp(15px, 3vw, 20px);
-            border-top: 1px solid rgba(0, 107, 60, 0.1);
-            width: 100%;
+            margin-top: 3.5rem;
+            color: #2f5e4a;
+            font-size: 0.9rem;
+            padding: 1.8rem 1rem;
+            border-top: 2px dashed var(--primary-light);
             max-width: 900px;
-            animation: fadeInUp 0.6s ease 0.5s both;
+            width: 100%;
+        }
+        .footer p { margin-bottom: 0.3rem; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        /* Media Queries spécifiques */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .buttons-container {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 12px;
-            }
-            
-            .btn {
-                padding: 16px 12px;
-                min-height: 110px;
-            }
-            
-            .btn i {
-                font-size: 1.8rem;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
-            /* Afficher les onglets sur mobile */
-            .tabs-container {
-                display: block;
-            }
-            
-            /* Cacher les boutons originaux sur mobile */
             .buttons-container {
                 display: none;
             }
-        }
-
-        @media (max-width: 480px) {
-            .btn {
-                min-height: 100px;
-                padding: 14px 10px;
-            }
-            
-            .btn i {
-                font-size: 1.6rem;
-            }
-            
-            .btn span {
-                font-size: 0.9rem;
-            }
-            
-            .btn-desc {
-                font-size: 0.7rem;
-            }
-            
-            .tab {
-                min-width: 120px;
-                padding: 10px 8px;
-                font-size: 0.8rem;
-            }
-            
-            .tab i {
-                font-size: 1rem;
-            }
-            
-            .title {
-                font-size: 1.4rem;
-            }
-            
-            .subtitle {
-                font-size: 0.85rem;
+            .tabs-container {
+                display: block;
             }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
             .buttons-container {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .btn {
-                padding: 20px 16px;
+                gap: 1rem;
             }
         }
 
-        @media (min-width: 1025px) {
-            .buttons-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            /* Sur grand écran, le premier bouton prend toute la largeur */
-            .btn:first-child {
-                grid-column: 1 / -1;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-        }
-
-        /* Pour les très petits écrans */
-        @media (max-width: 360px) {
-            .btn {
-                min-height: 90px;
-                padding: 12px 8px;
-            }
-            
-            .btn i {
-                font-size: 1.4rem;
-            }
-            
-            .btn span {
-                font-size: 0.85rem;
-            }
-            
+        @media (max-width: 480px) {
             .tab {
-                min-width: 100px;
-                padding: 8px 6px;
-                font-size: 0.75rem;
+                min-width: 70px;
+                font-size: 0.7rem;
+                padding: 0.6rem 0.3rem;
             }
-            
             .tab i {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
         }
 
-        /* Orientation paysage sur mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .header {
-                margin-bottom: 20px;
-            }
-            
-            .platform-description,
-            .instructions {
-                margin: 20px auto;
-                padding: 15px;
-            }
-            
-            .btn {
-                min-height: 90px;
-                padding: 12px 10px;
-            }
-        }
-
-        /* Support tactile amélioré */
-        @media (hover: none) and (pointer: coarse) {
-            .btn:hover {
-                transform: none;
-            }
-            
-            .btn:active {
-                transform: scale(0.98);
-            }
-            
-            .tab:active {
-                background: rgba(0, 107, 60, 0.1);
-            }
-        }
-
-        /* Mode sombre support */
+        /* mode sombre amélioré */
         @media (prefers-color-scheme: dark) {
             :root {
-                --primary: #00a862;
-                --light: #0a2318;
+                --primary: #1db954;
+                --secondary: #f3b33d;
+                --light: #0d231b;
             }
-            
             body {
-                background: linear-gradient(135deg, #0a2318 0%, #0d2d1c 100%);
-                color: #e6f4ef;
+                background: linear-gradient(145deg, #0d231b, #12382a);
+                color: #e2f0e9;
             }
-            
-            .platform-description,
-            .instructions,
-            .btn,
-            .tabs {
-                background: #1a3c2b;
-                color: #e6f4ef;
+            .btn, .tabs {
+                background: rgba(20, 50, 40, 0.8);
+                backdrop-filter: blur(8px);
+                border-color: #2a5f4a;
+                color: #e0f0e5;
             }
-            
-            .feature {
-                background: rgba(0, 168, 98, 0.1);
+            .subtitle {
+                background: #1e4235;
+                color: #d0e8dd;
             }
-            
-            .btn-desc,
-            .subtitle,
-            .feature p {
-                color: #a8c6b8;
+            .btn-desc {
+                color: #b0d5c4;
             }
+        }
+
+        /* effet tactile retour */
+        .clicked {
+            transform: scale(0.97) !important;
+            transition: transform 0.1s;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- HEADER ÉLÉGANT -->
         <header class="header">
             <div class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <h1 class="title">Plateforme Mathématiques<br>Collège Togo</h1>
+                <h1 class="title">Mathématiques Collège</h1>
+                <h2 class="title" style="font-size: 1.4rem; margin-top: -0.3rem;">Togo</h2>
             </div>
-            
             <div class="flags">
                 <div class="flag">🇹🇬</div>
-                <div class="flag">📚</div>
+                <div class="flag">📐</div>
                 <div class="flag">🧮</div>
             </div>
-            
             <p class="subtitle">
-                Une plateforme éducative complète pour l'apprentissage des mathématiques 
-                du collège, conforme au programme scolaire togolais.
+                Plateforme éducative conforme au programme togolais (PAREC) – 6ᵉ à 3ᵉ
             </p>
         </header>
 
-        <div class="platform-description">
-            <h2><i class="fas fa-star"></i> Présentation</h2>
-            <p>Plateforme numérique pour accompagner les élèves togolais dans leur apprentissage des mathématiques au collège.</p>
-            
-            <div class="features">
-                <div class="feature">
-                    <i class="fas fa-book-open"></i>
-                    <h3>Cours Complets</h3>
-                    <p>Leçons pour chaque niveau</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-calculator"></i>
-                    <h3>Calculatrices</h3>
-                    <p>Outils de calcul spécialisés</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-shapes"></i>
-                    <h3>Démonstrations</h3>
-                    <p>Preuves interactives</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Progression</h3>
-                    <p>Suivi des apprentissages</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> Instructions</h3>
-            <ol>
-                <li><strong>Commencez par l'accueil</strong> pour une vue d'ensemble</li>
-                <li><strong>Sélectionnez votre niveau scolaire</strong></li>
-                <li><strong>Explorez les leçons et exercices</strong></li>
-                <li><strong>Utilisez les outils de calcul</strong></li>
-                <li><strong>Consultez votre progression</strong></li>
-            </ol>
-        </div>
-
-        <!-- Boutons principaux (version desktop/tablette) -->
+        <!-- BOUTONS PRINCIPAUX (desktop / tablette) - tous alignés, taille homogène -->
         <div class="buttons-container">
+            <!-- Accueil général (maintenant compact comme les autres) -->
             <a href="home.html" class="btn btn-home">
                 <i class="fas fa-home"></i>
-                <span>Accueil Général</span>
-                <div class="btn-desc">Découvrez la plateforme</div>
+                <span>Accueil</span>
+                <div class="btn-desc">Vue d’ensemble</div>
             </a>
-            
-            <a href="pr6.html" class="btn btn-6eme">
-                <i class="fas fa-user-graduate"></i>
-                <span>6ème</span>
-                <div class="btn-desc">Nombres décimaux, opérations</div>
+            <!-- 6ème -->
+            <a href="pr61.html" class="btn btn-6eme">
+                <i class="fas fa-6"></i>
+                <span>6ᵉ</span>
+                <div class="btn-desc">Nombres, opérations</div>
+                <small>fiches</small>
             </a>
-            
+            <!-- 5ème -->
             <a href="pr5.html" class="btn btn-5eme">
-                <i class="fas fa-user-graduate"></i>
-                <span>5ème</span>
+                <i class="fas fa-5"></i>
+                <span>5ᵉ</span>
                 <div class="btn-desc">Fractions, relatifs</div>
+                <small>guide</small>
             </a>
-            
+            <!-- 4ème -->
             <a href="pr4.html" class="btn btn-4eme">
-                <i class="fas fa-user-graduate"></i>
-                <span>4ème</span>
-                <div class="btn-desc">Pythagore, proportionnalité</div>
+                <i class="fas fa-4"></i>
+                <span>4ᵉ</span>
+                <div class="btn-desc">Pythagore, équations</div>
+                <small>guide</small>
             </a>
-            
+            <!-- 3ème -->
             <a href="pr3.html" class="btn btn-3eme">
-                <i class="fas fa-user-graduate"></i>
-                <span>3ème</span>
+                <i class="fas fa-3"></i>
+                <span>3ᵉ</span>
                 <div class="btn-desc">Thalès, trigonométrie</div>
+                <small>guide</small>
+            </a>
+            <!-- PROGRESSION ANNUELLE -->
+            <a href="progressions.html" class="btn btn-progression">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Progressions</span>
+                <div class="btn-desc">Tableaux récapitulatifs</div>
+                <small>6ᵉ → 3ᵉ</small>
             </a>
         </div>
 
-        <!-- Onglets (version mobile) -->
+        <!-- ONGLETS MOBILES (avec les mêmes liens) -->
         <div class="tabs-container">
             <div class="tabs">
                 <a href="home.html" class="tab active">
                     <i class="fas fa-home"></i>
                     <span>Accueil</span>
                 </a>
-                <a href="pr6.html" class="tab">
-                    <i class="fas fa-1"></i>
-                    <span>6ème</span>
+                <a href="pr61.html" class="tab">
+                    <i class="fas fa-6"></i>
+                    <span>6ᵉ</span>
                 </a>
                 <a href="pr5.html" class="tab">
-                    <i class="fas fa-2"></i>
-                    <span>5ème</span>
+                    <i class="fas fa-5"></i>
+                    <span>5ᵉ</span>
                 </a>
                 <a href="pr4.html" class="tab">
-                    <i class="fas fa-3"></i>
-                    <span>4ème</span>
+                    <i class="fas fa-4"></i>
+                    <span>4ᵉ</span>
                 </a>
                 <a href="pr3.html" class="tab">
-                    <i class="fas fa-4"></i>
-                    <span>3ème</span>
+                    <i class="fas fa-3"></i>
+                    <span>3ᵉ</span>
+                </a>
+                <a href="progressions.html" class="tab">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Progressions</span>
                 </a>
             </div>
         </div>
 
+        <!-- FOOTER -->
         <footer class="footer">
-            <p>🇹🇬 Plateforme Mathématiques Collège Togo</p>
-            <p style="margin-top: 8px; opacity: 0.8; font-size: 0.85rem;">
-                Développé par KOLA Maniwah Essohouna ;Enseignant de MATHS au Togo;et Développeur Web 
-                whatapp:+228 92 87 16 05.
-            </p>
-            <p style="margin-top: 15px; font-size: 0.75rem; opacity: 0.7;">
-                © 2026 - Tous droits réservés
-            </p>
+            <p>🇹🇬 Plateforme Mathématiques Collège Togo · Programme PAREC</p>
+            <p style="font-size: 0.85rem; opacity: 0.9;">Développé par KOLA Maniwah Essohouna – Enseignant de Maths & Développeur Web</p>
+            <p style="margin-top: 0.8rem; font-size: 0.8rem;">📱 WhatsApp : +228 92 87 16 05</p>
+            <p style="margin-top: 1.5rem; font-size: 0.7rem; opacity: 0.7;">© 2026 – Tous droits réservés</p>
         </footer>
     </div>
 
     <script>
-        // Détection automatique de l'appareil
-        function isMobile() {
-            return window.innerWidth <= 768;
-        }
-
-        // Gestion des onglets sur mobile
-        function initTabs() {
-            const tabs = document.querySelectorAll('.tab');
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            
-            tabs.forEach(tab => {
-                const href = tab.getAttribute('href');
-                
-                // Marquer l'onglet actif
-                if (href === currentPage || 
-                    (currentPage === 'index.html' && href === 'home.html')) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-                
-                // Animation au clic
-                tab.addEventListener('click', function(e) {
-                    if (isMobile()) {
-                        tabs.forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        // Effet visuel de retour haptique
-                        this.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 150);
-                    }
-                });
-            });
-        }
-
-        // Optimisation pour mobile
-        function optimizeForMobile() {
+        // optimisation mobile, feedback tactile, onglets actifs
+        (function() {
+            const isMobile = () => window.innerWidth <= 768;
             const buttonsContainer = document.querySelector('.buttons-container');
             const tabsContainer = document.querySelector('.tabs-container');
-            
-            if (isMobile()) {
-                if (buttonsContainer) buttonsContainer.style.display = 'none';
-                if (tabsContainer) tabsContainer.style.display = 'block';
-            } else {
-                if (buttonsContainer) buttonsContainer.style.display = 'grid';
-                if (tabsContainer) tabsContainer.style.display = 'none';
-            }
-        }
+            const tabs = document.querySelectorAll('.tab');
+            const currentFile = window.location.pathname.split('/').pop() || 'index.html';
 
-        // Animation des boutons au survol
-        function initButtonAnimations() {
-            const buttons = document.querySelectorAll('.btn');
-            
-            buttons.forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    if (!isMobile()) {
-                        this.style.transform = 'translateY(-4px)';
-                    }
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    if (!isMobile()) {
-                        this.style.transform = 'translateY(0)';
-                    }
-                });
-                
-                btn.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
-                });
-                
-                btn.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-        }
-
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            optimizeForMobile();
-            initTabs();
-            initButtonAnimations();
-            
-            // Redimensionnement
-            window.addEventListener('resize', function() {
-                optimizeForMobile();
-            });
-            
-            // Amélioration du chargement
-            document.body.classList.add('loaded');
-            
-            // Feedback visuel au clic
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.btn') || e.target.closest('.tab')) {
-                    // Effet de vague
-                    const element = e.target.closest('.btn') || e.target.closest('.tab');
-                    element.classList.add('clicked');
-                    setTimeout(() => {
-                        element.classList.remove('clicked');
-                    }, 300);
+            function updateView() {
+                if (isMobile()) {
+                    if (buttonsContainer) buttonsContainer.style.display = 'none';
+                    if (tabsContainer) tabsContainer.style.display = 'block';
+                } else {
+                    if (buttonsContainer) buttonsContainer.style.display = 'grid';
+                    if (tabsContainer) tabsContainer.style.display = 'none';
                 }
-            });
-        });
+            }
 
-        // Support pour PWA (Progressive Web App)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').catch(function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
+            function markActiveTab() {
+                tabs.forEach(tab => {
+                    const href = tab.getAttribute('href');
+                    if (href === currentFile || (currentFile === 'index.html' && href === 'home.html')) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
                 });
-            });
-        }
+            }
 
-        // Mode hors ligne
-        window.addEventListener('online', function() {
-            document.body.classList.remove('offline');
-            document.body.classList.add('online');
-        });
+            function addClickEffect() {
+                document.querySelectorAll('.btn, .tab').forEach(el => {
+                    el.addEventListener('click', function(e) {
+                        this.classList.add('clicked');
+                        setTimeout(() => this.classList.remove('clicked'), 200);
+                    });
+                });
+            }
 
-        window.addEventListener('offline', function() {
-            document.body.classList.remove('online');
-            document.body.classList.add('offline');
-        });
+            window.addEventListener('resize', updateView);
+            updateView();
+            markActiveTab();
+            addClickEffect();
+
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').catch(() => {});
+                });
+            }
+
+            window.addEventListener('offline', () => document.body.classList.add('offline'));
+            window.addEventListener('online', () => document.body.classList.remove('offline'));
+        })();
     </script>
 </body>
 </html>
