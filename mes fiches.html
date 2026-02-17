@@ -31,6 +31,10 @@
             --deepseek-dark: #3A56C5;
             --android-green: #3DDC84;
             --geogebra-orange: #F79720;
+            --generator-purple: #9C27B0;
+            --generator-pink: #E91E63;
+            --cours-blue: #1976D2;
+            --evaluations-red: #DC3545;
         }
 
         body {
@@ -228,6 +232,22 @@
         .btn-android i { color: var(--android-green); }
         .btn-geogebra { border-top: 4px solid var(--geogebra-orange); }
         .btn-geogebra i { color: var(--geogebra-orange); }
+        
+        /* Boutons générateurs */
+        .btn-generator-m6 { border-top: 4px solid var(--generator-purple); }
+        .btn-generator-m6 i { color: var(--generator-purple); }
+        .btn-generator-m5 { border-top: 4px solid var(--generator-pink); }
+        .btn-generator-m5 i { color: var(--generator-pink); }
+        .btn-generator-m4 { border-top: 4px solid #FF9800; }
+        .btn-generator-m4 i { color: #FF9800; }
+        .btn-generator-m3 { border-top: 4px solid #2196F3; }
+        .btn-generator-m3 i { color: #2196F3; }
+
+        /* Boutons rédaction */
+        .btn-cours { border-top: 4px solid var(--cours-blue); }
+        .btn-cours i { color: var(--cours-blue); }
+        .btn-evaluations { border-top: 4px solid var(--evaluations-red); }
+        .btn-evaluations i { color: var(--evaluations-red); }
 
         /* ===== BOUTON RETOUR ===== */
         .back-button {
@@ -377,6 +397,10 @@
                 --deepseek-blue: #5D7BFE;
                 --android-green: #4EDB8C;
                 --geogebra-orange: #F9A825;
+                --generator-purple: #BA68C8;
+                --generator-pink: #F06292;
+                --cours-blue: #42A5F5;
+                --evaluations-red: #FF5252;
             }
             body {
                 background: linear-gradient(145deg, #0d231b, #12382a);
@@ -468,6 +492,68 @@
                     <i class="fas fa-shapes"></i>
                     <span>GeoGebra</span>
                     <small>outil gratuit</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- SECTION COMPLÉMENT DES FICHES -->
+        <div class="ia-section">
+            <h2>
+                <i class="fas fa-file-pdf" style="color: var(--accent);"></i>
+                Complément des fiches
+            </h2>
+            <p>
+                Générateurs de fiches par niveau : accès direct aux outils.
+            </p>
+            <div class="ia-buttons">
+                <!-- Générateur M6 -->
+                <a href="generateurm6.html" class="ia-btn btn-generator-m6">
+                    <i class="fas fa-calculator"></i>
+                    <span>Générateur M6</span>
+                    <small>6ème</small>
+                </a>
+                <!-- Générateur M5 -->
+                <a href="generateurm5.html" class="ia-btn btn-generator-m5">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Générateur M5</span>
+                    <small>5ème</small>
+                </a>
+                <!-- Générateur M4 -->
+                <a href="generateurm4.html" class="ia-btn btn-generator-m4">
+                    <i class="fas fa-square-root-variable"></i>
+                    <span>Générateur M4</span>
+                    <small>4ème</small>
+                </a>
+                <!-- Générateur M3 -->
+                <a href="generateurm3.html" class="ia-btn btn-generator-m3">
+                    <i class="fas fa-function"></i>
+                    <span>Générateur M3</span>
+                    <small>3ème</small>
+                </a>
+            </div>
+        </div>
+
+        <!-- NOUVELLE SECTION : RÉDACTION -->
+        <div class="ia-section">
+            <h2>
+                <i class="fas fa-pen-fancy" style="color: var(--secondary);"></i>
+                Rédaction
+            </h2>
+            <p>
+                Accédez aux cours et aux évaluations pour tous les niveaux.
+            </p>
+            <div class="ia-buttons">
+                <!-- Cours -->
+                <a href="COURS.html" class="ia-btn btn-cours">
+                    <i class="fas fa-book-open"></i>
+                    <span>Cours</span>
+                    <small>Tous niveaux</small>
+                </a>
+                <!-- Évaluations -->
+                <a href="EVALUATIONS.html" class="ia-btn btn-evaluations">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Évaluations</span>
+                    <small>Tests & examens</small>
                 </a>
             </div>
         </div>
