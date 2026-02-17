@@ -12,6 +12,7 @@
             --warning-color: #856404;
             --warning-bg: #fff3cd;
             --border-color: #ddd;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         * {
@@ -23,42 +24,48 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 20px;
             color: #333;
             background-color: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 20px;
+            padding: 15px;
             background: white;
-            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
         
         .header h1 {
             color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.4em;
+            margin-bottom: 8px;
+            font-size: 1.1em;
         }
         
         .header h2 {
             color: #333;
             margin-bottom: 5px;
-            font-size: 1.2em;
+            font-size: 1em;
         }
         
         .generateur-section {
             background-color: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
         
         .generateur-section h2 {
@@ -67,12 +74,13 @@
             margin-bottom: 20px;
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
+            font-size: 1.2em;
         }
         
         .form-group {
             display: flex;
             flex-direction: column;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .form-group label {
@@ -83,11 +91,12 @@
         }
         
         .form-group select, .form-group input, .form-group textarea {
-            padding: 10px 12px;
+            padding: 8px 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
             transition: border-color 0.3s;
+            width: 100%;
         }
         
         .form-group select:focus, .form-group input:focus, .form-group textarea:focus {
@@ -98,32 +107,48 @@
         
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
             font-family: inherit;
         }
         
         .btn {
             border: none;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 5px;
+            text-decoration: none;
+            white-space: nowrap;
+            height: 36px;
         }
         
         .btn-generer {
             background-color: var(--accent-color);
             color: white;
-            padding: 12px 24px;
-            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
         }
         
         .btn-generer:hover {
             background-color: #218838;
+            transform: translateY(-1px);
+        }
+        
+        .btn-small {
+            background-color: #6c757d;
+            color: white;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .btn-small:hover {
+            background-color: #545b62;
             transform: translateY(-1px);
         }
         
@@ -134,6 +159,26 @@
         
         .btn-imprimer:hover {
             background-color: #138496;
+            transform: translateY(-1px);
+        }
+        
+        .btn-pdf {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-pdf:hover {
+            background-color: #c82333;
+            transform: translateY(-1px);
+        }
+        
+        .btn-word {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-word:hover {
+            background-color: #218838;
             transform: translateY(-1px);
         }
         
@@ -149,11 +194,11 @@
         
         .fiche-preview {
             background-color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             border: 2px solid var(--border-color);
             margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .fiche-preview.hidden {
@@ -162,37 +207,46 @@
         
         .actions-fiche {
             display: flex;
-            gap: 15px;
+            gap: 8px;
             margin-top: 20px;
             flex-wrap: wrap;
         }
         
         .fiche-section {
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 15px;
+            padding: 12px;
             background: #f8f9fa;
             border-radius: 6px;
             border-left: 3px solid var(--primary-color);
+            break-inside: avoid;
         }
         
         .fiche-section h4 {
             color: var(--primary-color);
             margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        .warning-note {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-color);
+            border-radius: 4px;
+            color: var(--warning-color);
+            font-size: 0.85em;
         }
         
         .programme-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            margin: 10px 0;
             background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .programme-table th, .programme-table td {
             border: 1px solid var(--border-color);
-            padding: 12px;
+            padding: 8px;
             text-align: left;
             vertical-align: top;
         }
@@ -203,177 +257,10 @@
             color: var(--primary-color);
         }
         
-        .guide-section {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-left: 4px solid var(--primary-color);
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .guide-section h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
-        }
-        
-        .guide-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin-top: 15px;
-        }
-        
-        .guide-column {
-            background-color: white;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
-        }
-        
-        .guide-column h4 {
-            margin-top: 0;
-            color: var(--primary-color);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-            font-size: 1em;
-        }
-        
-        .competence {
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-top: 20px;
-            margin-bottom: 10px;
-            padding: 15px;
-            background-color: var(--secondary-color);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        /* Styles d'impression optimisés */
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-                margin: 0;
-                font-size: 12pt;
-                line-height: 1.4;
-            }
-            
-            .generateur-section, .btn-imprimer, .btn-generer, .actions-fiche {
-                display: none !important;
-            }
-            
-            .fiche-preview {
-                border: none;
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-            }
-            
-            .fiche-section {
-                page-break-inside: avoid;
-                break-inside: avoid;
-                margin-bottom: 15pt;
-                padding: 12pt;
-                background: #f8f9fa;
-                border-radius: 4pt;
-                border-left: 3pt solid var(--primary-color);
-            }
-            
-            .programme-table {
-                page-break-inside: avoid;
-                break-inside: avoid;
-                width: 100%;
-                font-size: 10pt;
-            }
-            
-            .programme-table th, .programme-table td {
-                padding: 8pt;
-            }
-            
-            .guide-section {
-                page-break-inside: avoid;
-                break-inside: avoid;
-                margin-top: 15pt;
-                padding: 15pt;
-            }
-            
-            .guide-grid {
-                grid-template-columns: 1fr;
-                gap: 10pt;
-            }
-            
-            .guide-column {
-                page-break-inside: avoid;
-                break-inside: avoid;
-                padding: 10pt;
-                margin-bottom: 10pt;
-            }
-            
-            h1, h2, h3, h4 {
-                page-break-after: avoid;
-            }
-            
-            /* Assurer que les tableaux ne se coupent pas */
-            table {
-                page-break-inside: avoid;
-            }
-            
-            /* Éviter les coupures dans les paragraphes */
-            p, li {
-                orphans: 3;
-                widows: 3;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .guide-grid {
-                grid-template-columns: 1fr;
-            }
-            .actions-fiche {
-                flex-direction: column;
-            }
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-        
-        .section-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 8px;
-            margin: 25px 0 15px 0;
-        }
-        
-        .lecon-details {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .capacites-contenus {
-            margin: 15px 0;
-        }
-        
-        .capacites-contenus h4 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        
         .activite-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px dashed #eee;
-            page-break-inside: avoid;
         }
         
         .activite-header {
@@ -384,99 +271,181 @@
         
         .activite-duree {
             background-color: var(--secondary-color);
-            padding: 3px 8px;
+            padding: 2px 8px;
             border-radius: 4px;
-            font-size: 0.9em;
+            font-size: 0.85em;
+        }
+        
+        /* Styles pour l'impression */
+        @media print {
+            @page {
+                margin: 1.5cm;
+                size: A4;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 12pt;
+                line-height: 1.4;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .fiche-preview {
+                display: block !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .fiche-section {
+                page-break-inside: avoid;
+                margin-bottom: 12pt;
+            }
+        }
+        
+        /* Styles responsives */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 12px;
+            }
+            
+            .generateur-section {
+                padding: 15px;
+            }
+            
+            .fiche-preview {
+                padding: 15px;
+            }
+            
+            .actions-fiche {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .btn {
+                font-size: 12px;
+                padding: 7px 12px;
+                height: 34px;
+            }
+            
+            .btn-small {
+                min-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>MINISTÈRE DES ENSEIGNEMENTS PRIMAIRES, SECONDAIRES, TECHNIQUES ET DE L'ARTISANAT</h1>
-        <h2>RÉPUBLIQUE TOGOLAISE</h2>
-        <h3>DIRECTION DE L'ENSEIGNEMENT SECONDAIRE GÉNÉRAL</h3>
-        <h2>GÉNÉRATEUR DE FICHE DE LEÇON - MATHÉMATIQUES 5ème</h2>
-        <p>PAREC 2018-2019</p>
-    </div>
+    <div class="container">
+        <div class="header no-print">
+            <h1>MINISTÈRE DES ENSEIGNEMENTS PRIMAIRES, SECONDAIRES, TECHNIQUES ET DE L'ARTISANAT</h1>
+            <h2>RÉPUBLIQUE TOGOLAISE</h2>
+            <h2>DIRECTION DE L'ENSEIGNEMENT SECONDAIRE GÉNÉRAL</h2>
+            <h2>GÉNÉRATEUR DE FICHE DE LEÇON - MATHÉMATIQUES 5ème</h2>
+            <p>PAREC 2018-2019</p>
+        </div>
 
-    <!-- Générateur de fiche de leçon automatique -->
-    <div class="generateur-section">
-        <h2>📄 Générateur Automatique de Fiche de Leçon</h2>
-        <p>Sélectionnez une leçon pour générer automatiquement une fiche pédagogique complète conforme au programme officiel.</p>
+        <!-- Générateur de fiche de leçon automatique -->
+        <div class="generateur-section no-print">
+            <h2>📄 Générateur Automatique de Fiche de Leçon</h2>
+            <p>Sélectionnez une leçon pour générer automatiquement une fiche pédagogique complète conforme au programme officiel.</p>
+            
+            <form id="ficheForm">
+                <div class="form-group">
+                    <label for="leconSelect">Sélectionnez une leçon :</label>
+                    <select id="leconSelect" required>
+                        <option value="">Choisissez une leçon</option>
+                        <optgroup label="Configurations de l'espace">
+                            <option value="prisme-droit">Prisme droit</option>
+                            <option value="cylindre-droit">Cylindre droit</option>
+                        </optgroup>
+                        <optgroup label="Configurations du plan">
+                            <option value="distance-segments">Distance et segments</option>
+                            <option value="angles">Angles</option>
+                            <option value="triangles">Triangles</option>
+                            <option value="cercle">Cercle</option>
+                            <option value="polygones">Polygones</option>
+                        </optgroup>
+                        <optgroup label="Applications du plan">
+                            <option value="figures-symetriques">Figures symétriques par rapport à une droite, par rapport à un point</option>
+                        </optgroup>
+                        <optgroup label="Outil vectoriel, géométrie analytique">
+                            <option value="reperage-point">Repérage d'un point sur une droite, sur un quadrillage</option>
+                        </optgroup>
+                        <optgroup label="Calcul numérique">
+                            <option value="division-euclidienne">Division euclidienne</option>
+                            <option value="nombres-premiers">Nombres premiers, PPCM, PGCD</option>
+                            <option value="fractions">Fractions</option>
+                            <option value="nombres-decimaux-relatifs">Nombres décimaux relatifs</option>
+                            <option value="puissances">Puissances</option>
+                        </optgroup>
+                        <optgroup label="Programme de calcul, Calcul littéral">
+                            <option value="notion-equation">Notion d'équation</option>
+                        </optgroup>
+                        <optgroup label="Organisation des données">
+                            <option value="proportionnalite">Proportionnalité, pourcentage, échelle</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dureeLecon">Durée de la leçon :</label>
+                    <input type="text" id="dureeLecon" placeholder="Ex: 4 heures" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dateLecon">Date prévue :</label>
+                    <input type="date" id="dateLecon" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objectifsPersonnalises">Objectifs personnalisés (optionnel) :</label>
+                    <textarea id="objectifsPersonnalises" rows="3" placeholder="Ajoutez vos objectifs spécifiques si nécessaire..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="strategiesPersonnalisees">Stratégies personnalisées (optionnel) :</label>
+                    <textarea id="strategiesPersonnalisees" rows="3" placeholder="Ajoutez vos stratégies pédagogiques spécifiques si nécessaire..."></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-generer" id="btnGenererFiche">🎯 Générer la Fiche Automatiquement</button>
+            </form>
+        </div>
         
-        <form id="ficheForm">
-            <div class="form-group">
-                <label for="leconSelect">Sélectionnez une leçon :</label>
-                <select id="leconSelect" required>
-                    <option value="">Choisissez une leçon</option>
-                    <optgroup label="Configurations de l'espace">
-                        <option value="prisme-droit">Prisme droit</option>
-                        <option value="cylindre-droit">Cylindre droit</option>
-                    </optgroup>
-                    <optgroup label="Configurations du plan">
-                        <option value="distance-segments">Distance et segments</option>
-                        <option value="angles">Angles</option>
-                        <option value="triangles">Triangles</option>
-                        <option value="cercle">Cercle</option>
-                        <option value="polygones">Polygones</option>
-                    </optgroup>
-                    <optgroup label="Applications du plan">
-                        <option value="figures-symetriques">Figures symétriques par rapport à une droite, par rapport à un point</option>
-                    </optgroup>
-                    <optgroup label="Outil vectoriel, géométrie analytique">
-                        <option value="reperage-point">Repérage d'un point sur une droite, sur un quadrillage</option>
-                    </optgroup>
-                    <optgroup label="Calcul numérique">
-                        <option value="division-euclidienne">Division euclidienne</option>
-                        <option value="nombres-premiers">Nombres premiers, PPCM, PGCD</option>
-                        <option value="fractions">Fractions</option>
-                        <option value="nombres-decimaux-relatifs">Nombres décimaux relatifs</option>
-                        <option value="puissances">Puissances</option>
-                    </optgroup>
-                    <optgroup label="Programme de calcul, Calcul littéral">
-                        <option value="notion-equation">Notion d'équation</option>
-                    </optgroup>
-                    <optgroup label="Organisation des données">
-                        <option value="proportionnalite">Proportionnalité, pourcentage, échelle</option>
-                    </optgroup>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="dureeLecon">Durée de la leçon :</label>
-                <input type="text" id="dureeLecon" placeholder="Ex: 4 heures" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="dateLecon">Date prévue :</label>
-                <input type="date" id="dateLecon" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="objectifsPersonnalises">Objectifs personnalisés (optionnel) :</label>
-                <textarea id="objectifsPersonnalises" rows="3" placeholder="Ajoutez vos objectifs spécifiques si nécessaire..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="strategiesPersonnalisees">Stratégies personnalisées (optionnel) :</label>
-                <textarea id="strategiesPersonnalisees" rows="3" placeholder="Ajoutez vos stratégies pédagogiques spécifiques si nécessaire..."></textarea>
-            </div>
-            
-            <button type="button" class="btn btn-generer" id="btnGenererFiche">🎯 Générer la Fiche Automatiquement</button>
-        </form>
-        
+        <!-- Prévisualisation de la fiche -->
         <div class="fiche-preview hidden" id="fichePreview">
-            <h2>Fiche Pédagogique - Mathématiques 5e</h2>
             <div id="contenuFiche"></div>
-            <div class="actions-fiche">
-                <button class="btn btn-imprimer" onclick="imprimerFiche()">🖨️ Imprimer la Fiche</button>
-                <button class="btn btn-reinitialiser" onclick="reinitialiserFiche()">📝 Nouvelle Fiche</button>
+            
+            <div class="warning-note no-print">
+                ⚠️ Cette fiche a été générée automatiquement. Veuillez vérifier et adapter le contenu selon le contexte de votre classe.
+            </div>
+            
+            <div class="actions-fiche no-print">
+                <button class="btn btn-small btn-imprimer" onclick="imprimerFiche()">🖨️ Imprimer</button>
+                <button class="btn btn-small btn-pdf" onclick="exporterEnPDF()">📄 PDF</button>
+                <button class="btn btn-small btn-word" onclick="exporterEnWord()">📝 Word</button>
+                <button class="btn btn-small btn-reinitialiser" onclick="reinitialiserFiche()">🔄 Nouvelle Fiche</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Base de données complète des leçons avec toutes les informations
+        // Base de données complète des leçons
         const lecons = {
             'prisme-droit': {
                 theme: 'Configurations de l\'espace',
@@ -1907,110 +1876,101 @@
             }
         };
 
-        // Éléments du DOM
-        const leconSelect = document.getElementById('leconSelect');
-        const dureeLecon = document.getElementById('dureeLecon');
-        const dateLecon = document.getElementById('dateLecon');
-        const objectifsPersonnalises = document.getElementById('objectifsPersonnalises');
-        const strategiesPersonnalisees = document.getElementById('strategiesPersonnalisees');
-        const btnGenererFiche = document.getElementById('btnGenererFiche');
-        const fichePreview = document.getElementById('fichePreview');
-        const contenuFiche = document.getElementById('contenuFiche');
+        // Initialisation quand le DOM est chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer les éléments
+            const leconSelect = document.getElementById('leconSelect');
+            const dureeLecon = document.getElementById('dureeLecon');
+            const dateLecon = document.getElementById('dateLecon');
+            const objectifsPersonnalises = document.getElementById('objectifsPersonnalises');
+            const strategiesPersonnalisees = document.getElementById('strategiesPersonnalisees');
+            const btnGenererFiche = document.getElementById('btnGenererFiche');
+            const fichePreview = document.getElementById('fichePreview');
+            const contenuFiche = document.getElementById('contenuFiche');
+            
+            // Fonction pour générer la fiche
+            function genererFiche() {
+                const leconId = leconSelect.value;
+                
+                if (!leconId) {
+                    alert('Veuillez sélectionner une leçon.');
+                    return;
+                }
+                
+                const lecon = lecons[leconId];
+                if (!lecon) {
+                    alert('Leçon non trouvée.');
+                    return;
+                }
+                
+                const duree = dureeLecon.value || lecon.duree;
+                const date = dateLecon.value;
+                const objectifsPerso = objectifsPersonnalises.value;
+                const strategiesPerso = strategiesPersonnalisees.value;
+                
+                const dateCreation = new Date().toLocaleDateString('fr-FR');
+                const datePrevue = date ? new Date(date).toLocaleDateString('fr-FR') : 'À déterminer';
 
-        // Fonction pour générer la fiche automatiquement
-        function genererFicheAutomatique() {
-            const leconId = leconSelect.value;
-            
-            if (!leconId) {
-                alert('Veuillez sélectionner une leçon.');
-                return;
-            }
-            
-            const lecon = lecons[leconId];
-            const duree = dureeLecon.value || lecon.duree;
-            const date = dateLecon.value;
-            const objectifsPerso = objectifsPersonnalises.value;
-            const strategiesPerso = strategiesPersonnalisees.value;
-            
-            const dateCreation = new Date().toLocaleDateString('fr-FR', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            
-            const datePrevue = date ? new Date(date).toLocaleDateString('fr-FR') : 'À déterminer';
-
-            const ficheHTML = `
-                <div class="fiche-section">
-                    <div style="text-align: center; border-bottom: 3px solid var(--primary-color); padding-bottom: 20px; margin-bottom: 25px;">
-                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">RÉPUBLIQUE TOGOLAISE</h3>
-                        <h4 style="color: #333; margin-bottom: 5px;">Ministère des Enseignements Primaire, Secondaire, Technique et de l'Artisanat</h4>
-                        <h4 style="color: #333; margin-bottom: 15px;">Direction de l'Enseignement Secondaire Général</h4>
-                        <h2 style="color: var(--primary-color); border-top: 2px solid var(--primary-color); border-bottom: 2px solid var(--primary-color); padding: 10px 0; margin: 15px 0;">FICHE PÉDAGOGIQUE DE LEÇON</h2>
-                        <p style="font-style: italic; color: #666;">Fiche générée le ${dateCreation} | Date prévue: ${datePrevue}</p>
+                const ficheHTML = `
+                    <div style="text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">FICHE PÉDAGOGIQUE DE LEÇON</h3>
+                        <p style="font-weight: bold; font-size: 1.1em; margin-bottom: 5px;">${lecon.titre}</p>
+                        <p style="color: #666; font-size: 0.9em;">Générée le ${dateCreation} | Date prévue: ${datePrevue}</p>
                     </div>
 
-                    <table class="programme-table">
-                        <tr>
-                            <td style="background-color: var(--secondary-color); font-weight: bold; width: 25%;">Discipline</td>
-                            <td>Mathématiques</td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: var(--secondary-color); font-weight: bold;">Niveau</td>
-                            <td>Classe de 5ème</td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: var(--secondary-color); font-weight: bold;">Thème</td>
-                            <td>${lecon.theme}</td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: var(--secondary-color); font-weight: bold;">Leçon</td>
-                            <td><strong>${lecon.titre}</strong></td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: var(--secondary-color); font-weight: bold;">Durée</td>
-                            <td>${duree}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="fiche-section">
-                    <h4>I. COMPÉTENCE VISÉE</h4>
-                    <div style="background: white; padding: 15px; border-radius: 4px; border-left: 3px solid var(--primary-color);">
-                        <p style="margin: 0; line-height: 1.6;">${lecon.competence}</p>
+                    <div class="fiche-section">
+                        <h4>INFORMATIONS GÉNÉRALES</h4>
+                        <table class="programme-table">
+                            <tr>
+                                <td style="background-color: var(--secondary-color);"><strong>Discipline</strong></td>
+                                <td>Mathématiques</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: var(--secondary-color);"><strong>Niveau</strong></td>
+                                <td>Classe de 5ème</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: var(--secondary-color);"><strong>Thème</strong></td>
+                                <td>${lecon.theme}</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: var(--secondary-color);"><strong>Durée</strong></td>
+                                <td>${duree}</td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
 
-                <div class="fiche-section">
-                    <h4>II. OBJECTIFS SPÉCIFIQUES</h4>
-                    <div style="background: white; padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-color);">
-                        ${lecon.objectifs.map(obj => `<p style="margin: 8px 0; line-height: 1.6;">• ${obj}</p>`).join('')}
-                        ${objectifsPerso ? `<p style="margin: 8px 0; line-height: 1.6; font-weight: bold;">Objectifs personnalisés :</p>${objectifsPerso.split('\n').map(line => `<p style="margin: 8px 0; line-height: 1.6;">• ${line}</p>`).join('')}` : ''}
-                    </div>
-                </div>
-
-                <div class="fiche-section">
-                    <h4>III. PRÉREQUIS ET MATÉRIEL</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <h5 style="color: var(--primary-color); margin-bottom: 10px;">Prérequis :</h5>
-                            <div style="background: white; padding: 12px; border-radius: 4px; min-height: 80px;">
-                                ${lecon.prerequis.map(pre => `<p style="margin: 5px 0;">• ${pre}</p>`).join('')}
-                            </div>
-                        </div>
-                        <div>
-                            <h5 style="color: var(--primary-color); margin-bottom: 10px;">Matériel :</h5>
-                            <div style="background: white; padding: 12px; border-radius: 4px; min-height: 80px;">
-                                ${lecon.materiel.map(mat => `<p style="margin: 5px 0;">• ${mat}</p>`).join('')}
-                            </div>
+                    <div class="fiche-section">
+                        <h4>COMPÉTENCE VISÉE</h4>
+                        <div style="padding: 10px; background-color: var(--secondary-color); border-radius: 4px;">
+                            <p style="margin: 0;">${lecon.competence}</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="fiche-section">
-                    <h4>IV. CAPACITÉS ET CONTENUS</h4>
-                    <div class="capacites-contenus">
+                    <div class="fiche-section">
+                        <h4>OBJECTIFS SPÉCIFIQUES</h4>
+                        <div style="padding-left: 15px;">
+                            ${lecon.objectifs.map(obj => `<p style="margin: 5px 0;">• ${obj}</p>`).join('')}
+                            ${objectifsPerso ? `<div style="margin-top: 10px;"><strong>Objectifs personnalisés :</strong>${objectifsPerso.split('\n').map(line => `<p style="margin: 5px 0;">• ${line}</p>`).join('')}</div>` : ''}
+                        </div>
+                    </div>
+
+                    <div class="fiche-section">
+                        <h4>PRÉREQUIS</h4>
+                        <div style="padding-left: 15px;">
+                            ${lecon.prerequis.map(pre => `<p style="margin: 5px 0;">• ${pre}</p>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="fiche-section">
+                        <h4>MATÉRIEL NÉCESSAIRE</h4>
+                        <div style="padding-left: 15px;">
+                            ${lecon.materiel.map(mat => `<p style="margin: 5px 0;">• ${mat}</p>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="fiche-section">
+                        <h4>CAPACITÉS ET CONTENUS</h4>
                         <table class="programme-table">
                             <tr>
                                 <th style="width: 40%;">Capacités</th>
@@ -2024,89 +1984,163 @@
                             `).join('')}
                         </table>
                     </div>
-                </div>
 
-                <div class="fiche-section">
-                    <h4>V. STRATÉGIES PÉDAGOGIQUES</h4>
-                    <div style="background: white; padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-color);">
-                        ${lecon.strategies.map(strat => `<p style="margin: 8px 0; line-height: 1.6;">• ${strat}</p>`).join('')}
-                        ${strategiesPerso ? `<p style="margin: 8px 0; line-height: 1.6; font-weight: bold;">Stratégies personnalisées :</p>${strategiesPerso.split('\n').map(line => `<p style="margin: 8px 0; line-height: 1.6;">• ${line}</p>`).join('')}` : ''}
+                    <div class="fiche-section">
+                        <h4>STRATÉGIES PÉDAGOGIQUES</h4>
+                        <div style="padding-left: 15px;">
+                            ${lecon.strategies.map(strat => `<p style="margin: 5px 0;">• ${strat}</p>`).join('')}
+                            ${strategiesPerso ? `<div style="margin-top: 10px;"><strong>Stratégies personnalisées :</strong>${strategiesPerso.split('\n').map(line => `<p style="margin: 5px 0;">• ${line}</p>`).join('')}</div>` : ''}
+                        </div>
                     </div>
-                </div>
 
-                <div class="fiche-section">
-                    <h4>VI. DÉROULEMENT DE LA LEÇON</h4>
-                    <div style="background: white; padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-color);">
-                        ${lecon.activites.map(activite => `
+                    <div class="fiche-section">
+                        <h4>DÉROULEMENT DES ACTIVITÉS</h4>
+                        ${lecon.activites.map((act, index) => `
                             <div class="activite-item">
                                 <div class="activite-header">
-                                    <strong style="color: var(--primary-color);">${activite.titre}</strong>
-                                    <span class="activite-duree">${activite.duree}</span>
+                                    <strong style="color: var(--primary-color);">Activité ${index + 1}: ${act.titre}</strong>
+                                    <span class="activite-duree">${act.duree}</span>
                                 </div>
-                                <p style="margin: 0; line-height: 1.6;">${activite.description}</p>
+                                <p style="margin: 0; color: #555;">${act.description}</p>
                             </div>
                         `).join('')}
                     </div>
-                </div>
 
-                <div class="fiche-section">
-                    <h4>VII. ÉVALUATION</h4>
-                    <div style="background: white; padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-color);">
-                        ${lecon.evaluation.map(eval => `<p style="margin: 8px 0; line-height: 1.6;">• ${eval}</p>`).join('')}
+                    <div class="fiche-section">
+                        <h4>MODALITÉS D\'ÉVALUATION</h4>
+                        <div style="padding-left: 15px;">
+                            ${lecon.evaluation.map(eval => `<p style="margin: 5px 0;">• ${eval}</p>`).join('')}
+                        </div>
                     </div>
-                </div>
 
-                <div class="fiche-section">
-                    <h4>VIII. GUIDE PÉDAGOGIQUE</h4>
-                    <div class="guide-section">
-                        <h5 style="color: var(--primary-color); margin-bottom: 10px;">Stratégies :</h5>
-                        <p style="margin-bottom: 15px;">${lecon.guide.strategies}</p>
-                        
-                        <h5 style="color: var(--primary-color); margin-bottom: 10px;">Consignes :</h5>
-                        <p style="margin-bottom: 15px;">${lecon.guide.consignes}</p>
-                        
-                        <h5 style="color: var(--primary-color); margin-bottom: 10px;">Évaluation :</h5>
-                        <p style="margin-bottom: 15px;">${lecon.guide.evaluation}</p>
+                    <div class="fiche-section">
+                        <h4>GUIDE PÉDAGOGIQUE</h4>
+                        <div style="background-color: #f9f9f9; padding: 12px; border-radius: 4px; border-left: 3px solid var(--primary-color);">
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: var(--primary-color);">Stratégies :</strong>
+                                <p style="margin: 5px 0;">${lecon.guide.strategies}</p>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: var(--primary-color);">Consignes :</strong>
+                                <p style="margin: 5px 0;">${lecon.guide.consignes}</p>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary-color);">Évaluation :</strong>
+                                <p style="margin: 5px 0;">${lecon.guide.evaluation}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                `;
+                
+                contenuFiche.innerHTML = ficheHTML;
+                fichePreview.classList.remove('hidden');
+                
+                // Faire défiler jusqu'à la fiche
+                setTimeout(() => {
+                    fichePreview.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
 
-                <div style="margin-top: 30px; padding: 15px; background-color: var(--warning-bg); border: 1px solid var(--warning-color); border-radius: 4px; color: var(--warning-color);">
-                    <p style="margin: 0; font-weight: bold;">⚠️ Remarque : Cette fiche a été générée automatiquement. Veuillez vérifier et adapter le contenu selon le contexte de votre classe.</p>
-                </div>
-            `;
+            // Ajouter l'événement au bouton
+            btnGenererFiche.addEventListener('click', genererFiche);
             
-            contenuFiche.innerHTML = ficheHTML;
-            fichePreview.classList.remove('hidden');
+            // Remplir automatiquement la durée
+            leconSelect.addEventListener('change', function() {
+                const leconId = this.value;
+                if (leconId && lecons[leconId]) {
+                    dureeLecon.value = lecons[leconId].duree;
+                }
+            });
             
-            // Faire défiler jusqu'à la fiche générée
-            fichePreview.scrollIntoView({ behavior: 'smooth' });
-        }
+            // Date par défaut
+            const aujourdhui = new Date();
+            dateLecon.value = aujourdhui.toISOString().split('T')[0];
+            
+            // Raccourci clavier
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    genererFiche();
+                }
+            });
+        });
 
         // Fonction pour imprimer la fiche
         function imprimerFiche() {
+            const fichePreview = document.getElementById('fichePreview');
+            if (fichePreview.classList.contains('hidden')) {
+                alert('Veuillez d\'abord générer une fiche.');
+                return;
+            }
+            
             window.print();
         }
 
-        // Fonction pour réinitialiser le formulaire
-        function reinitialiserFiche() {
-            document.getElementById('ficheForm').reset();
-            fichePreview.classList.add('hidden');
+        // Fonction pour exporter en PDF
+        function exporterEnPDF() {
+            const fichePreview = document.getElementById('fichePreview');
+            if (fichePreview.classList.contains('hidden')) {
+                alert('Veuillez d\'abord générer une fiche.');
+                return;
+            }
+            
+            alert('Pour exporter en PDF :\n1. Cliquez sur "Imprimer"\n2. Dans la fenêtre d\'impression, choisissez "Enregistrer au format PDF"\n3. Sélectionnez l\'emplacement et enregistrez.');
         }
 
-        // Écouteurs d'événements
-        btnGenererFiche.addEventListener('click', genererFicheAutomatique);
-        
-        // Remplir automatiquement la durée si une leçon est sélectionnée
-        leconSelect.addEventListener('change', function() {
-            const leconId = this.value;
-            if (leconId && lecons[leconId]) {
-                dureeLecon.value = lecons[leconId].duree;
+        // Fonction pour exporter en Word
+        function exporterEnWord() {
+            const fichePreview = document.getElementById('fichePreview');
+            if (fichePreview.classList.contains('hidden')) {
+                alert('Veuillez d\'abord générer une fiche.');
+                return;
             }
-        });
-        
-        // Définir la date d'aujourd'hui par défaut
-        const aujourdhui = new Date();
-        dateLecon.value = aujourdhui.toISOString().split('T')[0];
+            
+            const leconSelect = document.getElementById('leconSelect');
+            const titre = leconSelect.options[leconSelect.selectedIndex].text;
+            const dateCreation = new Date().toLocaleDateString('fr-FR');
+            
+            const wordContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>${titre}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 2cm; }
+                        h3 { color: #0066cc; text-align: center; }
+                        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                        td, th { border: 1px solid #ddd; padding: 8px; }
+                        .section { margin-bottom: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h3>Fiche de Leçon - ${titre}</h3>
+                    <p>Générée le ${dateCreation}</p>
+                    ${document.getElementById('contenuFiche').innerHTML}
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([wordContent], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `fiche-leçon-${titre.replace(/\s+/g, '-')}.doc`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Fonction pour réinitialiser
+        function reinitialiserFiche() {
+            document.getElementById('ficheForm').reset();
+            document.getElementById('fichePreview').classList.add('hidden');
+            document.getElementById('leconSelect').focus();
+            
+            // Remettre la date du jour
+            const aujourdhui = new Date();
+            document.getElementById('dateLecon').value = aujourdhui.toISOString().split('T')[0];
+        }
     </script>
 </body>
 </html>
