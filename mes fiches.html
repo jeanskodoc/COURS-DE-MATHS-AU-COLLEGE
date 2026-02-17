@@ -35,6 +35,7 @@
             --generator-pink: #E91E63;
             --cours-blue: #1976D2;
             --evaluations-red: #DC3545;
+            --latex-teal: #008080;
         }
 
         body {
@@ -248,6 +249,8 @@
         .btn-cours i { color: var(--cours-blue); }
         .btn-evaluations { border-top: 4px solid var(--evaluations-red); }
         .btn-evaluations i { color: var(--evaluations-red); }
+        .btn-latex { border-top: 4px solid var(--latex-teal); }
+        .btn-latex i { color: var(--latex-teal); }
 
         /* ===== BOUTON RETOUR ===== */
         .back-button {
@@ -401,6 +404,7 @@
                 --generator-pink: #F06292;
                 --cours-blue: #42A5F5;
                 --evaluations-red: #FF5252;
+                --latex-teal: #4DB6AC;
             }
             body {
                 background: linear-gradient(145deg, #0d231b, #12382a);
@@ -533,14 +537,14 @@
             </div>
         </div>
 
-        <!-- NOUVELLE SECTION : RÉDACTION -->
+        <!-- SECTION RÉDACTION (AVEC BOUTON LATEX AJOUTÉ) -->
         <div class="ia-section">
             <h2>
                 <i class="fas fa-pen-fancy" style="color: var(--secondary);"></i>
                 Rédaction
             </h2>
             <p>
-                Accédez aux cours et aux évaluations pour tous les niveaux.
+                Accédez aux cours, évaluations et à l'éditeur de formules LaTeX.
             </p>
             <div class="ia-buttons">
                 <!-- Cours -->
@@ -554,6 +558,12 @@
                     <i class="fas fa-clipboard-check"></i>
                     <span>Évaluations</span>
                     <small>Tests & examens</small>
+                </a>
+                <!-- NOUVEAU BOUTON : Formule LaTeX -->
+                <a href="https://latexeditor.lagrida.com/" class="ia-btn btn-latex" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-square-root-alt"></i>
+                    <span>Formule LaTeX</span>
+                    <small>Éditeur en ligne</small>
                 </a>
             </div>
         </div>
