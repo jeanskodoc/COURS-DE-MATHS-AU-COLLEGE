@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Mathématiques Collège Togo · Plateforme complète</title>
+    <title>Mathématiques Collège Togo · inscription & plateforme</title>
     <!-- Font Awesome 6 (CDN) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -29,6 +29,7 @@
             --transition: all 0.25s ease;
             --whatsapp: #25D366;
             --whatsapp-dark: #128C7E;
+            --form-bg: rgba(255, 255, 255, 0.9);
         }
 
         body {
@@ -75,6 +76,7 @@
             font-size: clamp(1.8rem, 4vw, 2.2rem);
             box-shadow: 0 12px 20px -10px var(--primary);
             transition: var(--transition);
+            margin: 0 auto 0.5rem;
         }
         .logo-icon:hover {
             transform: rotate(5deg) scale(1.02);
@@ -120,6 +122,152 @@
         .flag:nth-child(2) { animation-delay: 0.2s; }
         .flag:nth-child(3) { animation-delay: 0.4s; }
 
+        /* ===== FORMULAIRE D'INSCRIPTION ===== */
+        .register-section {
+            background: var(--form-bg);
+            backdrop-filter: blur(8px);
+            max-width: 680px;
+            margin: 2rem auto;
+            padding: 2rem 1.8rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 2px solid white;
+        }
+
+        .register-section h2 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.8rem;
+            border-left: 7px solid var(--secondary);
+            padding-left: 1rem;
+        }
+
+        .register-section h2 i {
+            color: var(--whatsapp);
+            font-size: 2rem;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .input-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .input-row .input-group {
+            flex: 1 1 200px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0d4733;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .input-group label i {
+            width: 1.2rem;
+            color: var(--primary);
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            background: white;
+            border: 2px solid #c5e0d5;
+            border-radius: 18px;
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            outline: none;
+            width: 100%;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(15,94,69,0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            background: var(--whatsapp);
+            border: none;
+            padding: 1.1rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            margin-top: 0.8rem;
+            box-shadow: 0 8px 16px -6px var(--whatsapp-dark);
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--whatsapp-dark);
+            transform: scale(1.02);
+            border-color: white;
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .access-code-box {
+            background: #eefaf3;
+            border-radius: 60px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            border: 2px dashed var(--primary);
+            font-weight: 600;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.03);
+            word-break: break-word;
+        }
+        .access-code-box span {
+            font-size: 2rem;
+            letter-spacing: 0.2rem;
+            font-family: monospace;
+            background: white;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.4rem;
+            border: 1px solid var(--primary);
+            color: var(--dark);
+        }
+        .code-note {
+            font-size: 0.8rem;
+            color: #3f6a58;
+            margin-top: 0.5rem;
+        }
+
         /* ===== BOUTONS PRINCIPAUX ===== */
         .buttons-container {
             display: grid;
@@ -151,6 +299,7 @@
             isolation: isolate;
             overflow: hidden;
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .btn::before {
@@ -262,6 +411,7 @@
             align-items: center;
             gap: 3px;
             font-size: 0.7rem;
+            cursor: pointer;
         }
         .tab i {
             font-size: 1rem;
@@ -358,8 +508,8 @@
                 background: linear-gradient(145deg, #0d231b, #12382a);
                 color: #e2f0e9;
             }
-            .btn, .tabs {
-                background: rgba(20, 50, 40, 0.8);
+            .btn, .tabs, .register-section {
+                background: rgba(20, 50, 40, 0.9);
                 backdrop-filter: blur(8px);
                 border-color: #2a5f4a;
                 color: #e0f0e5;
@@ -377,12 +527,25 @@
             .btn-whatsapp span {
                 color: #e0f0e5;
             }
+            .input-group input,
+            .input-group select,
+            .input-group textarea {
+                background: #2d5543;
+                color: white;
+                border-color: #3e6f58;
+            }
+            .access-code-box {
+                background: #1d4e3a;
+            }
         }
 
         /* effet tactile retour */
         .clicked {
             transform: scale(0.97) !important;
             transition: transform 0.1s;
+        }
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -407,50 +570,101 @@
             </p>
         </header>
 
-        <!-- BOUTONS PRINCIPAUX (desktop / tablette) -->
-        <div class="buttons-container">
+        <!-- FORMULAIRE D'INSCRIPTION (visible si pas de code) -->
+        <div id="registerBlock" class="register-section">
+            <h2><i class="fab fa-whatsapp"></i> Inscription enseignant · formation</h2>
+            <div class="form-grid">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label><i class="fas fa-user"></i> Nom *</label>
+                        <input type="text" id="nom" placeholder="Votre nom" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-user-tag"></i> Prénom(s) *</label>
+                        <input type="text" id="prenom" placeholder="Prénoms">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label><i class="fas fa-map-pin"></i> Inspection *</label>
+                        <input type="text" id="inspection" placeholder="Ex: LOME NORD">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-building"></i> DRE *</label>
+                        <select id="dre">
+                            <option value="">Sélectionnez</option>
+                            <option value="DRE Lomé-Commune">DRE Lomé-Commune</option>
+                            <option value="DRE Maritime">DRE Maritime</option>
+                            <option value="DRE Plateaux">DRE Plateaux</option>
+                            <option value="DRE Centrale">DRE Centrale</option>
+                            <option value="DRE Kara">DRE Kara</option>
+                            <option value="DRE Savanes">DRE Savanes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-phone-alt"></i> Contact (WhatsApp) *</label>
+                    <input type="tel" id="contact" placeholder="+228 90 12 34 56">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-heart"></i> Message de motivation</label>
+                    <textarea id="motivation" placeholder="Pourquoi souhaitez-vous participer à cette formation ? (optionnel mais apprécié)"></textarea>
+                </div>
+                <button class="btn-submit" id="sendWhatsAppBtn"><i class="fab fa-whatsapp"></i> Envoyer & générer mon code</button>
+            </div>
+
+            <!-- zone d'affichage du code -->
+            <div id="codeDisplay" class="access-code-box" style="display: none;">
+                <i class="fas fa-lock-open" style="color: var(--primary);"></i> Votre code d'accès personnel<br>
+                <span id="generatedCode">XXXXXX</span>
+                <div class="code-note">Ce code permet d'accéder à tous les onglets. Ne l'égarez pas.</div>
+            </div>
+        </div>
+
+        <!-- BOUTONS PRINCIPAUX (desktop / tablette) avec accès protégé -->
+        <div class="buttons-container" id="mainButtons">
             <!-- Accueil -->
-            <a href="mes fiches.html" class="btn btn-home">
+            <a href="mes fiches.html" class="btn btn-home" id="homeBtn">
                 <i class="fas fa-home"></i>
                 <span>Accueil</span>
                 <div class="btn-desc">Vue d'ensemble</div>
             </a>
             <!-- 6ème -->
-            <a href="pr6.html" class="btn btn-6eme">
+            <a href="pr6.html" class="btn btn-6eme" id="btn6">
                 <i class="fas fa-6"></i>
                 <span>6ᵉ</span>
                 <div class="btn-desc">Nombres, opérations</div>
                 <small>guide</small>
             </a>
             <!-- 5ème -->
-            <a href="pr5.html" class="btn btn-5eme">
+            <a href="pr5.html" class="btn btn-5eme" id="btn5">
                 <i class="fas fa-5"></i>
                 <span>5ᵉ</span>
                 <div class="btn-desc">Fractions, relatifs</div>
                 <small>guide</small>
             </a>
             <!-- 4ème -->
-            <a href="pr4.html" class="btn btn-4eme">
+            <a href="pr4.html" class="btn btn-4eme" id="btn4">
                 <i class="fas fa-4"></i>
                 <span>4ᵉ</span>
                 <div class="btn-desc">Pythagore, équations</div>
                 <small>guide</small>
             </a>
             <!-- 3ème -->
-            <a href="pr3.html" class="btn btn-3eme">
+            <a href="pr3.html" class="btn btn-3eme" id="btn3">
                 <i class="fas fa-3"></i>
                 <span>3ᵉ</span>
                 <div class="btn-desc">Thalès, trigonométrie</div>
                 <small>guide</small>
             </a>
             <!-- Progressions -->
-            <a href="home.html" class="btn btn-progression">
+            <a href="home.html" class="btn btn-progression" id="btnProg">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Progressions</span>
                 <div class="btn-desc">Tableaux récapitulatifs</div>
                 <small>6ᵉ → 3ᵉ</small>
             </a>
-            <!-- BOUTON WHATSAPP - KOLA développeur -->
+            <!-- BOUTON WHATSAPP - KOLA développeur (toujours accessible) -->
             <a href="https://wa.me/22892871605" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-whatsapp"></i>
                 <span>KOLA</span>
@@ -459,34 +673,34 @@
             </a>
         </div>
 
-        <!-- ONGLETS MOBILES -->
-        <div class="tabs-container">
+        <!-- ONGLETS MOBILES avec accès protégé -->
+        <div class="tabs-container" id="mobileTabs">
             <div class="tabs">
-                <a href="home.html" class="tab active">
+                <a href="home.html" class="tab active" id="homeTabMobile">
                     <i class="fas fa-home"></i>
                     <span>Accueil</span>
                 </a>
-                <a href="pr61.html" class="tab">
+                <a href="pr61.html" class="tab" id="btn6Mobile">
                     <i class="fas fa-6"></i>
                     <span>6ᵉ</span>
                 </a>
-                <a href="pr5.html" class="tab">
+                <a href="pr5.html" class="tab" id="btn5Mobile">
                     <i class="fas fa-5"></i>
                     <span>5ᵉ</span>
                 </a>
-                <a href="pr4.html" class="tab">
+                <a href="pr4.html" class="tab" id="btn4Mobile">
                     <i class="fas fa-4"></i>
                     <span>4ᵉ</span>
                 </a>
-                <a href="pr3.html" class="tab">
+                <a href="pr3.html" class="tab" id="btn3Mobile">
                     <i class="fas fa-3"></i>
                     <span>3ᵉ</span>
                 </a>
-                <a href="progressions.html" class="tab">
+                <a href="progressions.html" class="tab" id="btnProgMobile">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Prog.</span>
                 </a>
-                <!-- WhatsApp dans onglets mobiles -->
+                <!-- WhatsApp dans onglets mobiles (toujours accessible) -->
                 <a href="https://wa.me/22892871605" class="tab" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-whatsapp"></i>
                     <span>KOLA</span>
@@ -508,6 +722,60 @@
 
     <script>
         (function() {
+            // Configuration
+            const WHATSAPP_NUMBER = '22892871605';  // Numéro pour l'envoi du formulaire
+            const STORAGE_KEY = 'maths_togo_access_code';
+
+            // Éléments DOM
+            const registerSection = document.getElementById('registerBlock');
+            const codeDisplayDiv = document.getElementById('codeDisplay');
+            const generatedCodeSpan = document.getElementById('generatedCode');
+            const sendBtn = document.getElementById('sendWhatsAppBtn');
+            
+            // Champs formulaire
+            const nom = document.getElementById('nom');
+            const prenom = document.getElementById('prenom');
+            const inspection = document.getElementById('inspection');
+            const dre = document.getElementById('dre');
+            const contact = document.getElementById('contact');
+            const motivation = document.getElementById('motivation');
+
+            // Tous les boutons de navigation (sauf WhatsApp)
+            const navButtons = [
+                document.getElementById('homeBtn'),
+                document.getElementById('btn6'),
+                document.getElementById('btn5'),
+                document.getElementById('btn4'),
+                document.getElementById('btn3'),
+                document.getElementById('btnProg'),
+                document.getElementById('homeTabMobile'),
+                document.getElementById('btn6Mobile'),
+                document.getElementById('btn5Mobile'),
+                document.getElementById('btn4Mobile'),
+                document.getElementById('btn3Mobile'),
+                document.getElementById('btnProgMobile')
+            ].filter(btn => btn !== null);
+
+            // Fonctions
+            function getStoredCode() {
+                return localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+            }
+
+            function setStoredCode(code) {
+                localStorage.setItem(STORAGE_KEY, code);
+                sessionStorage.setItem(STORAGE_KEY, code);
+            }
+
+            function generateAccessCode() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+                let code = '';
+                for (let i = 0; i < 6; i++) {
+                    code += chars[Math.floor(Math.random() * chars.length)];
+                }
+                return code;
+            }
+
+            // Gestion responsive (conservé de l'original)
             const isMobile = () => window.innerWidth <= 768;
             const buttonsContainer = document.querySelector('.buttons-container');
             const tabsContainer = document.querySelector('.tabs-container');
@@ -527,7 +795,6 @@
             function markActiveTab() {
                 tabs.forEach(tab => {
                     const href = tab.getAttribute('href');
-                    // Ne pas marquer les liens externes (WhatsApp) comme actifs
                     if (href && href.startsWith('http')) return;
                     if (href === currentFile || (currentFile === 'index.html' && href === 'home.html')) {
                         tab.classList.add('active');
@@ -537,20 +804,112 @@
                 });
             }
 
-            function addClickEffect() {
-                document.querySelectorAll('.btn, .tab').forEach(el => {
-                    el.addEventListener('click', function(e) {
-                        this.classList.add('clicked');
-                        setTimeout(() => this.classList.remove('clicked'), 200);
-                    });
+            // Bloque la navigation si pas de code
+            function blockHandler(e) {
+                e.preventDefault();
+                alert('🔐 Accès réservé aux enseignants inscrits.\nVeuillez remplir le formulaire d\'inscription pour obtenir votre code d\'accès.');
+            }
+
+            // Active la navigation après inscription
+            function enableNavigation(code) {
+                navButtons.forEach(btn => {
+                    if (btn) {
+                        btn.removeEventListener('click', blockHandler);
+                        // On garde le href original, pas besoin de le modifier
+                        // Juste s'assurer qu'il n'y a pas de blocage
+                    }
                 });
             }
 
+            // Déverrouillage complet
+            function unlockAccess(code) {
+                if (registerSection) registerSection.style.display = 'none';
+                enableNavigation(code);
+                
+                // Notification
+                const toast = document.createElement('div');
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.right = '20px';
+                toast.style.backgroundColor = 'var(--primary)';
+                toast.style.color = 'white';
+                toast.style.padding = '0.8rem 1.5rem';
+                toast.style.borderRadius = '50px';
+                toast.style.fontWeight = 'bold';
+                toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+                toast.style.zIndex = '9999';
+                toast.innerHTML = `✅ Inscription réussie ! Code: ${code}`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 5000);
+            }
+
+            // Vérification au chargement
+            const existingCode = getStoredCode();
+            if (existingCode) {
+                unlockAccess(existingCode);
+                if (codeDisplayDiv) {
+                    codeDisplayDiv.style.display = 'block';
+                    generatedCodeSpan.textContent = existingCode;
+                }
+            } else {
+                // Bloquer tous les boutons
+                navButtons.forEach(btn => {
+                    if (btn) btn.addEventListener('click', blockHandler);
+                });
+            }
+
+            // Envoi du formulaire
+            sendBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (!nom.value.trim() || !prenom.value.trim() || !inspection.value.trim() || !dre.value || !contact.value.trim()) {
+                    alert('❌ Veuillez remplir tous les champs obligatoires : nom, prénom, inspection, DRE et contact.');
+                    return;
+                }
+
+                const code = generateAccessCode();
+                generatedCodeSpan.textContent = code;
+
+                const message = 
+`📘 *INSCRIPTION FORMATION MATHÉMATIQUES COLLÈGE*
+
+👤 *Nom* : ${nom.value.trim()}
+👥 *Prénom(s)* : ${prenom.value.trim()}
+📍 *Inspection* : ${inspection.value.trim()}
+🏛️ *DRE* : ${dre.value}
+📞 *Contact* : ${contact.value.trim()}
+💬 *Motivation* : ${motivation.value.trim() || '(non renseigné)'}
+
+🎟️ *Code généré* : ${code}`;
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+                window.open(whatsappUrl, '_blank');
+                codeDisplayDiv.style.display = 'block';
+                setStoredCode(code);
+                sendBtn.disabled = true;
+                sendBtn.innerHTML = '<i class="fas fa-check-circle"></i> Inscription envoyée !';
+
+                setTimeout(() => {
+                    unlockAccess(code);
+                }, 1500);
+            });
+
+            // Événements responsive et effets
             window.addEventListener('resize', updateView);
             updateView();
             markActiveTab();
-            addClickEffect();
 
+            // Effet tactile
+            document.querySelectorAll('.btn, .tab').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    this.classList.add('clicked');
+                    setTimeout(() => this.classList.remove('clicked'), 200);
+                });
+            });
+
+            // Service worker (conservé)
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/sw.js').catch(() => {});
