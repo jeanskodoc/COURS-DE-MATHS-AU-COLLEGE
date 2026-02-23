@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Fiche 1ère A · Maths Togo · programme intégral (littéraire)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0b4d3a;
+            --primary: #1b6e54;
+            --primary-light: #d0f0e4;
+            --accent: #f3b33d;
+            --bg-light: #f0f8f5;
+            --text: #1b4637;
+            --white: #ffffff;
+            --shadow: 0 10px 20px -8px rgba(0,40,20,0.25);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== BANDEAU ===== */
+        .bandeau {
+            background: linear-gradient(148deg, var(--primary-dark), var(--primary));
+            color: white;
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2rem) clamp(1.5rem, 5vw, 2.8rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.8rem);
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .bandeau h1 {
+            font-size: clamp(1.1rem, 5vw, 1.9rem);
+            font-weight: 600;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .bandeau h2 {
+            font-size: clamp(0.95rem, 4vw, 1.3rem);
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        .badge-prog {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 800;
+            padding: 0.4rem clamp(1rem, 3vw, 2.2rem);
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: clamp(0.7rem, 3vw, 1rem);
+            box-shadow: 0 4px 8px #b57f1a;
+            white-space: normal;
+            text-align: center;
+        }
+
+        /* ===== CARTE GÉNÉRATEUR ===== */
+        .card-outil {
+            background: var(--white);
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2.4rem) clamp(1.2rem, 4vw, 3rem);
+            margin-bottom: clamp(1.8rem, 5vw, 2.8rem);
+            border: 2px solid #c3e3d6;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .card-outil h3 {
+            font-size: clamp(1.3rem, 5vw, 2rem);
+            color: var(--primary);
+            border-bottom: 4px solid #c4ecd9;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            min-width: 160px;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #c6e2d7;
+            border-radius: 50px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            background: #f9fffd;
+            transition: 0.2s;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(27,110,84,0.2);
+        }
+
+        .btn-generer {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            width: 100%;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 15px 25px -10px var(--primary);
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .btn-generer:hover {
+            background: #0f543f;
+            transform: translateY(-2px);
+        }
+
+        /* ===== FICHE GÉNÉRÉE ===== */
+        .fiche-finale {
+            background: var(--white);
+            border-radius: clamp(25px, 6vw, 60px);
+            padding: clamp(1.2rem, 4vw, 3rem) clamp(1.2rem, 4vw, 3.5rem);
+            border: 4px solid #a5d7c4;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fiche-header {
+            text-align: center;
+            border-bottom: 3px dashed var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .fiche-header h2 {
+            font-size: clamp(1.6rem, 6vw, 2.6rem);
+            color: var(--primary);
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .section-guide {
+            background: #f6fdfa;
+            border-radius: clamp(18px, 4vw, 40px);
+            padding: clamp(1rem, 3vw, 1.8rem) clamp(1.2rem, 4vw, 2.5rem);
+            margin-bottom: 1.8rem;
+            border-left: clamp(8px, 2vw, 16px) solid var(--primary);
+            box-shadow: 0 6px 12px #c1ddd1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .section-guide h4 {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: #1a5b45;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge-consigne {
+            background: #fef7e5;
+            border-left: clamp(4px, 1.5vw, 8px) solid var(--accent);
+            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1rem, 3vw, 2rem);
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 3vw, 1.05rem);
+            margin: 1rem 0;
+            box-shadow: 0 3px 8px #d9e6df;
+            word-break: break-word;
+        }
+
+        .bullet-list {
+            margin-left: 1.2rem;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            padding-right: 0.5rem;
+        }
+
+        .bullet-list li {
+            margin-bottom: 0.4rem;
+            word-break: break-word;
+        }
+
+        .table-cap {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px #c4ddd1;
+            margin-top: 1rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+        }
+
+        .table-cap th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 10px 8px;
+            text-align: left;
+        }
+
+        .table-cap td {
+            border: 1px solid #b7dbc9;
+            padding: 10px 8px;
+            vertical-align: top;
+            word-break: break-word;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn-print {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 60px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 120px;
+            flex: 1 0 auto;
+            max-width: 200px;
+            white-space: nowrap;
+        }
+
+        .btn-print:hover {
+            background: #e2f3eb;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0.5rem; }
+            .btn-print { white-space: normal; min-width: unset; flex-basis: 100%; }
+            .form-group { flex-basis: 100%; }
+        }
+
+        @media print {
+            .no-print, .card-outil, .actions { display: none !important; }
+            .fiche-finale { border: none; box-shadow: none; padding: 1.2cm; }
+            .section-guide { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- BANDEAU OFFICIEL (extrait du document) -->
+    <div class="bandeau no-print">
+        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE</h1>
+        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie – DIRECTION DES PROGRAMMES</h2>
+        <div class="badge-prog">PROGRAMME MATHÉMATIQUES PREMIÈRE A (Littéraire) – 50 h – Septembre 2023</div>
+        <p style="margin-top:1rem; font-size:clamp(0.9rem,3vw,1.2rem);">Thèmes : Calculs algébriques · Analyse · Statistiques · Dénombrement</p>
+    </div>
+
+    <!-- GÉNÉRATEUR (basé sur l'intégralité du fichier PROGRAMME MATHS A4.docx) -->
+    <div class="card-outil no-print">
+        <h3>📘 GÉNÉRATEUR DE FICHE – PROGRAMME 1ÈRE A (LITTÉRAIRE)</h3>
+        <div class="form-row">
+            <div class="form-group">
+                <label>📌 Leçon</label>
+                <select id="leconSelect">
+                    <option value="">-- Sélectionner une leçon --</option>
+                    <optgroup label="🔹 Thème 1 : Calculs algébriques">
+                        <option value="L1_equations">1.1 Équations et inéquations dans IR</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 2 : Analyse">
+                        <option value="L2_generalites">2.1 Généralités sur les fonctions</option>
+                        <option value="L3_limites">2.2 Limites d'une fonction</option>
+                        <option value="L4_derivation">2.3 Dérivée et étude de fonctions</option>
+                        <option value="L5_suites">2.4 Suites numériques</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 3 : Organisation des données">
+                        <option value="L6_denombrement">3.1 Dénombrement</option>
+                        <option value="L7_statistiques">3.2 Statistiques à une variable</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>⏱️ Durée (indicative)</label>
+                <input type="text" id="dureeField" value="selon progression" placeholder="ex: 8h / 4h ...">
+            </div>
+            <div class="form-group">
+                <label>📅 Date</label>
+                <input type="date" id="dateField">
+            </div>
+        </div>
+        <button class="btn-generer" id="btnGenerer">✨ GÉNÉRER LA FICHE (contenu intégral 1ère A)</button>
+    </div>
+
+    <!-- FICHE GÉNÉRÉE (contenu extrait du document) -->
+    <div class="fiche-finale hidden" id="ficheGeneree">
+        <div id="contenuFiche"></div>
+        <div class="actions no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print" onclick="alert('Utiliser Impression → Enregistrer en PDF')">📄 PDF</button>
+            <button class="btn-print" onclick="exportWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">🔄 Nouvelle</button>
+        </div>
+        <div style="margin-top:1.5rem; background:#fdf3da; padding:0.8rem 1.5rem; border-radius:60px; font-size:clamp(0.8rem,2.5vw,0.95rem); text-align:center;" class="no-print">
+            ⚡ Guide d'exécution complet : stratégies, consignes, évaluation (extrait officiel 1ère A).
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // ==================== CONTENU INTÉGRAL DU FICHIER PROGRAMME MATHS A4.docx ====================
+    const lecons = {
+        // Leçon 1.1 Équations et inéquations dans IR (8h)
+        L1_equations: {
+            titre: 'Équations et inéquations dans IR',
+            theme: 'Calculs algébriques',
+            prerequis: ['Résolution d\'équations du 1er degré', 'Tableau de signes'],
+            materiel: ['Tableau de signes', 'Calculatrice'],
+            contenusSynth: [
+                'Discriminant Δ = b²−4ac (formule donnée sans démonstration)',
+                'Solutions d\'une équation du second degré',
+                'Signe de ax²+bx+c (tableau de signes)',
+                'Signe de (px+q)(ax²+bx+c) – factorisation degré 3 (solution particulière)',
+                'Signe de (ax+b)/(cx+d) (c≠0)',
+                'Ensemble de validité, ensemble solution',
+                'Équations se ramenant à ax²+bx+c=0',
+                'Inéquations se ramenant à ax²+bx+c ≤ 0',
+                'Équations de type (ax+b)/(cx+d) = ex+f (c≠0)',
+                'Inéquations de type (ax+b)/(cx+d) ≤ ex+f (c≠0)',
+                'Mathématiser une situation problème'
+            ],
+            strategies: [
+                'Travail individuel ou en petits groupes',
+                'Procéder par des exercices pour consolider les acquis sur les équations de la forme ax+b=0 et (ax+b)/(cx+d)=0',
+                'Donner sans démontrer la formule du discriminant',
+                'Amener l\'apprenant à découvrir une solution particulière pour les équations du type αx³+βx²+γx+δ=0 avec α≠0 (factorisation)',
+                'NB : se limiter aux polynômes de degré 3'
+            ],
+            consignes: [
+                'Pour les équations du second degré, insister sur le calcul du discriminant.',
+                'Pour les équations de degré 3, faire chercher une solution évidente (1, -1, 2, etc.) pour factoriser.',
+                'Les inéquations avec fractions rationnelles se traitent par tableau de signes.',
+                'NB : La résolution des inéquations associées aux fonctions homographiques se fera à partir d\'un tableau de signe.'
+            ],
+            evaluation: [
+                'Calcul du discriminant',
+                'Résolution d\'équations du second degré',
+                'Résolution d\'équations de type (px+q)(ax²+bx+c)=0',
+                'Résolution d\'équations homographiques',
+                'Résolution d\'inéquations du second degré',
+                'Résolution d\'inéquations homographiques'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un nombre', contenu: 'Discriminant de ax²+bx+c (a≠0), solutions d\'une équation du second degré' },
+                { capacite: 'Déterminer le signe d\'une fonction', contenu: 'fonction polynôme du second degré, fonction polynôme de type (px+q)(ax²+bx+c), fonction de type (ax+b)/(cx+d)' },
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de validité, ensemble solution' },
+                { capacite: 'Résoudre des équations et inéquations', contenu: 'équations se ramenant à ax²+bx+c=0, inéquations se ramenant à ax²+bx+c≤0, équations du type (ax+b)/(cx+d)=ex+f, inéquations du type (ax+b)/(cx+d)≤ex+f' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples de situations problèmes faisant appel aux équations ou inéquations' }
+            ]
+        },
+        // Leçon 2.1 Généralités sur les fonctions (4h)
+        L2_generalites: {
+            titre: 'Généralités sur les fonctions',
+            theme: 'Analyse',
+            prerequis: ['Notion de fonction (seconde)'],
+            materiel: ['Repères, graphiques'],
+            contenusSynth: [
+                'Fonction polynôme de degré ≤3',
+                'Fonction homographique',
+                'Fonction paire, fonction impaire',
+                'Ensemble de définition',
+                'Reconnaissance graphique : parité, axe de symétrie, centre de symétrie'
+            ],
+            strategies: [
+                'À partir des exercices, rappeler le vocabulaire : monôme, degré d\'un polynôme, fraction rationnelle',
+                'Proposer quelques exemples de fonctions dont l\'ensemble de départ est un intervalle de IR'
+            ],
+            consignes: [
+                'Mettre l\'accent sur la représentation graphique pour introduire les notions de parité et de symétrie',
+                'Introduire ensuite les formules pour les calculs'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une fonction polynôme et d\'une fonction homographique',
+                'Détermination de l\'ensemble de définition',
+                'Détermination graphique ou par calcul de la parité',
+                'Montrer qu\'une droite est axe de symétrie ou qu\'un point est centre de symétrie'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une fonction', contenu: 'fonction polynôme degré ≤3, fonction homographique, fonction paire, fonction impaire' },
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de définition' },
+                { capacite: 'Reconnaître graphiquement une propriété', contenu: 'fonction paire, fonction impaire, axe de symétrie, centre de symétrie' }
+            ]
+        },
+        // Leçon 2.2 Limites d'une fonction (4h)
+        L3_limites: {
+            titre: 'Limites d\'une fonction',
+            theme: 'Analyse',
+            prerequis: ['Représentations graphiques', 'Fonctions de référence'],
+            materiel: ['Calculatrice graphique'],
+            contenusSynth: [
+                'Notion intuitive de limite',
+                'Limite des fonctions de référence (x², x³, 1/x, |x|) à partir de leur représentation graphique',
+                'Limites des fonctions polynômes et homographiques par calcul',
+                'Asymptote horizontale, asymptote verticale'
+            ],
+            strategies: [
+                'Introduire la notion de limites par le calcul des images et l\'illustration graphique',
+                'Pour lever l\'indétermination dans le calcul des limites des fonctions homographiques en a, utiliser la propriété : lim 1/(x-a) = -∞ (x→a⁻) et +∞ (x→a⁺)',
+                'Partir de la représentation graphique point par point de 1/x pour introduire les asymptotes'
+            ],
+            consignes: [
+                'Donner les équations des asymptotes à la courbe de (ax+b)/(cx+d) : x = -d/c (verticale) et y = a/c (horizontale)',
+                'Ne pas faire de démonstration formelle des limites'
+            ],
+            evaluation: [
+                'Détermination graphique ou par calcul de limites d\'un polynôme ou d\'une fonction homographique',
+                'Détermination des asymptotes de fonctions homographiques'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer une limite', contenu: 'notion de limite, limite des fonctions de référence (x², x³, 1/x, |x|) à partir du graphique, limites des polynômes et homographiques par calcul' },
+                { capacite: 'Identifier une droite', contenu: 'asymptote horizontale, asymptote verticale' }
+            ]
+        },
+        // Leçon 2.3 Dérivée et étude de fonctions (8h)
+        L4_derivation: {
+            titre: 'Dérivée et étude de fonctions',
+            theme: 'Analyse',
+            prerequis: ['Limites', 'Sens de variation'],
+            materiel: ['Calculatrice'],
+            contenusSynth: [
+                'Fonction dérivée (notion)',
+                'Dérivée des fonctions usuelles : a, x, x², x³, 1/x',
+                'Formules de dérivation : u+v, αu, uv, 1/v, u/v',
+                'Équation d\'une tangente',
+                'Sens de variation, tableau de variation',
+                'Étude des fonctions polynômes de degré ≤3 et des fonctions homographiques'
+            ],
+            strategies: [
+                'Proposer des activités pour réviser la notion de sens de variation',
+                'Présenter la dérivée comme un outil d\'étude du sens de variation',
+                'Donner sans démontrer les dérivées des fonctions usuelles',
+                'À partir d\'activités graphiques, faire découvrir que le sens de variation est lié au signe de la dérivée'
+            ],
+            consignes: [
+                'NB : Étudier les variations, c\'est déterminer : l\'ensemble de définition, les limites, la fonction dérivée, le sens de variation puis le tableau de variation.',
+                'À partir des travaux pratiques, amener les apprenants à construire la courbe en exploitant les points et droites remarquables'
+            ],
+            evaluation: [
+                'Détermination de fonctions dérivées',
+                'Détermination du sens de variation par calcul ou lecture graphique',
+                'Détermination des extrémums',
+                'Détermination de l\'équation de la tangente',
+                'Étude complète d\'une fonction'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer une expression', contenu: 'fonction dérivée (fonctions usuelles a, x, x², x³, 1/x ; formules u+v, αu, uv, 1/v, u/v) ; équation d\'une tangente' },
+                { capacite: 'Étudier les variations d\'une fonction', contenu: 'sens de variation, tableau de variation (polynômes degré ≤3, homographiques)' },
+                { capacite: 'Construire un graphique', contenu: 'courbe des polynômes degré ≤3 et homographiques, tangente, asymptote verticale/horizontale' }
+            ]
+        },
+        // Leçon 2.4 Suites numériques (8h)
+        L5_suites: {
+            titre: 'Suites numériques',
+            theme: 'Analyse',
+            prerequis: ['Fonctions', 'Pourcentages'],
+            materiel: ['Calculatrice', 'Tableur'],
+            contenusSynth: [
+                'Suite définie par formule explicite',
+                'Suite définie par récurrence',
+                'Suite arithmétique, suite géométrique',
+                'Représentation graphique des termes (sur l\'axe des abscisses)',
+                'Sens de variation (graphique, arithmétique, explicite)',
+                'Calcul des termes, de la raison, de la somme de termes consécutifs',
+                'Mathématiser une situation problème'
+            ],
+            strategies: [
+                'Exploiter les activités numériques et graphiques pour faire ressortir les formules de définition d\'une suite',
+                'Représenter graphiquement les termes d\'une suite définie par récurrence sur l\'axe des abscisses',
+                'À partir de situations concrètes, faire ressortir l\'utilisation des suites arithmétiques et géométriques'
+            ],
+            consignes: [
+                'Pour les suites arithmétiques, insister sur le lien avec les problèmes d\'épargne ou de croissance linéaire.',
+                'Pour les suites géométriques, utiliser des exemples comme les intérêts composés.'
+            ],
+            evaluation: [
+                'Calcul des premiers termes d\'une suite',
+                'Calcul d\'un terme d\'indice donné',
+                'Représentation graphique des premiers termes',
+                'Conjecture du sens de variation',
+                'Détermination de la raison',
+                'Calcul de somme de termes consécutifs'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une expression', contenu: 'suite explicite, récurrente ; arithmétique ; géométrique' },
+                { capacite: 'Représenter graphiquement des nombres', contenu: 'termes d\'une suite définie par récurrence sur l\'axe des abscisses' },
+                { capacite: 'Calculer une grandeur', contenu: 'termes d\'une suite, raison, somme de termes consécutifs' },
+                { capacite: 'Déterminer le sens de variation', contenu: 'graphiquement, pour une suite arithmétique, pour une suite explicite' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec suites' }
+            ]
+        },
+        // Leçon 3.1 Dénombrement (6h)
+        L6_denombrement: {
+            titre: 'Dénombrement',
+            theme: 'Organisation des données',
+            prerequis: ['Arbres de choix (seconde)', 'Vocabulaire des ensembles'],
+            materiel: ['Arbres', 'Tableaux'],
+            contenusSynth: [
+                'p-uplets (listes ordonnées avec répétition)',
+                'Arrangements (listes ordonnées sans répétition)',
+                'Permutations (arrangements de n éléments)',
+                'Combinaisons (sous-ensembles sans ordre)'
+            ],
+            strategies: [
+                'Proposer des situations pour réviser les acquis antérieurs (arbre de choix, intersection, réunion)',
+                'Utiliser l\'arbre de choix pour introduire la notion de p-uplets',
+                'Faire des liens avec les applications particulières'
+            ],
+            consignes: [
+                'Introduire la notation factorielle dans les formules de calculs.',
+                'NB : Se limiter à des exemples simples.'
+            ],
+            evaluation: [
+                'Utilisation des p-uplets, arrangements, permutations, combinaisons pour dénombrer'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un nombre', contenu: 'nombre d\'éléments d\'un ensemble : modèles p-uplets, arrangements, permutations, combinaisons' },
+                { capacite: 'Mathématiser une situation-problème', contenu: 'exemples de situations-problèmes de dénombrement' }
+            ]
+        },
+        // Leçon 3.2 Statistiques à une variable (6h)
+        L7_statistiques: {
+            titre: 'Statistiques à une variable',
+            theme: 'Organisation des données',
+            prerequis: ['Statistiques (seconde)'],
+            materiel: ['Tableur', 'Papier millimétré'],
+            contenusSynth: [
+                'Effectifs, fréquences',
+                'Effectifs cumulés (croissants/décroissants), fréquences cumulées',
+                'Diagrammes : bâtons, bandes, circulaire, polygone des effectifs, diagramme des effectifs cumulés, histogramme',
+                'Mode(s), moyenne, médiane (graphiquement)',
+                'Variance, écart-moyen, écart-type'
+            ],
+            strategies: [
+                'Proposer des situations pour réviser les acquis antérieurs',
+                'Proposer des situations conduisant à installer les notions de diagramme des effectifs cumulés et polygone des effectifs',
+                'Proposer des situations pour installer les notions de mode(s), médiane, classe modale',
+                'Proposer des situations pour établir les notions de variance, écart moyen, écart-type'
+            ],
+            consignes: [
+                'Pour la variance et l\'écart-type, utiliser des séries simples pour les calculs à la main.',
+                'La médiane est déterminée graphiquement à partir du polygone des effectifs cumulés.'
+            ],
+            evaluation: [
+                'Établissement de tableaux statistiques',
+                'Construction de diagrammes',
+                'Détermination des caractéristiques de position',
+                'Calcul des caractéristiques de dispersion'
+            ],
+            capacitesDetails: [
+                { capacite: 'Calculer une grandeur numérique', contenu: 'effectifs, fréquences, effectifs cumulés, fréquences cumulées' },
+                { capacite: 'Construire un diagramme', contenu: 'diagramme en bâtons, à bandes, circulaire, polygone des effectifs, diagramme des effectifs cumulés, histogramme' },
+                { capacite: 'Déterminer une caractéristique', contenu: 'mode(s), moyenne, écart-moyen, variance, écart-type, médiane (graphiquement)' }
+            ]
+        }
+    };
+
+    // -------------------- LOGIQUE D'AFFICHAGE --------------------
+    const select = document.getElementById('leconSelect');
+    const dureeInput = document.getElementById('dureeField');
+    const dateInput = document.getElementById('dateField');
+    const btn = document.getElementById('btnGenerer');
+    const ficheDiv = document.getElementById('ficheGeneree');
+    const contenuFiche = document.getElementById('contenuFiche');
+
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+
+    select.addEventListener('change', function() {
+        if (lecons[this.value]) dureeInput.value = '5h (progression)';
+    });
+
+    function generer() {
+        const id = select.value;
+        if (!id || !lecons[id]) { alert('Veuillez sélectionner une leçon.'); return; }
+        const lec = lecons[id];
+        const duree = dureeInput.value || 'selon progression';
+        const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('fr-FR') : 'À déterminer';
+
+        const contenuItems = lec.contenusSynth.map(c => `<li>${c}</li>`).join('');
+        const stratItems = lec.strategies.map(s => `<li>${s}</li>`).join('');
+        const consignesDiv = lec.consignes.map(c => `<div class="badge-consigne">📣 ${c}</div>`).join('');
+        const evalItems = lec.evaluation.map(e => `<li>${e}</li>`).join('');
+        const capRows = lec.capacitesDetails.map(item => 
+            `<tr><td style="font-weight:600; width:35%;">${item.capacite}</td><td>${item.contenu}</td></tr>`
+        ).join('');
+
+        const html = `
+            <div class="fiche-header">
+                <h2>${lec.titre}</h2>
+                <p style="font-size:clamp(0.9rem,2.5vw,1.15rem);">Thème : ${lec.theme} — Durée : ${duree} — Date : ${date}</p>
+            </div>
+            <div class="section-guide"><h4>📋 CONTENUS (synthèse)</h4><ul class="bullet-list">${contenuItems}</ul></div>
+            <div class="section-guide"><h4>🧠 STRATÉGIES PÉDAGOGIQUES</h4><ul class="bullet-list">${stratItems}</ul></div>
+            <div class="section-guide"><h4>🗣️ CONSIGNES (extrait du guide)</h4>${consignesDiv}</div>
+            <div class="section-guide"><h4>✅ ÉVALUATION</h4><ul class="bullet-list">${evalItems}</ul></div>
+            <div class="section-guide"><h4>🔎 CAPACITÉS & CONTENUS (déclinaison officielle)</h4>
+                <table class="table-cap"><tr><th>Capacité</th><th>Contenu</th></tr>${capRows}</table>
+            </div>
+            ${lec.prerequis ? `<div class="section-guide"><h4>📦 PRÉREQUIS & MATÉRIEL</h4><p><strong>Prérequis :</strong> ${lec.prerequis.join(', ')}</p><p><strong>Matériel :</strong> ${lec.materiel.join(' · ')}</p></div>` : ''}
+        `;
+        contenuFiche.innerHTML = html;
+        ficheDiv.classList.remove('hidden');
+        ficheDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    btn.addEventListener('click', generer);
+    document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') generer(); });
+
+    window.exportWord = function() {
+        if (ficheDiv.classList.contains('hidden')) return alert('Générez d’abord une fiche.');
+        const content = contenuFiche.innerHTML;
+        const style = '<style>body { font-family: Arial; margin: 2cm; } .section-guide { margin-bottom:20px; } .table-cap { border-collapse: collapse; width:100%; } .table-cap td, .table-cap th { border:1px solid #aaa; padding:8px; } .badge-consigne { background:#fef7e5; padding:10px; border-left:6px solid #f3b33d; }</style>';
+        const full = `<!DOCTYPE html><html><head><meta charset="UTF-8">${style}</head><body>${content}</body></html>`;
+        const blob = new Blob([full], {type: 'application/msword'});
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'Fiche_1ereA_maths.doc'; link.click();
+    };
+    window.resetFiche = function() {
+        ficheDiv.classList.add('hidden');
+        select.value = '';
+        dureeInput.value = 'selon progression';
+        dateInput.value = today;
+    };
+})();
+</script>
+</body>
+</html>

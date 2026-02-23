@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Fiche Terminale C · Maths Togo · programme intégral (scientifique)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0b4d3a;
+            --primary: #1b6e54;
+            --primary-light: #d0f0e4;
+            --accent: #f3b33d;
+            --bg-light: #f0f8f5;
+            --text: #1b4637;
+            --white: #ffffff;
+            --shadow: 0 10px 20px -8px rgba(0,40,20,0.25);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== BANDEAU ===== */
+        .bandeau {
+            background: linear-gradient(148deg, var(--primary-dark), var(--primary));
+            color: white;
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2rem) clamp(1.5rem, 5vw, 2.8rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2.8rem);
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .bandeau h1 {
+            font-size: clamp(1.1rem, 5vw, 1.9rem);
+            font-weight: 600;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .bandeau h2 {
+            font-size: clamp(0.95rem, 4vw, 1.3rem);
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        .badge-prog {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 800;
+            padding: 0.4rem clamp(1rem, 3vw, 2.2rem);
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: clamp(0.7rem, 3vw, 1rem);
+            box-shadow: 0 4px 8px #b57f1a;
+            white-space: normal;
+            text-align: center;
+        }
+
+        /* ===== CARTE GÉNÉRATEUR ===== */
+        .card-outil {
+            background: var(--white);
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(1.2rem, 4vw, 2.4rem) clamp(1.2rem, 4vw, 3rem);
+            margin-bottom: clamp(1.8rem, 5vw, 2.8rem);
+            border: 2px solid #c3e3d6;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .card-outil h3 {
+            font-size: clamp(1.3rem, 5vw, 2rem);
+            color: var(--primary);
+            border-bottom: 4px solid #c4ecd9;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            min-width: 160px;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #c6e2d7;
+            border-radius: 50px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            background: #f9fffd;
+            transition: 0.2s;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(27,110,84,0.2);
+        }
+
+        .btn-generer {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            width: 100%;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 15px 25px -10px var(--primary);
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .btn-generer:hover {
+            background: #0f543f;
+            transform: translateY(-2px);
+        }
+
+        /* ===== FICHE GÉNÉRÉE ===== */
+        .fiche-finale {
+            background: var(--white);
+            border-radius: clamp(25px, 6vw, 60px);
+            padding: clamp(1.2rem, 4vw, 3rem) clamp(1.2rem, 4vw, 3.5rem);
+            border: 4px solid #a5d7c4;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fiche-header {
+            text-align: center;
+            border-bottom: 3px dashed var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .fiche-header h2 {
+            font-size: clamp(1.6rem, 6vw, 2.6rem);
+            color: var(--primary);
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .section-guide {
+            background: #f6fdfa;
+            border-radius: clamp(18px, 4vw, 40px);
+            padding: clamp(1rem, 3vw, 1.8rem) clamp(1.2rem, 4vw, 2.5rem);
+            margin-bottom: 1.8rem;
+            border-left: clamp(8px, 2vw, 16px) solid var(--primary);
+            box-shadow: 0 6px 12px #c1ddd1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .section-guide h4 {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: #1a5b45;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge-consigne {
+            background: #fef7e5;
+            border-left: clamp(4px, 1.5vw, 8px) solid var(--accent);
+            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1rem, 3vw, 2rem);
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 3vw, 1.05rem);
+            margin: 1rem 0;
+            box-shadow: 0 3px 8px #d9e6df;
+            word-break: break-word;
+        }
+
+        .bullet-list {
+            margin-left: 1.2rem;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            padding-right: 0.5rem;
+        }
+
+        .bullet-list li {
+            margin-bottom: 0.4rem;
+            word-break: break-word;
+        }
+
+        .table-cap {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px #c4ddd1;
+            margin-top: 1rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+        }
+
+        .table-cap th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 10px 8px;
+            text-align: left;
+        }
+
+        .table-cap td {
+            border: 1px solid #b7dbc9;
+            padding: 10px 8px;
+            vertical-align: top;
+            word-break: break-word;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn-print {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 60px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 120px;
+            flex: 1 0 auto;
+            max-width: 200px;
+            white-space: nowrap;
+        }
+
+        .btn-print:hover {
+            background: #e2f3eb;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0.5rem; }
+            .btn-print { white-space: normal; min-width: unset; flex-basis: 100%; }
+            .form-group { flex-basis: 100%; }
+        }
+
+        @media print {
+            .no-print, .card-outil, .actions { display: none !important; }
+            .fiche-finale { border: none; box-shadow: none; padding: 1.2cm; }
+            .section-guide { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- BANDEAU OFFICIEL (extrait du document) -->
+    <div class="bandeau no-print">
+        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE</h1>
+        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie – DIRECTION DES PROGRAMMES</h2>
+        <div class="badge-prog">PROGRAMME MATHÉMATIQUES TERMINALE C (Scientifique) – 200 h – Août 2024</div>
+        <p style="margin-top:1rem; font-size:clamp(0.9rem,3vw,1.2rem);">8 thèmes : Calculs algébriques · Analyse · Géométrie · Applications · Données · Arithmétique</p>
+    </div>
+
+    <!-- GÉNÉRATEUR (basé sur l'intégralité du fichier VF MATHS Tle C.docx) -->
+    <div class="card-outil no-print">
+        <h3>⚛️ GÉNÉRATEUR DE FICHE – PROGRAMME TERMINALE C (SCIENTIFIQUE)</h3>
+        <div class="form-row">
+            <div class="form-group">
+                <label>📌 Leçon</label>
+                <select id="leconSelect">
+                    <option value="">-- Sélectionner une leçon --</option>
+                    <optgroup label="🔹 Thème 1 : Calculs algébriques">
+                        <option value="L1_nombres_complexes">1.1 Nombres complexes</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 2 : Analyse">
+                        <option value="L2_limites">2.1 Compléments sur les limites, continuité et suites</option>
+                        <option value="L3_derivation">2.2 Dérivation – Primitives – Étude de fonctions</option>
+                        <option value="L4_log_exp">2.3 Fonctions logarithmes, exponentielles et puissances</option>
+                        <option value="L5_courbes_param">2.4 Courbes paramétrées</option>
+                        <option value="L6_calcul_integral">2.5 Calcul intégral</option>
+                        <option value="L7_equa_diff">2.6 Équations différentielles</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 4 : Géométrie du plan">
+                        <option value="L8_coniques">4.1 Coniques</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 5 : Géométrie de l'espace">
+                        <option value="L9_produit_vectoriel">5.1 Produit vectoriel et applications</option>
+                        <option value="L10_applications_espace">5.2 Applications de l'espace</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 6 : Applications du plan">
+                        <option value="L11_applications_affines">6.1 Applications affines</option>
+                        <option value="L12_isometries">6.2 Isométries</option>
+                        <option value="L13_similitudes">6.3 Similitudes</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 7 : Organisation des données">
+                        <option value="L14_graphes">7.1 Notions de théorie des graphes</option>
+                        <option value="L15_probabilites">7.2 Probabilités</option>
+                    </optgroup>
+                    <optgroup label="🔹 Thème 8 : Arithmétique">
+                        <option value="L16_arithmetique">8.1 Arithmétique</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>⏱️ Durée (indicative)</label>
+                <input type="text" id="dureeField" value="selon progression" placeholder="ex: 12h / 14h ...">
+            </div>
+            <div class="form-group">
+                <label>📅 Date</label>
+                <input type="date" id="dateField">
+            </div>
+        </div>
+        <button class="btn-generer" id="btnGenerer">✨ GÉNÉRER LA FICHE (contenu intégral Terminale C)</button>
+    </div>
+
+    <!-- FICHE GÉNÉRÉE (contenu extrait du document) -->
+    <div class="fiche-finale hidden" id="ficheGeneree">
+        <div id="contenuFiche"></div>
+        <div class="actions no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print" onclick="alert('Utiliser Impression → Enregistrer en PDF')">📄 PDF</button>
+            <button class="btn-print" onclick="exportWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">🔄 Nouvelle</button>
+        </div>
+        <div style="margin-top:1.5rem; background:#fdf3da; padding:0.8rem 1.5rem; border-radius:60px; font-size:clamp(0.8rem,2.5vw,0.95rem); text-align:center;" class="no-print">
+            ⚡ Guide d'exécution complet : stratégies, consignes, évaluation (extrait officiel Terminale C).
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // ==================== CONTENU INTÉGRAL DU FICHIER VF MATHS Tle C.docx ====================
+    const lecons = {
+        // Leçon 1.1 Nombres complexes – 12h
+        L1_nombres_complexes: {
+            titre: 'Nombres complexes',
+            theme: 'Calculs algébriques',
+            prerequis: ['Trigonométrie', 'Géométrie analytique'],
+            materiel: ['Calculatrice', 'Logiciel de géométrie dynamique'],
+            contenusSynth: [
+                'Forme algébrique, conjugué',
+                'Module, argument, formes trigonométrique et exponentielle',
+                'Formule de Moivre, formule d\'Euler',
+                'Racines n-ièmes d\'un nombre complexe',
+                'Équations dans ℂ (degré 2, bicarrées)',
+                'Applications géométriques : barycentre, alignement, orthogonalité, triangles, cocyclicité'
+            ],
+            strategies: [
+                'Éviter toute construction formelle de l\'ensemble ℂ',
+                'Partir de l\'équation x²+1=0 pour introduire i',
+                'Utiliser une équation du type (x-a)²+b²=0 pour introduire la forme algébrique',
+                'Partir des propriétés pour démontrer que 1/(a+ib) = (a-ib)/(a²+b²)',
+                'Définir le conjugué, le module, l\'argument',
+                'Établir les propriétés sur le module et l\'argument',
+                'Donner les définitions des formes trigonométrique et exponentielle',
+                'Faire établir les formules de Moivre et d\'Euler',
+                'Partir d\'activités pour introduire la racine carrée d\'un nombre complexe',
+                'Utiliser les nombres complexes pour résoudre acos x + b sin x = c'
+            ],
+            consignes: [
+                'Partir d\'exercices pour déterminer l\'ensemble de nombres réels en lien avec la partie réelle ou imaginaire.',
+                'Faire ressortir la bijection entre ℂ et le plan.',
+                'Donner la définition d\'un argument d\'un nombre complexe non nul puis établir sa détermination pratique.',
+                'Partir de la définition du barycentre pour déterminer l\'affixe du barycentre des points pondérés.',
+                'Utiliser le quotient ou argument de nombres complexes pour démontrer le parallélisme et l\'orthogonalité.',
+                'Utiliser (zC-zA)/(zD-zA) pour vérifier que des points sont cocycliques.'
+            ],
+            evaluation: [
+                'Détermination de la somme, du produit et du quotient de nombres complexes',
+                'Détermination de la forme algébrique',
+                'Calcul des puissances entières',
+                'Détermination du conjugué',
+                'Placement d\'un point dont on connaît l\'affixe',
+                'Détermination de l\'affixe d\'un point et d\'un vecteur',
+                'Détermination du module et d\'un argument',
+                'Détermination des formes trigonométrique et exponentielle',
+                'Utilisation des formules d\'Euler et de Moivre',
+                'Détermination des racines n-ièmes',
+                'Résolution d\'équations dans ℂ',
+                'Représentation des points images des solutions',
+                'Démonstration de parallélisme, orthogonalité, nature d\'un triangle, cocyclicité'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître un nombre', contenu: 'nombres complexes, partie réelle, imaginaire, conjugué, forme algébrique, trigonométrique, exponentielle' },
+                { capacite: 'Calculer une grandeur', contenu: 'module, argument' },
+                { capacite: 'Caractériser une configuration', contenu: 'milieu, centre de gravité, barycentre, vecteur, alignement, orthogonalité, parallélisme, triangles équilatéral/isocèle/rectangle, cocyclicité' },
+                { capacite: 'Transformer une expression', contenu: 'formule de Moivre, Euler, développement, réduction, factorisation, passage entre formes, conjugué' },
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble solution d\'une équation dans ℂ, racines n-ièmes' },
+                { capacite: 'Interpréter une grandeur', contenu: 'module, argument' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec nombres complexes' }
+            ]
+        },
+        // Leçon 2.1 Compléments sur les limites, la continuité et les suites numériques – 14h
+        L2_limites: {
+            titre: 'Compléments sur les limites, la continuité et les suites numériques',
+            theme: 'Analyse',
+            prerequis: ['Limites (1ère)', 'Suites (1ère)'],
+            materiel: ['Calculatrice graphique'],
+            contenusSynth: [
+                'Théorèmes de comparaison pour les limites',
+                'Branches infinies : asymptotes, branches paraboliques',
+                'Continuité sur un intervalle, théorème des valeurs intermédiaires',
+                'Fonctions continues et monotones, bijection réciproque',
+                'Convergence des suites : théorèmes complémentaires, comparaison, point fixe'
+            ],
+            strategies: [
+                'Proposer des exercices pour réviser et renforcer les acquis sur les limites de référence et les opérations',
+                'Proposer des activités pour aborder les diverses formes d\'indétermination',
+                'NB : la règle de l\'Hospital n\'est pas au programme',
+                'Partir des activités pour installer les propriétés de comparaison',
+                'Partir des exercices pour réviser les asymptotes',
+                'Proposer des activités conduisant à l\'étude des branches infinies',
+                'Préciser que les fonctions élémentaires sont continues sur leur ensemble de définition',
+                'Partir d\'activités pour démontrer la continuité et les opérations sur la continuité sur un intervalle',
+                'Partir d\'activités pour installer la notion de l\'image d\'un intervalle par une fonction continue',
+                'Partir d\'activités pour installer le théorème des valeurs intermédiaires',
+                'Partir d\'activités pour installer les méthodes de balayage et dichotomie',
+                'Partir des situations d\'apprentissage pour montrer que la restriction d\'une fonction à un intervalle est bijective grâce à la stricte monotonie et la continuité',
+                'Utiliser les propriétés de comparaison pour déterminer la limite d\'une suite',
+                'Énoncer le théorème de la convergence monotone',
+                'Utiliser la méthode du point fixe pour déterminer une valeur approchée d\'une solution d\'une équation'
+            ],
+            consignes: [
+                'Étudier la convergence des suites définie par Uₙ₊₁ = f(Uₙ) où f est une fonction continue.',
+                'Pour les branches infinies, ne pas systématiser la recherche d\'asymptote oblique.'
+            ],
+            evaluation: [
+                'Détermination de limites d\'une fonction',
+                'Détermination de l\'équation d\'une asymptote',
+                'Détermination des branches infinies d\'une courbe',
+                'Justification de la continuité sur un intervalle',
+                'Justification de l\'existence de solutions de l\'équation f(x)=k',
+                'Détermination de l\'image d\'un intervalle par une fonction continue',
+                'Détermination de l\'encadrement d\'une solution',
+                'Justification d\'une bijection sur un intervalle',
+                'Construction d\'une bijection réciproque',
+                'Détermination de la limite d\'une suite',
+                'Étude de la convergence d\'une suite'
+            ],
+            capacitesDetails: [
+                { capacite: 'Calculer une grandeur', contenu: 'limite par théorèmes de comparaison, réécriture, valeur approchée d\'un antécédent, limite d\'une suite, valeur approchée d\'une limite' },
+                { capacite: 'Démontrer une propriété', contenu: 'continuité sur un intervalle, application bijective, bijection réciproque, TVI, convergence d\'une suite (majoration, minoration, comparaison, point fixe)' },
+                { capacite: 'Interpréter graphiquement', contenu: 'branches infinies, comportement asymptotique, branche parabolique, asymptotes' },
+                { capacite: 'Déterminer un ensemble', contenu: 'solution de l\'équation f(x)=c' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec limites, continuité, convergence de suites' }
+            ]
+        },
+        // Leçon 2.2 Dérivation – Primitives – Étude de fonctions – 14h
+        L3_derivation: {
+            titre: 'Dérivation – Primitives – Étude de fonctions',
+            theme: 'Analyse',
+            prerequis: ['Dérivation (1ère)', 'Limites'],
+            materiel: ['Calculatrice'],
+            contenusSynth: [
+                'Dérivabilité sur un intervalle, dérivées successives',
+                'Dérivée d\'une fonction composée, d\'une fonction réciproque',
+                'Inégalité des accroissements finis',
+                'Primitives',
+                'Étude de fonctions : irrationnelles, trigonométriques, valeur absolue, partie entière'
+            ],
+            strategies: [
+                'Proposer des exercices pour réviser des notions vues en première sur la dérivabilité en un point',
+                'Partir d\'activités pour démontrer la dérivabilité et les opérations sur les dérivées des fonctions sur un intervalle',
+                'Partir d\'activités pour expliciter la dérivée de la réciproque d\'une bijection',
+                'Préciser l\'ensemble de dérivabilité de la bijection réciproque',
+                'Établir les dérivées successives de quelques fonctions simples',
+                'Partir d\'activités pour démontrer la propriété de l\'inégalité des accroissements finis',
+                'Partir d\'activités pour introduire la notion de primitives d\'une fonction',
+                'Donner les primitives de fonctions élémentaires',
+                'Donner les formules usuelles permettant de déterminer les primitives',
+                'Proposer des activités sur l\'étude des fonctions de type irrationnelles, trigonométriques, avec partie entière'
+            ],
+            consignes: [
+                'Transformer l\'expression d\'une fonction pour déterminer ses primitives.',
+                'NB : L\'étude de la position relative de la courbe par rapport à son asymptote ou à un axe du repère n\'est pas au programme de terminale A (mais en C, elle est abordée via point d\'inflexion).'
+            ],
+            evaluation: [
+                'Détermination de la dérivabilité sur un intervalle',
+                'Détermination de la dérivée d\'une fonction composée',
+                'Justification de la dérivabilité de la bijection réciproque',
+                'Application de l\'inégalité des accroissements finis',
+                'Détermination des primitives d\'une fonction',
+                'Détermination de la primitive vérifiant une condition initiale',
+                'Étude de fonctions (irrationnelles, trigonométriques, avec partie entière)'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de dérivabilité d\'une fonction, de la bijection réciproque, position relative courbe/tangentes (point d\'inflexion)' },
+                { capacite: 'Déterminer une fonction', contenu: 'dérivée, dérivée d\'une fonction réciproque, dérivée d\'une fonction composée, primitive' },
+                { capacite: 'Démontrer une propriété', contenu: 'inégalité des accroissements finis, dérivée d\'une fonction réciproque' },
+                { capacite: 'Étudier une fonction', contenu: 'fonctions irrationnelles, trigonométriques, valeur absolue, partie entière, fonction réciproque sur un intervalle' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec dérivation ou primitives' }
+            ]
+        },
+        // Leçon 2.3 Fonctions logarithmes, exponentielles et puissances – 16h
+        L4_log_exp: {
+            titre: 'Fonctions logarithmes, exponentielles et puissances',
+            theme: 'Analyse',
+            prerequis: ['Fonctions usuelles', 'Dérivation'],
+            materiel: ['Calculatrice', 'Tableur'],
+            contenusSynth: [
+                'Fonction ln : définition, propriétés, limites, variations, courbe',
+                'Fonction exp : réciproque de ln, propriétés, limites, variations, courbe',
+                'Logarithme et exponentielle de base a',
+                'Fonctions puissances : x^a, croissance comparée',
+                'Équations et inéquations avec ln, exp',
+                'Dérivées et primitives des fonctions avec ln, exp, puissances'
+            ],
+            strategies: [
+                'Donner la définition de ln comme primitive de x↦1/x sur ]0,+∞[ s\'annulant en 1',
+                'Démontrer la propriété fondamentale',
+                'Les limites de ln aux bornes sont admises',
+                'Partir d\'activités pour déterminer l\'expression de la dérivée de x↦ln(u(x))',
+                'Étudier des fonctions comportant ln',
+                'Installer la définition de exp comme réciproque de ln',
+                'Établir la propriété fondamentale de exp',
+                'Proposer des activités sur la résolution des équations et inéquations avec exp et ln',
+                'Partir d\'activités pour déterminer l\'expression de la dérivée de x↦exp(u(x))',
+                'Étudier des fonctions comportant exp',
+                'Étude guidée de la fonction x↦u(x)^v(x) où u strictement positive et v quelconque'
+            ],
+            consignes: [
+                'Les types d\'équations avec ln : ln((ax+b)/(cx+d))=ln(fx+g), ln(u(x))=ln(v(x)), ln(u(x))=c (c=ln e^c)',
+                'Les types d\'inéquations avec ln : ln((ax+b)/(cx+d)) < ln(fx+g), ln(u(x)) < ln(v(x)), ln(u(x)) < c',
+                'Les types d\'équations avec exp : exp((ax+b)/(cx+d))=exp(ex+f), exp(u(x))=exp(v(x)), exp(u(x))=c',
+                'Les types d\'inéquations avec exp : exp((ax+b)/(cx+d)) < exp(ex+f), exp(u(x)) < exp(v(x)), exp(u(x)) < c'
+            ],
+            evaluation: [
+                'Détermination de l\'ensemble de définition des fonctions avec ln/exp',
+                'Résolution d\'équations ou inéquations avec ln/exp',
+                'Détermination de limites',
+                'Détermination de la dérivée',
+                'Détermination d\'une primitive',
+                'Étude de fonctions comportant ln/exp/puissances'
+            ],
+            capacitesDetails: [
+                { capacite: 'Étudier une fonction', contenu: 'ln, logarithme de base a, exp, exponentielle de base a, fonctions puissances' },
+                { capacite: 'Déterminer une limite', contenu: 'limites de référence, limites avec ln, exp, puissances' },
+                { capacite: 'Construire un graphique', contenu: 'courbes de ln, exp, a^x, log_a x, x^a, fonctions avec ln/exp/puissances, tangentes, asymptotes' },
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de définition, ensemble de validité, solutions d\'équations/inéquations avec ln/exp/puissances' },
+                { capacite: 'Déterminer les variations', contenu: 'sens de variation avec ln/exp/puissances' },
+                { capacite: 'Reconnaître une propriété', contenu: 'propriétés des logarithmes, exponentielles, puissances' },
+                { capacite: 'Déterminer une fonction', contenu: 'dérivée, primitive avec ln/exp/puissances' },
+                { capacite: 'Démontrer une propriété', contenu: 'propriétés des logarithmes, exponentielles, puissances' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec ln, exp, puissances' }
+            ]
+        },
+        // Leçon 2.4 Courbes paramétrées – 8h
+        L5_courbes_param: {
+            titre: 'Courbes paramétrées',
+            theme: 'Analyse',
+            prerequis: ['Dérivation', 'Limites'],
+            materiel: ['Calculatrice', 'Logiciel de tracé'],
+            contenusSynth: [
+                'Représentation paramétrique de courbes simples (droite, segment, cercle)',
+                'Définition d\'une courbe paramétrée',
+                'Propriétés : ensemble d\'étude, points particuliers (doubles, réguliers, stationnaires), branches infinies',
+                'Tangentes, demi-tangentes'
+            ],
+            strategies: [
+                'Partir d\'activités pour introduire les courbes paramétrées',
+                'Traiter des exemples simples comme les droites, segments, cercles',
+                'Donner la définition d\'une courbe paramétrée',
+                'Partir d\'activités pour ressortir les propriétés d\'une courbe paramétrée',
+                'Utiliser les propriétés (parité, symétrie, périodicité) pour déterminer l\'ensemble d\'étude',
+                'NB : Déterminer éventuellement l\'existence de tangentes ou demi-tangentes en un point stationnaire sans systématiser ce type de recherche',
+                'Étudier les courbes paramétrées par {x=f(t), y=g(t)} où f et g sont des fonctions numériques'
+            ],
+            consignes: [
+                'Partir d\'activités conduisant au tracé de la courbe en exploitant les droites et points remarquables.'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une courbe paramétrée',
+                'Paramétrage de courbes données',
+                'Détermination d\'ensemble d\'étude',
+                'Étude des branches infinies',
+                'Détermination de la tangente en un point régulier',
+                'Détermination de demi-tangentes ou tangentes en un point stationnaire',
+                'Identification des points réguliers et stationnaires',
+                'Étude et construction d\'une courbe paramétrée'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de définition, ensemble d\'étude' },
+                { capacite: 'Reconnaître une propriété', contenu: 'parité, périodicité, éléments de symétrie' },
+                { capacite: 'Démontrer une propriété', contenu: 'parité, périodicité, symétrie, asymptotes, points singuliers, tangentes, branches infinies' },
+                { capacite: 'Construire un graphique', contenu: 'fonctions t↦(f(t),g(t)), asymptotes, tangentes' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec courbes paramétrées' }
+            ]
+        },
+        // Leçon 2.5 Calcul intégral – 10h
+        L6_calcul_integral: {
+            titre: 'Calcul intégral',
+            theme: 'Analyse',
+            prerequis: ['Primitives'],
+            materiel: ['Calculatrice'],
+            contenusSynth: [
+                'Définition de l\'intégrale, propriétés algébriques',
+                'Techniques de calcul : primitives, intégration par parties, changement de variable affine',
+                'Calcul approché d\'une intégrale',
+                'Applications : aires, valeur moyenne, fonctions définies par une intégrale'
+            ],
+            strategies: [
+                'Partir des situations pour introduire la notion d\'intégrale',
+                'Donner la définition et l\'interprétation graphique de l\'intégrale',
+                'Partir d\'activités pour établir la relation de Chasles, la linéarité et les propriétés de comparaison',
+                'Limiter la technique de changement de variable aux intégrales de la forme ∫ f(αx+β) dx',
+                'Utiliser la méthode des rectangles pour trouver la valeur approchée d\'une intégrale',
+                'Donner la propriété permettant de calculer l\'aire d\'une partie du plan'
+            ],
+            consignes: [
+                'Pour des cas simples, étudier les fonctions du type ∫ de u(x) à v(x) f(t) dt où u et v sont affines.',
+                'NB : Le calcul de volume à l\'aide d\'intégrales n\'est pas au programme.'
+            ],
+            evaluation: [
+                'Détermination d\'une intégrale',
+                'Détermination d\'une primitive unique',
+                'Détermination du signe d\'une intégrale',
+                'Comparaison de deux intégrales',
+                'Calcul d\'intégrales par parties',
+                'Détermination d\'une valeur approchée d\'une intégrale',
+                'Calcul d\'aires',
+                'Étude d\'une fonction définie par une intégrale'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un nombre', contenu: 'intégrale, aire d\'un domaine plan, valeur moyenne d\'une fonction' },
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de définition' },
+                { capacite: 'Reconnaître une propriété', contenu: 'propriétés de l\'intégrale' },
+                { capacite: 'Étudier une fonction', contenu: 'fonction du type x↦∫ de a à x f(t) dt' },
+                { capacite: 'Utiliser une démarche', contenu: 'intégration par parties' },
+                { capacite: 'Démontrer une propriété', contenu: 'intégration par parties, propriétés de l\'intégrale, inégalités de la moyenne' },
+                { capacite: 'Calculer une grandeur', contenu: 'changement de variable affine, valeur approchée d\'une intégrale' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec calcul intégral' }
+            ]
+        },
+        // Leçon 2.6 Équations différentielles – 6h
+        L7_equa_diff: {
+            titre: 'Équations différentielles',
+            theme: 'Analyse',
+            prerequis: ['Fonctions exponentielles', 'Primitives'],
+            materiel: ['Calculatrice'],
+            contenusSynth: [
+                'Généralités, courbes intégrales',
+                'Équations du 1er ordre sans second membre : y\' + ay = 0',
+                'Équations du 2nd ordre sans second membre : ay\'\' + by\' + cy = 0 (équation caractéristique)',
+                'Équations avec second membre (résolution guidée)'
+            ],
+            strategies: [
+                'Les équations différentielles à coefficients variables ne sont pas au programme',
+                'Partir des exemples (tirés des sciences physiques) pour introduire la notion',
+                'Donner la définition d\'une équation différentielle et d\'une courbe intégrale',
+                'Partir d\'une situation pour déterminer l\'ensemble solution d\'une équation sans second membre',
+                'Partir d\'une situation pour déterminer l\'ensemble solution d\'une équation avec second membre',
+                'NB : Dans le cas d\'une équation avec second membre, la résolution doit être guidée'
+            ],
+            consignes: [
+                'Étant donnée une équation différentielle, partir d\'une situation pour prouver l\'existence et l\'unicité d\'une solution connaissant une ou des conditions initiales.'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une équation différentielle',
+                'Vérification qu\'une fonction est une solution',
+                'Résolution d\'équations différentielles avec ou sans second membre'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de définition d\'une fonction solution, ensemble solution d\'une équation différentielle' },
+                { capacite: 'Résoudre une équation', contenu: 'équations caractéristique, 1er ordre y\'+ay=0, second ordre ay\'\'+by\'+cy=0, avec second membre' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec équations différentielles' }
+            ]
+        },
+        // Leçon 4.1 Coniques – 10h
+        L8_coniques: {
+            titre: 'Coniques',
+            theme: 'Géométrie du plan',
+            prerequis: ['Géométrie analytique', 'Équations du second degré'],
+            materiel: ['Logiciel de géométrie', 'Compas, règle'],
+            contenusSynth: [
+                'Étude géométrique (définitions monofocale et bifocale)',
+                'Équation cartésienne d\'une parabole, ellipse, hyperbole',
+                'Étude analytique, éléments caractéristiques',
+                'Représentation paramétrique',
+                'Tangente, asymptotes'
+            ],
+            strategies: [
+                'Insister sur la construction point par point des coniques',
+                'Donner les définitions monofocale et bifocale',
+                'Partir d\'activités pour établir une équation cartésienne',
+                'Partir d\'une équation donnée pour déterminer la nature et les éléments caractéristiques',
+                'Donner l\'équation de la tangente à une conique en un point donné'
+            ],
+            consignes: [
+                'Partir des éléments caractéristiques d\'une conique pour déterminer son équation cartésienne.',
+                'Partir d\'activités pour établir une représentation paramétrique des coniques.'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une conique',
+                'Détermination d\'une conique',
+                'Construction point par point',
+                'Détermination des éléments caractéristiques',
+                'Détermination d\'une équation réduite',
+                'Détermination des asymptotes et tangentes',
+                'Détermination de la représentation paramétrique'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître un ensemble de points', contenu: 'parabole, ellipse, hyperbole' },
+                { capacite: 'Déterminer une expression', contenu: 'équation réduite, équation de la tangente, équation des asymptotes' },
+                { capacite: 'Déterminer un nombre', contenu: 'excentricité, distance focale, paramètre p de la parabole' },
+                { capacite: 'Caractériser un ensemble de points', contenu: 'parabole, ellipse, hyperbole, sommets, axe focal, foyers, directrice, asymptotes, tangente' },
+                { capacite: 'Construire un graphique', contenu: 'coniques, asymptotes, tangentes' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec coniques' }
+            ]
+        },
+        // Leçon 5.1 Produit vectoriel et ses applications – 6h
+        L9_produit_vectoriel: {
+            titre: 'Produit vectoriel et ses applications',
+            theme: 'Géométrie de l\'espace',
+            prerequis: ['Vecteurs de l\'espace', 'Produit scalaire'],
+            materiel: ['Modèles 3D', 'Logiciel'],
+            contenusSynth: [
+                'Orientation de l\'espace',
+                'Définition et propriétés du produit vectoriel',
+                'Expression analytique',
+                'Applications : équation cartésienne d\'un plan, distance, aire, positions relatives'
+            ],
+            strategies: [
+                'Partir d\'une situation portant sur un cube pour orienter l\'espace grâce à la règle du bonhomme d\'Ampère',
+                'Utiliser les propriétés pour renforcer la notion d\'une base orthonormée',
+                'Utiliser le déterminant pour donner l\'expression analytique du produit vectoriel',
+                'Partir d\'activités pour déterminer l\'équation cartésienne d\'un plan, la distance d\'un point à une droite ou à un plan en utilisant le produit vectoriel',
+                'Partir d\'activités pour déterminer la position relative de deux plans'
+            ],
+            consignes: [
+                'Partir d\'activités pour établir l\'aire d\'un triangle, d\'un parallélogramme.'
+            ],
+            evaluation: [
+                'Détermination du sens d\'une base de l\'espace',
+                'Détermination d\'une base orthonormée',
+                'Détermination des coordonnées',
+                'Détermination de l\'équation cartésienne d\'un plan',
+                'Détermination de la distance d\'un point à une droite, à un plan',
+                'Détermination de la position relative de deux plans',
+                'Calcul d\'aire d\'un triangle, d\'un parallélogramme'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une configuration', contenu: 'produit vectoriel, positions relatives de deux plans, de sphère et de plan' },
+                { capacite: 'Déterminer une expression', contenu: 'expression analytique du produit vectoriel' },
+                { capacite: 'Déterminer un ensemble de points', contenu: 'équation d\'un plan, lignes de niveau' },
+                { capacite: 'Déterminer un nombre', contenu: 'distance point-plan, point-droite, aire triangle/parallélogramme' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec produit vectoriel' }
+            ]
+        },
+        // Leçon 5.2 Applications de l'espace – 10h
+        L10_applications_espace: {
+            titre: 'Applications de l\'espace',
+            theme: 'Géométrie de l\'espace',
+            prerequis: ['Applications du plan'],
+            materiel: ['Logiciel 3D'],
+            contenusSynth: [
+                'Translation, homothétie : définition, propriétés, expression analytique',
+                'Projection sur un plan parallèlement à une droite, sur une droite parallèlement à un plan',
+                'Réflexion (symétrie orthogonale), demi-tour'
+            ],
+            strategies: [
+                'Partir des situations analogues étudiées dans le plan pour établir la définition, les propriétés et les expressions analytiques',
+                'NB : Les propriétés relatives à la projection sur un plan parallèlement à une droite et sur une droite parallèlement à un plan sont admises',
+                'Proposer des activités conduisant à la notion de projection sur un plan parallèlement à une droite',
+                'Proposer des exercices pour réviser la notion du plan médiateur d\'un segment',
+                'Partir d\'activités pour installer la définition d\'une réflexion, d\'un demi-tour',
+                'Démontrer les propriétés sur la réflexion et le demi-tour'
+            ],
+            consignes: [
+                'NB : la composition des applications de l\'espace n\'est pas au programme.',
+                'Pour les symétries orthogonales, se référer aux symétries étudiées en seconde.'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une translation ou d\'une homothétie',
+                'Détermination de l\'expression analytique d\'une translation/homothétie',
+                'Reconnaissance d\'une projection',
+                'Détermination de l\'expression analytique d\'une projection',
+                'Justification qu\'une expression analytique est celle d\'une projection',
+                'Reconnaissance d\'une réflexion',
+                'Détermination de l\'expression analytique d\'une réflexion',
+                'Reconnaissance d\'un demi-tour',
+                'Détermination de l\'expression analytique d\'un demi-tour'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une application', contenu: 'translation, homothétie, projection, symétries orthogonales (demi-tour, réflexion)' },
+                { capacite: 'Déterminer une application', contenu: 'translation, homothétie, projection, symétrie orthogonale' },
+                { capacite: 'Déterminer une expression', contenu: 'expression analytique de translation, homothétie, projection, symétries orthogonales' },
+                { capacite: 'Caractériser une application', contenu: 'translation, homothétie, projection, symétries orthogonales' },
+                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de points invariants, image d\'un ensemble par une application' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec applications de l\'espace' }
+            ]
+        },
+        // Leçon 6.1 Applications affines – 16h
+        L11_applications_affines: {
+            titre: 'Applications affines',
+            theme: 'Applications du plan',
+            prerequis: ['Transformations', 'Géométrie analytique'],
+            materiel: ['Logiciel de géométrie'],
+            contenusSynth: [
+                'Définition d\'une application affine, propriétés',
+                'Détermination d\'une application affine par l\'image de points',
+                'Points invariants',
+                'Image d\'une droite, du plan',
+                'Expression analytique',
+                'Application linéaire associée',
+                'Affinités'
+            ],
+            strategies: [
+                'Proposer des exercices pour consolider la notion de conservation du barycentre et du coefficient de colinéarité',
+                'Proposer des activités conduisant à l\'installation d\'applications affines, puis de transformations affines',
+                'Démontrer les propriétés des applications affines (composée, réciproque)',
+                'Proposer des situations conduisant à la détermination d\'une application à partir de trois points non alignés du plan',
+                'Proposer une situation conduisant à la détermination de l\'ensemble de points invariants par une application affine',
+                'Partir de trois points non alignés, de leurs images et du choix d\'un repère convenable pour établir l\'expression analytique',
+                'Partir d\'activités pour installer la notion d\'une application vectorielle associée à une application affine et montrer qu\'elle est linéaire',
+                'Partir d\'activités pour installer la définition d\'une affinité et préciser ses éléments caractéristiques',
+                'Insister sur les cas particuliers : rapport 0 ou -1, avec axe et direction perpendiculaire'
+            ],
+            consignes: [
+                'NB : Faire remarquer que les applications affines même bijectives ne conservent pas toujours la nature géométrique des figures (exemple des affinités de rapport non nul et différent de 1).'
+            ],
+            evaluation: [
+                'Justification qu\'une application du plan est affine',
+                'Détermination de l\'ensemble des points invariants',
+                'Reconnaissance d\'une application affine',
+                'Détermination de l\'image d\'un ensemble de points par une application affine',
+                'Détermination de l\'application linéaire associée',
+                'Reconnaissance d\'une application affine',
+                'Détermination de l\'expression analytique d\'une application affine',
+                'Détermination de l\'expression analytique d\'une affinité',
+                'Détermination des éléments caractéristiques d\'une affinité'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une application', contenu: 'application affine' },
+                { capacite: 'Déterminer une application', contenu: 'application affine, application linéaire associée' },
+                { capacite: 'Déterminer une expression', contenu: 'expression analytique' },
+                { capacite: 'Caractériser une application', contenu: 'application affine' },
+                { capacite: 'Déterminer un ensemble', contenu: 'points invariants, image d\'un ensemble par une application affine' },
+                { capacite: 'Démontrer une propriété', contenu: 'application affine' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec applications affines' }
+            ]
+        },
+        // Leçon 6.2 Isométries – 8h
+        L12_isometries: {
+            titre: 'Isométries',
+            theme: 'Applications du plan',
+            prerequis: ['Isométries (1ère)'],
+            materiel: ['Logiciel de géométrie'],
+            contenusSynth: [
+                'Décomposition d\'une isométrie en translation et rotation',
+                'Symétrie glissée : définition, propriétés, expression analytique, éléments caractéristiques',
+                'Classification des isométries suivant les points invariants'
+            ],
+            strategies: [
+                'Proposer des exercices pour réviser la composition des isométries de la classe de première',
+                'Faire l\'application à partir de leurs expressions analytiques',
+                'Partir de la composition des symétries orthogonales pour déduire la décomposition d\'une translation et d\'une rotation',
+                'Partir d\'activité pour installer la notion de symétrie glissée',
+                'Démontrer les propriétés de la symétrie glissée',
+                'Partir de l\'expression analytique de la translation et de la symétrie orthogonale pour établir celle de la symétrie glissée',
+                'Partir de la décomposition d\'une symétrie glissée pour déterminer ses éléments caractéristiques',
+                'Proposer des activités conduisant à la classification des isométries suivant leurs ensembles de points invariants'
+            ],
+            consignes: [
+                'Pour la composée de deux rotations, présenter seulement le cas de même centre.'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une isométrie',
+                'Décomposition d\'une translation et d\'une rotation',
+                'Reconnaissance d\'une symétrie glissée',
+                'Détermination de l\'expression analytique d\'une symétrie glissée',
+                'Détermination des éléments caractéristiques d\'une symétrie glissée',
+                'Détermination de la décomposition d\'une symétrie glissée',
+                'Classification des isométries'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer une application', contenu: 'décomposition d\'une isométrie' },
+                { capacite: 'Caractériser une isométrie', contenu: 'symétrie glissée, classification d\'isométries suivant les points invariants' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec isométries' }
+            ]
+        },
+        // Leçon 6.3 Similitudes – 14h
+        L13_similitudes: {
+            titre: 'Similitudes',
+            theme: 'Applications du plan',
+            prerequis: ['Isométries', 'Homothéties'],
+            materiel: ['Logiciel de géométrie'],
+            contenusSynth: [
+                'Définition géométrique d\'une similitude, propriétés',
+                'Décomposition d\'une similitude',
+                'Similitudes directes : expression géométrique, éléments caractéristiques, décomposition, expression analytique et complexe',
+                'Similitudes indirectes : expression géométrique, décomposition, éléments caractéristiques, expression complexe'
+            ],
+            strategies: [
+                'Partir d\'activités pour installer la définition d\'une similitude',
+                'Par des activités et des illustrations donner la différence entre les deux types de similitudes',
+                'Démontrer les propriétés des similitudes',
+                'Par une activité montrer la décomposition en lien avec les isométries',
+                'Par des activités pour installer la définition de la similitude directe par son centre Ω, son angle θ, et son rapport k',
+                'Par une activité introduire la décomposition de la similitude directe',
+                'Démontrer les propriétés d\'une similitude directe',
+                'Établir l\'expression complexe à partir de l\'expression analytique',
+                'Partir d\'activités pour installer la définition de la similitude indirecte',
+                'Donner la décomposition de la similitude indirecte',
+                'Prouver l\'expression complexe z\' = az̅ + b de la similitude indirecte',
+                'Donner la classification des similitudes indirectes particulières suivant a et b'
+            ],
+            consignes: [
+                'NB : La détermination du centre d\'une similitude n\'est pas au programme.',
+                'Utiliser la propriété des triangles semblables pour démontrer.'
+            ],
+            evaluation: [
+                'Reconnaissance d\'une similitude',
+                'Détermination du rapport d\'une similitude',
+                'Reconnaissance de figures semblables',
+                'Détermination du rapport et de l\'angle à partir de deux points et leurs images',
+                'Détermination de l\'expression complexe d\'une similitude directe',
+                'Détermination des caractéristiques d\'une similitude directe à partir de son expression complexe',
+                'Détermination de l\'expression analytique d\'une similitude directe',
+                'Détermination de la décomposition d\'une similitude directe',
+                'Détermination des caractéristiques à partir de l\'équation complexe (similitude indirecte)',
+                'Détermination de l\'expression complexe d\'une similitude indirecte',
+                'Détermination de l\'expression analytique d\'une similitude indirecte',
+                'Détermination de la décomposition d\'une similitude indirecte',
+                'Détermination d\'une similitude échangeant deux figures semblables'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une application', contenu: 'similitude directe, indirecte, transformation échangeant deux figures semblables, expression analytique, expression complexe' },
+                { capacite: 'Reconnaître une propriété', contenu: 'rapport d\'une similitude, mesure de l\'angle d\'une similitude directe, axe d\'une similitude indirecte, centre, figures semblables' },
+                { capacite: 'Déterminer une expression', contenu: 'expression analytique, expression complexe' },
+                { capacite: 'Construire une configuration', contenu: 'image par une similitude' },
+                { capacite: 'Démontrer une propriété', contenu: 'figures semblables, nature d\'une similitude, décomposition d\'une similitude' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec similitudes' }
+            ]
+        },
+        // Leçon 7.1 Notions de théorie des graphes – 8h
+        L14_graphes: {
+            titre: 'Notions de théorie des graphes',
+            theme: 'Organisation des données',
+            prerequis: ['Dénombrement'],
+            materiel: ['Papier', 'crayons de couleur'],
+            contenusSynth: [
+                'Éléments de base : graphe non orienté, sommet, arête, boucle, degré, ordre, taille, sous-graphe, graphe complet, connexité',
+                'Lemme des poignées de mains',
+                'Chaînes, cycles, chaînes et cycles eulériens, théorème d\'Euler',
+                'Coloriage des sommets : nombre chromatique, algorithme de Welsh-Powell'
+            ],
+            strategies: [
+                'Partir d\'activités pour introduire la notion d\'un graphe non orienté (relations amicales, réseau routier, etc.)',
+                'Définir les termes suivants : graphe, sommet, sommet isolé, arête, boucle, degré, sous-graphe (stable), graphe complet, graphe simple',
+                'Donner le théorème suivant (lemme des poignées de mains)',
+                'Partir d\'activités pour introduire la notion de chaîne sur un graphe',
+                'Définir les termes : chaîne, cycle, chaîne et cycles eulériens, longueur d\'une chaîne, graphe connexe et graphe eulérien',
+                'Donner le théorème d\'Euler sur la caractérisation des graphes eulériens',
+                'Définir le coloriage des sommets et le nombre chromatique d\'un graphe',
+                'Donner les propriétés sur le nombre chromatique',
+                'Donner l\'algorithme de Welsh-Powell'
+            ],
+            consignes: [
+                'NB : Les graphes orientés ne sont pas au programme. Ne pas introduire la définition des matrices représentant un graphe.',
+                'Seuls les graphes eulériens sont au programme.',
+                'Ne pas introduire une rédaction algorithmique stricte ou des termes d\'un langage de programmation.',
+                'Ne pas introduire le coloriage des arêtes d\'un graphe.'
+            ],
+            evaluation: [
+                'Détermination du degré d\'un sommet',
+                'Détermination de l\'ordre et de la taille d\'un graphe',
+                'Détermination de sous-graphe et sous-graphes stables',
+                'Reconnaissance d\'un graphe complet',
+                'Reconnaissance d\'un graphe connexe',
+                'Détermination d\'une chaîne et de sa longueur, d\'un cycle',
+                'Reconnaissance d\'un graphe eulérien',
+                'Encadrement du nombre chromatique',
+                'Coloriage des sommets d\'un graphe donné'
+            ],
+            capacitesDetails: [
+                { capacite: 'Reconnaître une structure', contenu: 'graphe non orienté, sous-graphe, graphe complet, graphe connexe, chaîne, chaîne eulérienne, longueur d\'une chaîne, cycle' },
+                { capacite: 'Déterminer un ensemble', contenu: 'sommets adjacents' },
+                { capacite: 'Déterminer un nombre', contenu: 'degré d\'un sommet, ordre d\'un graphe, longueur d\'une chaîne, nombre chromatique' },
+                { capacite: 'Utiliser un algorithme', contenu: 'algorithme de coloriage de sommets (Welsh-Powell)' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec graphes' }
+            ]
+        },
+        // Leçon 7.2 Probabilités – 10h
+        L15_probabilites: {
+            titre: 'Probabilités',
+            theme: 'Organisation des données',
+            prerequis: ['Dénombrement', 'Probabilités (1ère)'],
+            materiel: ['Calculatrice', 'Tableur'],
+            contenusSynth: [
+                'Variable aléatoire, loi de probabilité, fonction de répartition',
+                'Espérance, variance, écart-type',
+                'Probabilités conditionnelles, événements indépendants, probabilité totale',
+                'Schéma de Bernoulli, loi binomiale'
+            ],
+            strategies: [
+                'Partir d\'exercices pour réviser les notions de la classe de première : équiprobabilité',
+                'Partir des situations pour introduire la notion d\'évènements élémentaires non équiprobables',
+                'Partir d\'activités sur les ensembles pour démontrer la propriété P(A∪B)=P(A)+P(B)-P(A∩B)',
+                'Partir des situations simples pour introduire la notion d\'évènements indépendants',
+                'Partir des situations contextualisées pour introduire la notion de probabilité conditionnelle',
+                'Faire ressortir l\'usage d\'un arbre pondéré',
+                'Partir d\'activités pour installer les notions de variables aléatoires, de loi de probabilité et de fonction de répartition',
+                'Partir d\'activités pour installer la notion de schéma de Bernoulli, puis de loi binomiale'
+            ],
+            consignes: [
+                'NB : Introduction élémentaire des probabilités dans le cas d\'équiprobabilité.'
+            ],
+            evaluation: [
+                'Calcul de probabilité',
+                'Calcul de probabilité conditionnelle',
+                'Identification des évènements conditionnels',
+                'Identification des événements indépendants',
+                'Détermination de la loi de probabilité',
+                'Détermination de l\'espérance, variance, écart-type',
+                'Reconnaissance de la loi binomiale'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer une fonction', contenu: 'loi de probabilité, fonction de répartition, variable aléatoire' },
+                { capacite: 'Interpréter une donnée', contenu: 'univers image, caractéristiques d\'une variable aléatoire, expérience aléatoire, arbre pondéré' },
+                { capacite: 'Déterminer un nombre', contenu: 'probabilité (équiprobable ou non), probabilité conditionnelle, probabilité d\'événements indépendants, caractéristiques d\'une variable aléatoire' },
+                { capacite: 'Démontrer une propriété', contenu: 'propriété d\'une probabilité' },
+                { capacite: 'Mathématiser une situation', contenu: 'exemples avec probabilités' }
+            ]
+        },
+        // Leçon 8.1 Arithmétique – 14h
+        L16_arithmetique: {
+            titre: 'Arithmétique',
+            theme: 'Arithmétique',
+            prerequis: ['Arithmétique (1ère)'],
+            materiel: ['Calculatrice'],
+            contenusSynth: [
+                'Écriture en base 2, somme et produit en base 2',
+                'PGCD, PPCM : définition, propriétés, algorithme d\'Euclide',
+                'Nombres premiers, test de primalité',
+                'Congruence modulo n, propriétés, petit théorème de Fermat',
+                'Équations diophantiennes ax+by=c',
+                'Systèmes de congruences (théorème des restes chinois)',
+                'Anneau ℤ/nℤ : somme, produit, équations'
+            ],
+            strategies: [
+                'Proposer des exercices pour réviser la conversion d\'un nombre d\'une base à une autre',
+                'Par des activités proposer des opérations d\'addition, soustraction et multiplication avec les nombres en base 2',
+                'Par une activité sur la décomposition d\'un nombre, installer la définition du PGCD',
+                'Démontrer les propriétés du PGCD',
+                'Par une activité installer l\'algorithme d\'Euclide',
+                'Par une activité sur la décomposition d\'un nombre installer la définition du PPCM',
+                'Démontrer les propriétés du PPCM',
+                'Par une activité installer la définition de nombres premiers entre eux',
+                'Par une activité installer la définition d\'un nombre premier',
+                'Par une activité établir le théorème de Gauss et le théorème de Bézout',
+                'Par une activité réviser et consolider la définition de la congruence',
+                'Par une activité utiliser le petit théorème de Fermat',
+                'Par une activité installer la méthode de résolution dans ℤ du système {x≡a[n], x≡b[n\']}',
+                'Par une activité installer les méthodes de résolution dans ℤ×ℤ de ax+by=c, de systèmes avec PGCD/PPCM',
+                'Par une activité sur la congruence modulo n établir la définition sur les classes d\'équivalence',
+                'Par des activités installer les propriétés dans ℤ/nℤ, les règles de calcul, les méthodes de résolution d\'équations et systèmes dans ℤ/nℤ'
+            ],
+            consignes: [
+                'Pour les systèmes de congruences, utiliser le théorème des restes chinois.',
+                'Se limiter à des équations diophantiennes simples.'
+            ],
+            evaluation: [
+                'Détermination de la somme, différence, produit et quotient en base 2',
+                'Détermination de PGCD et PPCM',
+                'Justification que deux nombres sont premiers entre eux',
+                'Justification qu\'un nombre est premier',
+                'Détermination de reste de la division d\'un entier par un entier',
+                'Résolution d\'équations diophantiennes',
+                'Résolution de systèmes de congruences',
+                'Résolution d\'équations et systèmes avec PGCD/PPCM',
+                'Calcul dans ℤ/nℤ',
+                'Résolution d\'équations et systèmes dans ℤ/nℤ'
+            ],
+            capacitesDetails: [
+                { capacite: 'Déterminer un nombre', contenu: 'somme et produit en base 2, PPCM, PGCD, somme et produit dans ℤ/nℤ' },
+                { capacite: 'Utiliser une démarche', contenu: 'congruence modulo n, test de primalité, algorithme d\'Euclide' },
+                { capacite: 'Démontrer une propriété', contenu: 'propriétés de congruence modulo n, propriétés sur PPCM/PGCD, théorème de Bézout, théorème de Gauss' },
+                { capacite: 'Résoudre une équation', contenu: 'équation diophantienne ax+by=c, système {x≡a[n], x≡b[n\']}, équations avec PPCM/PGCD, équations et systèmes dans ℤ/nℤ' },
+                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec utilisation des nombres entiers' }
+            ]
+        }
+    };
+
+    // -------------------- LOGIQUE D'AFFICHAGE --------------------
+    const select = document.getElementById('leconSelect');
+    const dureeInput = document.getElementById('dureeField');
+    const dateInput = document.getElementById('dateField');
+    const btn = document.getElementById('btnGenerer');
+    const ficheDiv = document.getElementById('ficheGeneree');
+    const contenuFiche = document.getElementById('contenuFiche');
+
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+
+    select.addEventListener('change', function() {
+        if (lecons[this.value]) dureeInput.value = '5h (progression)';
+    });
+
+    function generer() {
+        const id = select.value;
+        if (!id || !lecons[id]) { alert('Veuillez sélectionner une leçon.'); return; }
+        const lec = lecons[id];
+        const duree = dureeInput.value || 'selon progression';
+        const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('fr-FR') : 'À déterminer';
+
+        const contenuItems = lec.contenusSynth.map(c => `<li>${c}</li>`).join('');
+        const stratItems = lec.strategies.map(s => `<li>${s}</li>`).join('');
+        const consignesDiv = lec.consignes.map(c => `<div class="badge-consigne">📣 ${c}</div>`).join('');
+        const evalItems = lec.evaluation.map(e => `<li>${e}</li>`).join('');
+        const capRows = lec.capacitesDetails.map(item => 
+            `<tr><td style="font-weight:600; width:35%;">${item.capacite}</td><td>${item.contenu}</td></tr>`
+        ).join('');
+
+        const html = `
+            <div class="fiche-header">
+                <h2>${lec.titre}</h2>
+                <p style="font-size:clamp(0.9rem,2.5vw,1.15rem);">Thème : ${lec.theme} — Durée : ${duree} — Date : ${date}</p>
+            </div>
+            <div class="section-guide"><h4>📋 CONTENUS (synthèse)</h4><ul class="bullet-list">${contenuItems}</ul></div>
+            <div class="section-guide"><h4>🧠 STRATÉGIES PÉDAGOGIQUES</h4><ul class="bullet-list">${stratItems}</ul></div>
+            <div class="section-guide"><h4>🗣️ CONSIGNES (extrait du guide)</h4>${consignesDiv}</div>
+            <div class="section-guide"><h4>✅ ÉVALUATION</h4><ul class="bullet-list">${evalItems}</ul></div>
+            <div class="section-guide"><h4>🔎 CAPACITÉS & CONTENUS (déclinaison officielle)</h4>
+                <table class="table-cap"><tr><th>Capacité</th><th>Contenu</th></tr>${capRows}</table>
+            </div>
+            ${lec.prerequis ? `<div class="section-guide"><h4>📦 PRÉREQUIS & MATÉRIEL</h4><p><strong>Prérequis :</strong> ${lec.prerequis.join(', ')}</p><p><strong>Matériel :</strong> ${lec.materiel.join(' · ')}</p></div>` : ''}
+        `;
+        contenuFiche.innerHTML = html;
+        ficheDiv.classList.remove('hidden');
+        ficheDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    btn.addEventListener('click', generer);
+    document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') generer(); });
+
+    window.exportWord = function() {
+        if (ficheDiv.classList.contains('hidden')) return alert('Générez d’abord une fiche.');
+        const content = contenuFiche.innerHTML;
+        const style = '<style>body { font-family: Arial; margin: 2cm; } .section-guide { margin-bottom:20px; } .table-cap { border-collapse: collapse; width:100%; } .table-cap td, .table-cap th { border:1px solid #aaa; padding:8px; } .badge-consigne { background:#fef7e5; padding:10px; border-left:6px solid #f3b33d; }</style>';
+        const full = `<!DOCTYPE html><html><head><meta charset="UTF-8">${style}</head><body>${content}</body></html>`;
+        const blob = new Blob([full], {type: 'application/msword'});
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'Fiche_TerminaleC_maths.doc'; link.click();
+    };
+    window.resetFiche = function() {
+        ficheDiv.classList.add('hidden');
+        select.value = '';
+        dureeInput.value = 'selon progression';
+        dateInput.value = today;
+    };
+})();
+</script>
+</body>
+</html>
