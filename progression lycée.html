@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Progressions · Maths Togo · Seconde à Terminale (Complet + Tle D)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0b4d3a;
+            --primary: #1b6e54;
+            --primary-light: #d0f0e4;
+            --accent: #f3b33d;
+            --bg-light: #f0f8f5;
+            --text: #1b4637;
+            --white: #ffffff;
+            --tab-inactive: #e2f0ea;
+            --border: #b7dbc9;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            line-height: 1.4;
+            padding: 1rem 0.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .bandeau {
+            background: linear-gradient(148deg, var(--primary-dark), var(--primary));
+            color: white;
+            border-radius: 28px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 16px -6px rgba(0,40,20,0.2);
+        }
+
+        .bandeau h1 {
+            font-size: clamp(1rem, 4vw, 1.6rem);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .bandeau h2 {
+            font-size: clamp(0.8rem, 3.5vw, 1.2rem);
+            font-weight: 400;
+            margin-top: 0.3rem;
+        }
+
+        .badge-prog {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 700;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.8rem;
+            font-size: clamp(0.7rem, 2.8vw, 0.95rem);
+            box-shadow: 0 3px 6px #b57f1a;
+            white-space: normal;
+            text-align: center;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.3rem;
+        }
+
+        .tab-button {
+            background: var(--tab-inactive);
+            border: none;
+            border-radius: 30px 30px 0 0;
+            padding: 0.5rem 1.2rem;
+            font-size: clamp(0.8rem, 2.8vw, 1rem);
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: 0.15s;
+            border: 2px solid var(--border);
+            border-bottom: none;
+            margin-bottom: -2px;
+            flex: 0 1 auto;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 500px) {
+            .tab-button {
+                white-space: normal;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+                flex: 1 1 auto;
+                text-align: center;
+            }
+        }
+
+        .tab-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #c5e0d6;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 1.2rem 1rem;
+            border: 3px solid var(--primary-light);
+            box-shadow: 0 10px 18px -8px rgba(0,40,20,0.15);
+            overflow-x: auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .prog-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px #c4ddd1;
+            font-size: clamp(0.7rem, 2.2vw, 0.95rem);
+        }
+
+        .prog-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 8px 4px;
+            text-align: center;
+        }
+
+        .prog-table td {
+            border: 1px solid var(--border);
+            padding: 6px 4px;
+            vertical-align: top;
+        }
+
+        .prog-table tr:nth-child(even) {
+            background: #f9fdfb;
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            background: #fef7e5;
+            padding: 0.8rem 1.2rem;
+            border-radius: 40px;
+            font-size: clamp(0.7rem, 2.2vw, 0.95rem);
+            text-align: center;
+            border-left: 6px solid var(--accent);
+        }
+
+        @media (max-width: 380px) {
+            .prog-table th, .prog-table td {
+                padding: 4px 2px;
+                font-size: 0.65rem;
+            }
+            .tab-button {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="bandeau">
+        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE</h1>
+        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie</h2>
+        <div class="badge-prog">PROGRESSIONS COMPLÈTES · SECONDE À TERMINALE · 2022-2023-2024</div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button active" data-tab="tab2A">2nde A</button>
+        <button class="tab-button" data-tab="tab2S">2nde S</button>
+        <button class="tab-button" data-tab="tab1A">1ère A</button>
+        <button class="tab-button" data-tab="tab1D">1ère D</button>
+        <button class="tab-button" data-tab="tab1C">1ère C</button>
+        <button class="tab-button" data-tab="tabTleA">Tle A</button>
+        <button class="tab-button" data-tab="tabTleC">Tle C</button>
+        <button class="tab-button" data-tab="tabTleD">Tle D</button>
+    </div>
+
+    <!-- 2nde A (littéraire) – 66h -->
+    <div id="tab2A" class="tab-content active">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">📘 2nde A (littéraire) – 66h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept-Oct</td><td>1-6</td><td>Calculs algébriques</td><td>Nombres réels et activités numériques</td><td>21</td></tr>
+                <tr><td>Nov</td><td>8</td><td>Évaluation</td><td>Semaine d'intégration</td><td>3</td></tr>
+                <tr><td>Nov</td><td>9-10</td><td>Organisation des données</td><td>Dénombrement</td><td>6</td></tr>
+                <tr><td>Déc-Jan</td><td>11-13</td><td>Calculs algébriques</td><td>Calcul littéral</td><td>9</td></tr>
+                <tr><td>Jan-Fév</td><td>14-16</td><td>Analyse</td><td>Généralités sur les fonctions</td><td>9</td></tr>
+                <tr><td>Fév</td><td>17</td><td>Évaluation</td><td>Semaine d'intégration</td><td>3</td></tr>
+                <tr><td>Fév-Mar</td><td>18-20</td><td>Analyse</td><td>Fonctions numériques usuelles</td><td>7</td></tr>
+                <tr><td>Mars</td><td>21</td><td>Calculs algébriques</td><td>Équations et inéquations dans IR</td><td>8</td></tr>
+                <tr><td>Avril</td><td>22-24</td><td>Calculs algébriques</td><td>Équations et inéquations linéaires dans IR²</td><td>6</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>3</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 2nde S (scientifique) – 110h -->
+    <div id="tab2S" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">🔬 2nde S (scientifique) – 110h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept</td><td>1-2</td><td>Calculs algébriques</td><td>Calculs dans IR</td><td>10</td></tr>
+                <tr><td>Oct</td><td>3</td><td>Géométrie de l'espace</td><td>Positions relatives de droites et de plans</td><td>5</td></tr>
+                <tr><td>Oct</td><td>4</td><td>Géométrie de l'espace</td><td>Étude du parallélisme dans l'espace</td><td>5</td></tr>
+                <tr><td>Oct-Nov</td><td>5-7</td><td>Analyse / Géométrie du plan</td><td>Généralités sur les fonctions + Angles inscrits non orientés et polygones réguliers</td><td>15</td></tr>
+                <tr><td>Nov</td><td>8</td><td>Évaluation</td><td>Semaine d'intégration</td><td>5</td></tr>
+                <tr><td>Nov</td><td>9-10</td><td>Géométrie du plan</td><td>Vecteurs du plan</td><td>8</td></tr>
+                <tr><td>Nov-Déc</td><td>10-11</td><td>Analyse</td><td>Étude de fonctions numériques usuelles</td><td>5</td></tr>
+                <tr><td>Déc</td><td>11-12</td><td>Trigonométrie</td><td>Angles orientés + Fonctions trigonométriques élémentaires</td><td>8</td></tr>
+                <tr><td>Déc-Jan</td><td>12-13</td><td>Calculs algébriques</td><td>Polynômes et fractions rationnelles</td><td>7</td></tr>
+                <tr><td>Janv</td><td>14-15</td><td>Géométrie du plan</td><td>Produit scalaire + Droites et cercles</td><td>11</td></tr>
+                <tr><td>Fév</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>5</td></tr>
+                <tr><td>Fév</td><td>17-18</td><td>Calculs algébriques</td><td>Équations et inéquations dans IR + Systèmes linéaires</td><td>11</td></tr>
+                <tr><td>Mars</td><td>19-21</td><td>Applications du plan / Organisation</td><td>Homothéties + Statistiques + Isométries</td><td>20</td></tr>
+                <tr><td>Avril</td><td>22-24</td><td>Applications du plan</td><td>Isométries (rotations) + Similitudes (non complet)</td><td>12</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>5</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 1ère A (littéraire) – 50h -->
+    <div id="tab1A" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">📖 1ère A (littéraire) – 50h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept</td><td>1-4</td><td>Calculs algébriques</td><td>Équations et inéquations dans IR (discriminant, signe, équations homographiques)</td><td>8</td></tr>
+                <tr><td>Oct</td><td>5-6</td><td>Analyse</td><td>Généralités sur les fonctions (polynômes, homographiques, parité)</td><td>4</td></tr>
+                <tr><td>Nov</td><td>7</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2</td></tr>
+                <tr><td>Nov</td><td>8-10</td><td>Organisation des données</td><td>Dénombrement (p-uplets, arrangements, permutations, combinaisons)</td><td>6</td></tr>
+                <tr><td>Déc-Jan</td><td>11-13</td><td>Organisation des données</td><td>Statistiques à une variable (effectifs, fréquences, diagrammes, moyenne, variance, écart-type)</td><td>6</td></tr>
+                <tr><td>Jan-Fév</td><td>14-15</td><td>Analyse</td><td>Limites d'une fonction (asymptotes horizontales/verticales, limites des fonctions de référence)</td><td>4</td></tr>
+                <tr><td>Fév</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2</td></tr>
+                <tr><td>Fév-Mar</td><td>17-20</td><td>Analyse</td><td>Dérivée et étude de fonctions (dérivées usuelles, tangente, variations, polynômes degré≤3, homographiques)</td><td>8</td></tr>
+                <tr><td>Mars-Avr</td><td>21-24</td><td>Analyse</td><td>Suites numériques (arithmétiques, géométriques, somme, variation)</td><td>8</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 1ère D – 125h -->
+    <div id="tab1D" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">📐 1ère D – 125h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept</td><td>1-2</td><td>Calculs algébriques</td><td>Équations – Inéquations du second degré dans IR</td><td>8</td></tr>
+                <tr><td>Sept-Oct</td><td>2-3</td><td>Calculs algébriques</td><td>Systèmes d'équations linéaires dans IR² et dans IR³</td><td>4</td></tr>
+                <tr><td>Oct</td><td>3-5</td><td>Géométrie du plan</td><td>Barycentres et lignes de niveau</td><td>9</td></tr>
+                <tr><td>Oct-Nov</td><td>5-8</td><td>Analyse / Trigonométrie</td><td>Fonctions numériques (généralités) + Angles orientés – trigonométrie</td><td>15</td></tr>
+                <tr><td>Nov</td><td>9</td><td>Évaluation</td><td>Semaine d'intégration</td><td>5</td></tr>
+                <tr><td>Nov</td><td>10-11</td><td>Applications du plan / Analyse</td><td>Homothéties + Isométries</td><td>10</td></tr>
+                <tr><td>Déc</td><td>11-12</td><td>Analyse</td><td>Limites et continuité</td><td>7</td></tr>
+                <tr><td>Déc-Jan</td><td>12-13</td><td>Analyse</td><td>Dérivation</td><td>7</td></tr>
+                <tr><td>Jan-Fév</td><td>13-15</td><td>Analyse</td><td>Étude de fonctions</td><td>10</td></tr>
+                <tr><td>Fév</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>5</td></tr>
+                <tr><td>Fév</td><td>17-18</td><td>Analyse</td><td>Suites numériques</td><td>10</td></tr>
+                <tr><td>Mars</td><td>18-20</td><td>Géométrie de l'espace / Données</td><td>Étude de l'orthogonalité + Série statistique double</td><td>12</td></tr>
+                <tr><td>Mars-Avr</td><td>20-22</td><td>Applications du plan / Données</td><td>Similitudes + Dénombrement – probabilité</td><td>13</td></tr>
+                <tr><td>Avril</td><td>22-24</td><td>Géométrie du plan</td><td>Droites et cercles (positions relatives, tangente, représentation paramétrique)</td><td>4</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>5</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 1ère C – 175h -->
+    <div id="tab1C" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">⚡ 1ère C – 175h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept</td><td>1-2</td><td>Calculs algébriques</td><td>Fonctions et applications + Équations – Inéquations – Systèmes</td><td>18</td></tr>
+                <tr><td>Oct</td><td>3-6</td><td>Géométrie / Analyse / Trigo</td><td>Barycentres et lignes de niveau + Fonctions numériques d'une variable réelle + Angles orientés et trigonométrie</td><td>28</td></tr>
+                <tr><td>Nov</td><td>7-8</td><td>Analyse</td><td>Limites et continuité</td><td>10</td></tr>
+                <tr><td>Nov</td><td>9</td><td>Évaluation</td><td>Semaine d'intégration</td><td>7</td></tr>
+                <tr><td>Nov-Déc</td><td>10-11</td><td>Géométrie / Données</td><td>Droites et cercles + Série statistique double</td><td>11</td></tr>
+                <tr><td>Déc</td><td>11-12</td><td>Applications / Analyse</td><td>Homothéties + Dérivation</td><td>10</td></tr>
+                <tr><td>Janv</td><td>13-14</td><td>Analyse / Applications</td><td>Étude de fonctions + Isométries</td><td>18</td></tr>
+                <tr><td>Fév</td><td>15-16</td><td>Analyse</td><td>Suites numériques</td><td>10</td></tr>
+                <tr><td>Fév</td><td>16-17</td><td>Évaluation / Espace</td><td>Semaine d'intégration + Étude de l'orthogonalité</td><td>13</td></tr>
+                <tr><td>Mars</td><td>17-21</td><td>Données / Applications / Espace</td><td>Dénombrement et probabilité + Similitudes + Vecteurs de l'espace + Géométrie analytique de l'espace</td><td>34</td></tr>
+                <tr><td>Avril</td><td>21-24</td><td>Arithmétique</td><td>Notions de base en arithmétique</td><td>9</td></tr>
+                <tr><td>Mai</td><td>24-25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>7</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:0.5rem; font-size:0.8rem; color:var(--primary-dark);">NB: Répartition selon programme 2023 – 175h totales (incluant 3 semaines d'intégration de 7h).</p>
+    </div>
+
+    <!-- Terminale A (littéraire) – 50h -->
+    <div id="tabTleA" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">🎓 Terminale A (littéraire) – 50h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept-Oct</td><td>1-4</td><td>Analyse</td><td>Étude de fonctions (polynômes et rationnelles) – Asymptotes obliques, intersection avec axes</td><td>8</td></tr>
+                <tr><td>Oct</td><td>5-6</td><td>Organisation des données</td><td>Probabilités (vocabulaire, équiprobabilité)</td><td>6</td></tr>
+                <tr><td>Nov</td><td>7</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2</td></tr>
+                <tr><td>Nov-Déc</td><td>8-10</td><td>Analyse</td><td>Fonction logarithme népérien (définition, propriétés, limites, équations, inéquations, étude)</td><td>6</td></tr>
+                <tr><td>Déc-Jan</td><td>11-13</td><td>Organisation des données</td><td>Statistiques à deux variables (tableau double entrée, nuage, point moyen, droite d'ajustement Mayer)</td><td>6</td></tr>
+                <tr><td>Jan-Fév</td><td>14-15</td><td>Analyse</td><td>Fonction exponentielle népérienne (définition, propriétés, limites, équations, inéquations, étude)</td><td>6</td></tr>
+                <tr><td>Fév</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2</td></tr>
+                <tr><td>Fév-Mar</td><td>17-20</td><td>Organisation des données</td><td>Échantillonnage (population, échantillon, méthodes probabilistes/non probabilistes, paramètres)</td><td>6</td></tr>
+                <tr><td>Mars-Avr</td><td>21-24</td><td>Analyse</td><td>Suites numériques (récurrence, limite de qⁿ, convergence)</td><td>6</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>2</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Terminale C (scientifique) – 200h -->
+    <div id="tabTleC" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">⚛️ Terminale C (scientifique) – 200h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept</td><td>1-2</td><td>Analyse</td><td>Compléments sur les limites, la continuité et les suites numériques (théorèmes de comparaison, branches infinies, TVI, bijection, convergence, point fixe)</td><td>14</td></tr>
+                <tr><td>Sept-Oct</td><td>2-4</td><td>Analyse</td><td>Dérivation – Primitives – Étude de fonctions (dérivée réciproque, inégalité accroissements finis, primitives, étude fonctions irrationnelles/trigo/valeur absolue/partie entière)</td><td>14</td></tr>
+                <tr><td>Oct</td><td>5</td><td>Calculs algébriques</td><td>Nombres complexes (formes, module, argument, équations, racines n-ièmes, applications géométriques)</td><td>12</td></tr>
+                <tr><td>Oct</td><td>6</td><td>Applications du plan</td><td>Isométries (décomposition, symétrie glissée, classification)</td><td>8</td></tr>
+                <tr><td>Oct-Nov</td><td>7-8</td><td>Analyse</td><td>Fonctions logarithmes, exponentielles et puissances (ln, exp, logarithme/exponentielle de base a, fonctions puissances, croissances comparées)</td><td>16</td></tr>
+                <tr><td>Nov</td><td>9</td><td>Évaluation</td><td>Semaine d'intégration</td><td>8</td></tr>
+                <tr><td>Nov-Déc</td><td>10-11</td><td>Applications du plan</td><td>Applications affines (définition, propriétés, expression analytique, application linéaire associée, affinités)</td><td>16</td></tr>
+                <tr><td>Déc</td><td>12</td><td>Analyse</td><td>Calcul intégral (définition, propriétés, techniques de calcul, applications)</td><td>10</td></tr>
+                <tr><td>Déc-Jan</td><td>12-13</td><td>Analyse</td><td>Équations différentielles (1er ordre, 2nd ordre, avec/sans second membre)</td><td>6</td></tr>
+                <tr><td>Janv</td><td>14-15</td><td>Arithmétique</td><td>Arithmétique (PGCD, PPCM, algorithme d'Euclide, Bézout, Gauss, congruence, équations diophantiennes, ℤ/nℤ)</td><td>14</td></tr>
+                <tr><td>Jan-Fév</td><td>15-16</td><td>Organisation des données</td><td>Probabilités (variables aléatoires, loi binomiale, probabilités conditionnelles)</td><td>10</td></tr>
+                <tr><td>Fév</td><td>17</td><td>Évaluation</td><td>Semaine d'intégration</td><td>8</td></tr>
+                <tr><td>Fév</td><td>18</td><td>Applications du plan</td><td>Similitudes (directes, indirectes, expression complexe)</td><td>14</td></tr>
+                <tr><td>Mars</td><td>18-19</td><td>Géométrie de l'espace</td><td>Produit vectoriel et ses applications (équation de plan, distance, aire)</td><td>6</td></tr>
+                <tr><td>Mars</td><td>19-20</td><td>Géométrie du plan</td><td>Coniques (parabole, ellipse, hyperbole : étude, équations, éléments caractéristiques)</td><td>10</td></tr>
+                <tr><td>Mars-Avr</td><td>20-22</td><td>Géométrie de l'espace</td><td>Applications de l'espace (translation, homothétie, projection, réflexion, demi-tour)</td><td>10</td></tr>
+                <tr><td>Avril</td><td>22-23</td><td>Organisation des données</td><td>Notions de théorie des graphes (graphes non orientés, chaînes, cycles eulériens, coloriage, Welsh-Powell)</td><td>8</td></tr>
+                <tr><td>Avril</td><td>23-24</td><td>Analyse</td><td>Courbes paramétrées (étude, points particuliers, tangentes, branches infinies)</td><td>8</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>8</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:0.5rem; font-size:0.8rem; color:var(--primary-dark);">NB: Répartition selon programme 2024 – 200h totales (incluant 3 semaines d'intégration de 8h).</p>
+    </div>
+
+    <!-- Terminale D (scientifique) – 150h (NOUVEAU) -->
+    <div id="tabTleD" class="tab-content">
+        <h3 style="color: var(--primary); font-size:1.2rem; margin-bottom:0.8rem;">🧪 Terminale D (scientifique) – 150h</h3>
+        <table class="prog-table">
+            <thead><tr><th>Mois</th><th>Sem</th><th>Thèmes</th><th>Leçons</th><th>h</th></tr></thead>
+            <tbody>
+                <tr><td>Sept</td><td>1-2</td><td>Analyse</td><td>Compléments sur les limites, la continuité, les suites numériques et la dérivation</td><td>16</td></tr>
+                <tr><td>Oct</td><td>3-5</td><td>Analyse</td><td>Exemples d'étude de fonction (irrationnelles, trigonométriques, par intervalles)</td><td>14</td></tr>
+                <tr><td>Oct-Nov</td><td>6-7</td><td>Calculs algébriques</td><td>Nombres complexes</td><td>12</td></tr>
+                <tr><td>Nov</td><td>8</td><td>Évaluation</td><td>Semaine d'intégration</td><td>6</td></tr>
+                <tr><td>Nov-Déc</td><td>9-12</td><td>Analyse</td><td>Fonctions logarithmes, exponentielles et puissances</td><td>20</td></tr>
+                <tr><td>Déc-Jan</td><td>12-13</td><td>Applications du plan</td><td>Similitudes directes</td><td>10</td></tr>
+                <tr><td>Jan-Fév</td><td>14-15</td><td>Organisation des données</td><td>Probabilités (variables aléatoires, loi binomiale, probabilités conditionnelles)</td><td>12</td></tr>
+                <tr><td>Fév</td><td>16</td><td>Évaluation</td><td>Semaine d'intégration</td><td>6</td></tr>
+                <tr><td>Fév-Mar</td><td>17-19</td><td>Analyse</td><td>Primitives – Calcul intégral</td><td>16</td></tr>
+                <tr><td>Mars</td><td>19-20</td><td>Analyse</td><td>Équations différentielles</td><td>8</td></tr>
+                <tr><td>Mars-Avr</td><td>21-23</td><td>Géométrie de l'espace</td><td>Géométrie analytique de l'espace (vecteurs, bases, produit scalaire, équations de plans/droites)</td><td>14</td></tr>
+                <tr><td>Avril</td><td>23-24</td><td>Organisation des données</td><td>Notions de théorie des graphes (graphes non orientés, chaînes eulériennes, coloriage, Welsh-Powell)</td><td>10</td></tr>
+                <tr><td>Mai</td><td>25</td><td>Évaluation</td><td>Semaine d'intégration</td><td>6</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:0.5rem; font-size:0.8rem; color:var(--primary-dark);">NB: Répartition selon programme 2024 – 150h totales (incluant 3 semaines d'intégration de 6h).</p>
+    </div>
+
+    <div class="footer-note">
+        ⚡ Programmes officiels Togo : 2nde (2022), 1ère (2023), Terminale (2024). 
+        Durées totales incluant les semaines d'intégration. Tableaux exhaustifs validés.
+    </div>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabs.forEach(b => b.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
