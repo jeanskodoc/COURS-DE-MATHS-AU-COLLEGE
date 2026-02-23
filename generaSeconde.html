@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Fiche Pédagogique - Maths Secondes (Togo) | Programme 2022</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f0f4f8;
+            color: #102a41;
+            line-height: 1.5;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* En-tête officiel */
+        .header-official {
+            background: linear-gradient(to right, #ffffff, #f9fcf5);
+            border-radius: 32px;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 24px -8px rgba(0, 45, 20, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 12px solid #0f5c2f;
+            border-right: 1px solid #b9cfc3;
+        }
+
+        .emblem {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .emblem-symbol {
+            background: #0f5c2f;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fd0;
+            box-shadow: 0 6px 0 #07331a;
+        }
+
+        .republic-title {
+            font-weight: 700;
+        }
+
+        .republic-title .ministere {
+            color: #1d3b5c;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .republic-title .republique {
+            color: #0f5c2f;
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .republic-title .devise {
+            color: #b8871a;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .program-badge {
+            background: #1d3b5c;
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            text-align: center;
+            box-shadow: 0 6px 0 #0a1f2f;
+        }
+        .program-badge small {
+            font-size: 0.85rem;
+            display: block;
+            color: #c1d9f0;
+        }
+
+        /* panneau générateur */
+        .generator-panel {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 18px rgba(0,20,10,0.08);
+            border: 1px solid #c6dbcd;
+        }
+
+        .flex-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            align-items: flex-end;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .field-group {
+            flex: 1 1 250px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            color: #0f5c2f;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .field-group select, .field-group input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #cbd7cf;
+            border-radius: 24px;
+            font-size: 1rem;
+            background: #fafefe;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .field-group select:focus, .field-group input:focus {
+            border-color: #0f5c2f;
+            box-shadow: 0 0 0 5px rgba(15,92,47,0.15);
+            outline: none;
+        }
+
+        .btn-big-generate {
+            background: #0f5c2f;
+            color: white;
+            border: none;
+            padding: 16px 38px;
+            border-radius: 48px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #07331a;
+            transition: all 0.12s;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .btn-big-generate:hover {
+            background: #14833b;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 0 #07331a;
+        }
+
+        /* affichage fiche */
+        .fiche-container {
+            background: white;
+            border-radius: 36px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 40px -10px #1f3f2f;
+            margin: 2rem 0 1rem;
+            border: 1px solid #9db9a8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fiche-papier {
+            background: #fffdf9;
+            padding: 2rem 2.5rem;
+            border-radius: 24px;
+            border-left: 12px solid #b8871a;
+            box-shadow: inset 0 2px 4px #eee, 0 8px 20px rgba(0,20,0,0.1);
+        }
+
+        .fiche-papier h2 {
+            color: #0f5c2f;
+            border-bottom: 3px solid #b8871a;
+            padding-bottom: 10px;
+            margin-bottom: 1.8rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .badge-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+        .badge-ribbon span {
+            background: #1d3b5c;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .badge-ribbon .duree {
+            background: #b8871a;
+        }
+
+        .section-lecon {
+            background: #f6fbf8;
+            border-radius: 28px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #bedac7;
+        }
+        .section-lecon h3 {
+            color: #1d3b5c;
+            font-size: 1.6rem;
+            border-left: 10px solid #b8871a;
+            padding-left: 20px;
+            margin-bottom: 1.2rem;
+        }
+        .table-capacites {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .table-capacites th {
+            background: #0f5c2f;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+        }
+        .table-capacites td {
+            border: 1px solid #b6d2c2;
+            padding: 12px;
+            vertical-align: top;
+        }
+
+        .actions-print {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 2.5rem;
+            justify-content: center;
+        }
+        .btn-print {
+            background: white;
+            border: 2px solid #0f5c2f;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #0f5c2f;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.1rem;
+        }
+        .btn-print:hover {
+            background: #0f5c2f;
+            color: white;
+        }
+        .btn-pdf {
+            background: #1d3b5c;
+            border-color: #1d3b5c;
+            color: white;
+        }
+
+        .warning-foot {
+            background: #fffae6;
+            border-radius: 24px;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            border: 1px solid #f3cf78;
+            font-size: 0.95rem;
+            color: #5e4a1c;
+        }
+
+        footer {
+            text-align: center;
+            color: #3a5e4b;
+            margin-top: 2rem;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            .fiche-container { box-shadow: none; background: white; padding: 0.2in; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- EN-TÊTE RÉPUBLIQUE TOGOLAISE conforme document -->
+    <div class="header-official no-print">
+        <div class="emblem">
+            <div class="emblem-symbol">⚖️</div>
+            <div class="republic-title">
+                <div class="ministere">MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE ET DE L'ARTISANAT</div>
+                <div class="republique">RÉPUBLIQUE TOGOLAISE</div>
+                <div class="devise">Travail - Liberté - Patrie</div>
+            </div>
+        </div>
+        <div class="program-badge">
+            PROGRAMMES 2022<br><small>Secondes littéraire & scientifique</small>
+        </div>
+    </div>
+
+    <!-- GÉNÉRATEUR -->
+    <div class="generator-panel no-print">
+        <h2 style="color:#0f5c2f; margin-bottom:0;">📋 Générateur de fiche de leçon</h2>
+        <p style="color:#2b4f3a; margin-bottom:1.5rem;">Contenu intégral des programmes – Capacités, contenus, progression, exemples d'épreuves et fiches de séquence.</p>
+
+        <div class="flex-fields">
+            <div class="field-group">
+                <label>🎓 Série</label>
+                <select id="serieSelect">
+                    <option value="A" selected>📖 Seconde Littéraire (A4) – 3h, coeff 2</option>
+                    <option value="S">🔬 Seconde Scientifique (S) – 5h, coeff 4</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>📌 Leçon / Thème</label>
+                <select id="leconSelect">
+                    <!-- dynamique -->
+                </select>
+            </div>
+            <div class="field-group">
+                <label>📅 Date</label>
+                <input type="date" id="dateField" value="2025-10-01">
+            </div>
+        </div>
+
+        <button class="btn-big-generate" id="generateBtn">⚡ GÉNÉRER LA FICHE COMPLÈTE</button>
+    </div>
+
+    <!-- AFFICHAGE FICHE -->
+    <div class="fiche-container hidden" id="ficheContainer">
+        <div class="fiche-papier" id="ficheContent">
+            <!-- injecté par JS -->
+        </div>
+
+        <div class="warning-foot no-print">
+            ⚠️ Fiche générée à partir du programme officiel 2022 (document MATHS SECONDES). À adapter.
+        </div>
+
+        <div class="actions-print no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print btn-pdf" onclick="exporterPDF()">📄 Exporter en PDF</button>
+            <button class="btn-print" onclick="exporterWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">↻ Nouvelle fiche</button>
+        </div>
+    </div>
+
+    <footer class="no-print">
+        Direction de l'Enseignement Secondaire Général · Septembre 2022 · Conforme aux programmes togolais
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ----------------------------------------------------------------
+        // INTÉGRATION COMPLÈTE du document MATHS SECONDES.docx
+        // Programmes, progressions, capacités, exemples d'épreuves, fiches.
+        // ----------------------------------------------------------------
+
+        // ---- OBJET DE DONNÉES ----
+        const programme = {
+            A: { // Seconde littéraire A4
+                nom: "SECONDE LITTÉRAIRE (A4) – Volume 3h, coeff 2",
+                progression: "66h annuelles",
+                lecons: {
+                    "Nombres réels et activités numériques": {
+                        theme: "Calculs algébriques",
+                        duree: "21h",
+                        capacites: [
+                            "Reconnaître un nombre : entiers, décimaux, rationnels, irrationnels",
+                            "Calculer une grandeur numérique : somme, différence, produit, quotient, puissance, racine carrée, écriture scientifique, valeur absolue",
+                            "Comparer des grandeurs numériques (règles de comparaison)",
+                            "Interpréter graphiquement |x−a|=r, |x−a|<r",
+                            "Déterminer valeur approchée, approximation décimale, arrondi, ordre de grandeur"
+                        ],
+                        contenus: [
+                            "Nombres entiers, décimaux, rationnels, irrationnels",
+                            "Opérations, puissances, racines carrées",
+                            "Amplitude, centre, rayon d'un intervalle",
+                            "Encadrement, valeur approchée"
+                        ],
+                        prerequis: ["Opérations élémentaires", "Notion de nombre en 3e"],
+                        materiel: ["Calculatrice", "Règle", "Fiche d'exercices"],
+                        strategies: ["Travail individuel/groupe", "Approche intuitive"],
+                        activites: [
+                            {duree:"3h", titre:"Classification", description:"Distinguer N, Z, D, Q, R"},
+                            {duree:"4h", titre:"Calculs et écriture scientifique", description:"Manipulation de grands nombres"},
+                            {duree:"2h", titre:"Valeur absolue et distance", description:"Lien avec droite graduée"}
+                        ],
+                        evaluation: ["Classification", "Comparaison", "Arrondis"],
+                        exemple_epreuve: "Exercice type : déterminer l'ensemble de définition, écrire sous forme scientifique, encadrer √7."
+                    },
+                    "Calcul littéral (A4)": {
+                        theme: "Calculs algébriques",
+                        duree: "9h",
+                        capacites: [
+                            "Reconnaître un polynôme, une fraction rationnelle",
+                            "Transformer : forme canonique, factorisation, développement",
+                            "Déterminer un zéro d'un polynôme, conditions d'existence",
+                            "Étudier le signe d'un polynôme ou fraction rationnelle"
+                        ],
+                        contenus: ["Polynômes degré ≤2", "Fractions rationnelles", "Identités remarquables"],
+                        prerequis: ["Factorisation 3e"],
+                        materiel: ["Tableaux de signes"],
+                        strategies: ["Méthode démonstrative"],
+                        activites: [
+                            {duree:"2h", titre:"Forme canonique", description:"Mise sous forme (x+α)²+β"},
+                            {duree:"2h", titre:"Signe d'un produit/quotient", description:"Tableaux de signes"}
+                        ],
+                        evaluation: ["Factorisations", "Signe"],
+                    },
+                    "Équations et inéquations dans IR": {
+                        theme: "Calculs algébriques",
+                        duree: "6h",
+                        capacites: [
+                            "Déterminer l'ensemble de validité",
+                            "Résoudre équation du type ax+b=0, (ax+b)(cx+d)=0, (ax+b)/(cx+d)=0",
+                            "Résoudre inéquations ax+b<0, (ax+b)(cx+d)<0, (ax+b)/(cx+d)<0",
+                            "Mathématiser une situation problème"
+                        ],
+                        contenus: ["Équations produit/quotient", "Inéquations", "Tableau de signe"],
+                        prerequis: ["Règle des signes"],
+                        materiel: ["Énoncés contextualisés"],
+                        strategies: ["Résolution graphique et algébrique"],
+                        activites: [
+                            {duree:"2h", titre:"Équations quotient", description:"Avec ensemble de validité"},
+                            {duree:"2h", titre:"Inéquations", description:"Tableau de signes"}
+                        ],
+                        evaluation: ["Résolutions algébriques", "Problèmes concrets"],
+                    },
+                    "Équations linéaires dans IR²": {
+                        theme: "Calculs algébriques",
+                        duree: "6h",
+                        capacites: [
+                            "Résoudre graphiquement ax+by+c=0, inéquations, systèmes",
+                            "Résoudre algébriquement un système 2×2 (substitution/combinaison)"
+                        ],
+                        contenus: ["Systèmes linéaires", "Interprétation graphique"],
+                        prerequis: ["Fonctions affines"],
+                        materiel: ["Papier millimétré"],
+                        strategies: ["Lien droite/équation"],
+                        activites: [
+                            {duree:"2h", titre:"Résolution graphique", description:"Demi-plans"},
+                            {duree:"2h", titre:"Méthodes algébriques", description:"Substitution, combinaison"}
+                        ],
+                        evaluation: ["Résoudre un système", "Traduire un problème"],
+                    },
+                    "Généralités sur les fonctions": {
+                        theme: "Analyse",
+                        duree: "9h",
+                        capacites: [
+                            "Reconnaître une fonction (formule, tableau, graphique)",
+                            "Construire un graphique",
+                            "Déterminer ensemble de définition, image, antécédents",
+                            "Étudier le signe d'une fonction graphiquement"
+                        ],
+                        contenus: ["Notion de fonction", "Courbe", "Tableau de valeurs"],
+                        prerequis: ["Repérage"],
+                        materiel: ["Calculatrice graphique"],
+                        strategies: ["Approche par activités"],
+                        activites: [
+                            {duree:"2h", titre:"Courbes", description:"Relier points"},
+                            {duree:"2h", titre:"Image/Antécédent", description:"Lecture graphique"}
+                        ],
+                        evaluation: ["Lecture graphique", "Calculs simples"],
+                    },
+                    "Fonctions numériques usuelles (A4)": {
+                        theme: "Analyse",
+                        duree: "7h",
+                        capacites: [
+                            "Déterminer variations, tableau de variation (fonctions affines par intervalles, x², a/x)",
+                            "Caractériser une fonction affine à partir de deux images",
+                            "Construire allure graphique"
+                        ],
+                        contenus: ["Fonctions affines", "Fonction carrée", "Fonction inverse"],
+                        prerequis: ["Affines"],
+                        materiel: ["Grapheur"],
+                        strategies: ["Observation"],
+                        activites: [
+                            {duree:"2h", titre:"Fonction inverse", description:"Hyperbole"},
+                            {duree:"2h", titre:"Fonctions affines par morceaux", description:"Exemple |x|"}
+                        ],
+                        evaluation: ["Dresser tableau de variation"],
+                    },
+                    "Dénombrement": {
+                        theme: "Organisation des données",
+                        duree: "6h",
+                        capacites: [
+                            "Construire des tableaux, arbres de choix",
+                            "Interpréter union, intersection, complémentaire, produit cartésien",
+                            "Mathématiser un problème de dénombrement"
+                        ],
+                        contenus: ["Cardinal", "Arbres", "Tableaux"],
+                        prerequis: ["Vocabulaire des ensembles"],
+                        materiel: ["Diagrammes"],
+                        strategies: ["Situations concrètes"],
+                        activites: [
+                            {duree:"2h", titre:"Arbres", description:"Menus, tenues"},
+                            {duree:"1h", titre:"Formule |A∪B|", description:"Exercices"}
+                        ],
+                        evaluation: ["Problèmes de dénombrement"],
+                    },
+                    "Pourcentage et échelle": {
+                        theme: "Organisation des données",
+                        duree: "6h",
+                        capacites: [
+                            "Reconnaître une situation de pourcentage/échelle",
+                            "Calculer un pourcentage",
+                            "Utiliser une échelle"
+                        ],
+                        contenus: ["Proportionnalité", "Échelle d'une carte"],
+                        prerequis: ["Fractions"],
+                        materiel: ["Cartes"],
+                        strategies: ["Travail sur documents"],
+                        activites: [
+                            {duree:"2h", titre:"Calculs de %", description:"Augmentation, réduction"},
+                            {duree:"2h", titre:"Échelle", description:"Lecture de plan"}
+                        ],
+                        evaluation: ["Problèmes concrets"],
+                    }
+                },
+                // Extrait du document : progression, exemple d'épreuve, guide d'exécution partiel
+                extrait_progression: "Sept-Oct: Calculs (21h) ; Nov: Dénombrement (6h) ; Déc-Jan: Calcul littéral (9h) ; Fév-Mars: Fonctions (9h+7h) ; Avril: Équations (6h) ; intégrations.",
+                exemple_epreuve: `
+                    <h4>📝 Exemple d'épreuve (Seconde A) – 2h</h4>
+                    <p><strong>Exercice 1 (8pts) :</strong> Calculer A = 1/3 + 1/2 - 1/6 - 2 ; B = (1 - 1/2 + 1/3) ÷ (1 - 1/2 - 1/3). Donner sous forme irréductible.<br>
+                    <strong>Exercice 2 (6pts) :</strong> Vrai/Faux sur les ensembles, ordre de grandeur.<br>
+                    <strong>Exercice 3 (6pts) :</strong> Interpréter graphiquement |−2x+2|=4, |2x+3| ≤ |−2x+4|.</p>
+                `,
+                modele_fiche_pedagogique: `Situation d'apprentissage : le tailleur a besoin d'un carré de tissu d'aire 7m². Déterminer la longueur du côté (valeur approchée).`
+            },
+            S: { // Seconde scientifique
+                nom: "SECONDE SCIENTIFIQUE (S) – Volume 5h, coeff 4",
+                progression: "110h annuelles",
+                lecons: {
+                    "Calculs dans IR (approfondi)": {
+                        theme: "Calculs algébriques",
+                        duree: "10h",
+                        capacites: [
+                            "Reconnaître un nombre, majorant, minorant, maximum, minimum",
+                            "Interpréter graphiquement |x−a|=r, |x−a|≥r, |x−a|≤|x−b|",
+                            "Calculer avec puissances (entières), racines, dénominateur rationnel",
+                            "Comparer des grandeurs (encadrement somme, produit, inverse)",
+                            "Transformer avec (a+b)³, (a−b)³, a³+b³, a³−b³, (a+b+c)²",
+                            "Déterminer valeur approchée, partie entière",
+                            "Démontrer une propriété (irrationalité de √2, existence de majorant…)"
+                        ],
+                        contenus: ["IR, sous-ensembles", "Bornes", "Intervalles", "Racines", "Valeur absolue"],
+                        prerequis: ["Nombres 3e", "Identités"],
+                        materiel: ["Calculatrice", "Démonstrations"],
+                        strategies: ["Travaux de groupe", "Débat mathématique"],
+                        activites: [
+                            {duree:"2h", titre:"Démontrer que √2 est irrationnel", description:"Raisonnement par l'absurde"},
+                            {duree:"2h", titre:"Identités (a+b)³", description:"Développement et factorisation"},
+                            {duree:"2h", titre:"Encadrements", description:"Somme, produit, inverse"}
+                        ],
+                        evaluation: ["Démontrer un majorant", "Simplifier une expression"],
+                    },
+                    "Polynômes et fractions rationnelles (S)": {
+                        theme: "Calculs algébriques",
+                        duree: "7h",
+                        capacites: [
+                            "Reconnaître polynôme, fraction rationnelle",
+                            "Transformer (développement, réduction, forme canonique, factorisation par coefficients indéterminés ou division euclidienne)",
+                            "Étudier le signe"
+                        ],
+                        contenus: ["Polynômes degré ≤3", "Division euclidienne (initiation)", "Coef indéterminés"],
+                        prerequis: ["Identités"],
+                        materiel: ["Exercices structurés"],
+                        strategies: ["Méthode des coefficients indéterminés"],
+                        activites: [
+                            {duree:"2h", titre:"Forme canonique", description:"Polynôme du second degré (sans Δ)"},
+                            {duree:"3h", titre:"Division euclidienne", description:"Factoriser x³−3x+2 par (x−1)"}
+                        ],
+                        evaluation: ["Factorisations", "Simplifications"],
+                    },
+                    "Équations – Inéquations (S)": {
+                        theme: "Calculs algébriques",
+                        duree: "6h",
+                        capacites: [
+                            "Résoudre des équations et inéquations (méthode graphique f(x)=k, f(x)=g(x))",
+                            "Résoudre f(x)=0/f(x)≤0 avec f produit/quotient de polynômes du 1er degré",
+                            "Traiter des cas avec fonctions affines par intervalles"
+                        ],
+                        contenus: ["Équations équivalentes", "Inéquations", "Systèmes équivalents"],
+                        prerequis: ["Tableau de signes"],
+                        materiel: ["Graphiques"],
+                        strategies: ["Méthode graphique/algébrique"],
+                        activites: [
+                            {duree:"2h", titre:"Résolution graphique", description:"f(x)=k, f(x)=g(x)"},
+                            {duree:"2h", titre:"f(x) ≤ 0", description:"Produit/quotient de facteurs"}
+                        ],
+                        evaluation: ["Résoudre (x−1)(2x+3)≤0", "Lire graphiquement"],
+                    },
+                    "Systèmes linéaires (IR² et IR³)": {
+                        theme: "Calculs algébriques",
+                        duree: "5h",
+                        capacites: [
+                            "Résoudre algébriquement (combinaison, substitution, déterminant 2×2)",
+                            "Résoudre graphiquement (inéquations, systèmes)",
+                            "Mathématiser un problème"
+                        ],
+                        contenus: ["Systèmes 2×2, 3×3 (substitution)", "Déterminant 2×2"],
+                        prerequis: ["Équations de droites"],
+                        materiel: ["Crayon"],
+                        strategies: ["Comparaison méthodes"],
+                        activites: [
+                            {duree:"1.5h", titre:"Déterminant", description:"Lien avec l'unicité"},
+                            {duree:"2h", titre:"Système 3×3", description:"Substitution progressive"}
+                        ],
+                        evaluation: ["Résoudre un système 3×3 simple"],
+                    },
+                    "Généralités sur les fonctions (S)": {
+                        theme: "Analyse",
+                        duree: "8h",
+                        capacites: [
+                            "Reconnaître fonction/application, égalité, coïncidence",
+                            "Construire graphique (esquisse, point par point)",
+                            "Déterminer ensemble de définition, image directe, image réciproque (exemples simples)"
+                        ],
+                        contenus: ["Image directe", "Image réciproque", "Courbe"],
+                        prerequis: ["Fonctions"],
+                        materiel: ["Calculatrice"],
+                        strategies: ["Allers-retours"],
+                        activites: [
+                            {duree:"2h", titre:"Image directe", description:"f([−2,3]) avec f(x)=x²"},
+                            {duree:"2h", titre:"Image réciproque", description:"f^{-1}([1,4])"}
+                        ],
+                        evaluation: ["Déterminer f(A) et f^{-1}(B)"],
+                    },
+                    "Étude de fonctions usuelles (S)": {
+                        theme: "Analyse",
+                        duree: "12h (5+7)",
+                        capacites: [
+                            "Déterminer variations, tableau, extrema",
+                            "Étudier fonctions affines par intervalles, x², x³, √x, 1/x, a(x+α)²+β, α+β/(x+c), min/max",
+                            "Construire représentation graphique"
+                        ],
+                        contenus: ["Fonctions de référence", "Fonctions homographiques", "Partie entière", "Valeur absolue"],
+                        prerequis: ["Sens de variation"],
+                        materiel: ["Grapheur"],
+                        strategies: ["Observation de courbes"],
+                        activites: [
+                            {duree:"2h", titre:"Fonction racine", description:"Comparaison avec x²"},
+                            {duree:"2h", titre:"Fonction 1/x", description:"Hyperbole, asymptotes (intuitif)"}
+                        ],
+                        evaluation: ["Dresser tableau de variation de 1/x", "Fonction |x|"],
+                    },
+                    "Angles orientés": {
+                        theme: "Trigonométrie",
+                        duree: "3h",
+                        capacites: [
+                            "Déterminer une mesure en radian, mesure principale",
+                            "Convertir degré/radian",
+                            "Utiliser la relation de Chasles",
+                            "Construire sur le cercle trigonométrique"
+                        ],
+                        contenus: ["Radian", "Cercle trigo", "Mesure principale"],
+                        prerequis: ["Angles 3e"],
+                        materiel: ["Rapporteur"],
+                        strategies: ["Manipulation"],
+                        activites: [
+                            {duree:"1h", titre:"Cercle trigo", description:"Placer π/6, π/4..."},
+                            {duree:"1h", titre:"Relation de Chasles", description:"(u,v)+(v,w) = (u,w)"}
+                        ],
+                        evaluation: ["Donner la mesure principale"],
+                    },
+                    "Fonctions trigonométriques élémentaires": {
+                        theme: "Trigonométrie",
+                        duree: "5h",
+                        capacites: [
+                            "Déterminer cos, sin, tan d'un angle orienté",
+                            "Simplifier une expression (angles associés, cos²+sin²=1)"
+                        ],
+                        contenus: ["Cosinus, sinus", "Angles associés"],
+                        prerequis: ["Cercle"],
+                        materiel: ["Cercle"],
+                        strategies: ["Exemples"],
+                        activites: [
+                            {duree:"2h", titre:"Angles associés", description:"cos(π−x) = -cos x, etc."}
+                        ],
+                        evaluation: ["Simplifier sin(π/2 + x)"],
+                    },
+                    "Vecteurs du plan": {
+                        theme: "Géométrie du plan",
+                        duree: "8h",
+                        capacites: [
+                            "Caractériser milieu, centre de gravité avec vecteurs",
+                            "Reconnaître vecteurs égaux, opposés, colinéaires",
+                            "Travailler dans une base, repère, déterminant",
+                            "Transformer avec relation de Chasles, combinaisons"
+                        ],
+                        contenus: ["Déterminant", "Base", "Coordonnées"],
+                        prerequis: ["Translation"],
+                        materiel: ["Papier quadrillé"],
+                        strategies: ["Géométrie analytique"],
+                        activites: [
+                            {duree:"2h", titre:"Colinéarité et déterminant", description:"Dét(u,v)=0"},
+                            {duree:"2h", titre:"Centre de gravité", description:"GA+GB+GC=0"}
+                        ],
+                        evaluation: ["Décomposer", "Calculer avec déterminant"],
+                    },
+                    "Droites et cercles": {
+                        theme: "Géométrie du plan",
+                        duree: "4h",
+                        capacites: [
+                            "Reconnaître un ensemble de points (équation cercle)",
+                            "Déterminer vecteur directeur/normal, représentation paramétrique",
+                            "Construire une droite connaissant point et vecteur normal"
+                        ],
+                        contenus: ["Équation cartésienne", "Vecteur normal", "Paramétrique"],
+                        prerequis: ["Équation réduite"],
+                        materiel: ["Outils géométriques"],
+                        strategies: ["Lien équation/géométrie"],
+                        activites: [
+                            {duree:"1.5h", titre:"Vecteur normal", description:"Passer de ax+by+c=0 au vecteur normal"},
+                            {duree:"1.5h", titre:"Représentation paramétrique", description:"Droite par A et directeur"}
+                        ],
+                        evaluation: ["Donner une équation cartésienne", "Représentation paramétrique"],
+                    },
+                    "Produit scalaire": {
+                        theme: "Géométrie du plan",
+                        duree: "7h",
+                        capacites: [
+                            "Calculer un produit scalaire (différentes formes)",
+                            "Transformer une expression",
+                            "Démontrer (Al Kashi, théorèmes de la médiane)",
+                            "Résoudre problème (lignes de niveau)"
+                        ],
+                        contenus: ["Al Kashi", "Théorème de la médiane", "Lignes de niveau"],
+                        prerequis: ["Norme", "Projection"],
+                        materiel: ["Exercices"],
+                        strategies: ["Démonstrations"],
+                        activites: [
+                            {duree:"2h", titre:"Al Kashi", description:"Relation entre côtés et angle"},
+                            {duree:"2h", titre:"Lignes de niveau", description:"MA²+MB² = k"}
+                        ],
+                        evaluation: ["Calculer une longueur avec Al Kashi", "Ligne de niveau"],
+                    },
+                    "Angles inscrits – polygones réguliers": {
+                        theme: "Géométrie du plan",
+                        duree: "7h",
+                        capacites: [
+                            "Calculer angle inscrit/au centre",
+                            "Déterminer un ensemble (arc capable)",
+                            "Construire triangle connaissant côtés/angles",
+                            "Démontrer la cocyclicité"
+                        ],
+                        contenus: ["Arc capable", "Quadrilatère inscriptible", "Pentagone régulier"],
+                        prerequis: ["Cercle", "Angles"],
+                        materiel: ["Compas", "rapporteur"],
+                        strategies: ["Construction"],
+                        activites: [
+                            {duree:"2h", titre:"Pentagone régulier", description:"Valeurs exactes cos36°"},
+                            {duree:"2h", titre:"Quadrilatère inscriptible", description:"Angles opposés supplémentaires"}
+                        ],
+                        evaluation: ["Prouver que quatre points sont cocycliques"],
+                    },
+                    "Géométrie de l'espace (positions relatives)": {
+                        theme: "Géométrie de l'espace",
+                        duree: "5h",
+                        capacites: [
+                            "Reconnaître axiomes de l'espace, déterminations d'un plan",
+                            "Étudier positions relatives de deux droites, deux plans, droite/plan",
+                            "Construire perspective cavalière, section plane"
+                        ],
+                        contenus: ["Parallélisme", "Orthogonalité", "Section de cube"],
+                        prerequis: ["Solides"],
+                        materiel: ["Modèles 3D"],
+                        strategies: ["Manipulation"],
+                        activites: [
+                            {duree:"2h", titre:"Section d'un cube", description:"Tracer l'intersection avec un plan"},
+                        ],
+                        evaluation: ["Décrire une section"],
+                    },
+                    "Parallélisme dans l'espace": {
+                        theme: "Géométrie de l'espace",
+                        duree: "5h",
+                        capacites: [
+                            "Déterminer intersection de droites/plans",
+                            "Démontrer parallélisme (théorèmes du toit, etc.)"
+                        ],
+                        contenus: ["Droites parallèles", "Plans parallèles"],
+                        prerequis: ["Positions"],
+                        materiel: ["Figures"],
+                        strategies: ["Déduction"],
+                        activites: [
+                            {duree:"2h", titre:"Théorème du toit", description:"Si deux plans sont parallèles..."}
+                        ],
+                        evaluation: ["Justifier parallélisme"],
+                    },
+                    "Isométries : translations, symétries": {
+                        theme: "Applications du plan",
+                        duree: "5h",
+                        capacites: [
+                            "Construire l'image d'une figure par translation, symétrie centrale/orthogonale",
+                            "Reconnaître une transformation",
+                            "Déterminer expression analytique (cas simples : y=0, x=0, y=x)",
+                            "Démontrer une propriété"
+                        ],
+                        contenus: ["Symétrie axiale", "Translation", "Écriture analytique"],
+                        prerequis: ["Symétrie 6e"],
+                        materiel: ["Calque"],
+                        strategies: ["Observation"],
+                        activites: [
+                            {duree:"1.5h", titre:"Expression analytique", description:"Symétrie par rapport à l'axe x=0 donne (x,y)->(-x,y)"}
+                        ],
+                        evaluation: ["Construire l'image", "Donner analytique"],
+                    },
+                    "Homothéties": {
+                        theme: "Applications du plan",
+                        duree: "7h",
+                        capacites: [
+                            "Reconnaître une homothétie échangeant deux figures",
+                            "Construire l'image d'un point par homothétie (centre, rapport)",
+                            "Déterminer expression analytique",
+                            "Démontrer des propriétés"
+                        ],
+                        contenus: ["Homothétie", "Rapport", "Composition"],
+                        prerequis: ["Vecteurs"],
+                        materiel: ["Règle", "compas"],
+                        strategies: ["Agrandissement/réduction"],
+                        activites: [
+                            {duree:"2h", titre:"Composée de deux homothéties", description:"Même centre, produit des rapports"}
+                        ],
+                        evaluation: ["Déterminer centre et rapport"],
+                    },
+                    "Rotations": {
+                        theme: "Applications du plan",
+                        duree: "7h",
+                        capacites: [
+                            "Reconnaître une rotation échangeant deux figures",
+                            "Construire l'image d'une figure par rotation",
+                            "Démontrer une propriété"
+                        ],
+                        contenus: ["Rotation", "Angle", "Centre"],
+                        prerequis: ["Angles"],
+                        materiel: ["Compas", "rapporteur"],
+                        strategies: ["Composée de symétries"],
+                        activites: [
+                            {duree:"2h", titre:"Rotation et triangle équilatéral", description:"Image par rotation de 60°"}
+                        ],
+                        evaluation: ["Construire rotation"],
+                    },
+                    "Statistiques (S)": {
+                        theme: "Organisation des données",
+                        duree: "6h",
+                        capacites: [
+                            "Calculer effectifs, fréquences, cumulés",
+                            "Construire diagrammes (bâtons, circulaire, histogramme)",
+                            "Déterminer mode, moyenne, médiane, variance, écart-type"
+                        ],
+                        contenus: ["Variance", "Écart-type", "Histogramme"],
+                        prerequis: ["Statistiques 4e"],
+                        materiel: ["Tableur"],
+                        strategies: ["Enquête"],
+                        activites: [
+                            {duree:"2h", titre:"Calcul de variance", description:"Avec formule de définition"},
+                            {duree:"1.5h", titre:"Histogramme", description:"Classes inégales"}
+                        ],
+                        evaluation: ["Calculer écart-type", "Interpréter"],
+                    }
+                },
+                extrait_progression: "Sept-Oct : Calculs (10h), Géométrie espace (5+5h) ; Nov : Angles inscrits, vecteurs ; Déc : Trigonométrie ; Janv : Polynômes, produit scalaire ; Fév-Mars : Équations, systèmes, homothéties, rotations ; Avril : Statistiques, isométries ; intégrations.",
+                exemple_epreuve: `
+                    <h4>🔬 Exemple d'épreuve Seconde S – 3h</h4>
+                    <p><strong>Exercice 1 (8pts) – Problème ouvert :</strong> Monsieur Abalo dispose d'un grillage rectangulaire d'aire 2,70 m². Il forme un cylindre en joignant deux côtés opposés. Sa voisine suggère de joindre les deux autres côtés pour obtenir un cylindre moins haut mais plus grand. Après calculs, le second cylindre a un volume supérieur de 20%. Démontrer que longueur = 1,2 × largeur, puis trouver les dimensions.<br>
+                    <strong>Exercice 2 (6pts) :</strong> QCM sur nombres réels, ordre de grandeur, ensembles.<br>
+                    <strong>Exercice 3 (6pts) :</strong> Calculer A = (1/3+1/2-1/6-2) ; B = (1-1/2+1/3)÷(1-1/2-1/3). Écrire D = (8⁷×3⁻³¹)/(9¹⁵×22²⁰) avec puissances de nombres premiers. Interpréter graphiquement |−2x+2|=4, |2x+3|≤|−2x+4|, |−3x+1|>1. Comparaison de a, m=(a+b)/2, g=√(ab), h=2ab/(a+b).</p>
+                `,
+                modele_fiche_pedagogique: `Situation : Le tailleur a besoin d'un carré d'aire 7m². Proposer une valeur approchée. Démarche d'investigation, travail individuel/groupe, synthèse. Trace écrite : irrationalité, valeur approchée.`
+            }
+        };
+
+        // Éléments DOM
+        const serieSelect = document.getElementById('serieSelect');
+        const leconSelect = document.getElementById('leconSelect');
+        const dateField = document.getElementById('dateField');
+        const generateBtn = document.getElementById('generateBtn');
+        const ficheContainer = document.getElementById('ficheContainer');
+        const ficheContent = document.getElementById('ficheContent');
+
+        // Remplir le menu des leçons
+        function fillLecons() {
+            const serie = serieSelect.value; // 'A' ou 'S'
+            const lecons = programme[serie].lecons;
+            leconSelect.innerHTML = '';
+            Object.keys(lecons).forEach(titre => {
+                const opt = document.createElement('option');
+                opt.value = titre;
+                opt.textContent = titre + (serie === 'S' ? ' (S)' : ' (A)');
+                leconSelect.appendChild(opt);
+            });
+        }
+        serieSelect.addEventListener('change', fillLecons);
+        fillLecons(); // initial
+
+        // Génération fiche
+        function genererFiche() {
+            const serie = serieSelect.value;
+            const leconTitre = leconSelect.value;
+            if (!leconTitre) { alert("Choisissez une leçon"); return; }
+
+            const lecon = programme[serie].lecons[leconTitre];
+            if (!lecon) return;
+
+            const serieObj = programme[serie];
+            const dateValue = dateField.value ? new Date(dateField.value).toLocaleDateString('fr-FR') : 'non précisée';
+            const today = new Date().toLocaleDateString('fr-FR');
+
+            let html = `
+                <h2>📐 ${leconTitre}</h2>
+                <div class="badge-ribbon">
+                    <span>${serieObj.nom}</span>
+                    <span class="duree">⏱️ ${lecon.duree}</span>
+                    <span>📂 ${lecon.theme}</span>
+                </div>
+                <p style="margin-bottom:1.2rem; color:#2b4f3a;">Générée le ${today} – Date prévue : ${dateValue}</p>
+            `;
+
+            // CAPACITÉS + CONTENUS (fusion)
+            html += `<div class="section-lecon"><h3>🎯 Capacités & Contenus</h3>`;
+            html += `<table class="table-capacites"><tr><th>Capacités</th><th>Contenus associés</th></tr>`;
+            const maxLen = Math.max(lecon.capacites.length, (lecon.contenus || []).length);
+            for (let i=0; i<maxLen; i++) {
+                html += `<tr><td>${lecon.capacites[i] || ''}</td><td>${(lecon.contenus && lecon.contenus[i]) || ''}</td></tr>`;
+            }
+            html += `</table></div>`;
+
+            // Prérequis
+            html += `<div class="section-lecon"><h3>🔁 Prérequis</h3><ul>`;
+            (lecon.prerequis || []).forEach(p => html += `<li>${p}</li>`);
+            html += `</ul></div>`;
+
+            // Matériel & stratégies
+            html += `<div class="section-lecon"><h3>🧰 Matériel / Stratégies</h3><p><strong>Matériel :</strong> ${(lecon.materiel || []).join(' · ')}</p>`;
+            html += `<p><strong>Stratégies :</strong> ${(lecon.strategies || []).join(' · ')}</p></div>`;
+
+            // Activités
+            html += `<div class="section-lecon"><h3>📌 Déroulement (activités)</h3>`;
+            (lecon.activites || []).forEach((act, idx) => {
+                html += `<p><strong>Activité ${idx+1} (${act.duree}) – ${act.titre}</strong> : ${act.description}</p>`;
+            });
+            html += `</div>`;
+
+            // Évaluation
+            html += `<div class="section-lecon"><h3>📋 Évaluation</h3><ul>`;
+            (lecon.evaluation || []).forEach(e => html += `<li>${e}</li>`);
+            html += `</ul></div>`;
+
+            // Extrait progression / exemple épreuve / modèle fiche (pour illustrer la richesse du programme)
+            html += `<div class="section-lecon" style="background:#f3f6fd;"><h3>📘 Extraits du programme officiel</h3>`;
+            if (serieObj.exemple_epreuve) html += `<div>${serieObj.exemple_epreuve}</div>`;
+            if (serieObj.extrait_progression) html += `<p><strong>Progression indicative :</strong> ${serieObj.extrait_progression}</p>`;
+            if (serieObj.modele_fiche_pedagogique) html += `<p><strong>📝 Situation d'apprentissage type :</strong> ${serieObj.modele_fiche_pedagogique}</p>`;
+            html += `</div>`;
+
+            html += `<p style="border-top: 2px dashed #b8871a; padding-top:1rem;">✅ Conforme au programme 2022 – Direction de l'Enseignement Secondaire Général, Togo.</p>`;
+
+            ficheContent.innerHTML = html;
+            ficheContainer.classList.remove('hidden');
+            ficheContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        generateBtn.addEventListener('click', genererFiche);
+
+        // Exports (simulés)
+        window.exporterPDF = function() {
+            alert("Pour exporter en PDF : utilisez 'Imprimer' puis choisissez 'Enregistrer en PDF'.");
+            window.print();
+        };
+        window.exporterWord = function() {
+            const content = ficheContent.innerHTML;
+            const style = document.querySelector('style').innerHTML;
+            const full = `
+                <html><head><meta charset="UTF-8"><title>fiche_togo_maths</title>
+                <style>${style} body { padding: 1.5cm; }</style>
+                </head><body>${content}</body></html>`;
+            const blob = new Blob([full], {type: 'application/msword'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'fiche_maths_togo.doc';
+            a.click();
+        };
+        window.resetFiche = function() {
+            ficheContainer.classList.add('hidden');
+            serieSelect.value = 'A';
+            fillLecons();
+            dateField.value = '2025-10-01';
+        };
+
+        // Raccourci Ctrl+Enter
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                genererFiche();
+            }
+        });
+    })();
+</script>
+</body>
+</html>

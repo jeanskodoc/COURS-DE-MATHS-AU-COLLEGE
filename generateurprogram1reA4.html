@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Fiche Pédagogique - Maths 1ère A (Togo) | Programme 2023</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #eef3f5;
+            color: #1b3b4f;
+            line-height: 1.5;
+            padding: 22px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* En-tête officiel - style République Togolaise */
+        .header-republic {
+            background: linear-gradient(105deg, #ffffff 0%, #f3f9f7 100%);
+            border-radius: 32px;
+            padding: 1.8rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 15px 30px -10px rgba(0, 70, 40, 0.25);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 15px solid #0f5c2f;
+            border-right: 2px solid #a7c8b5;
+        }
+
+        .emblem-area {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+        }
+
+        .emblem-symbol {
+            background: #0f5c2f;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #ffcc00;
+            box-shadow: 0 8px 0 #07331a;
+        }
+
+        .republic-text {
+            font-weight: 700;
+        }
+
+        .republic-text .ministere {
+            color: #1d4e6f;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .republic-text .republique {
+            color: #0f5c2f;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .republic-text .devise {
+            color: #b8871a;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .program-badge {
+            background: #1d4e6f;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.6rem;
+            text-align: center;
+            box-shadow: 0 8px 0 #0b2b3b;
+        }
+        .program-badge small {
+            font-size: 0.9rem;
+            display: block;
+            color: #bed9f0;
+        }
+
+        /* Panneau générateur */
+        .generator-panel {
+            background: white;
+            border-radius: 36px;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 12px 25px -8px rgba(0,45,20,0.15);
+            border: 1px solid #b8d5c4;
+        }
+
+        .flex-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-end;
+            margin: 1.5rem 0 1.2rem;
+        }
+
+        .field-group {
+            flex: 1 1 280px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            color: #0f5c2f;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .field-group select, .field-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #b8d5c4;
+            border-radius: 28px;
+            font-size: 1rem;
+            background: #f9fffd;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .field-group select:focus, .field-group input:focus {
+            border-color: #0f5c2f;
+            box-shadow: 0 0 0 5px rgba(15,92,47,0.15);
+            outline: none;
+        }
+
+        .btn-big-generate {
+            background: #0f5c2f;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 12px 0 #07331a;
+            transition: all 0.12s;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .btn-big-generate:hover {
+            background: #188542;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 0 #07331a;
+        }
+
+        /* Conteneur fiche */
+        .fiche-container {
+            background: white;
+            border-radius: 42px;
+            padding: 2.8rem;
+            box-shadow: 0 30px 45px -15px #1b4b2a;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #9cb9aa;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fiche-papier {
+            background: #fefcf9;
+            padding: 2.2rem 2.8rem;
+            border-radius: 28px;
+            border-left: 15px solid #b8871a;
+            box-shadow: inset 0 2px 6px #eee, 0 10px 25px rgba(0,30,0,0.1);
+        }
+
+        .fiche-papier h2 {
+            color: #0f5c2f;
+            border-bottom: 3px solid #b8871a;
+            padding-bottom: 12px;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .badge-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 2.2rem;
+        }
+        .badge-ribbon span {
+            background: #1d4e6f;
+            color: white;
+            padding: 8px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .badge-ribbon .duree {
+            background: #b8871a;
+        }
+
+        .section-lecon {
+            background: #f4fbf8;
+            border-radius: 32px;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid #b8d5c4;
+        }
+        .section-lecon h3 {
+            color: #1d4e6f;
+            font-size: 1.7rem;
+            border-left: 12px solid #b8871a;
+            padding-left: 22px;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-capacites {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        }
+        .table-capacites th {
+            background: #0f5c2f;
+            color: white;
+            font-weight: 600;
+            padding: 14px;
+            font-size: 1rem;
+        }
+        .table-capacites td {
+            border: 1px solid #b8d5c4;
+            padding: 14px;
+            vertical-align: top;
+        }
+
+        .actions-print {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 2.8rem;
+            justify-content: center;
+        }
+        .btn-print {
+            background: white;
+            border: 2px solid #0f5c2f;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #0f5c2f;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.1rem;
+        }
+        .btn-print:hover {
+            background: #0f5c2f;
+            color: white;
+        }
+        .btn-pdf {
+            background: #1d4e6f;
+            border-color: #1d4e6f;
+            color: white;
+        }
+        .btn-pdf:hover {
+            background: #103b54;
+        }
+
+        .warning-foot {
+            background: #fffae6;
+            border-radius: 28px;
+            padding: 1.2rem 2.2rem;
+            margin-top: 2.2rem;
+            border: 1px solid #f3cf78;
+            font-size: 1rem;
+            color: #5e4a1c;
+        }
+
+        footer {
+            text-align: center;
+            color: #2e5f4a;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            .fiche-container { box-shadow: none; background: white; padding: 0.2in; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- EN-TÊTE OFFICIEL 2023 – conforme au document -->
+    <div class="header-republic no-print">
+        <div class="emblem-area">
+            <div class="emblem-symbol">⚖️</div>
+            <div class="republic-text">
+                <div class="ministere">MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE ET DE L'ARTISANAT</div>
+                <div class="republique">RÉPUBLIQUE TOGOLAISE</div>
+                <div class="devise">Travail - Liberté - Patrie</div>
+            </div>
+        </div>
+        <div class="program-badge">
+            PROGRAMME 2023<br><small>Première Littéraire (A4)</small>
+        </div>
+    </div>
+
+    <!-- GÉNÉRATEUR INTERACTIF -->
+    <div class="generator-panel no-print">
+        <h2 style="color:#0f5c2f; margin-bottom:0;">🧑‍🏫 Générateur de fiche pédagogique – 1ère A (Littéraire)</h2>
+        <p style="color:#2e5f4a; margin-bottom:1.5rem;">Programme complet 2023 – Thèmes, capacités, contenus, progression, guide d'exécution (50h).</p>
+
+        <div class="flex-fields">
+            <div class="field-group">
+                <label>📌 Leçon / Thème</label>
+                <select id="leconSelect">
+                    <!-- options injectées par JS -->
+                </select>
+            </div>
+            <div class="field-group">
+                <label>📅 Date prévue</label>
+                <input type="date" id="dateField" value="2025-11-15">
+            </div>
+        </div>
+
+        <button class="btn-big-generate" id="generateBtn">⚡ GÉNÉRER LA FICHE COMPLÈTE</button>
+    </div>
+
+    <!-- AFFICHAGE DE LA FICHE -->
+    <div class="fiche-container hidden" id="ficheContainer">
+        <div class="fiche-papier" id="ficheContent">
+            <!-- contenu dynamique -->
+        </div>
+
+        <div class="warning-foot no-print">
+            ⚠️ Fiche conforme au programme de Première Littéraire (A4) – Septembre 2023 (Document officiel). À adapter au contexte.
+        </div>
+
+        <div class="actions-print no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print btn-pdf" onclick="exporterPDF()">📄 Exporter en PDF</button>
+            <button class="btn-print" onclick="exporterWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">↻ Nouvelle fiche</button>
+        </div>
+    </div>
+
+    <footer class="no-print">
+        Direction des Programmes et Innovations Pédagogiques · République Togolaise · 2h/sem · Coefficient 2
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ----------------------------------------------------------------
+        // PROGRAMME COMPLET DE PREMIERE LITTERAIRE (A4) - issu du document
+        // ----------------------------------------------------------------
+        const programme = {
+            lecons: {
+                // Thème 1 : Calculs algébriques
+                "Équations et inéquations dans IR": {
+                    theme: "Calculs algébriques",
+                    duree: "8h",
+                    capacites: [
+                        "Déterminer le discriminant Δ = b²−4ac",
+                        "Déterminer les solutions d'une équation du second degré",
+                        "Déterminer le signe d'un polynôme du second degré",
+                        "Déterminer le signe d'une fonction de type (px+q)(ax²+bx+c) avec a≠0, p≠0",
+                        "Déterminer le signe d'une fonction de type (ax+b)/(cx+d) avec c≠0",
+                        "Déterminer l'ensemble de validité et l'ensemble solution",
+                        "Résoudre des équations se ramenant à ax²+bx+c=0",
+                        "Résoudre des inéquations se ramenant à ax²+bx+c ≤ 0",
+                        "Résoudre des équations de type (ax+b)/(cx+d) = ex+f avec c≠0",
+                        "Résoudre des inéquations de type (ax+b)/(cx+d) ≤ ex+f avec c≠0",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Discriminant Δ = b²−4ac",
+                        "Solutions : x = (-b ± √Δ)/(2a)",
+                        "Signe de ax²+bx+c (tableau de signes)",
+                        "Signe de (px+q)(ax²+bx+c) – factorisation degré 3",
+                        "Signe de (ax+b)/(cx+d) (tableau de signes)",
+                        "Équations se ramenant au second degré",
+                        "Inéquations se ramenant au second degré",
+                        "Équations homographiques",
+                        "Inéquations homographiques"
+                    ],
+                    prerequis: ["Résolution d'équations du 1er degré", "Tableau de signes"],
+                    materiel: ["Tableau de signes", "Calculatrice"],
+                    strategies: ["Méthode du discriminant", "Recherche de solution particulière pour degré 3"],
+                    activites: [
+                        {duree: "2h", titre: "Discriminant et racines", description: "Calculer Δ et déterminer les racines."},
+                        {duree: "2h", titre: "Signe d'un polynôme", description: "Construire le tableau de signes de ax²+bx+c."},
+                        {duree: "2h", titre: "Équations homographiques", description: "Résoudre (2x+1)/(x-3) = x+1."},
+                        {duree: "1h", titre: "Inéquations homographiques", description: "Résoudre (3x-2)/(x+1) ≤ 2x-1."}
+                    ],
+                    evaluation: [
+                        "Résoudre 2x² - 5x + 2 = 0",
+                        "Résoudre (x+1)(2x²-3x+1) = 0",
+                        "Résoudre (2x-1)/(x+3) = x",
+                        "Résoudre (x-2)/(x+1) ≤ 0"
+                    ],
+                    extrait_guide: "Procéder par des exercices pour consolider les acquis des élèves sur les équations de la forme ax+b=0 et (ax+b)/(cx+d)=0. Donner sans démontrer la formule du discriminant. Amener l'apprenant à découvrir une solution particulière pour les équations du type αx³+βx²+γx+δ=0 avec α≠0 après factorisation sous la forme (px+q)(ax²+bx+c). NB : se limiter aux polynômes de degré 3."
+                },
+                // Thème 2 : Analyse
+                "Généralités sur les fonctions": {
+                    theme: "Analyse",
+                    duree: "4h",
+                    capacites: [
+                        "Reconnaître une fonction polynôme de degré ≤3, une fonction homographique",
+                        "Reconnaître une fonction paire, une fonction impaire",
+                        "Déterminer l'ensemble de définition",
+                        "Reconnaître graphiquement une fonction paire/impaire, un axe ou centre de symétrie"
+                    ],
+                    contenus: [
+                        "Fonction polynôme (degré ≤3)",
+                        "Fonction homographique (ax+b)/(cx+d)",
+                        "Fonction paire, fonction impaire",
+                        "Ensemble de définition",
+                        "Axe de symétrie, centre de symétrie (lecture graphique)"
+                    ],
+                    prerequis: ["Notion de fonction (2nde)"],
+                    materiel: ["Grapheur", "Papier millimétré"],
+                    strategies: ["Observation graphique", "Calculs simples"],
+                    activites: [
+                        {duree: "1.5h", titre: "Reconnaissance", description: "Identifier des fonctions polynômes et homographiques."},
+                        {duree: "1.5h", titre: "Parité", description: "Observer des courbes pour déterminer si la fonction est paire ou impaire."}
+                    ],
+                    evaluation: [
+                        "Déterminer l'ensemble de définition de f(x)=1/(x-2)",
+                        "Montrer que la fonction f(x)=x² est paire",
+                        "Reconnaître graphiquement un centre de symétrie"
+                    ],
+                    extrait_guide: "À partir des exercices, rappeler le vocabulaire : monôme, degré d'un polynôme, fraction rationnelle. Proposer quelques exemples de fonctions dont l'ensemble de départ est un intervalle de IR."
+                },
+                "Limites d'une fonction": {
+                    theme: "Analyse",
+                    duree: "4h",
+                    capacites: [
+                        "Déterminer une limite (notion intuitive)",
+                        "Déterminer les limites des fonctions de référence (x², x³, 1/x, |x|) à partir de leur graphique",
+                        "Calculer les limites des polynômes et des fonctions homographiques",
+                        "Identifier une asymptote horizontale ou verticale"
+                    ],
+                    contenus: [
+                        "Notion de limite (approche graphique)",
+                        "Limite des fonctions de référence : x², x³, 1/x, |x|",
+                        "Limites des polynômes, limites des fonctions homographiques",
+                        "Asymptote horizontale, asymptote verticale"
+                    ],
+                    prerequis: ["Représentations graphiques"],
+                    materiel: ["Calculatrice graphique"],
+                    strategies: ["Approche intuitive", "Utilisation de la propriété des limites de 1/(x-a)"],
+                    activites: [
+                        {duree: "1h", titre: "Limite de 1/x", description: "Observer le comportement près de 0 et à l'infini."},
+                        {duree: "1h", titre: "Asymptotes", description: "Tracer la courbe de 1/(x-2) et identifier les asymptotes."}
+                    ],
+                    evaluation: [
+                        "Calculer lim (2x²-3x+1) quand x→+∞",
+                        "Déterminer les asymptotes de f(x)=(3x+1)/(x-2)"
+                    ],
+                    extrait_guide: "Introduire la notion de limites d'une fonction par le calcul des images et l'illustrer graphiquement. Pour lever l'indétermination dans le calcul des limites des fonctions homographiques en a, on pourra utiliser la propriété suivante : pour tout nombre réel a différent de 0 on a : lim (1/(x-a)) = -∞ quand x→a⁻ et +∞ quand x→a⁺. Partir de la représentation graphique point par point de la fonction x ↦ 1/x pour introduire les notions d'asymptotes horizontale et verticale. Donner les équations des asymptotes à la courbe de la fonction x ↦ (ax+b)/(cx+d) avec c≠0 : asymptote verticale x = -d/c et asymptote horizontale y = a/c."
+                },
+                "Dérivée et étude de fonctions": {
+                    theme: "Analyse",
+                    duree: "8h",
+                    capacites: [
+                        "Déterminer la fonction dérivée (fonctions usuelles : a, x, x², x³, 1/x)",
+                        "Appliquer les formules de dérivation (u+v, αu, uv, 1/v, u/v)",
+                        "Déterminer l'équation d'une tangente",
+                        "Étudier les variations d'une fonction (polynôme degré ≤3, homographique)",
+                        "Construire le tableau de variation",
+                        "Construire le graphique (courbe, tangentes, asymptotes)"
+                    ],
+                    contenus: [
+                        "Fonction dérivée des fonctions usuelles : a, x, x², x³, 1/x",
+                        "Formules : (u+v)' = u'+v', (αu)' = αu', (uv)' = u'v+uv', (1/v)' = -v'/v², (u/v)' = (u'v-uv')/v²",
+                        "Équation de la tangente : y = f'(x₀)(x-x₀) + f(x₀)",
+                        "Lien dérivée ↔ sens de variation",
+                        "Tableau de variation",
+                        "Construction de courbes (polynômes degré ≤3, homographiques)"
+                    ],
+                    prerequis: ["Limites", "Fonctions de référence"],
+                    materiel: ["Calculatrice"],
+                    strategies: ["Activités graphiques", "Formules données sans démonstration"],
+                    activites: [
+                        {duree: "2h", titre: "Calcul de dérivées", description: "Dériver des polynômes simples."},
+                        {duree: "2h", titre: "Tangente", description: "Déterminer l'équation de la tangente à une courbe en un point."},
+                        {duree: "2h", titre: "Étude complète", description: "Étudier f(x)=x³-3x+1 (limites, dérivée, variations, courbe)."},
+                        {duree: "1h", titre: "Fonction homographique", description: "Étudier f(x)=(2x+1)/(x-3)."}
+                    ],
+                    evaluation: [
+                        "Calculer la dérivée de f(x)=2x³-5x²+3x-1",
+                        "Déterminer les variations de f(x)=x²-4x+3",
+                        "Étudier f(x)=(x+2)/(x-1)"
+                    ],
+                    extrait_guide: "Présenter la dérivée comme un outil d'étude du sens de variation d'une fonction. Donner, sans démontrer, les fonctions dérivées des fonctions usuelles. Sans démontrer, donner les formules des dérivées de : u+v, αu, uv, 1/v, u/v. À partir d'activités graphiques, faire découvrir aux apprenants que le sens de variation d'une fonction est lié au signe du nombre dérivé puis généraliser cette observation. Étudier les variations des fonctions polynômes de degré inférieur ou égal à 3 et des fonctions homographiques. NB : Étudier les variations, c'est déterminer : l'ensemble de définition, les limites, la fonction dérivée, le sens de variation puis le tableau de variation."
+                },
+                "Suites numériques": {
+                    theme: "Analyse",
+                    duree: "8h",
+                    capacites: [
+                        "Reconnaître une suite (explicite, récurrence, arithmétique, géométrique)",
+                        "Représenter graphiquement les termes d'une suite définie par récurrence sur l'axe des abscisses",
+                        "Calculer les termes d'une suite, la raison, la somme de termes consécutifs",
+                        "Déterminer le sens de variation (graphique, arithmétique, formule explicite)",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Suite définie par une formule explicite uₙ = f(n)",
+                        "Suite définie par une formule de récurrence uₙ₊₁ = f(uₙ)",
+                        "Suite arithmétique (uₙ = u₀ + nr, somme S = n(u₀+uₙ₋₁)/2)",
+                        "Suite géométrique (uₙ = u₀ × qⁿ, somme S = u₀ × (1-qⁿ)/(1-q))",
+                        "Représentation graphique des termes (sur l'axe des abscisses)",
+                        "Sens de variation (graphique, pour une suite arithmétique : r>0 croissante, r<0 décroissante)"
+                    ],
+                    prerequis: ["Pourcentages", "Fonctions"],
+                    materiel: ["Tableur", "Calculatrice"],
+                    strategies: ["Activités numériques et graphiques", "Situations concrètes"],
+                    activites: [
+                        {duree: "2h", titre: "Suites arithmétiques", description: "Calcul de termes, somme, application à des problèmes d'épargne."},
+                        {duree: "2h", titre: "Suites géométriques", description: "Placement à intérêts composés."},
+                        {duree: "2h", titre: "Représentation graphique", description: "Représenter uₙ₊₁ = 0,5uₙ+1 sur l'axe des abscisses."}
+                    ],
+                    evaluation: [
+                        "Soit (uₙ) arithmétique avec u₀=2 et r=3. Calculer u₁₀ et S₁₀.",
+                        "Soit (vₙ) géométrique avec v₀=1000 et q=1,05. Calculer v₅.",
+                        "Étudier le sens de variation de uₙ = n²+1"
+                    ],
+                    extrait_guide: "Exploiter les activités numériques et graphiques afin de faire ressortir les formules de définitions d'une suite et constater ses propriétés. Représenter graphiquement les termes d'une suite définie par une formule de récurrence sur l'axe des abscisses. À partir des situations concrètes faire ressortir l'utilisation des suites numériques, en particulier les suites arithmétiques et géométriques."
+                },
+                // Thème 3 : Organisation des données
+                "Dénombrement": {
+                    theme: "Organisation des données",
+                    duree: "6h",
+                    capacites: [
+                        "Déterminer le nombre d'éléments d'un ensemble en utilisant les modèles mathématiques de dénombrement",
+                        "Mathématiser une situation-problème de dénombrement"
+                    ],
+                    contenus: [
+                        "p‑uplets (listes ordonnées avec répétition)",
+                        "Arrangements (listes ordonnées sans répétition)",
+                        "Permutations (arrangements de n éléments)",
+                        "Combinaisons (sous-ensembles sans ordre)"
+                    ],
+                    prerequis: ["Arbres de choix (seconde)"],
+                    materiel: ["Arbres", "Tableaux"],
+                    strategies: ["Situations concrètes", "Utilisation de l'arbre pour introduire les p-uplets"],
+                    activites: [
+                        {duree: "2h", titre: "p-uplets et arbres", description: "Dénombrer les codes à 4 chiffres."},
+                        {duree: "2h", titre: "Arrangements et permutations", description: "Dénombrer les podiums (ordre)."},
+                        {duree: "1h", titre: "Combinaisons", description: "Dénombrer les comités (sans ordre)."}
+                    ],
+                    evaluation: [
+                        "Combien de codes à 3 chiffres peut-on former ?",
+                        "Combien de mots de 3 lettres distinctes peut-on former avec A,B,C,D ?",
+                        "Combien de comités de 3 personnes peut-on former avec 10 personnes ?"
+                    ],
+                    extrait_guide: "Proposer des situations pour réviser les acquis des classes antérieures (arbre de choix, intersection, réunion). On utilisera l'arbre de choix pour introduire la notion de p-uplets."
+                },
+                "Statistiques à une variable": {
+                    theme: "Organisation des données",
+                    duree: "6h",
+                    capacites: [
+                        "Calculer effectifs, fréquences, effectifs cumulés, fréquences cumulées",
+                        "Construire des diagrammes (bâtons, bandes, circulaire, polygone des effectifs, diagramme des effectifs cumulés, histogramme)",
+                        "Déterminer les caractéristiques de position : mode(s), moyenne, médiane (graphiquement)",
+                        "Déterminer les caractéristiques de dispersion : variance, écart-moyen, écart-type"
+                    ],
+                    contenus: [
+                        "Effectifs, fréquences, effectifs cumulés (croissants/décroissants), fréquences cumulées",
+                        "Diagrammes : bâtons, bandes, circulaire, polygone des effectifs, diagramme des effectifs cumulés, histogramme",
+                        "Mode, moyenne, médiane (graphique pour la médiane)",
+                        "Variance, écart-moyen, écart-type"
+                    ],
+                    prerequis: ["Statistiques (seconde)"],
+                    materiel: ["Tableur", "Papier millimétré"],
+                    strategies: ["Situations concrètes", "Utilisation d'un tableur"],
+                    activites: [
+                        {duree: "2h", titre: "Tableaux et diagrammes", description: "Construire un histogramme à partir d'une série regroupée en classes."},
+                        {duree: "2h", titre: "Moyenne et variance", description: "Calculer la moyenne et la variance d'une petite série."},
+                        {duree: "1h", titre: "Médiane graphique", description: "Déterminer la médiane à partir du polygone des effectifs cumulés."}
+                    ],
+                    evaluation: [
+                        "Calculer la moyenne d'une série donnée",
+                        "Construire un histogramme",
+                        "Déterminer l'écart-type"
+                    ],
+                    extrait_guide: "Proposer des situations pour réviser les acquis des classes antérieures. Proposer des situations conduisant à installer les notions de diagramme des effectifs cumulés et polygone des effectifs. Proposer des situations conduisant à installer les notions de mode(s), médiane, classe(s) modale(s). Proposer des situations conduisant à établir les notions de variance, écart moyen, écart-type."
+                }
+            },
+            // extraits globaux
+            progression_annuelle: `
+                Septembre (1-2) : Équations et inéquations (8h)
+                Octobre (3-6) : Équations (suite) + Généralités sur les fonctions (4h)
+                Novembre (7-10) : Intégration (2h) + Dénombrement (6h)
+                Décembre (11-12) : Statistiques à une variable (6h)
+                Janvier (13) : Statistiques (fin) + Limites (4h)
+                Février (14-15) : Limites (suite) + Intégration (2h)
+                Février-Mars (16-20) : Dérivée et étude de fonctions (8h)
+                Mars-Avril (21-24) : Suites numériques (8h)
+                Mai (25) : Semaine d'intégration (2h)
+            `,
+            exemple_epreuve: `
+                <h4>📝 Exemple d'épreuve – Première A (durée 2h)</h4>
+                <p><strong>Exercice 1 (5pts) :</strong> Résoudre dans IR : 2x² − 5x + 2 = 0. Résoudre l'inéquation (x-2)/(x+1) ≤ 0.<br>
+                <strong>Exercice 2 (5pts) :</strong> Soit f(x) = (2x+1)/(x-3). Déterminer l'ensemble de définition, les limites aux bornes, les asymptotes, la dérivée, le tableau de variation. Tracer la courbe.<br>
+                <strong>Exercice 3 (4pts) :</strong> Une suite arithmétique a pour premier terme u₀=5 et raison r=3. Calculer u₁₀ et la somme des 10 premiers termes.<br>
+                <strong>Exercice 4 (3pts) :</strong> Dans une classe de 30 élèves, on veut élire un délégué et un suppléant. Combien de couples (délégué, suppléant) peut-on former ?<br>
+                <strong>Exercice 5 (3pts) :</strong> Calculer la moyenne et l'écart-type de la série : 2,5,7,8,10.</p>
+            `,
+            modele_fiche: `
+                <h4>📋 Canevas de fiche (extrait)</h4>
+                <p><strong>Situation d'apprentissage :</strong> Un tailleur doit découper un carré d'aire 7m². Proposer une valeur approchée du côté.</p>
+                <p><strong>Déroulement :</strong> Remobilisation (10min), présentation (5min), appropriation (5min), résolution individuelle/groupe (15min), synthèse (20min), institutionnalisation (15min), réinvestissement (30min).</p>
+            `
+        };
+
+        // ----------------------------------------------------------------
+        // Remplissage du menu déroulant
+        // ----------------------------------------------------------------
+        const leconSelect = document.getElementById('leconSelect');
+        const dateField = document.getElementById('dateField');
+        const generateBtn = document.getElementById('generateBtn');
+        const ficheContainer = document.getElementById('ficheContainer');
+        const ficheContent = document.getElementById('ficheContent');
+
+        function fillLecons() {
+            leconSelect.innerHTML = '';
+            Object.keys(programme.lecons).sort().forEach(titre => {
+                const opt = document.createElement('option');
+                opt.value = titre;
+                opt.textContent = titre;
+                leconSelect.appendChild(opt);
+            });
+        }
+        fillLecons();
+
+        // ----------------------------------------------------------------
+        // Génération de la fiche
+        // ----------------------------------------------------------------
+        function genererFiche() {
+            const leconTitre = leconSelect.value;
+            if (!leconTitre) { alert("Veuillez sélectionner une leçon."); return; }
+
+            const lecon = programme.lecons[leconTitre];
+            const dateChoisie = dateField.value ? new Date(dateField.value).toLocaleDateString('fr-FR') : 'non précisée';
+            const today = new Date().toLocaleDateString('fr-FR');
+
+            let html = `
+                <h2>📐 ${leconTitre}</h2>
+                <div class="badge-ribbon">
+                    <span>📂 ${lecon.theme}</span>
+                    <span class="duree">⏱️ ${lecon.duree}</span>
+                    <span>🎓 1ère A (Littéraire)</span>
+                </div>
+                <p style="margin-bottom:1.8rem; color:#2e5f4a;">Générée le ${today} – Date prévue : ${dateChoisie}</p>
+            `;
+
+            // Tableau capacités + contenus
+            html += `<div class="section-lecon"><h3>🎯 Capacités & contenus</h3>`;
+            html += `<table class="table-capacites"><tr><th>Capacités</th><th>Contenus</th></tr>`;
+            const max = Math.max(lecon.capacites.length, lecon.contenus.length);
+            for (let i=0; i<max; i++) {
+                html += `<tr><td>${lecon.capacites[i] || ''}</td><td>${lecon.contenus[i] || ''}</td></tr>`;
+            }
+            html += `</table></div>`;
+
+            // Prérequis, matériel, stratégies
+            html += `<div class="section-lecon"><h3>🔁 Prérequis</h3><ul>`;
+            (lecon.prerequis || []).forEach(p => html += `<li>${p}</li>`);
+            html += `</ul></div>`;
+
+            html += `<div class="section-lecon"><h3>🧰 Matériel / Stratégies</h3>`;
+            html += `<p><strong>Matériel :</strong> ${(lecon.materiel || []).join(' · ')}</p>`;
+            html += `<p><strong>Stratégies :</strong> ${(lecon.strategies || []).join(' · ')}</p>`;
+            if (lecon.extrait_guide) html += `<p><strong>Recommandation (guide) :</strong> ${lecon.extrait_guide}</p>`;
+            html += `</div>`;
+
+            // Activités
+            html += `<div class="section-lecon"><h3>📌 Déroulement – activités</h3>`;
+            (lecon.activites || []).forEach((act, idx) => {
+                html += `<p><strong>Activité ${idx+1} (${act.duree}) – ${act.titre}</strong> : ${act.description}</p>`;
+            });
+            html += `</div>`;
+
+            // Évaluation
+            html += `<div class="section-lecon"><h3>📋 Évaluation</h3><ul>`;
+            (lecon.evaluation || []).forEach(e => html += `<li>${e}</li>`);
+            html += `</ul></div>`;
+
+            // Extraits programme (progression, épreuve, canevas)
+            html += `<div class="section-lecon" style="background:#eaf3fc;"><h3>📘 Extraits du programme officiel</h3>`;
+            if (programme.exemple_epreuve) html += `<div>${programme.exemple_epreuve}</div>`;
+            if (programme.progression_annuelle) html += `<p><strong>Progression annuelle (50h) :</strong> ${programme.progression_annuelle}</p>`;
+            if (programme.modele_fiche) html += `<div>${programme.modele_fiche}</div>`;
+            html += `</div>`;
+
+            // conformité
+            html += `<p style="border-top:2px dashed #b8871a; padding-top:1.2rem;">✅ Programme 2023 – Direction des Programmes et Innovations Pédagogiques, Togo. 2h/sem – coeff 2.</p>`;
+
+            ficheContent.innerHTML = html;
+            ficheContainer.classList.remove('hidden');
+            ficheContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        generateBtn.addEventListener('click', genererFiche);
+
+        // ----------------------------------------------------------------
+        // Exports et utilitaires
+        // ----------------------------------------------------------------
+        window.exporterPDF = function() {
+            alert("Pour exporter en PDF : utilisez 'Imprimer' puis choisissez 'Enregistrer en PDF'.");
+            window.print();
+        };
+        window.exporterWord = function() {
+            const content = ficheContent.innerHTML;
+            const style = document.querySelector('style').innerHTML;
+            const full = `
+                <html><head><meta charset="UTF-8"><title>fiche_1ereA_togo</title>
+                <style>${style} body { padding: 2cm; }</style>
+                </head><body>${content}</body></html>`;
+            const blob = new Blob([full], {type: 'application/msword'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'fiche_1ereA_maths.doc';
+            a.click();
+        };
+        window.resetFiche = function() {
+            ficheContainer.classList.add('hidden');
+            leconSelect.selectedIndex = 0;
+            dateField.value = '2025-11-15';
+        };
+
+        // Ctrl+Enter génère
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                genererFiche();
+            }
+        });
+    })();
+</script>
+</body>
+</html>

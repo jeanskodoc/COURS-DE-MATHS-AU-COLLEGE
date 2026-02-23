@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Fiche Pédagogique - Maths Tle A (Togo) | Programme 2024</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #eef3f5;
+            color: #1b3b4f;
+            line-height: 1.5;
+            padding: 22px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* En-tête officiel - style République Togolaise */
+        .header-republic {
+            background: linear-gradient(105deg, #ffffff 0%, #f3f9f7 100%);
+            border-radius: 32px;
+            padding: 1.8rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 15px 30px -10px rgba(0, 70, 40, 0.25);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 15px solid #0f5c2f;
+            border-right: 2px solid #a7c8b5;
+        }
+
+        .emblem-area {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+        }
+
+        .emblem-symbol {
+            background: #0f5c2f;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #ffcc00;
+            box-shadow: 0 8px 0 #07331a;
+        }
+
+        .republic-text {
+            font-weight: 700;
+        }
+
+        .republic-text .ministere {
+            color: #1d4e6f;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .republic-text .republique {
+            color: #0f5c2f;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .republic-text .devise {
+            color: #b8871a;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .program-badge {
+            background: #1d4e6f;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.6rem;
+            text-align: center;
+            box-shadow: 0 8px 0 #0b2b3b;
+        }
+        .program-badge small {
+            font-size: 0.9rem;
+            display: block;
+            color: #bed9f0;
+        }
+
+        /* Panneau générateur */
+        .generator-panel {
+            background: white;
+            border-radius: 36px;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 12px 25px -8px rgba(0,45,20,0.15);
+            border: 1px solid #b8d5c4;
+        }
+
+        .flex-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-end;
+            margin: 1.5rem 0 1.2rem;
+        }
+
+        .field-group {
+            flex: 1 1 280px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            color: #0f5c2f;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .field-group select, .field-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #b8d5c4;
+            border-radius: 28px;
+            font-size: 1rem;
+            background: #f9fffd;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .field-group select:focus, .field-group input:focus {
+            border-color: #0f5c2f;
+            box-shadow: 0 0 0 5px rgba(15,92,47,0.15);
+            outline: none;
+        }
+
+        .btn-big-generate {
+            background: #0f5c2f;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 12px 0 #07331a;
+            transition: all 0.12s;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .btn-big-generate:hover {
+            background: #188542;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 0 #07331a;
+        }
+
+        /* Conteneur fiche */
+        .fiche-container {
+            background: white;
+            border-radius: 42px;
+            padding: 2.8rem;
+            box-shadow: 0 30px 45px -15px #1b4b2a;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #9cb9aa;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fiche-papier {
+            background: #fefcf9;
+            padding: 2.2rem 2.8rem;
+            border-radius: 28px;
+            border-left: 15px solid #b8871a;
+            box-shadow: inset 0 2px 6px #eee, 0 10px 25px rgba(0,30,0,0.1);
+        }
+
+        .fiche-papier h2 {
+            color: #0f5c2f;
+            border-bottom: 3px solid #b8871a;
+            padding-bottom: 12px;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .badge-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 2.2rem;
+        }
+        .badge-ribbon span {
+            background: #1d4e6f;
+            color: white;
+            padding: 8px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .badge-ribbon .duree {
+            background: #b8871a;
+        }
+
+        .section-lecon {
+            background: #f4fbf8;
+            border-radius: 32px;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid #b8d5c4;
+        }
+        .section-lecon h3 {
+            color: #1d4e6f;
+            font-size: 1.7rem;
+            border-left: 12px solid #b8871a;
+            padding-left: 22px;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-capacites {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        }
+        .table-capacites th {
+            background: #0f5c2f;
+            color: white;
+            font-weight: 600;
+            padding: 14px;
+            font-size: 1rem;
+        }
+        .table-capacites td {
+            border: 1px solid #b8d5c4;
+            padding: 14px;
+            vertical-align: top;
+        }
+
+        .actions-print {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 2.8rem;
+            justify-content: center;
+        }
+        .btn-print {
+            background: white;
+            border: 2px solid #0f5c2f;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #0f5c2f;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.1rem;
+        }
+        .btn-print:hover {
+            background: #0f5c2f;
+            color: white;
+        }
+        .btn-pdf {
+            background: #1d4e6f;
+            border-color: #1d4e6f;
+            color: white;
+        }
+        .btn-pdf:hover {
+            background: #103b54;
+        }
+
+        .warning-foot {
+            background: #fffae6;
+            border-radius: 28px;
+            padding: 1.2rem 2.2rem;
+            margin-top: 2.2rem;
+            border: 1px solid #f3cf78;
+            font-size: 1rem;
+            color: #5e4a1c;
+        }
+
+        footer {
+            text-align: center;
+            color: #2e5f4a;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            .fiche-container { box-shadow: none; background: white; padding: 0.2in; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- EN-TÊTE OFFICIEL 2024 – conforme au document -->
+    <div class="header-republic no-print">
+        <div class="emblem-area">
+            <div class="emblem-symbol">⚖️</div>
+            <div class="republic-text">
+                <div class="ministere">MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE ET SECONDAIRE</div>
+                <div class="republique">RÉPUBLIQUE TOGOLAISE</div>
+                <div class="devise">Travail - Liberté - Patrie</div>
+            </div>
+        </div>
+        <div class="program-badge">
+            PROGRAMME 2024<br><small>Terminale Littéraire (A)</small>
+        </div>
+    </div>
+
+    <!-- GÉNÉRATEUR INTERACTIF -->
+    <div class="generator-panel no-print">
+        <h2 style="color:#0f5c2f; margin-bottom:0;">🧑‍🏫 Générateur de fiche pédagogique – Tle A (Littéraire)</h2>
+        <p style="color:#2e5f4a; margin-bottom:1.5rem;">Programme complet 2024 – Thèmes, capacités, contenus, progression, guide d'exécution (50h).</p>
+
+        <div class="flex-fields">
+            <div class="field-group">
+                <label>📌 Leçon / Thème</label>
+                <select id="leconSelect">
+                    <!-- options injectées par JS -->
+                </select>
+            </div>
+            <div class="field-group">
+                <label>📅 Date prévue</label>
+                <input type="date" id="dateField" value="2025-11-15">
+            </div>
+        </div>
+
+        <button class="btn-big-generate" id="generateBtn">⚡ GÉNÉRER LA FICHE COMPLÈTE</button>
+    </div>
+
+    <!-- AFFICHAGE DE LA FICHE -->
+    <div class="fiche-container hidden" id="ficheContainer">
+        <div class="fiche-papier" id="ficheContent">
+            <!-- contenu dynamique -->
+        </div>
+
+        <div class="warning-foot no-print">
+            ⚠️ Fiche conforme au programme de Terminale Littéraire (A) – Août 2024 (Document officiel). À adapter au contexte.
+        </div>
+
+        <div class="actions-print no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print btn-pdf" onclick="exporterPDF()">📄 Exporter en PDF</button>
+            <button class="btn-print" onclick="exporterWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">↻ Nouvelle fiche</button>
+        </div>
+    </div>
+
+    <footer class="no-print">
+        Direction des Programmes et Innovations Pédagogiques · République Togolaise · 2h/sem · Coefficient 2
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ----------------------------------------------------------------
+        // PROGRAMME COMPLET DE TERMINALE LITTERAIRE (A) - issu du document
+        // ----------------------------------------------------------------
+        const programme = {
+            lecons: {
+                // Thème 2 : Analyse
+                "Étude de fonctions (polynômes et rationnelles)": {
+                    theme: "Analyse",
+                    duree: "8h",
+                    capacites: [
+                        "Étudier une fonction polynôme",
+                        "Étudier une fonction rationnelle de type x ↦ (ax²+bx+c)/(dx+e)",
+                        "Construire le graphique (tangente, asymptotes)",
+                        "Déterminer l'intersection de la courbe avec les axes du repère",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Fonctions polynômes (réinvestissement de 1ère)",
+                        "Fonctions rationnelles de type (ax²+bx+c)/(dx+e)",
+                        "Tangente à une courbe",
+                        "Asymptotes",
+                        "Intersection avec les axes"
+                    ],
+                    prerequis: ["Étude de fonctions (1ère A)", "Dérivées", "Limites"],
+                    materiel: ["Calculatrice", "Papier millimétré"],
+                    strategies: ["Travail individuel et en binôme", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "2h", titre: "Rappels", description: "Plan d'étude d'une fonction : domaine, limites, dérivée, variations."},
+                        {duree: "3h", titre: "Fonctions rationnelles", description: "Étudier f(x)=(x²+1)/(x-1) : asymptotes, variations, courbe."},
+                        {duree: "2h", titre: "Intersection avec les axes", description: "Déterminer les points d'intersection de la courbe avec les axes."}
+                    ],
+                    evaluation: [
+                        "Étudier f(x) = (2x²-3x+1)/(x-2)",
+                        "Déterminer les asymptotes de f(x) = (x²+1)/(x-1)",
+                        "Trouver l'intersection de la courbe avec l'axe des abscisses"
+                    ],
+                    extrait_guide: "Partir d'exercices pour réviser le plan d'étude d'une fonction. Donner la propriété permettant de montrer qu'une droite d'équation y = ax+b, a≠0 donnée, est une asymptote oblique à une courbe. NB : L'étude de la position relative de la courbe par rapport à son asymptote ou à un axe du repère n'est pas au programme."
+                },
+                "Fonction logarithme népérien": {
+                    theme: "Analyse",
+                    duree: "6h",
+                    capacites: [
+                        "Étudier la fonction logarithme népérien et des fonctions du type : x ↦ ax+b+ln(cx+d), x ↦ ln((ax+b)/(cx+d)), x ↦ x ln x, x ↦ ln(P(x)) (P polynôme degré ≤2)",
+                        "Déterminer une limite (fonctions de référence, fonctions avec ln)",
+                        "Construire le graphique (tangente, asymptotes)",
+                        "Déterminer l'ensemble de définition d'une fonction comportant ln",
+                        "Déterminer l'ensemble de validité d'une équation/inéquation avec ln",
+                        "Déterminer les variations d'une fonction avec ln",
+                        "Reconnaître les propriétés de la fonction ln",
+                        "Déterminer la fonction dérivée d'une fonction avec ln",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Définition de ln comme fonction définie sur ]0;+∞[ s'annulant en 1 et de dérivée x↦1/x",
+                        "Nombre e, propriété fondamentale ln(ab)=ln a+ln b",
+                        "Limites de référence : lim ln x en 0⁺ et +∞",
+                        "Étude de la fonction ln (limites, variations, courbe)",
+                        "Fonctions composées avec ln : domaine, dérivée, étude",
+                        "Équations et inéquations avec ln : ln(u(x))=ln(v(x)), ln(u(x))=c, systèmes"
+                    ],
+                    prerequis: ["Fonctions de référence", "Dérivées"],
+                    materiel: ["Calculatrice", "Tableau de valeurs"],
+                    strategies: ["Travail individuel et en groupe", "Approche intuitive"],
+                    activites: [
+                        {duree: "1h", titre: "Découverte de ln", description: "Calculs de valeurs avec la calculatrice pour approcher ln."},
+                        {duree: "2h", titre: "Étude de ln", description: "Déterminer limites, variations, tracer la courbe."},
+                        {duree: "2h", titre: "Équations avec ln", description: "Résoudre ln(2x-1)=ln(x+3), ln(x²-1)=2."}
+                    ],
+                    evaluation: [
+                        "Déterminer l'ensemble de définition de f(x)=ln(x²-3x+2)",
+                        "Résoudre ln(2x+1)=ln(x-3)",
+                        "Étudier f(x)=x ln x"
+                    ],
+                    extrait_guide: "Partir d'activités de calcul avec la calculatrice pour donner intuitivement l'ensemble de définition de x↦ln x. Donner la définition de la fonction logarithme népérien comme étant la fonction définie sur ]0;+∞[ s'annulant en 1 et dont la dérivée est la fonction x↦1/x. Donner le nombre irrationnel e. Partir d'activités calculatoires pour justifier la propriété fondamentale ln(ab)=ln a+ln b. Les résultats concernant les limites en zéro et en +∞ sont admis. Partir d'activités pour déterminer l'ensemble de définition des fonctions de la forme x↦ln u(x)."
+                },
+                "Fonction exponentielle népérienne": {
+                    theme: "Analyse",
+                    duree: "6h",
+                    capacites: [
+                        "Étudier la fonction exponentielle népérienne et des fonctions du type : x ↦ ax+b+exp(cx+d), x ↦ exp((ax+b)/(cx+d)), x ↦ x exp x, x ↦ exp(P(x)) (P polynôme degré ≤2)",
+                        "Déterminer une limite (fonctions de référence, fonctions avec exp)",
+                        "Construire le graphique (tangente, asymptotes)",
+                        "Déterminer l'ensemble de définition d'une fonction comportant exp",
+                        "Déterminer l'ensemble de validité d'une équation/inéquation avec exp",
+                        "Déterminer les variations d'une fonction avec exp",
+                        "Reconnaître les propriétés de la fonction exp",
+                        "Déterminer la fonction dérivée d'une fonction avec exp",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Définition de exp comme fonction réciproque de ln",
+                        "Propriété fondamentale exp(a+b)=exp a × exp b",
+                        "Limites de référence : lim exp x en -∞ et +∞",
+                        "Étude de la fonction exp (limites, variations, courbe)",
+                        "Fonctions composées avec exp : domaine, dérivée, étude",
+                        "Équations et inéquations avec exp : exp(u(x))=exp(v(x)), exp(u(x))=c, systèmes"
+                    ],
+                    prerequis: ["Fonction ln", "Dérivées"],
+                    materiel: ["Calculatrice", "Tableau de valeurs"],
+                    strategies: ["Travail individuel et en groupe", "Approche intuitive"],
+                    activites: [
+                        {duree: "1h", titre: "Découverte de exp", description: "Lien avec ln, calculs de valeurs."},
+                        {duree: "2h", titre: "Étude de exp", description: "Déterminer limites, variations, tracer la courbe."},
+                        {duree: "2h", titre: "Équations avec exp", description: "Résoudre exp(2x-1)=exp(x+3), exp(x²-1)=2."}
+                    ],
+                    evaluation: [
+                        "Déterminer l'ensemble de définition de f(x)=exp(1/(x-2))",
+                        "Résoudre exp(2x+1)=exp(x-3)",
+                        "Étudier f(x)=x exp x"
+                    ],
+                    extrait_guide: "Partir d'activités de calcul avec la calculatrice pour donner intuitivement l'ensemble de définition de x↦exp x. Partir d'activités calculatoires pour justifier la propriété fondamentale exp(a+b)=exp a×exp b. Les résultats concernant les limites en -∞ et en +∞ sont admis. Partir d'activités pour déterminer l'ensemble de définition des fonctions de la forme x↦exp(u(x))."
+                },
+                "Suites numériques": {
+                    theme: "Analyse",
+                    duree: "6h",
+                    capacites: [
+                        "Démontrer une propriété sur les suites",
+                        "Utiliser un raisonnement par récurrence",
+                        "Calculer la limite d'une suite",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Raisonnement par récurrence",
+                        "Limite d'une suite (approche intuitive)",
+                        "Limite de la suite (qⁿ) selon les valeurs de q",
+                        "Convergence d'une suite numérique"
+                    ],
+                    prerequis: ["Suites arithmétiques et géométriques (1ère A)"],
+                    materiel: ["Calculatrice", "Tableur"],
+                    strategies: ["Activités numériques et graphiques", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "2h", titre: "Raisonnement par récurrence", description: "Démontrer que 1+2+...+n = n(n+1)/2."},
+                        {duree: "2h", titre: "Limite de qⁿ", description: "Observer avec un tableur le comportement de qⁿ pour q>1, 0<q<1, q=1, q≤-1."},
+                        {duree: "1h", titre: "Convergence", description: "Déterminer la limite d'une suite arithmétique ou géométrique."}
+                    ],
+                    evaluation: [
+                        "Démontrer par récurrence que uₙ=3ⁿ+1 est divisible par 2",
+                        "Déterminer la limite de uₙ=1000×1,05ⁿ",
+                        "Étudier la convergence de uₙ=(2n+1)/(n+1)"
+                    ],
+                    extrait_guide: "Partir d'exercices pour consolider les notions de la classe de première. Partir d'activités pour installer la méthode de démonstration par récurrence. Par une activité graphique ou numérique, introduire la notion de limite d'une suite numérique. Donner la limite de la suite (qⁿ) suivant les valeurs de q. Établir la limite d'une suite arithmétique ou géométrique connaissant sa raison. Donner la définition de la convergence d'une suite numérique."
+                },
+                // Thème 3 : Organisation des données
+                "Statistiques à deux variables": {
+                    theme: "Organisation des données",
+                    duree: "6h",
+                    capacites: [
+                        "Organiser les données (tableau à double entrée, séries marginales)",
+                        "Calculer une moyenne, déterminer une valeur connaissant l'autre",
+                        "Construire un nuage de points, une droite d'ajustement (méthode graphique, méthode de Mayer), le point moyen",
+                        "Interpréter un résultat (droite d'ajustement, moyenne, nuage de points)",
+                        "Mathématiser une situation"
+                    ],
+                    contenus: [
+                        "Tableau à double entrée, séries marginales",
+                        "Moyenne",
+                        "Nuage de points, point moyen G(x̄, ȳ)",
+                        "Droite d'ajustement y = ax + b (méthode graphique, méthode de Mayer)"
+                    ],
+                    prerequis: ["Statistiques (1ère A)"],
+                    materiel: ["Tableur", "Papier millimétré"],
+                    strategies: ["Situations concrètes", "Utilisation d'un tableur"],
+                    activites: [
+                        {duree: "2h", titre: "Nuage de points", description: "Construire le nuage de points d'une série double."},
+                        {duree: "2h", titre: "Méthode de Mayer", description: "Déterminer la droite d'ajustement par la méthode de Mayer."},
+                        {duree: "1h", titre: "Interpolation", description: "Utiliser la droite pour estimer une valeur."}
+                    ],
+                    evaluation: [
+                        "Construire le nuage de points d'une série donnée",
+                        "Déterminer l'équation de la droite d'ajustement par la méthode de Mayer",
+                        "Estimer une valeur à partir de la droite"
+                    ],
+                    extrait_guide: "Proposer des situations pour réviser les acquis des classes antérieures. Proposer des activités conduisant à présenter les nuages de points. Donner la formule de la moyenne, équation de chacune des droites d'ajustement par la méthode de Mayer."
+                },
+                "Probabilités": {
+                    theme: "Organisation des données",
+                    duree: "6h",
+                    capacites: [
+                        "Définir les termes : éventualité, univers, événement, expérience aléatoire",
+                        "Déterminer la probabilité d'un événement en situation d'équiprobabilité",
+                        "Mathématiser une situation"
+                    ],
+                    contenus: [
+                        "Expérience aléatoire, éventualité, univers, événement",
+                        "Probabilité en situation d'équiprobabilité : P = (cas favorables)/(cas possibles)"
+                    ],
+                    prerequis: ["Dénombrement (1ère A)"],
+                    materiel: ["Dés", "Pièces de monnaie", "Urnes"],
+                    strategies: ["Activités concrètes", "Manipulation"],
+                    activites: [
+                        {duree: "2h", titre: "Vocabulaire des probabilités", description: "Identifier univers, événements à partir d'expériences simples (lancer de dé, tirage de boules)."},
+                        {duree: "2h", titre: "Calcul de probabilités", description: "Calculer des probabilités en situation d'équiprobabilité."}
+                    ],
+                    evaluation: [
+                        "On lance un dé à 6 faces. Calculer la probabilité d'obtenir un nombre pair.",
+                        "Dans une urne contenant 3 boules rouges et 2 boules noires, on tire une boule. Calculer la probabilité de tirer une boule rouge."
+                    ],
+                    extrait_guide: "Partir d'activités portant sur des situations concrètes pour expliquer les notions de bases en probabilité. NB : Il s'agit ici d'une introduction élémentaire des probabilités dans le cas d'équiprobabilité. Partir des dénombrements pour calculer la probabilité d'un événement comme quotient de nombre de cas favorables sur le nombre de cas possibles."
+                },
+                "Échantillonnage": {
+                    theme: "Organisation des données",
+                    duree: "6h",
+                    capacites: [
+                        "Définir les termes : population, échantillon, échantillon représentatif, échantillonnage probabiliste/non probabiliste",
+                        "Utiliser une démarche : échantillonnage aléatoire simple, systématique, par grappe, stratifié ; échantillonnage à l'aveuglette, volontaires, par quotas, boule de neige",
+                        "Calculer la taille minimale de l'échantillon, les paramètres d'un échantillon",
+                        "Interpréter un résultat (type d'échantillonnage, représentativité)",
+                        "Mathématiser une situation"
+                    ],
+                    contenus: [
+                        "Population, échantillon, échantillon représentatif, biais",
+                        "Taux d'échantillonnage t = n/N",
+                        "Paramètres statistiques : N, moyenne m, variance V, écart-type σ, fréquence f",
+                        "Échantillonnage probabiliste : aléatoire simple, systématique, en grappes, stratifié",
+                        "Échantillonnage non probabiliste : à l'aveuglette, volontaires, boule de neige, quotas"
+                    ],
+                    prerequis: ["Statistiques", "Probabilités"],
+                    materiel: ["Documentation", "Exercices concrets"],
+                    strategies: ["Situations problèmes", "Travail de groupe"],
+                    activites: [
+                        {duree: "2h", titre: "Notions de base", description: "Définir population, échantillon, biais à partir de la situation d'apprentissage."},
+                        {duree: "2h", titre: "Méthodes d'échantillonnage", description: "Présenter et illustrer les différentes méthodes."},
+                        {duree: "2h", titre: "Exercices d'application", description: "Identifier le type d'échantillonnage, calculer des paramètres."}
+                    ],
+                    evaluation: [
+                        "Expliquer pourquoi un échantillon de volontaires peut être biaisé.",
+                        "Dans une école de 1482 élèves, on veut un échantillon de 300 élèves. Proposer une méthode d'échantillonnage stratifié.",
+                        "Calculer la taille minimale d'un échantillon pour une marge d'erreur de 5%."
+                    ],
+                    extrait_guide: "Partir d'une situation d'apprentissage pour donner la définition de : population, échantillon, échantillon biaisé, échantillon représentatif. Partir d'exemples pour faire le lien entre les notions de base sur l'échantillonnage et celles de la statistique. Partir d'activités pour présenter les différentes méthodes d'échantillonnage probabiliste. Partir d'activités pour calculer les paramètres de l'échantillon selon les méthodes d'échantillonnage probabiliste. Dans le cas d'échantillonnage non probabiliste, partir d'activités pour calculer les paramètres de l'échantillon selon la méthode par quota."
+                }
+            },
+            // extraits globaux
+            progression_annuelle: `
+                Septembre (1-4) : Étude de fonctions (8h)
+                Octobre (5-6) : Probabilités (6h)
+                Novembre (7-10) : Intégration (2h) + Fonction logarithme (6h)
+                Décembre (11-13) : Statistiques à deux variables (6h)
+                Janvier (14) : Fin statistiques + Fonction exponentielle (6h)
+                Février (15-16) : Fonction exponentielle (suite) + Intégration (2h)
+                Février-Mars (17-20) : Échantillonnage (6h)
+                Mars-Avril (21-24) : Suites numériques (6h)
+                Mai (25) : Semaine d'intégration (2h)
+            `,
+            exemple_epreuve: `
+                <h4>📝 Exemple d'épreuve – Terminale A (durée 2h)</h4>
+                <p><strong>Exercice 1 (5pts) :</strong> Étudier la fonction f(x) = (x²+1)/(x-1) : domaine, limites, asymptotes, dérivée, variations. Tracer la courbe.<br>
+                <strong>Exercice 2 (4pts) :</strong> Résoudre dans IR : ln(2x-1) = ln(x+3) ; exp(2x) = 5.<br>
+                <strong>Exercice 3 (4pts) :</strong> Démontrer par récurrence que pour tout n ∈ IN, 1²+2²+...+n² = n(n+1)(2n+1)/6.<br>
+                <strong>Exercice 4 (4pts) :</strong> Dans une entreprise, on a relevé le chiffre d'affaires (en millions) en fonction des dépenses publicitaires (x) : (x:1,2,3,4,5 ; CA:10,15,20,25,30). Construire le nuage de points, déterminer la droite d'ajustement par la méthode de Mayer.<br>
+                <strong>Exercice 5 (3pts) :</strong> Dans une école de 1500 élèves, on veut estimer la proportion d'élèves qui mangent à la cantine. Proposer une méthode d'échantillonnage stratifié.</p>
+            `,
+            modele_fiche: `
+                <h4>📋 Canevas de fiche (extrait - Leçon Échantillonnage)</h4>
+                <p><strong>Situation d'apprentissage :</strong> Établissement de 1482 élèves, on veut connaître en 10 minutes le pourcentage d'élèves ayant consommé du haricot à la récréation. Comment faire ?</p>
+                <p><strong>Déroulement :</strong> Remobilisation (10min), présentation (5min), appropriation (5min), résolution individuelle/groupe (15min), synthèse (20min), institutionnalisation (15min), réinvestissement (30min).</p>
+                <p><strong>Trace écrite :</strong> Définitions, méthodes d'échantillonnage, calculs de paramètres.</p>
+            `
+        };
+
+        // ----------------------------------------------------------------
+        // Remplissage du menu déroulant
+        // ----------------------------------------------------------------
+        const leconSelect = document.getElementById('leconSelect');
+        const dateField = document.getElementById('dateField');
+        const generateBtn = document.getElementById('generateBtn');
+        const ficheContainer = document.getElementById('ficheContainer');
+        const ficheContent = document.getElementById('ficheContent');
+
+        function fillLecons() {
+            leconSelect.innerHTML = '';
+            Object.keys(programme.lecons).sort().forEach(titre => {
+                const opt = document.createElement('option');
+                opt.value = titre;
+                opt.textContent = titre;
+                leconSelect.appendChild(opt);
+            });
+        }
+        fillLecons();
+
+        // ----------------------------------------------------------------
+        // Génération de la fiche
+        // ----------------------------------------------------------------
+        function genererFiche() {
+            const leconTitre = leconSelect.value;
+            if (!leconTitre) { alert("Veuillez sélectionner une leçon."); return; }
+
+            const lecon = programme.lecons[leconTitre];
+            const dateChoisie = dateField.value ? new Date(dateField.value).toLocaleDateString('fr-FR') : 'non précisée';
+            const today = new Date().toLocaleDateString('fr-FR');
+
+            let html = `
+                <h2>📐 ${leconTitre}</h2>
+                <div class="badge-ribbon">
+                    <span>📂 ${lecon.theme}</span>
+                    <span class="duree">⏱️ ${lecon.duree}</span>
+                    <span>🎓 Terminale A (Littéraire)</span>
+                </div>
+                <p style="margin-bottom:1.8rem; color:#2e5f4a;">Générée le ${today} – Date prévue : ${dateChoisie}</p>
+            `;
+
+            // Tableau capacités + contenus
+            html += `<div class="section-lecon"><h3>🎯 Capacités & contenus</h3>`;
+            html += `<table class="table-capacites"><tr><th>Capacités</th><th>Contenus</th></tr>`;
+            const max = Math.max(lecon.capacites.length, lecon.contenus.length);
+            for (let i=0; i<max; i++) {
+                html += `<tr><td>${lecon.capacites[i] || ''}</td><td>${lecon.contenus[i] || ''}</td></tr>`;
+            }
+            html += `</table></div>`;
+
+            // Prérequis, matériel, stratégies
+            html += `<div class="section-lecon"><h3>🔁 Prérequis</h3><ul>`;
+            (lecon.prerequis || []).forEach(p => html += `<li>${p}</li>`);
+            html += `</ul></div>`;
+
+            html += `<div class="section-lecon"><h3>🧰 Matériel / Stratégies</h3>`;
+            html += `<p><strong>Matériel :</strong> ${(lecon.materiel || []).join(' · ')}</p>`;
+            html += `<p><strong>Stratégies :</strong> ${(lecon.strategies || []).join(' · ')}</p>`;
+            if (lecon.extrait_guide) html += `<p><strong>Recommandation (guide) :</strong> ${lecon.extrait_guide}</p>`;
+            html += `</div>`;
+
+            // Activités
+            html += `<div class="section-lecon"><h3>📌 Déroulement – activités</h3>`;
+            (lecon.activites || []).forEach((act, idx) => {
+                html += `<p><strong>Activité ${idx+1} (${act.duree}) – ${act.titre}</strong> : ${act.description}</p>`;
+            });
+            html += `</div>`;
+
+            // Évaluation
+            html += `<div class="section-lecon"><h3>📋 Évaluation</h3><ul>`;
+            (lecon.evaluation || []).forEach(e => html += `<li>${e}</li>`);
+            html += `</ul></div>`;
+
+            // Extraits programme (progression, épreuve, canevas)
+            html += `<div class="section-lecon" style="background:#eaf3fc;"><h3>📘 Extraits du programme officiel</h3>`;
+            if (programme.exemple_epreuve) html += `<div>${programme.exemple_epreuve}</div>`;
+            if (programme.progression_annuelle) html += `<p><strong>Progression annuelle (50h) :</strong> ${programme.progression_annuelle}</p>`;
+            if (programme.modele_fiche) html += `<div>${programme.modele_fiche}</div>`;
+            html += `</div>`;
+
+            // conformité
+            html += `<p style="border-top:2px dashed #b8871a; padding-top:1.2rem;">✅ Programme 2024 – Direction des Programmes et Innovations Pédagogiques, Togo. 2h/sem – coeff 2.</p>`;
+
+            ficheContent.innerHTML = html;
+            ficheContainer.classList.remove('hidden');
+            ficheContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        generateBtn.addEventListener('click', genererFiche);
+
+        // ----------------------------------------------------------------
+        // Exports et utilitaires
+        // ----------------------------------------------------------------
+        window.exporterPDF = function() {
+            alert("Pour exporter en PDF : utilisez 'Imprimer' puis choisissez 'Enregistrer en PDF'.");
+            window.print();
+        };
+        window.exporterWord = function() {
+            const content = ficheContent.innerHTML;
+            const style = document.querySelector('style').innerHTML;
+            const full = `
+                <html><head><meta charset="UTF-8"><title>fiche_TleA_togo</title>
+                <style>${style} body { padding: 2cm; }</style>
+                </head><body>${content}</body></html>`;
+            const blob = new Blob([full], {type: 'application/msword'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'fiche_TleA_maths.doc';
+            a.click();
+        };
+        window.resetFiche = function() {
+            ficheContainer.classList.add('hidden');
+            leconSelect.selectedIndex = 0;
+            dateField.value = '2025-11-15';
+        };
+
+        // Ctrl+Enter génère
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                genererFiche();
+            }
+        });
+    })();
+</script>
+</body>
+</html>

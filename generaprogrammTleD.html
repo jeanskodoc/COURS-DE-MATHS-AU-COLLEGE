@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Fiche Pédagogique - Maths Tle D (Togo) | Programme 2024</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #eef3f5;
+            color: #1b3b4f;
+            line-height: 1.5;
+            padding: 22px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* En-tête officiel - style République Togolaise */
+        .header-republic {
+            background: linear-gradient(105deg, #ffffff 0%, #f3f9f7 100%);
+            border-radius: 32px;
+            padding: 1.8rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 15px 30px -10px rgba(0, 70, 40, 0.25);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 15px solid #0f5c2f;
+            border-right: 2px solid #a7c8b5;
+        }
+
+        .emblem-area {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+        }
+
+        .emblem-symbol {
+            background: #0f5c2f;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #ffcc00;
+            box-shadow: 0 8px 0 #07331a;
+        }
+
+        .republic-text {
+            font-weight: 700;
+        }
+
+        .republic-text .ministere {
+            color: #1d4e6f;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .republic-text .republique {
+            color: #0f5c2f;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .republic-text .devise {
+            color: #b8871a;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .program-badge {
+            background: #1d4e6f;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.6rem;
+            text-align: center;
+            box-shadow: 0 8px 0 #0b2b3b;
+        }
+        .program-badge small {
+            font-size: 0.9rem;
+            display: block;
+            color: #bed9f0;
+        }
+
+        /* Panneau générateur */
+        .generator-panel {
+            background: white;
+            border-radius: 36px;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 12px 25px -8px rgba(0,45,20,0.15);
+            border: 1px solid #b8d5c4;
+        }
+
+        .flex-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-end;
+            margin: 1.5rem 0 1.2rem;
+        }
+
+        .field-group {
+            flex: 1 1 280px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            color: #0f5c2f;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .field-group select, .field-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #b8d5c4;
+            border-radius: 28px;
+            font-size: 1rem;
+            background: #f9fffd;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .field-group select:focus, .field-group input:focus {
+            border-color: #0f5c2f;
+            box-shadow: 0 0 0 5px rgba(15,92,47,0.15);
+            outline: none;
+        }
+
+        .btn-big-generate {
+            background: #0f5c2f;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 12px 0 #07331a;
+            transition: all 0.12s;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .btn-big-generate:hover {
+            background: #188542;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 0 #07331a;
+        }
+
+        /* Conteneur fiche */
+        .fiche-container {
+            background: white;
+            border-radius: 42px;
+            padding: 2.8rem;
+            box-shadow: 0 30px 45px -15px #1b4b2a;
+            margin: 2rem 0 1.5rem;
+            border: 1px solid #9cb9aa;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fiche-papier {
+            background: #fefcf9;
+            padding: 2.2rem 2.8rem;
+            border-radius: 28px;
+            border-left: 15px solid #b8871a;
+            box-shadow: inset 0 2px 6px #eee, 0 10px 25px rgba(0,30,0,0.1);
+        }
+
+        .fiche-papier h2 {
+            color: #0f5c2f;
+            border-bottom: 3px solid #b8871a;
+            padding-bottom: 12px;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .badge-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 2.2rem;
+        }
+        .badge-ribbon span {
+            background: #1d4e6f;
+            color: white;
+            padding: 8px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .badge-ribbon .duree {
+            background: #b8871a;
+        }
+
+        .section-lecon {
+            background: #f4fbf8;
+            border-radius: 32px;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid #b8d5c4;
+        }
+        .section-lecon h3 {
+            color: #1d4e6f;
+            font-size: 1.7rem;
+            border-left: 12px solid #b8871a;
+            padding-left: 22px;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-capacites {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        }
+        .table-capacites th {
+            background: #0f5c2f;
+            color: white;
+            font-weight: 600;
+            padding: 14px;
+            font-size: 1rem;
+        }
+        .table-capacites td {
+            border: 1px solid #b8d5c4;
+            padding: 14px;
+            vertical-align: top;
+        }
+
+        .actions-print {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 2.8rem;
+            justify-content: center;
+        }
+        .btn-print {
+            background: white;
+            border: 2px solid #0f5c2f;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #0f5c2f;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.1rem;
+        }
+        .btn-print:hover {
+            background: #0f5c2f;
+            color: white;
+        }
+        .btn-pdf {
+            background: #1d4e6f;
+            border-color: #1d4e6f;
+            color: white;
+        }
+        .btn-pdf:hover {
+            background: #103b54;
+        }
+
+        .warning-foot {
+            background: #fffae6;
+            border-radius: 28px;
+            padding: 1.2rem 2.2rem;
+            margin-top: 2.2rem;
+            border: 1px solid #f3cf78;
+            font-size: 1rem;
+            color: #5e4a1c;
+        }
+
+        footer {
+            text-align: center;
+            color: #2e5f4a;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            .fiche-container { box-shadow: none; background: white; padding: 0.2in; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- EN-TÊTE OFFICIEL 2024 – conforme au document -->
+    <div class="header-republic no-print">
+        <div class="emblem-area">
+            <div class="emblem-symbol">⚖️</div>
+            <div class="republic-text">
+                <div class="ministere">MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE ET SECONDAIRE</div>
+                <div class="republique">RÉPUBLIQUE TOGOLAISE</div>
+                <div class="devise">Travail - Liberté - Patrie</div>
+            </div>
+        </div>
+        <div class="program-badge">
+            PROGRAMME 2024<br><small>Terminale Scientifique (D)</small>
+        </div>
+    </div>
+
+    <!-- GÉNÉRATEUR INTERACTIF -->
+    <div class="generator-panel no-print">
+        <h2 style="color:#0f5c2f; margin-bottom:0;">🧑‍🏫 Générateur de fiche pédagogique – Tle D (Scientifique)</h2>
+        <p style="color:#2e5f4a; margin-bottom:1.5rem;">Programme complet 2024 – 7 thèmes, capacités, contenus, progression, guide d'exécution (150h).</p>
+
+        <div class="flex-fields">
+            <div class="field-group">
+                <label>📌 Leçon / Thème</label>
+                <select id="leconSelect">
+                    <!-- options injectées par JS -->
+                </select>
+            </div>
+            <div class="field-group">
+                <label>📅 Date prévue</label>
+                <input type="date" id="dateField" value="2025-11-15">
+            </div>
+        </div>
+
+        <button class="btn-big-generate" id="generateBtn">⚡ GÉNÉRER LA FICHE COMPLÈTE</button>
+    </div>
+
+    <!-- AFFICHAGE DE LA FICHE -->
+    <div class="fiche-container hidden" id="ficheContainer">
+        <div class="fiche-papier" id="ficheContent">
+            <!-- contenu dynamique -->
+        </div>
+
+        <div class="warning-foot no-print">
+            ⚠️ Fiche conforme au programme de Terminale Scientifique (D) – Août 2024 (Document officiel). 6h/sem – coeff 4.
+        </div>
+
+        <div class="actions-print no-print">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
+            <button class="btn-print btn-pdf" onclick="exporterPDF()">📄 Exporter en PDF</button>
+            <button class="btn-print" onclick="exporterWord()">📝 Word</button>
+            <button class="btn-print" onclick="resetFiche()">↻ Nouvelle fiche</button>
+        </div>
+    </div>
+
+    <footer class="no-print">
+        Direction des Programmes et Innovations Pédagogiques · République Togolaise · 6h/sem · Coefficient 4
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ----------------------------------------------------------------
+        // PROGRAMME COMPLET DE TERMINALE SCIENTIFIQUE (D) - issu du document
+        // ----------------------------------------------------------------
+        const programme = {
+            lecons: {
+                // Thème 1 : Calculs algébriques
+                "Nombres complexes": {
+                    theme: "Calculs algébriques",
+                    duree: "12h",
+                    capacites: [
+                        "Reconnaître un nombre complexe (partie réelle, imaginaire, conjugué)",
+                        "Calculer le module et l'argument d'un nombre complexe",
+                        "Caractériser une configuration géométrique (milieu, barycentre, alignement, orthogonalité, triangles)",
+                        "Transformer une expression (formules de Moivre, Euler, passage entre formes)",
+                        "Déterminer un ensemble solution dans ℂ (équations, racines n-ièmes)",
+                        "Interpréter géométriquement module et argument",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Forme algébrique, conjugué",
+                        "Module, argument, formes trigonométrique et exponentielle",
+                        "Formule de Moivre, formule d'Euler",
+                        "Racines n-ièmes d'un nombre complexe",
+                        "Équations dans ℂ (degré 2, bicarrées)",
+                        "Applications géométriques : barycentre, alignement, orthogonalité, triangles"
+                    ],
+                    prerequis: ["Trigonométrie", "Géométrie analytique"],
+                    materiel: ["Calculatrice", "Logiciel de géométrie dynamique"],
+                    strategies: ["Travail individuel et en groupe", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "2h", titre: "Introduction des complexes", description: "À partir de l'équation x²+1=0, introduire i."},
+                        {duree: "3h", titre: "Formes trigonométrique et exponentielle", description: "Passer d'une forme à l'autre."},
+                        {duree: "3h", titre: "Racines n-ièmes", description: "Déterminer les racines cubiques de l'unité."},
+                        {duree: "2h", titre: "Applications géométriques", description: "Utiliser les complexes pour déterminer la nature d'un triangle."}
+                    ],
+                    evaluation: [
+                        "Écrire 1+i sous forme trigonométrique",
+                        "Résoudre z² - 2z + 5 = 0 dans ℂ",
+                        "Déterminer les racines quatrièmes de 16",
+                        "Démontrer que des points sont alignés"
+                    ],
+                    extrait_guide: "Éviter toute construction formelle de l'ensemble ℂ. Partir de l'équation x²+1=0 pour introduire i. Utiliser une équation du type (x-a)²+b²=0 pour introduire la forme algébrique. Partir des propriétés pour démontrer que 1/(a+ib) = (a-ib)/(a²+b²). Définir le conjugué, le module, l'argument."
+                },
+                // Thème 2 : Analyse - Leçon 1
+                "Compléments sur les limites, la continuité, les suites numériques et la dérivation": {
+                    theme: "Analyse",
+                    duree: "16h",
+                    capacites: [
+                        "Calculer une limite par théorèmes de comparaison ou réécriture",
+                        "Calculer une valeur approchée d'un antécédent",
+                        "Calculer le nombre dérivé d'une fonction en un réel et d'une fonction réciproque",
+                        "Utiliser le théorème du point fixe",
+                        "Démontrer la continuité sur un intervalle, la dérivabilité sur un intervalle",
+                        "Démontrer l'existence d'une bijection réciproque",
+                        "Démontrer la convergence d'une suite (convergence monotone, comparaison)",
+                        "Interpréter graphiquement les branches infinies (asymptotes, branches paraboliques)",
+                        "Reconnaître le théorème des valeurs intermédiaires et l'inégalité des accroissements finis",
+                        "Déterminer une solution de f(x)=c par TVI, l'image d'un intervalle",
+                        "Déterminer l'ensemble de dérivabilité d'une fonction et de la bijection réciproque",
+                        "Déterminer la dérivée d'une fonction réciproque et d'une fonction composée",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Théorèmes de comparaison pour les limites",
+                        "Valeur approchée d'un antécédent",
+                        "Nombre dérivé d'une fonction et d'une fonction réciproque",
+                        "Théorème du point fixe",
+                        "Continuité sur un intervalle, dérivabilité sur un intervalle",
+                        "Application bijective, bijection réciproque",
+                        "Convergence d'une suite (théorèmes de convergence monotone, de comparaison)",
+                        "Branches infinies : asymptotes, branches paraboliques",
+                        "Théorème des valeurs intermédiaires, inégalité des accroissements finis",
+                        "Solution de f(x)=c par TVI, image d'un intervalle",
+                        "Ensemble de dérivabilité d'une fonction et de la bijection réciproque",
+                        "Dérivée d'une fonction réciproque, d'une fonction composée"
+                    ],
+                    prerequis: ["Limites (1ère)", "Suites (1ère)", "Dérivation (1ère)"],
+                    materiel: ["Calculatrice graphique"],
+                    strategies: ["Activités de recherche", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "3h", titre: "Branches infinies", description: "Étudier les branches infinies de f(x)=x²/(x-1)."},
+                        {duree: "3h", titre: "Théorème des valeurs intermédiaires", description: "Montrer que l'équation x³-3x+1=0 a trois solutions."},
+                        {duree: "3h", titre: "Bijection réciproque", description: "Déterminer la réciproque de f(x)=x² sur [0,+∞[."},
+                        {duree: "3h", titre: "Suites et point fixe", description: "Étudier la convergence de uₙ₊₁ = √(1+uₙ)."},
+                        {duree: "2h", titre: "Dérivée d'une réciproque", description: "Calculer la dérivée de la réciproque de f(x)=x³."}
+                    ],
+                    evaluation: [
+                        "Déterminer les branches infinies de f(x)=(x³+1)/(x²-1)",
+                        "Montrer que l'équation cos x = x a une unique solution",
+                        "Déterminer la réciproque de f(x)=ln x",
+                        "Étudier la convergence de uₙ₊₁ = 1/(1+uₙ)",
+                        "Calculer la dérivée de la réciproque de f(x)=x²"
+                    ],
+                    extrait_guide: "NB : la règle de l'Hospital n'est pas au programme. Partir des activités pour installer les propriétés de comparaison. Préciser que les fonctions élémentaires sont continues sur leur ensemble de définition. Utiliser la méthode du point fixe pour déterminer une valeur approchée d'une solution d'une équation."
+                },
+                // Leçon 2.2 : Exemples d'étude de fonction
+                "Exemples d'étude de fonction": {
+                    theme: "Analyse",
+                    duree: "14h",
+                    capacites: [
+                        "Déterminer l'ensemble de définition, l'ensemble d'étude et l'ensemble de dérivabilité",
+                        "Étudier une fonction irrationnelle, trigonométrique, ou avec valeur absolue",
+                        "Construire le graphique (tangente, demi-tangente, asymptotes)",
+                        "Déterminer la position relative d'une courbe par rapport à une autre",
+                        "Déterminer l'intersection avec une droite y=ax+b (discussion)",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Fonctions irrationnelles : x ↦ αx+β+√|ax²+bx+c|, x ↦ αx+β+√(ax²+bx+c)",
+                        "Fonctions trigonométriques",
+                        "Fonctions définies par intervalles",
+                        "Tangentes, demi-tangentes, asymptotes",
+                        "Position relative courbe/courbe, intersection courbe/droite (discussion)"
+                    ],
+                    prerequis: ["Limites", "Dérivation"],
+                    materiel: ["Calculatrice", "Logiciel de tracé"],
+                    strategies: ["Travail pratique", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "4h", titre: "Fonctions irrationnelles", description: "Étudier f(x)=√(x²-1)."},
+                        {duree: "4h", titre: "Fonctions trigonométriques", description: "Étudier f(x)=2 sin x + sin 2x."},
+                        {duree: "4h", titre: "Intersection avec une droite", description: "Discuter l'intersection de f(x)=√x avec y=ax+b."}
+                    ],
+                    evaluation: [
+                        "Étudier f(x)=|x²-3x+2|",
+                        "Déterminer l'intersection de la courbe de f(x)=ln x avec la droite y=x-1"
+                    ],
+                    extrait_guide: "Proposer des activités sur l'étude des fonctions de type irrationnelles, trigonométriques, et définies par intervalles. Pour l'intersection avec une droite y=ax+b, discuter suivant les valeurs de a ou b."
+                },
+                // Leçon 2.3 : Fonctions logarithmes, exponentielles et puissances
+                "Fonctions logarithmes, exponentielles et puissances": {
+                    theme: "Analyse",
+                    duree: "20h",
+                    capacites: [
+                        "Étudier les fonctions logarithme népérien, exponentielle népérienne, fonctions puissances",
+                        "Déterminer les limites (référence, fonctions avec ln, exp, puissances)",
+                        "Construire les graphiques, déterminer tangentes et asymptotes",
+                        "Déterminer l'ensemble de définition, l'ensemble de validité d'équations/inéquations",
+                        "Résoudre des équations et inéquations avec ln, exp",
+                        "Déterminer les variations, la fonction dérivée",
+                        "Démontrer les propriétés",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Fonction ln : définition, propriétés, limites, variations, courbe",
+                        "Fonction exp : réciproque de ln, propriétés, limites, variations, courbe",
+                        "Fonctions puissances : x^a, croissance comparée",
+                        "Équations et inéquations avec ln, exp",
+                        "Dérivées des fonctions avec ln, exp, puissances"
+                    ],
+                    prerequis: ["Fonctions usuelles", "Dérivation"],
+                    materiel: ["Calculatrice", "Tableur"],
+                    strategies: ["Travail individuel et en groupe", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "4h", titre: "Fonction ln", description: "Étudier la fonction ln."},
+                        {duree: "4h", titre: "Fonction exp", description: "Étudier la fonction exp."},
+                        {duree: "4h", titre: "Croissances comparées", description: "Étudier les limites de ln x / x, x e^x, etc."},
+                        {duree: "4h", titre: "Fonctions composées", description: "Étudier f(x)=ln(1+x²), g(x)=e^{-x²}."}
+                    ],
+                    evaluation: [
+                        "Étudier f(x)=ln(x²-1)",
+                        "Résoudre e^{2x} - 3e^x + 2 = 0",
+                        "Déterminer la limite de x ln x en 0",
+                        "Trouver la dérivée de f(x)=x^x"
+                    ],
+                    extrait_guide: "Donner la définition de ln comme fonction définie sur ]0,+∞[ s'annulant en 1 et de dérivée x↦1/x. Les limites de ln aux bornes sont admises. Partir d'activités pour établir la propriété fondamentale ln(ab)=ln a+ln b. Installer la définition de exp comme réciproque de ln. Étude guidée de la fonction x↦u(x)^v(x) où u strictement positive."
+                },
+                // Leçon 2.4 : Primitives – Calcul intégral
+                "Primitives – Calcul intégral": {
+                    theme: "Analyse",
+                    duree: "16h",
+                    capacites: [
+                        "Déterminer une intégrale, une aire, une valeur moyenne",
+                        "Déterminer une primitive d'une fonction, y compris avec ln, exp, puissances",
+                        "Reconnaître les propriétés de l'intégrale et des primitives",
+                        "Utiliser l'intégration par parties",
+                        "Démontrer des propriétés (intégration par parties, inégalités de la moyenne)",
+                        "Calculer une valeur approchée d'une intégrale (méthode des rectangles)",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Primitives : notion, primitives des fonctions usuelles",
+                        "Primitives des fonctions avec ln, exp, puissances",
+                        "Intégrale d'une fonction continue : définition, propriétés",
+                        "Techniques de calcul : intégration par parties",
+                        "Calcul approché d'une intégrale (méthode des rectangles)",
+                        "Applications : aires, valeur moyenne, fonctions définies par une intégrale"
+                    ],
+                    prerequis: ["Primitives", "Dérivation"],
+                    materiel: ["Calculatrice"],
+                    strategies: ["Travail individuel", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "4h", titre: "Primitives", description: "Déterminer des primitives de fonctions usuelles."},
+                        {duree: "4h", titre: "Intégration par parties", description: "Calculer ∫ x e^x dx, ∫ ln x dx."},
+                        {duree: "4h", titre: "Fonction définie par une intégrale", description: "Étudier F(x)=∫₀ˣ 1/(1+t²) dt."}
+                    ],
+                    evaluation: [
+                        "Calculer ∫₀¹ x e^x dx",
+                        "Déterminer l'aire entre la courbe de f(x)=x² et l'axe Ox entre 0 et 1",
+                        "Étudier F(x)=∫₁ˣ ln t dt"
+                    ],
+                    extrait_guide: "Partir d'activités pour introduire la notion de primitives. Étudier les primitives des fonctions de la forme u′/u, u′e^u. Partir des situations pour introduire la notion d'intégrale. Donner la définition et l'interprétation graphique. Partir d'activités pour utiliser la méthode des rectangles."
+                },
+                // Leçon 2.5 : Équations différentielles
+                "Équations différentielles": {
+                    theme: "Analyse",
+                    duree: "8h",
+                    capacites: [
+                        "Déterminer l'ensemble de définition d'une fonction solution",
+                        "Déterminer l'ensemble solution d'une équation différentielle",
+                        "Résoudre des équations différentielles du 1er et 2nd ordre (sans et avec second membre)",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Généralités, courbes intégrales",
+                        "Équations du 1er ordre sans second membre : y' + ay = 0",
+                        "Équations du 2nd ordre sans second membre : ay'' + by' + cy = 0 (équation caractéristique)",
+                        "Équations avec second membre (résolution guidée)"
+                    ],
+                    prerequis: ["Fonctions exponentielles", "Primitives"],
+                    materiel: ["Calculatrice"],
+                    strategies: ["Méthode démonstrative", "Exercices guidés"],
+                    activites: [
+                        {duree: "2h", titre: "Équations du 1er ordre", description: "Résoudre y' + 2y = 0."},
+                        {duree: "2h", titre: "Équations du 2nd ordre", description: "Résoudre y'' - 3y' + 2y = 0."},
+                        {duree: "2h", titre: "Avec second membre", description: "Résoudre y' + y = x."}
+                    ],
+                    evaluation: [
+                        "Résoudre y' - 3y = 0",
+                        "Résoudre y'' + 4y = 0",
+                        "Résoudre y' + 2y = e^x"
+                    ],
+                    extrait_guide: "Les équations différentielles à coefficients variables ne sont pas au programme. Partir des exemples (tirés des sciences physiques) pour introduire la notion. NB : Dans le cas d'une équation avec second membre, la résolution doit être guidée."
+                },
+                // Thème 5 : Géométrie de l'espace - Leçon 1
+                "Géométrie analytique de l'espace": {
+                    theme: "Géométrie de l'espace",
+                    duree: "14h",
+                    capacites: [
+                        "Reconnaître les configurations : vecteur normal, vecteurs directeurs, coplanarité, base, repère",
+                        "Reconnaître une représentation vectorielle (base, repère)",
+                        "Transformer une expression vectorielle (simplification, combinaison, décomposition)",
+                        "Calculer un produit scalaire, une norme, une distance, une distance point-plan",
+                        "Déterminer des représentations paramétriques, une équation cartésienne, un système",
+                        "Démontrer des propriétés (alignement, coplanarité, positions relatives)"
+                    ],
+                    contenus: [
+                        "Vecteurs de l'espace : opérations, vecteurs coplanaires",
+                        "Bases et repères : base orthonormée, repérage d'un point",
+                        "Produit scalaire : définition, expression dans une base orthonormée",
+                        "Équation cartésienne d'une sphère",
+                        "Vecteur normal, vecteurs directeurs d'un plan",
+                        "Représentations paramétriques d'une droite et d'un plan",
+                        "Équation cartésienne d'un plan, système d'équations cartésiennes d'une droite",
+                        "Positions relatives de droites et plans, distance d'un point à un plan"
+                    ],
+                    prerequis: ["Vecteurs de l'espace", "Produit scalaire"],
+                    materiel: ["Modèles 3D", "Logiciel"],
+                    strategies: ["Manipulation", "Méthode démonstrative"],
+                    activites: [
+                        {duree: "3h", titre: "Vecteurs et bases", description: "Décomposer un vecteur dans une base."},
+                        {duree: "3h", titre: "Produit scalaire", description: "Calculer le produit scalaire de deux vecteurs."},
+                        {duree: "4h", titre: "Plans et droites", description: "Déterminer l'équation d'un plan par trois points."},
+                        {duree: "2h", titre: "Distance", description: "Calculer la distance d'un point à un plan."}
+                    ],
+                    evaluation: [
+                        "Déterminer si trois vecteurs sont coplanaires",
+                        "Calculer le produit scalaire de u(1,2,3) et v(2,-1,1)",
+                        "Déterminer l'équation cartésienne du plan passant par A(1,0,0), B(0,1,0), C(0,0,1)",
+                        "Calculer la distance du point A(1,2,3) au plan x+2y+2z-10=0"
+                    ],
+                    extrait_guide: "Le calcul vectoriel dans l'espace est une extension du plan. NB : Ne pas faire une généralisation aux notions de familles génératrices ou liées. Partir d'activités pour introduire l'écriture d'un vecteur comme combinaison linéaire. Partir d'activités pour étendre à l'espace la notion de produit scalaire."
+                },
+                // Thème 6 : Applications du plan - Leçon 1
+                "Similitudes directes": {
+                    theme: "Applications du plan",
+                    duree: "10h",
+                    capacites: [
+                        "Reconnaître une similitude directe, une transformation échangeant deux figures semblables",
+                        "Reconnaître le rapport, l'angle, le centre d'une similitude directe",
+                        "Déterminer l'expression analytique et complexe",
+                        "Construire l'image d'un ensemble par une similitude directe",
+                        "Démontrer que des figures sont semblables, déterminer la nature d'une similitude",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Définition géométrique d'une similitude, propriétés",
+                        "Décomposition d'une similitude",
+                        "Similitudes directes : expression géométrique, éléments caractéristiques, décomposition, expression analytique et complexe"
+                    ],
+                    prerequis: ["Isométries", "Homothéties"],
+                    materiel: ["Logiciel de géométrie"],
+                    strategies: ["Méthode démonstrative", "Résolution de problèmes"],
+                    activites: [
+                        {duree: "3h", titre: "Similitudes directes", description: "Étudier les similitudes directes."},
+                        {duree: "3h", titre: "Expression complexe", description: "Passer de la forme géométrique à la forme complexe."},
+                        {duree: "2h", titre: "Construction d'images", description: "Construire l'image d'un triangle par une similitude."}
+                    ],
+                    evaluation: [
+                        "Déterminer la nature de la transformation z' = (1+i)z + 2",
+                        "Trouver le rapport et l'angle de la similitude z' = 2e^{iπ/3}z",
+                        "Décomposer une similitude donnée"
+                    ],
+                    extrait_guide: "Par des activités et des illustrations donner la différence entre les deux types de similitudes. Par une activité montrer la décomposition en lien avec les isométries. Établir l'expression complexe à partir de l'expression analytique."
+                },
+                // Thème 7 : Organisation des données - Leçon 1
+                "Notions de théorie des graphes": {
+                    theme: "Organisation des données",
+                    duree: "10h",
+                    capacites: [
+                        "Reconnaître un graphe non orienté, sous-graphe, graphe complet, graphe connexe",
+                        "Reconnaître une chaîne, un cycle, une chaîne eulérienne",
+                        "Déterminer les sommets adjacents",
+                        "Déterminer le degré d'un sommet, l'ordre, la longueur d'une chaîne, le nombre chromatique",
+                        "Utiliser l'algorithme de Welsh-Powell pour colorier les sommets",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Éléments de base : graphe non orienté, sommet, arête, boucle, degré, ordre, taille, sous-graphe, graphe complet, connexité",
+                        "Lemme des poignées de mains",
+                        "Chaînes, cycles, chaînes et cycles eulériens, théorème d'Euler",
+                        "Coloriage des sommets : nombre chromatique, algorithme de Welsh-Powell"
+                    ],
+                    prerequis: ["Dénombrement"],
+                    materiel: ["Papier", "crayons de couleur"],
+                    strategies: ["Situations problèmes", "Travail de groupe"],
+                    activites: [
+                        {duree: "3h", titre: "Éléments de base", description: "À partir de la carte de l'Afrique, introduire les notions."},
+                        {duree: "3h", titre: "Graphes eulériens", description: "Étudier le problème des ponts de Königsberg."},
+                        {duree: "2h", titre: "Coloriage", description: "Colorier les sommets d'un graphe avec l'algorithme de Welsh-Powell."}
+                    ],
+                    evaluation: [
+                        "Déterminer le degré de chaque sommet d'un graphe donné",
+                        "Un graphe connexe admet-il un cycle eulérien ?",
+                        "Colorier les sommets du graphe complet K₄"
+                    ],
+                    extrait_guide: "NB : Les graphes orientés ne sont pas au programme. Ne pas introduire la définition des matrices représentant un graphe. Seuls les graphes eulériens sont au programme. Ne pas introduire une rédaction algorithmique stricte ou des termes d'un langage de programmation."
+                },
+                // Thème 7 : Organisation des données - Leçon 2
+                "Probabilités": {
+                    theme: "Organisation des données",
+                    duree: "12h",
+                    capacites: [
+                        "Déterminer une loi de probabilité, une fonction de répartition, une variable aléatoire",
+                        "Interpréter l'univers image, les caractéristiques d'une variable aléatoire, un arbre pondéré",
+                        "Déterminer une probabilité (équiprobable ou non), une probabilité conditionnelle, des probabilités d'événements indépendants",
+                        "Démontrer une propriété d'une probabilité",
+                        "Mathématiser une situation problème"
+                    ],
+                    contenus: [
+                        "Variable aléatoire, loi de probabilité, fonction de répartition",
+                        "Espérance, variance, écart-type",
+                        "Probabilités conditionnelles, événements indépendants, probabilité totale",
+                        "Schéma de Bernoulli, loi binomiale"
+                    ],
+                    prerequis: ["Dénombrement", "Probabilités (1ère)"],
+                    materiel: ["Calculatrice", "Tableur"],
+                    strategies: ["Situations concrètes", "Arbres pondérés"],
+                    activites: [
+                        {duree: "3h", titre: "Variables aléatoires", description: "Introduire la notion à partir de jeux."},
+                        {duree: "3h", titre: "Probabilités conditionnelles", description: "Utiliser des arbres pondérés."},
+                        {duree: "3h", titre: "Loi binomiale", description: "Étudier le schéma de Bernoulli."}
+                    ],
+                    evaluation: [
+                        "Déterminer la loi de probabilité de la somme de deux dés",
+                        "Calculer P(A|B) dans un contexte donné",
+                        "Reconnaître une situation de loi binomiale"
+                    ],
+                    extrait_guide: "Partir d'exercices pour réviser les notions de première. Partir des situations pour introduire la notion d'évènements élémentaires non équiprobables. Partir d'activités sur les ensembles pour démontrer la propriété P(A∪B)=P(A)+P(B)-P(A∩B). Partir d'activités pour installer les notions de variables aléatoires, de loi de probabilité et de fonction de répartition."
+                }
+            },
+            // extraits globaux
+            progression_annuelle: `
+                Septembre (1-2) : Compléments sur limites/continuité/suites/dérivation (16h)
+                Octobre (3-5) : Exemples d'étude de fonction (14h) + Nombres complexes (12h)
+                Novembre (6-8) : Nombres complexes (suite) + Semaine intégration (6h) + Fonctions ln/exp/puissances (20h)
+                Décembre (9-12) : Fonctions ln/exp/puissances (suite) + Similitudes directes (10h)
+                Janvier (13-14) : Probabilités (12h)
+                Février (15-16) : Semaine intégration (6h) + Primitives – Calcul intégral (16h)
+                Mars (17-20) : Primitives – Calcul intégral (suite) + Équations différentielles (8h) + Géométrie analytique de l'espace (14h)
+                Avril (21-24) : Géométrie analytique (suite) + Notions de théorie des graphes (10h)
+                Mai (25) : Semaine d'intégration (6h)
+            `,
+            exemple_epreuve: `
+                <h4>📝 Exemple d'épreuve – Terminale D (durée 3h)</h4>
+                <p><strong>Exercice 1 (4pts) :</strong> Résoudre dans ℂ : z² - 2z + 5 = 0. Écrire 1+i sous forme trigonométrique.<br>
+                <strong>Exercice 2 (5pts) :</strong> Étudier la fonction f(x)=ln(1+x²). Déterminer ses limites, sa dérivée, son tableau de variation. Tracer la courbe.<br>
+                <strong>Exercice 3 (4pts) :</strong> Calculer I = ∫₀¹ x e^x dx. Déterminer l'aire entre la courbe de f(x)=x² et l'axe Ox entre 0 et 2.<br>
+                <strong>Exercice 4 (4pts) :</strong> Résoudre l'équation différentielle y'' - 3y' + 2y = 0. Déterminer la solution vérifiant y(0)=1, y'(0)=0.<br>
+                <strong>Exercice 5 (3pts) :</strong> Dans un graphe complet à 5 sommets, combien y a-t-il d'arêtes ? Déterminer le nombre chromatique de ce graphe.</p>
+            `,
+            modele_fiche: `
+                <h4>📋 Canevas de fiche (extrait - Leçon Graphes)</h4>
+                <p><strong>Situation d'apprentissage :</strong> Carte d'Afrique avec 5 pays : peut-on partir du Burkina Faso et arriver au Niger en traversant chaque frontière une fois et une seule ?</p>
+                <p><strong>Déroulement :</strong> Remobilisation (10min), présentation (5min), appropriation (5min), résolution individuelle/groupe (15min), synthèse (20min), institutionnalisation (15min), réinvestissement (30min).</p>
+                <p><strong>Trace écrite :</strong> Définitions, lemme des poignées de mains, chaînes, cycles eulériens, coloriage.</p>
+            `
+        };
+
+        // ----------------------------------------------------------------
+        // Remplissage du menu déroulant
+        // ----------------------------------------------------------------
+        const leconSelect = document.getElementById('leconSelect');
+        const dateField = document.getElementById('dateField');
+        const generateBtn = document.getElementById('generateBtn');
+        const ficheContainer = document.getElementById('ficheContainer');
+        const ficheContent = document.getElementById('ficheContent');
+
+        function fillLecons() {
+            leconSelect.innerHTML = '';
+            Object.keys(programme.lecons).sort().forEach(titre => {
+                const opt = document.createElement('option');
+                opt.value = titre;
+                opt.textContent = titre;
+                leconSelect.appendChild(opt);
+            });
+        }
+        fillLecons();
+
+        // ----------------------------------------------------------------
+        // Génération de la fiche
+        // ----------------------------------------------------------------
+        function genererFiche() {
+            const leconTitre = leconSelect.value;
+            if (!leconTitre) { alert("Veuillez sélectionner une leçon."); return; }
+
+            const lecon = programme.lecons[leconTitre];
+            const dateChoisie = dateField.value ? new Date(dateField.value).toLocaleDateString('fr-FR') : 'non précisée';
+            const today = new Date().toLocaleDateString('fr-FR');
+
+            let html = `
+                <h2>📐 ${leconTitre}</h2>
+                <div class="badge-ribbon">
+                    <span>📂 ${lecon.theme}</span>
+                    <span class="duree">⏱️ ${lecon.duree}</span>
+                    <span>🎓 Terminale D (Scientifique)</span>
+                </div>
+                <p style="margin-bottom:1.8rem; color:#2e5f4a;">Générée le ${today} – Date prévue : ${dateChoisie}</p>
+            `;
+
+            // Tableau capacités + contenus
+            html += `<div class="section-lecon"><h3>🎯 Capacités & contenus</h3>`;
+            html += `<table class="table-capacites"><tr><th>Capacités</th><th>Contenus</th></tr>`;
+            const max = Math.max(lecon.capacites.length, lecon.contenus.length);
+            for (let i=0; i<max; i++) {
+                html += `<tr><td>${lecon.capacites[i] || ''}</td><td>${lecon.contenus[i] || ''}</td></tr>`;
+            }
+            html += `</table></div>`;
+
+            // Prérequis, matériel, stratégies
+            html += `<div class="section-lecon"><h3>🔁 Prérequis</h3><ul>`;
+            (lecon.prerequis || []).forEach(p => html += `<li>${p}</li>`);
+            html += `</ul></div>`;
+
+            html += `<div class="section-lecon"><h3>🧰 Matériel / Stratégies</h3>`;
+            html += `<p><strong>Matériel :</strong> ${(lecon.materiel || []).join(' · ')}</p>`;
+            html += `<p><strong>Stratégies :</strong> ${(lecon.strategies || []).join(' · ')}</p>`;
+            if (lecon.extrait_guide) html += `<p><strong>Recommandation (guide) :</strong> ${lecon.extrait_guide}</p>`;
+            html += `</div>`;
+
+            // Activités
+            html += `<div class="section-lecon"><h3>📌 Déroulement – activités</h3>`;
+            (lecon.activites || []).forEach((act, idx) => {
+                html += `<p><strong>Activité ${idx+1} (${act.duree}) – ${act.titre}</strong> : ${act.description}</p>`;
+            });
+            html += `</div>`;
+
+            // Évaluation
+            html += `<div class="section-lecon"><h3>📋 Évaluation</h3><ul>`;
+            (lecon.evaluation || []).forEach(e => html += `<li>${e}</li>`);
+            html += `</ul></div>`;
+
+            // Extraits programme (progression, épreuve, canevas)
+            html += `<div class="section-lecon" style="background:#eaf3fc;"><h3>📘 Extraits du programme officiel</h3>`;
+            if (programme.exemple_epreuve) html += `<div>${programme.exemple_epreuve}</div>`;
+            if (programme.progression_annuelle) html += `<p><strong>Progression annuelle (150h) :</strong> ${programme.progression_annuelle}</p>`;
+            if (programme.modele_fiche) html += `<div>${programme.modele_fiche}</div>`;
+            html += `</div>`;
+
+            // conformité
+            html += `<p style="border-top:2px dashed #b8871a; padding-top:1.2rem;">✅ Programme 2024 – Direction des Programmes et Innovations Pédagogiques, Togo. 6h/sem – coeff 4.</p>`;
+
+            ficheContent.innerHTML = html;
+            ficheContainer.classList.remove('hidden');
+            ficheContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        generateBtn.addEventListener('click', genererFiche);
+
+        // ----------------------------------------------------------------
+        // Exports et utilitaires
+        // ----------------------------------------------------------------
+        window.exporterPDF = function() {
+            alert("Pour exporter en PDF : utilisez 'Imprimer' puis choisissez 'Enregistrer en PDF'.");
+            window.print();
+        };
+        window.exporterWord = function() {
+            const content = ficheContent.innerHTML;
+            const style = document.querySelector('style').innerHTML;
+            const full = `
+                <html><head><meta charset="UTF-8"><title>fiche_TleD_togo</title>
+                <style>${style} body { padding: 2cm; }</style>
+                </head><body>${content}</body></html>`;
+            const blob = new Blob([full], {type: 'application/msword'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'fiche_TleD_maths.doc';
+            a.click();
+        };
+        window.resetFiche = function() {
+            ficheContainer.classList.add('hidden');
+            leconSelect.selectedIndex = 0;
+            dateField.value = '2025-11-15';
+        };
+
+        // Ctrl+Enter génère
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                genererFiche();
+            }
+        });
+    })();
+</script>
+</body>
+</html>
