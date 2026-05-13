@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Fiche 1ère D · Maths Togo · programme intégral</title>
+    <title>Programmes Maths Seconde (Littéraire & Scientifique) - Togo</title>
     <style>
         * {
             margin: 0;
@@ -40,7 +40,7 @@
             margin: 0 auto;
         }
 
-        /* ===== BANDEAU RESPONSIVE ===== */
+        /* ===== BANDEAU OFFICIEL ===== */
         .bandeau {
             background: linear-gradient(148deg, var(--primary-dark), var(--primary));
             color: white;
@@ -74,7 +74,6 @@
             margin-top: 1rem;
             font-size: clamp(0.7rem, 3vw, 1rem);
             box-shadow: 0 4px 8px #b57f1a;
-            white-space: normal;
             text-align: center;
         }
 
@@ -99,7 +98,6 @@
             align-items: center;
             gap: 0.8rem;
             flex-wrap: wrap;
-            word-break: break-word;
         }
 
         .form-row {
@@ -151,8 +149,6 @@
             cursor: pointer;
             transition: 0.2s;
             box-shadow: 0 15px 25px -10px var(--primary);
-            white-space: normal;
-            line-height: 1.3;
         }
 
         .btn-generer:hover {
@@ -187,7 +183,6 @@
             font-size: clamp(1.6rem, 6vw, 2.6rem);
             color: var(--primary);
             font-weight: 700;
-            word-break: break-word;
         }
 
         .section-guide {
@@ -198,7 +193,6 @@
             border-left: clamp(8px, 2vw, 16px) solid var(--primary);
             box-shadow: 0 6px 12px #c1ddd1;
             word-wrap: break-word;
-            overflow-wrap: break-word;
         }
 
         .section-guide h4 {
@@ -218,20 +212,16 @@
             border-radius: 30px;
             font-size: clamp(0.9rem, 3vw, 1.05rem);
             margin: 1rem 0;
-            box-shadow: 0 3px 8px #d9e6df;
-            word-break: break-word;
         }
 
         .bullet-list {
             margin-left: 1.2rem;
             line-height: 1.6;
             font-size: clamp(0.9rem, 2.5vw, 1rem);
-            padding-right: 0.5rem;
         }
 
         .bullet-list li {
             margin-bottom: 0.4rem;
-            word-break: break-word;
         }
 
         .table-cap {
@@ -257,7 +247,6 @@
             border: 1px solid #b7dbc9;
             padding: 10px 8px;
             vertical-align: top;
-            word-break: break-word;
         }
 
         .actions {
@@ -278,9 +267,6 @@
             cursor: pointer;
             transition: 0.2s;
             min-width: 120px;
-            flex: 1 0 auto;
-            max-width: 200px;
-            white-space: nowrap;
         }
 
         .btn-print:hover {
@@ -289,7 +275,7 @@
 
         @media (max-width: 480px) {
             body { padding: 0.5rem; }
-            .btn-print { white-space: normal; min-width: unset; flex-basis: 100%; }
+            .btn-print { min-width: unset; flex-basis: 100%; }
             .form-group { flex-basis: 100%; }
         }
 
@@ -302,733 +288,415 @@
 </head>
 <body>
 <div class="container">
-    <!-- BANDEAU OFFICIEL -->
+    <!-- BANDEAU OFFICIEL (extraits du document) -->
     <div class="bandeau no-print">
-        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE</h1>
-        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie – DIRECTION DES PROGRAMMES</h2>
-        <div class="badge-prog">PROGRAMME MATHÉMATIQUES PREMIÈRE D (Scientifique) – 125 h – Septembre 2023</div>
-        <p style="margin-top:1rem; font-size:clamp(0.9rem,3vw,1.2rem);">Thèmes : Calculs algébriques · Analyse · Trigonométrie · Géométrie · Statistiques · Probabilités</p>
+        <h1>🇹🇬 MINISTÈRE DES ENSEIGNEMENTS PRIMAIRE, SECONDAIRE, TECHNIQUE ET DE L'ARTISANAT</h1>
+        <h2>RÉPUBLIQUE TOGOLAISE – Travail-Liberté-Patrie – DIRECTION DE L'ENSEIGNEMENT SECONDAIRE GÉNÉRAL</h2>
+        <div class="badge-prog">PROGRAMMES MATHÉMATIQUES : SECONDES LITTÉRAIRE (A) & SCIENTIFIQUE (S) – SEPTEMBRE 2022</div>
+        <p style="margin-top:1rem; font-size:clamp(0.9rem,3vw,1.2rem);">Compétences terminales : résoudre des problèmes de la vie courante · modélisation · calculs · raisonnement mathématique</p>
     </div>
 
-    <!-- GÉNÉRATEUR (basé sur l'intégralité des leçons du fichier 1ère D) -->
+    <!-- GÉNÉRATEUR : leçons complètes issues du fichier officiel (Secondes A et S) -->
     <div class="card-outil no-print">
-        <h3>📘 GÉNÉRATEUR DE FICHE – PROGRAMME 1ÈRE D</h3>
+        <h3>📘 GÉNÉRATEUR DE FICHE – PROGRAMMES OFFICIELS SECONDE (TOGO)</h3>
         <div class="form-row">
             <div class="form-group">
-                <label>📌 Leçon</label>
+                <label>📌 Leçon / Thème</label>
                 <select id="leconSelect">
-                    <option value="">-- Sélectionner une leçon --</option>
-                    <optgroup label="🔹 Thème 1 : Calculs algébriques">
-                        <option value="L1_second_degre">1.1 Équations/Inéquations 2nd degré</option>
-                        <option value="L2_systemes">1.2 Systèmes linéaires IR² / IR³</option>
+                    <option value="">-- Sélectionner une leçon du programme --</option>
+                    <optgroup label="🔹 SECONDE LITTÉRAIRE (2nde A4)">
+                        <option value="A_nombres">Thème 1 : Nombres réels et activités numériques</option>
+                        <option value="A_calcul_litteral">Thème 1 : Calcul littéral (polynômes, fractions)</option>
+                        <option value="A_equations_inequations_IR">Thème 1 : Équations et inéquations dans IR</option>
+                        <option value="A_equations_lineaires_IR2">Thème 1 : Équations/inéquations linéaires dans IR²</option>
+                        <option value="A_generalites_fonctions">Thème 2 : Généralités sur les fonctions</option>
+                        <option value="A_fonctions_usuelles">Thème 2 : Fonctions numériques usuelles (affines, carré, inverse)</option>
+                        <option value="A_denombrement">Thème 3 : Dénombrement (tableaux, arbres, cardinaux)</option>
                     </optgroup>
-                    <optgroup label="🔹 Thème 2 : Analyse">
-                        <option value="L3_generalites">2.1 Généralités fonctions</option>
-                        <option value="L4_limites">2.2 Limites et continuité</option>
-                        <option value="L5_derivation">2.3 Dérivation</option>
-                        <option value="L6_etude_fonctions">2.4 Étude de fonctions</option>
-                        <option value="L7_suites">2.5 Suites numériques</option>
-                    </optgroup>
-                    <optgroup label="🔹 Thème 3 : Trigonométrie">
-                        <option value="L8_trigo">3.1 Angles orientés – Trigonométrie</option>
-                    </optgroup>
-                    <optgroup label="🔹 Thème 4 : Géométrie du plan">
-                        <option value="L9_barycentres">4.1 Barycentres et lignes de niveau</option>
-                        <option value="L10_droites_cercles">4.2 Droites et cercles</option>
-                    </optgroup>
-                    <optgroup label="🔹 Thème 5 : Géométrie de l'espace">
-                        <option value="L11_orthogonalite">5.1 Étude de l'orthogonalité</option>
-                    </optgroup>
-                    <optgroup label="🔹 Thème 6 : Applications du plan">
-                        <option value="L12_homotheties">6.1 Homothéties</option>
-                        <option value="L13_isometries">6.2 Isométries</option>
-                        <option value="L14_similitudes">6.3 Similitudes</option>
-                    </optgroup>
-                    <optgroup label="🔹 Thème 7 : Organisation des données">
-                        <option value="L15_stats_double">7.1 Série statistique double</option>
-                        <option value="L16_denombrement">7.2 Dénombrement – Probabilité</option>
+                    <optgroup label="🔹 SECONDE SCIENTIFIQUE (2nde S)">
+                        <option value="S_calculs_IR">Thème 1 : Calculs dans IR (ensembles, puissances, racines)</option>
+                        <option value="S_polynomes_rationnelles">Thème 1 : Polynômes et fractions rationnelles</option>
+                        <option value="S_equations_inequations">Thème 1 : Équations – Inéquations dans IR</option>
+                        <option value="S_systemes_lineaires">Thème 1 : Systèmes linéaires dans IR² et IR³</option>
+                        <option value="S_generalites_fonctions">Thème 2 : Généralités sur les fonctions (applications, image directe)</option>
+                        <option value="S_etude_fonctions_usuelles">Thème 2 : Étude de fonctions usuelles (affines par intervalles, √x, x³, 1/x, max, min)</option>
+                        <option value="S_angles_orientes">Thème 3 : Angles orientés, radian, cercle trigonométrique</option>
+                        <option value="S_trigo_elementaire">Thème 3 : Fonctions trigonométriques élémentaires (cos, sin, tan)</option>
+                        <option value="S_vecteurs_plan">Thème 4 : Vecteurs du plan (bases, colinéarité, déterminant)</option>
+                        <option value="S_droites_cercles">Thème 4 : Droites et cercles (équations paramétriques, cartésiennes)</option>
+                        <option value="S_produit_scalaire">Thème 4 : Produit scalaire, théorèmes d'Al Kashi, médianes</option>
+                        <option value="S_angles_inscrits">Thème 4 : Angles inscrits non orientés, polygones réguliers</option>
+                        <option value="S_positions_relatives_espace">Thème 5 : Géométrie espace (positions, axiomes, perspective)</option>
+                        <option value="S_paralellisme_espace">Thème 5 : Parallélisme dans l'espace</option>
+                        <option value="S_isometries_translations">Thème 6 : Isométries : symétries, translations (expressions analytiques)</option>
+                        <option value="S_homotheties">Thème 6 : Homothéties (caractérisation, construction)</option>
+                        <option value="S_rotations">Thème 6 : Rotations (définition, propriétés)</option>
+                        <option value="S_statistiques">Thème 7 : Statistiques (effectifs cumulés, variance, écart-type, histogrammes)</option>
                     </optgroup>
                 </select>
             </div>
             <div class="form-group">
-                <label>⏱️ Durée (indicative)</label>
-                <input type="text" id="dureeField" value="selon progression" placeholder="ex: 8h / 7h ...">
+                <label>⏱️ Durée indicative</label>
+                <input type="text" id="dureeField" value="selon progression (3h / 5h)">
             </div>
             <div class="form-group">
-                <label>📅 Date</label>
+                <label>📅 Date de la séquence</label>
                 <input type="date" id="dateField">
             </div>
         </div>
-        <button class="btn-generer" id="btnGenerer">✨ GÉNÉRER LA FICHE (guide intégral)</button>
+        <button class="btn-generer" id="btnGenerer">✨ GÉNÉRER LA FICHE PÉDAGOGIQUE (conforme aux programmes officiels)</button>
     </div>
 
-    <!-- FICHE GÉNÉRÉE (contenu extrait du document) -->
+    <!-- FICHE GÉNÉRÉE -->
     <div class="fiche-finale hidden" id="ficheGeneree">
         <div id="contenuFiche"></div>
         <div class="actions no-print">
             <button class="btn-print" onclick="window.print()">🖨️ Imprimer</button>
             <button class="btn-print" onclick="alert('Utiliser Impression → Enregistrer en PDF')">📄 PDF</button>
             <button class="btn-print" onclick="exportWord()">📝 Word</button>
-            <button class="btn-print" onclick="resetFiche()">🔄 Nouvelle</button>
+            <button class="btn-print" onclick="resetFiche()">🔄 Nouvelle fiche</button>
         </div>
         <div style="margin-top:1.5rem; background:#fdf3da; padding:0.8rem 1.5rem; border-radius:60px; font-size:clamp(0.8rem,2.5vw,0.95rem); text-align:center;" class="no-print">
-            ⚡ Guide d'exécution complet : stratégies, consignes, évaluation (extrait officiel 1ère D).
+            ⚡ Basé sur le document officiel MATHS SECONDES (République Togolaise) – Guide d'exécution, capacités, stratégies pédagogiques.
         </div>
     </div>
 </div>
 
 <script>
 (function() {
-    // ==================== CONTENU INTÉGRAL DU FICHIER PROGRAMME MATHS 1re D OK.docx ====================
+    // ==================== DONNÉES INTÉGRALES ISSUES DU FICHIER .docx (programmes 2nde A et 2nde S) ====================
     const lecons = {
-        // Leçon 1.1 Equations/Inéquations du second degré
-        L1_second_degre: {
-            titre: 'Équations – Inéquations du second degré dans IR',
-            theme: 'Calculs algébriques',
-            prerequis: ['Polynômes seconde', 'Factorisation', 'Racines'],
-            materiel: ['Calculatrice', 'Tableau de signes'],
+        // --- SECONDE LITTERAIRE ---
+        A_nombres: {
+            titre: 'Nombres réels et activités numériques',
+            serie: 'Seconde Littéraire (2nde A)',
+            prerequis: ['Ensembles IN, ℤ, ID, ℚ', 'Opérations de base', 'Valeur absolue'],
+            materiel: ['Calculatrice', 'Droite graduée'],
             contenusSynth: [
-                'Discriminant Δ = b²−4ac',
-                'Somme et produit des solutions',
-                'Signe du trinôme',
-                'Équations bicarrées',
-                'Équations irrationnelles : √f(x) = √g(x), √f(x) = ax+b',
-                'Inéquations irrationnelles : √f(x) ≤ √g(x), √f(x) ≥ ax+b',
-                'Recherche du signe des solutions avec paramètre'
+                'Nombres entiers, décimaux, rationnels, irrationnels',
+                'Somme, différence, produit, quotient, puissance, racine carrée',
+                'Écriture scientifique, ordre de grandeur, valeur absolue',
+                'Amplitude, centre, rayon d’un intervalle',
+                'Comparaison de nombres (rationnels, irrationnels)',
+                'Interprétation graphique : |x−a|=r, |x−a|=|x−b|, |x−a|<r',
+                'Valeur approchée, approximation décimale, arrondi, encadrement'
             ],
             strategies: [
-                'Travail individuel ou petits groupes – méthode démonstrative',
-                'Partir de la forme canonique pour introduire le discriminant',
-                'Interpréter graphiquement les cas selon Δ',
-                'Activités pour résoudre des équations avec paramètre simple',
-                'Pour les irrationnelles, conduire à la résolution par élévation au carré et contrôle'
+                'Travail individuel ou petits groupes, choix d’activités intuitives',
+                'Utilisation de la droite graduée pour la valeur absolue',
+                'Proposer des exemples de nombres à partie décimale illimitée périodique',
+                'Éviter toute construction formelle des ensembles'
             ],
             consignes: [
-                'Proposer des exercices révisant les polynômes du second degré vus en seconde.',
-                'Utiliser la forme canonique pour définir Δ.',
-                'Faire travailler sur des cas simples où Δ est du 1er degré pour discussion.',
-                'Pour √f(x) = ax+b : imposer les conditions d’existence et vérifier les solutions.'
+                'Procéder par activités de renforcement, classification des nombres',
+                'Préciser que les nombres non rationnels sont des irrationnels',
+                'Utiliser le placement sur droite pour interpréter |x−a|<r'
             ],
             evaluation: [
-                'Détermination du discriminant',
-                'Recherche des zéros et factorisation',
-                'Signe d’un trinôme',
-                'Résolution d’équations et inéquations du 2nd degré',
-                'Résolution d’équations bicarrées',
-                'Résolution d’équations/inéquations irrationnelles (formes √f(x)=√g(x), √f(x)≤ax+b…)'
+                'Classification dans IN, ℤ, ID, ℚ, IR',
+                'Calculs avec fractions, puissances, racines carrées',
+                'Détermination d’écriture scientifique, ordre de grandeur',
+                'Calcul amplitude/centre/rayon d’un intervalle',
+                'Interprétation graphique d’égalités/inégalités avec valeur absolue'
             ],
             capacitesDetails: [
-                { capacite: 'Déterminer un nombre', contenu: 'Discriminant, somme et produit des solutions, deux nombres connaissant leur somme et produit' },
-                { capacite: 'Déterminer le signe d’une fonction', contenu: 'fonction polynôme du second degré' },
-                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de validité, ensemble solution' },
-                { capacite: 'Résoudre des équations et inéquations', contenu: 'équations/inéquations du second degré ; bicarrées ; √f(x)=√g(x), √f(x)=ax+b ; √f(x)≤√g(x), √f(x)≥ax+b, √f(x)≤ax+b' }
+                { capacite: 'Reconnaître un nombre', contenu: 'entier, décimal, rationnel, irrationnel' },
+                { capacite: 'Calculer une grandeur numérique', contenu: 'somme, produit, quotient, puissance, racine carrée, valeur absolue' },
+                { capacite: 'Comparer des grandeurs', contenu: 'comparaison de rationnels/irrationnels' },
+                { capacite: 'Interpréter graphiquement', contenu: '|x−a|=r, |x−a|=|x−b|, |x−a|<r' }
             ]
         },
-        // Leçon 1.2 Systèmes linéaires IR² et IR³
-        L2_systemes: {
-            titre: 'Systèmes d’équations linéaires dans IR² et IR³',
-            theme: 'Calculs algébriques',
-            prerequis: ['Systèmes 2x2 vue en seconde'],
-            materiel: ['Calculatrice'],
-            contenusSynth: ['Systèmes 3x3', 'Méthode de Gauss (pivot)', 'Programmation linéaire (initiation)'],
-            strategies: [
-                'Travail individuel/groupes, méthode démonstrative',
-                'Réviser la résolution des systèmes 2x2 (combinaison, substitution)',
-                'Introduire la méthode de Gauss pour 3x3',
-                'Partir d’une situation concrète pour la programmation linéaire'
-            ],
-            consignes: [
-                'Utiliser la méthode des équivalences.',
-                'Faire découvrir la notion de déterminant (sans excès).',
-                'Pour IR³, se limiter à des systèmes simples se résolvant par substitution ou combinaison.',
-                'NB : la méthode de Cramer n’est pas exigible.'
-            ],
-            evaluation: [
-                'Résolution algébrique de systèmes 3x3',
-                'Utilisation de la programmation linéaire pour des problèmes simples'
-            ],
-            capacitesDetails: [
-                { capacite: 'Résoudre algébriquement des systèmes', contenu: 'systèmes d’équations dans IR³' },
-                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec systèmes dans IR³ et inéquations dans IR²' }
-            ]
+        A_calcul_litteral: {
+            titre: 'Calcul littéral (Polynômes, fractions rationnelles)',
+            serie: 'Seconde Littéraire',
+            prerequis: ['Calcul algébrique de 3ème', 'Identités remarquables'],
+            materiel: ['Tableaux de signes'],
+            contenusSynth: ['Polynôme, fraction rationnelle', 'Forme canonique, factorisation, développement', 'Zéro d’un polynôme, conditions d’existence', 'Étude de signe (polynôme, fraction rationnelle)'],
+            strategies: ['Travail individuel, questions-réponses', 'Utilisation d’exemples (polynômes degré ≤2)', 'Méthode des coefficients indéterminés pour degré 3'],
+            consignes: ['Ne pas faire une théorie formelle, privilégier exercices', 'Pour le théorème P(a)=0 ⇒ (x−a) facteur, s’arrêter à degré ≤3', 'Éviter division euclidienne pour A4'],
+            evaluation: ['Factorisation degré ≤3', 'Développement, détermination des zéros', 'Signe d’un polynôme ou fraction rationnelle', 'Condition d’existence d’une valeur numérique'],
+            capacitesDetails: [{ capacite: 'Transformer une expression', contenu: 'forme canonique, factorisation, développement, simplification' }, { capacite: 'Étudier le signe', contenu: 'polynôme, fraction rationnelle' }]
         },
-        // Leçon 2.1 Généralités fonctions
-        L3_generalites: {
-            titre: 'Fonctions numériques d’une variable réelle : généralités',
-            theme: 'Analyse',
-            prerequis: ['Notions de fonction (seconde)', 'Calcul algébrique'],
-            materiel: ['Repères, graphiques'],
-            contenusSynth: ['Parité, périodicité', 'Éléments de symétrie', 'Injection, surjection, bijection', 'Composée de deux fonctions', 'Fonctions associées : −f, |f|, f(x−a)+b, f(−x)'],
-            strategies: [
-                'Travail individuel/groupes, méthode démonstrative',
-                'Introduire parité et périodicité à partir des courbes',
-                'Utiliser les diagrammes pour injection/surjection',
-                'Faire le lien avec la composition (schéma de calcul)'
-            ],
-            consignes: [
-                'Vérifier qu’un nombre est une période d’une fonction.',
-                'Exploiter les représentations graphiques avant les calculs.',
-                'Pour la composée, montrer comment déterminer l’ensemble de définition et expliciter l’expression.'
-            ],
-            evaluation: [
-                'Détermination de restriction/prolongement',
-                'Composition de fonctions, ensemble de définition',
-                'Démonstration de parité/périodicité',
-                'Reconnaissance injection/surjection/bijection',
-                'Construction de courbes de fonctions associées'
-            ],
-            capacitesDetails: [
-                { capacite: 'Reconnaître une propriété', contenu: 'parité, périodicité, éléments de symétrie, injection, surjection, bijection' },
-                { capacite: 'Démontrer une propriété', contenu: 'parité, périodicité, symétrie, injection, surjection, bijection' },
-                { capacite: 'Déterminer un ensemble', contenu: 'ensemble de définition de la composée de deux fonctions' },
-                { capacite: 'Construire un graphique', contenu: 'x ↦ −f(x), |f(x)|, f(x−a)+b, f(−x)' },
-                { capacite: 'Déterminer une fonction', contenu: 'composée de fonctions, bijection réciproque, restriction, prolongement' }
-            ]
+        A_equations_inequations_IR: {
+            titre: 'Équations et inéquations dans IR',
+            serie: 'Seconde Littéraire',
+            prerequis: ['Résolution de base', 'Produit nul'],
+            contenusSynth: ['Ensemble de validité', 'Équations équivalentes', 'Formes : ax+b=0, (ax+b)(cx+d)=0, (ax+b)/(cx+d)=0', 'Inéquations ax+b<0, produit ou quotient <0', 'Mathématisation de situations'],
+            strategies: ['Travail individuel/groupes, exercices progressifs', 'Utilisation des représentations graphiques pour f(x)=a'],
+            consignes: ['Procéder par exemples simples', 'Résoudre graphiquement f(x)=g(x) à partir de courbes données'],
+            evaluation: ['Résolution algébrique équations/inéquations se ramenant aux formes types', 'Résolution graphique f(x)=a, f(x)=g(x)'],
+            capacitesDetails: [{ capacite: 'Résoudre des équations/inéquations', contenu: 'ax+b=0, (ax+b)(cx+d)=0, ax+b/cx+d=0 ; inéquations associées' }]
         },
-        // Leçon 2.2 Limites et continuité
-        L4_limites: {
-            titre: 'Limites et continuité',
-            theme: 'Analyse',
-            prerequis: ['Fonctions usuelles', 'Calcul algébrique'],
-            materiel: ['Calculatrice graphique'],
-            contenusSynth: [
-                'Limite en un point (finie, infinie)',
-                'Limites de référence : sin x / x, (cos x−1)/x en 0',
-                'Limite des fonctions polynômes/rationnelles',
-                'Asymptotes (horizontale, verticale, oblique)',
-                'Continuité en un point, à gauche/droite',
-                'Prolongement par continuité'
-            ],
-            strategies: [
-                'Introduire la notion de limite nulle en 0 par activités (majoration)',
-                'Utiliser le critère |f(x)−l| ≤ k|g(x)| avec g→0',
-                'Définir les limites à l’infini par composition avec 1/x',
-                'Faire découvrir les asymptotes graphiquement'
-            ],
-            consignes: [
-                'Donner les limites de référence (lim x^n = 0, lim √|x| = 0, lim sin x = 0)',
-                'Montrer que pour parler de limite en x0, f doit être définie de part et d’autre.',
-                'Établir le lien entre limite infinie et limite de 1/f.',
-                'Ne pas systématiser la recherche d’asymptote oblique (observation seulement).'
-            ],
-            evaluation: [
-                'Détermination de limite en un point ou à l’infini',
-                'Existence de limite, lecture graphique',
-                'Justification d’une asymptote',
-                'Démonstration de continuité',
-                'Reconnaissance de prolongement par continuité'
-            ],
-            capacitesDetails: [
-                { capacite: 'Déterminer une limite', contenu: 'limite en un point, à l’infini, fonctions de référence, polynômes/rationnelles, limites sin x/x, (cos x−1)/x en 0, 1/(x−a)^n' },
-                { capacite: 'Identifier une droite', contenu: 'asymptote horizontale, verticale, oblique' },
-                { capacite: 'Démontrer une propriété', contenu: 'asymptote, limite à gauche/droite, continuité à gauche/droite, continuité en x0' },
-                { capacite: 'Reconnaître une propriété', contenu: 'continuité à gauche/droite, continuité en x0' },
-                { capacite: 'Déterminer une fonction', contenu: 'prolongement par continuité' }
-            ]
+        A_equations_lineaires_IR2: {
+            titre: 'Équations et inéquations linéaires dans IR²',
+            serie: 'Seconde Littéraire',
+            prerequis: ['Droites dans le plan'],
+            contenusSynth: ['Équation ax+by+c=0, inéquation ax+by+c<0', 'Systèmes de deux équations (graphique et algébrique : combinaison, substitution)', 'Systèmes de deux inéquations du premier degré'],
+            strategies: ['Travail individuel/groupe, méthodes de combinaison/substitution', 'Utilisation de la représentation graphique'],
+            consignes: ['Ne pas aborder la méthode de Cramer', 'Privilégier la résolution graphique pour les inéquations'],
+            evaluation: ['Résolution graphique d’équations/inéquations/systèmes', 'Résolution algébrique par substitution/combinaison'],
+            capacitesDetails: [{ capacite: 'Résoudre des systèmes', contenu: 'graphiquement : équations/inéquations linéaires ; algébriquement systèmes 2x2' }]
         },
-        // Leçon 2.3 Dérivation
-        L5_derivation: {
-            titre: 'Dérivation',
-            theme: 'Analyse',
-            prerequis: ['Limites', 'Taux de variation'],
-            materiel: ['Calculatrice'],
-            contenusSynth: [
-                'Nombre dérivé, dérivabilité à gauche/droite',
-                'Fonction dérivée (usuels : a, ax^n, 1/x^n, √x, sin, cos, tan)',
-                'Opérations : u+v, αu, uv, 1/v, u/v, u^n, √u, u(ax+b)',
-                'Tangente, demi-tangentes',
-                'Extremum, lien signe dérivée – variations'
-            ],
-            strategies: [
-                'Introduire la dérivabilité à partir des représentations graphiques',
-                'Faire calculer le nombre dérivé avec la limite du taux de variation',
-                'Établir les formules de dérivation progressivement',
-                'Utiliser le signe de la dérivée pour les variations'
-            ],
-            consignes: [
-                'L’étude de la dérivabilité se fait obligatoirement par la limite du taux.',
-                'Donner la dérivée des fonctions usuelles sous forme de tableau.',
-                'Préciser que si la dérivée est de signe constant et ne s’annule qu’en un nombre fini de points, la fonction est strictement monotone.'
-            ],
-            evaluation: [
-                'Justification de dérivabilité',
-                'Calcul de nombre dérivé (par formule ou graphiquement)',
-                'Détermination de la dérivée d’une fonction',
-                'Équation de la tangente',
-                'Étude du signe de la dérivée et du sens de variation',
-                'Résolution de problèmes d’optimisation'
-            ],
-            capacitesDetails: [
-                { capacite: 'Reconnaître une propriété', contenu: 'dérivabilité à gauche/droite, dérivabilité en x0' },
-                { capacite: 'Démontrer une propriété', contenu: 'dérivabilité à gauche/droite, dérivabilité en x0' },
-                { capacite: 'Déterminer une expression', contenu: 'dérivée des fonctions usuelles et des combinaisons (u+v, αu, uv, 1/v, u/v, u^n, √u, u(ax+b))' },
-                { capacite: 'Déterminer un nombre', contenu: 'nombre dérivé par calcul ou graphiquement, extremum' },
-                { capacite: 'Déterminer les variations', contenu: 'signe de la dérivée, sens de variation, tableau de variation' },
-                { capacite: 'Mathématiser une situation', contenu: 'problème d’optimisation' }
-            ]
+        A_generalites_fonctions: {
+            titre: 'Généralités sur les fonctions',
+            serie: 'Seconde Littéraire',
+            prerequis: ['Notion de fonction (3ème)'],
+            materiel: ['Papier millimétré'],
+            contenusSynth: ['Notion de fonction, différentes déterminations (formule, tableau, graphique, programme)', 'Représentation graphique', 'Ensemble de définition', 'Image, antécédent, image directe', 'Coïncidence de deux fonctions'],
+            strategies: ['Activités variées (lien verbal, tableau, graphique)', 'Construction point par point'],
+            consignes: ['Exploiter représentations graphiques pour images/antécédents', 'Mettre l’accent sur l’utilisation de la courbe'],
+            evaluation: ['Reconnaissance fonction, détermination ensemble de définition', 'Construction graphique à partir de tableau', 'Lecture graphique images/antécédents'],
+            capacitesDetails: [{ capacite: 'Reconnaître une fonction', contenu: 'déterminations variées' }, { capacite: 'Déterminer image/antécédents', contenu: 'graphiquement et par calcul' }]
         },
-        // Leçon 2.4 Étude de fonctions
-        L6_etude_fonctions: {
-            titre: 'Étude de fonctions',
-            theme: 'Analyse',
-            prerequis: ['Limites, dérivées'],
-            materiel: ['Calculatrice graphique'],
-            contenusSynth: [
-                'Fonctions polynômes degré ≤3',
-                'Fonctions rationnelles (ax²+bx+c)/(dx+e)',
-                'Fonctions du type α cos(ax+b), α sin(ax+b)',
-                'Tangentes, demi-tangentes, asymptotes',
-                'Position relative courbe/droite'
-            ],
-            strategies: [
-                'Présenter le plan d’étude d’une fonction',
-                'Proposer des travaux pratiques sur différents types',
-                'Étudier aussi des fonctions définies par intervalles'
-            ],
-            consignes: [
-                'Inclure des fonctions avec paramètres simples.',
-                'Pour les fonctions trigonométriques, se limiter à α cos(ax+b) et α sin(ax+b).'
-            ],
-            evaluation: [
-                'Étude complète d’une fonction polynôme, rationnelle ou trigonométrique',
-                'Construction de la courbe, tangentes, asymptotes',
-                'Détermination d’intersections courbe/droite'
-            ],
-            capacitesDetails: [
-                { capacite: 'Étudier une fonction', contenu: 'polynôme degré ≤3 ; rationnelle (ax²+bx+c)/(dx+e) ; α cos(ax+b), α sin(ax+b)' },
-                { capacite: 'Construire un graphique', contenu: 'représentation graphique, tangente, demi-tangente, asymptote' },
-                { capacite: 'Déterminer un ensemble', contenu: 'position relative courbe/courbe, intersection courbe/droite y=ax+b' }
-            ]
+        A_fonctions_usuelles: {
+            titre: 'Fonctions numériques usuelles',
+            serie: 'Seconde Littéraire',
+            prerequis: ['Affines', 'Variations'],
+            contenusSynth: ['Sens de variation, tableau de variation', 'Fonction affine par intervalles, f(x)=ax² (a≠0), f(x)=a/x', 'Extrema', 'Caractérisation d’une fonction affine par deux images'],
+            strategies: ['Utilisation représentation graphique pour introduire croissante/décroissante', 'Faire découvrir définitions'],
+            consignes: ['Ne pas aborder les limites', 'Se limiter aux fonctions usuelles indiquées'],
+            evaluation: ['Détermination sens de variation, tableau', 'Construction graphique de f(x)=ax², f(x)=a/x', 'Caractérisation affine'],
+            capacitesDetails: [{ capacite: 'Déterminer les variations', contenu: 'affine par intervalles, x², a/x' }, { capacite: 'Construire graphique', contenu: 'allure courbe' }]
         },
-        // Leçon 2.5 Suites numériques
-        L7_suites: {
-            titre: 'Suites numériques',
-            theme: 'Analyse',
-            prerequis: ['Fonctions', 'Calcul algébrique'],
-            materiel: ['Tableur (optionnel)'],
-            contenusSynth: [
-                'Définition explicite, par récurrence',
-                'Suites arithmétiques, géométriques',
-                'Sens de variation, majorant, minorant',
-                'Convergence (idée intuitive)',
-                'Raisonnement par récurrence (exemples simples)'
-            ],
-            strategies: [
-                'Exploiter des activités numériques et graphiques',
-                'Introduire la récurrence sur des exemples très simples',
-                'Lier suites arithmétiques/géométriques à des situations concrètes'
-            ],
-            consignes: [
-                'Faire constater les propriétés (variation, convergence) à l’aide de la calculatrice.',
-                'Pour la récurrence, insister sur les deux étapes obligatoires.'
-            ],
-            evaluation: [
-                'Reconnaissance du mode de définition',
-                'Calcul de termes, représentation graphique',
-                'Démonstration par récurrence',
-                'Justification du sens de variation, de la convergence',
-                'Détermination de la nature d’une suite',
-                'Calcul de somme de termes'
-            ],
-            capacitesDetails: [
-                { capacite: 'Reconnaître une expression', contenu: 'suite explicite, récurrente ; arithmétique ; géométrique' },
-                { capacite: 'Représenter des nombres', contenu: 'termes d’une suite' },
-                { capacite: 'Calculer une grandeur', contenu: 'termes, raison, somme, limite (intuitive)' },
-                { capacite: 'Étudier le sens de variation', contenu: 'variation d’une suite' },
-                { capacite: 'Reconnaître un nombre', contenu: 'majorant, minorant' },
-                { capacite: 'Démontrer une propriété', contenu: 'convergence, suite arithmétique/géométrique, variation, majoration' },
-                { capacite: 'Utiliser une démarche', contenu: 'raisonnement par récurrence' },
-                { capacite: 'Mathématiser', contenu: 'exemples de situations avec suites' }
-            ]
+        A_denombrement: {
+            titre: 'Dénombrement',
+            serie: 'Seconde Littéraire',
+            prerequis: ['Ensembles', 'Lectures de tableaux'],
+            contenusSynth: ['Tableaux, arbres de choix', 'Réunion, intersection, produit cartésien, complémentaire', 'Cardinal : Card(A∪B)=Card(A)+Card(B)−Card(A∩B), Card(A×B)=Card(A)×Card(B)'],
+            strategies: ['Situations concrètes (garçons/filles, clubs)', 'Utilisation de diagrammes'],
+            consignes: ['Donner les formules avec exemples', 'Arbre de choix pour dénombrer'],
+            evaluation: ['Utilisation réunion/intersection/produit cartésien pour dénombrer', 'Construction d’arbre de choix'],
+            capacitesDetails: [{ capacite: 'Construire des tableaux', contenu: 'arbres, tableaux' }, { capacite: 'Interpréter les données', contenu: 'réunion, intersection, produit cartésien, complémentaire' }]
         },
-        // Leçon 3.1 Angles orientés – trigonométrie
-        L8_trigo: {
-            titre: 'Angles orientés – Trigonométrie',
-            theme: 'Trigonométrie',
-            prerequis: ['Cercle trigonométrique (seconde)', 'Angles associés'],
-            materiel: ['Cercle trigo, rapporteur'],
-            contenusSynth: [
-                'Mesure principale, somme d’angles',
-                'Cos, sin, tan d’un réel',
-                'Angles associés',
-                'Formules d’addition, duplication',
-                'Équations/inéquations trigonométriques (cos x = a, sin x ≤ a, tan x = a)',
-                'Ligne de niveau mes(MA, MB)'
-            ],
-            strategies: [
-                'Introduire les mesures d’angles orientés par le parcours sur le cercle',
-                'Démontrer cos(a−b) à l’aide du produit scalaire',
-                'Retrouver les angles associés par les formules d’addition',
-                'Résoudre graphiquement et algébriquement les équations'
-            ],
-            consignes: [
-                'Se limiter aux équations du type cos x = a, sin x = a, tan x = a.',
-                'Les inéquations sont abordées graphiquement.',
-                'La ligne de niveau mes(MA,MB) est présentée à partir de configurations.'
-            ],
-            evaluation: [
-                'Réduction d’expressions',
-                'Mesure principale d’un angle orienté',
-                'Calcul de cos, sin, tan d’angles associés',
-                'Utilisation des formules d’addition/duplication',
-                'Résolution d’équations/inéquations trigonométriques',
-                'Représentation graphique des fonctions sinus, cosinus, tangente',
-                'Détermination de lieux géométriques (mes(MA,MB) = α)'
-            ],
-            capacitesDetails: [
-                { capacite: 'Déterminer un nombre', contenu: 'mesures d’un angle orienté, mesure principale de somme, cos, sin, tan d’un réel, angles associés' },
-                { capacite: 'Simplifier une expression', contenu: 'formules d’addition et de duplication' },
-                { capacite: 'Déterminer un ensemble', contenu: 'équations/inéquations trigonométriques, ligne de niveau mes(MA,MB)' },
-                { capacite: 'Construire une configuration', contenu: 'représentation des points images, courbes sin, cos, tan' },
-                { capacite: 'Résoudre des problèmes d’angles', contenu: 'exemples de situations problèmes' }
-            ]
+        // ---------- SECONDE SCIENTIFIQUE ----------
+        S_calculs_IR: {
+            titre: 'Calculs dans IR (ensembles, puissances, racines)',
+            serie: 'Seconde Scientifique (2nde S)',
+            prerequis: ['Nombres réels', 'Intervalles'],
+            contenusSynth: ['Majorant, minorant, max, min', 'Centre/amplitude/rayon', 'Interprétation |x−a|=r, |x−a|≥r, |x−a|≤|x−b|', 'Puissances entières, racines carrées, dénominateur rationnel', 'Développement (a+b)³, (a−b)³, a³+b³, (a+b+c)²', 'Valeur approchée, partie entière'],
+            strategies: ['Méthode démonstrative, activités de révision', 'Introduction de √2 irrationnel'],
+            consignes: ['Proposer des situations pour majorant/minorant', 'Simplifier avec les identités remarquables'],
+            evaluation: ['Classification nombres, encadrement', 'Calcul avec fractions, puissances', 'Transformation expression sans valeur absolue'],
+            capacitesDetails: [{ capacite: 'Démontrer une propriété', contenu: 'majorant, minorant, irrationnalité' }, { capacite: 'Transformer expression', contenu: 'identités (a+b)³, a³+b³, (a+b+c)²' }]
         },
-        // Leçon 4.1 Barycentres et lignes de niveau
-        L9_barycentres: {
-            titre: 'Barycentres et lignes de niveau',
-            theme: 'Géométrie du plan',
-            prerequis: ['Vecteurs (seconde)'],
-            materiel: ['Règle, compas, équerre'],
-            contenusSynth: [
-                'Point pondéré, barycentre de 2 ou 3 points',
-                'Relation vectorielle, coordonnées',
-                'Barycentre partiel, homogénéité',
-                'Lignes de niveau : αMA²+βMB², αMA²+βMB²+γMC², MA·MB'
-            ],
-            strategies: [
-                'Introduire la notion de barycentre à partir d’activités (équilibre)',
-                'Présenter différentes constructions',
-                'Utiliser le barycentre pour déterminer des droites concourantes/parallèles',
-                'Déterminer des lignes de niveau par réduction'
-            ],
-            consignes: [
-                'Partir d’activités pour faire émerger le barycentre.',
-                'Ne pas multiplier les exercices formels ; privilégier la résolution de problèmes.'
-            ],
-            evaluation: [
-                'Détermination du barycentre (graphique ou relation vectorielle)',
-                'Démonstration utilisant barycentre partiel/homogénéité',
-                'Recherche de droites concourantes ou parallèles',
-                'Détermination de lignes de niveau'
-            ],
-            capacitesDetails: [
-                { capacite: 'Reconnaître une configuration', contenu: 'point pondéré, barycentre (2 ou 3 points)' },
-                { capacite: 'Caractériser un point', contenu: 'relation vectorielle du barycentre, coordonnées' },
-                { capacite: 'Construire une configuration', contenu: 'barycentre, lieux géométriques' },
-                { capacite: 'Démontrer une propriété', contenu: 'existence du barycentre, alignement, concours, parallélisme' },
-                { capacite: 'Déterminer un ensemble', contenu: 'lieux géométriques (lignes de niveau)' },
-                { capacite: 'Réduire une expression', contenu: 'barycentre partiel, homogénéité' },
-                { capacite: 'Mathématiser une situation', contenu: 'exemples avec barycentres' }
-            ]
+        S_polynomes_rationnelles: {
+            titre: 'Polynômes et fractions rationnelles',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Calcul littéral seconde'],
+            contenusSynth: ['Forme canonique du second degré', 'Factorisation par coefficients indéterminés ou division euclidienne', 'Simplification de fractions rationnelles', 'Signe d’un polynôme et fraction'],
+            strategies: ['Travail individuel, méthode des coefficients indéterminés', 'Éviter discriminant'],
+            consignes: ['Ne pas calculer le discriminant', 'Parler de racine de polynôme et zéro de fonction polynôme'],
+            evaluation: ['Détermination forme canonique', 'Factorisation, simplification', 'Tableau de signe'],
+            capacitesDetails: [{ capacite: 'Transformer expression', contenu: 'forme canonique, factorisation' }, { capacite: 'Étudier signe', contenu: 'polynôme, fraction rationnelle' }]
         },
-        // Leçon 4.2 Droites et cercles
-        L10_droites_cercles: {
-            titre: 'Droites et cercles',
-            theme: 'Géométrie du plan',
-            prerequis: ['Équations cartésiennes (seconde)', 'Cercle'],
-            materiel: ['Règle, compas'],
-            contenusSynth: [
-                'Représentation paramétrique d’un cercle',
-                'Tangente à un cercle en un point',
-                'Positions relatives droite/cercle'
-            ],
-            strategies: [
-                'Réviser l’équation cartésienne d’un cercle vue en seconde',
-                'Introduire la représentation paramétrique par activités',
-                'Déterminer l’équation de la tangente en un point du cercle'
-            ],
-            consignes: [
-                'Utiliser le produit scalaire pour la tangente.',
-                'Étudier les positions relatives par le discriminant.'
-            ],
-            evaluation: [
-                'Détermination d’une représentation paramétrique',
-                'Équation de la tangente en un point du cercle',
-                'Justification de position relative droite/cercle'
-            ],
-            capacitesDetails: [
-                { capacite: 'Étudier les positions des configurations', contenu: 'positions relatives droite/cercle' },
-                { capacite: 'Déterminer une expression', contenu: 'équation de la tangente en un point du cercle, représentation paramétrique d’un cercle' }
-            ]
+        S_equations_inequations: {
+            titre: 'Équations – Inéquations dans IR',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Résolutions de base'],
+            contenusSynth: ['Équations équivalentes', 'Méthode graphique f(x)=k, f(x)=g(x)', 'Systèmes équivalents', 'Produit ou quotient de fonctions 1er degré', 'Fonction affine par intervalles'],
+            strategies: ['Introduction paramètre simple', 'Utilisation de représentations graphiques'],
+            consignes: ['Ne pas traiter les équations irrationnelles générales', 'Discussion avec paramètre'],
+            evaluation: ['Résolution algébrique et graphique', 'Encadrement de solutions'],
+            capacitesDetails: [{ capacite: 'Résoudre équations/inéquations', contenu: 'produit/quotient degré 1, affines par intervalles' }]
         },
-        // Leçon 5.1 Étude de l’orthogonalité (espace)
-        L11_orthogonalite: {
-            titre: 'Étude de l’orthogonalité',
-            theme: 'Géométrie de l’espace',
-            prerequis: ['Géométrie dans l’espace (seconde)'],
-            materiel: ['Solides (cube, pyramide)'],
-            contenusSynth: [
-                'Droites orthogonales',
-                'Droite orthogonale à un plan',
-                'Plan médiateur',
-                'Plans perpendiculaires',
-                'Distance d’un point à un plan'
-            ],
-            strategies: [
-                'Manipuler des solides pour visualiser orthogonalité',
-                'Formaliser par des définitions',
-                'Utiliser le plan médiateur pour des problèmes de distance'
-            ],
-            consignes: [
-                'Faire manipuler cube, parallélépipède pour ressortir droites orthogonales.',
-                'Introduire la distance d’un point à un plan par des exemples.'
-            ],
-            evaluation: [
-                'Justification d’orthogonalité (droite/droite, droite/plan, plan/plan)',
-                'Détermination de la distance d’un point à un plan',
-                'Reconnaissance de deux plans perpendiculaires'
-            ],
-            capacitesDetails: [
-                { capacite: 'Étudier les positions des configurations', contenu: 'orthogonalité de deux droites, droite/plan, deux plans' },
-                { capacite: 'Démontrer une propriété', contenu: 'orthogonalité (droites, droite/plan, plans)' },
-                { capacite: 'Mathématiser une situation', contenu: 'exemples avec orthogonalité dans l’espace (construction, intersection)' }
-            ]
+        S_systemes_lineaires: {
+            titre: 'Systèmes linéaires dans IR² et IR³',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Systèmes 2x2'],
+            contenusSynth: ['Méthode graphique (inéquations, systèmes 2x2 ou 3x2)', 'Méthode algébrique : combinaison, substitution, déterminant (IR²)', 'Systèmes 3x3 par substitution', 'Programmation linéaire (initiation)'],
+            strategies: ['Utilisation du déterminant pour IR²', 'Situation problème'],
+            consignes: ['Méthode de Cramer hors programme pour 3x3', 'Partir d’exemples concrets'],
+            evaluation: ['Résolution graphique', 'Résolution algébrique systèmes 2x2 et 3x3'],
+            capacitesDetails: [{ capacite: 'Résoudre systèmes', contenu: 'graphique et algébrique (déterminant, substitution)' }]
         },
-        // Leçon 6.1 Homothéties
-        L12_homotheties: {
+        S_generalites_fonctions: {
+            titre: 'Généralités sur les fonctions (applications)',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Fonctions (seconde)'],
+            contenusSynth: ['Notions de fonction et application', 'Égalité de fonctions, coïncidence', 'Ensemble de définition, image directe, image réciproque', 'Construction point par point'],
+            strategies: ['Approche concrète avec différents modes de définition'],
+            consignes: ['Ne pas étudier parité/périodicité en seconde', 'Exploiter graphiques'],
+            evaluation: ['Reconnaissance application, détermination image directe/réciproque'],
+            capacitesDetails: [{ capacite: 'Déterminer un ensemble', contenu: 'image directe, réciproque, ensemble de définition' }]
+        },
+        S_etude_fonctions_usuelles: {
+            titre: 'Étude de fonctions usuelles',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Variations', 'Affines'],
+            contenusSynth: ['Affines par intervalles (valeur absolue, partie entière)', 'Fonctions x², x³, √x, 1/x', 'Fonctions du type a(x+α)²+β, α+β/(x+c)', 'Max(f,g), min(f,g)', 'Tableau de variation, extrema'],
+            strategies: ['Étude à partir de définitions', 'Construction graphique'],
+            consignes: ['Ne pas utiliser le taux de variation', 'Étudier les fonctions affines par intervalles'],
+            evaluation: ['Dresser tableau de variation', 'Représentation graphique'],
+            capacitesDetails: [{ capacite: 'Étudier les fonctions usuelles', contenu: 'variations, extrema' }]
+        },
+        S_angles_orientes: {
+            titre: 'Angles orientés, radian, cercle trigonométrique',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Géométrie'],
+            contenusSynth: ['Mesure en radian, mesure principale', 'Relation de Chasles', 'Cercle trigonométrique, point image d’un angle orienté'],
+            strategies: ['Activités de dessin et mesure', 'Utilisation du cercle'],
+            consignes: ['Ne pas introduire la congruence', 'Construire représentant d’un angle'],
+            evaluation: ['Conversion degré/radian', 'Détermination mesure principale', 'Construction sur cercle trigo'],
+            capacitesDetails: [{ capacite: 'Déterminer une mesure', contenu: 'principale, somme' }, { capacite: 'Construire configuration', contenu: 'point image, cercle trigo' }]
+        },
+        S_trigo_elementaire: {
+            titre: 'Fonctions trigonométriques élémentaires',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Angles orientés'],
+            contenusSynth: ['Cosinus, sinus, tangente', 'Angles associés', 'Relation cos²+sin²=1', 'Résolution d’équations simples (cos x = a, sin x = a)'],
+            strategies: ['Cercle trigonométrique', 'Utilisation des formules d’angles associés'],
+            consignes: ['Ne pas aborder formules d’addition', 'Équations sur des exemples'],
+            evaluation: ['Calcul cos, sin, tan angles associés', 'Simplification d’expressions'],
+            capacitesDetails: [{ capacite: 'Simplifier une expression', contenu: 'angles associés, relation fondamentale' }]
+        },
+        S_vecteurs_plan: {
+            titre: 'Vecteurs du plan (base, colinéarité, déterminant)',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Vecteurs 2de'],
+            contenusSynth: ['Caractérisation vectorielle du milieu, centre de gravité', 'Coordonnées', 'Combinaisons linéaires', 'Déterminant, base quelconque, repère orthonormé'],
+            strategies: ['Travail avec combinaison linéaire', 'Décomposition graphique'],
+            consignes: ['Ne pas abuser du calcul formel, privilégier problèmes géométriques'],
+            evaluation: ['Écriture combinaison linéaire', 'Calcul déterminant', 'Coordonnées'],
+            capacitesDetails: [{ capacite: 'Reconnaître une représentation', contenu: 'vecteurs colinéaires, base' }, { capacite: 'Démontrer propriété', contenu: 'vecteurs' }]
+        },
+        S_droites_cercles: {
+            titre: 'Droites et cercles (équations paramétriques, cartésiennes)',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Équations droites'],
+            contenusSynth: ['Vecteur directeur, vecteur normal', 'Représentation paramétrique', 'Équation cartésienne d’un cercle (centre-rayon, diamètre)', 'Position relative droite/cercle'],
+            strategies: ['Introduction de la représentation paramétrique', 'Lien avec le produit scalaire'],
+            consignes: ['Utiliser le discriminant pour position relative'],
+            evaluation: ['Détermination équation cartésienne/paramétrique', 'Tangente à un cercle'],
+            capacitesDetails: [{ capacite: 'Déterminer caractéristique', contenu: 'équations droite, cercle, paramétrique' }]
+        },
+        S_produit_scalaire: {
+            titre: 'Produit scalaire, théorèmes d’Al Kashi, médianes',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Vecteurs', 'Coordonnées'],
+            contenusSynth: ['Définition, propriétés, norme', 'Expression analytique, formes géométriques', 'Théorème d’Al Kashi, théorèmes de la médiane', 'Orthogonalité, lignes de niveau'],
+            strategies: ['Exemple pratique pour introduction', 'Utilisation des trois formes'],
+            consignes: ['Décomposer vecteurs avec Chasles', 'Réduire expressions'],
+            evaluation: ['Calcul produit scalaire, distance', 'Application théorèmes médiane, Al Kashi', 'Lignes de niveau'],
+            capacitesDetails: [{ capacite: 'Calculer une grandeur', contenu: 'produit scalaire, norme, cosinus' }, { capacite: 'Démontrer propriété', contenu: 'relations métriques' }]
+        },
+        S_angles_inscrits: {
+            titre: 'Angles inscrits non orientés, polygones réguliers',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Angles dans le cercle'],
+            contenusSynth: ['Angle inscrit, angle au centre, arcs capables', 'Sinus d’un angle, aire triangle, rayon cercle circonscrit', 'Polygones réguliers (côté, apothème)', 'Quadrilatères inscriptibles'],
+            strategies: ['Révisions 3ème', 'Construction d’arc capable'],
+            consignes: ['Démontrer théorème des sinus', 'Déterminer valeurs exactes cos 36°, 72°'],
+            evaluation: ['Mesure angle inscrit', 'Construction d’ensemble de points', 'Caractéristiques polygone régulier'],
+            capacitesDetails: [{ capacite: 'Calculer une grandeur', contenu: 'angle inscrit, sinus, aire' }, { capacite: 'Démontrer cocyclicité', contenu: 'quadrilatères' }]
+        },
+        S_positions_relatives_espace: {
+            titre: 'Positions relatives de droites et plans de l’espace',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Géométrie 1er cycle', 'Solides'],
+            contenusSynth: ['Axiomes, différentes déterminations d’un plan', 'Positions relatives : deux droites, deux plans, droite/plan', 'Perspective cavalière, section plane'],
+            strategies: ['Manipulation de solides', 'Utilisation du cube'],
+            consignes: ['Proposer des représentations', 'Section plane limitée aux solides usuels'],
+            evaluation: ['Reconnaissance positions', 'Construction de section plane'],
+            capacitesDetails: [{ capacite: 'Étudier positions', contenu: 'droites, plans, droite/plan' }, { capacite: 'Construire configuration', contenu: 'perspective, section' }]
+        },
+        S_paralellisme_espace: {
+            titre: 'Parallélisme dans l’espace',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Positions relatives'],
+            contenusSynth: ['Intersections : droites, plans, droite-plan', 'Parallélisme de deux droites, deux plans, droite/plan'],
+            strategies: ['Faire manipuler solides', 'Formaliser définitions'],
+            consignes: ['Renforcer acquis du premier cycle', 'Règles de parallélisme'],
+            evaluation: ['Reconnaissance parallélisme', 'Justification'],
+            capacitesDetails: [{ capacite: 'Déterminer un ensemble', contenu: 'intersection' }, { capacite: 'Démontrer propriété', contenu: 'parallélisme/intersection' }]
+        },
+        S_isometries_translations: {
+            titre: 'Isométries : symétries centrales, orthogonales, translations',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Transformations'],
+            contenusSynth: ['Image d’une figure par symétrie centrale, orthogonale, translation', 'Expression analytique (cas particuliers y=0, x=0, y=x, y=−x)', 'Propriétés'],
+            strategies: ['Caractérisation vectorielle', 'Construction'],
+            consignes: ['Se limiter aux expressions analytiques simples', 'Utiliser pour problèmes de lieux'],
+            evaluation: ['Détermination expression analytique', 'Construction images'],
+            capacitesDetails: [{ capacite: 'Caractériser application', contenu: 'symétrie centrale, orthogonale, translation' }, { capacite: 'Déterminer expression analytique', contenu: 'cas particuliers' }]
+        },
+        S_homotheties: {
             titre: 'Homothéties',
-            theme: 'Applications du plan',
-            prerequis: ['Vecteurs', 'Transformations'],
-            materiel: ['Règle, compas'],
-            contenusSynth: ['Réciproque d’une homothétie', 'Composée de deux homothéties de même centre', 'Expression analytique de la composée'],
-            strategies: [
-                'Proposer des activités pour la réciproque',
-                'Caractériser la composée de deux homothéties de même centre'
-            ],
-            consignes: [
-                'NB : la composée d’homothéties de centres distincts n’est pas au programme.',
-                'Donner l’expression analytique à partir de la définition vectorielle.'
-            ],
-            evaluation: [
-                'Identification des éléments de la réciproque',
-                'Détermination de la composée de deux homothéties (même centre)',
-                'Expression analytique de la composée'
-            ],
-            capacitesDetails: [
-                { capacite: 'Reconnaître une application', contenu: 'réciproque d’une homothétie, composée de deux homothéties de même centre' },
-                { capacite: 'Déterminer une expression', contenu: 'expression analytique d’une composée d’homothéties' },
-                { capacite: 'Mathématiser une situation problème', contenu: 'exemples avec homothéties' }
-            ]
+            serie: 'Seconde Scientifique',
+            prerequis: ['Vecteurs', 'Translations'],
+            contenusSynth: ['Homothétie échangeant deux figures', 'Caractérisation vectorielle', 'Expression analytique', 'Problèmes de constructions'],
+            strategies: ['Activités d’agrandissement/réduction', 'Composée de deux homothéties même centre'],
+            consignes: ['Ne pas aborder homothéties de centres distincts', 'Rapport réel non nul ≠1'],
+            evaluation: ['Reconnaissance d’homothétie', 'Construction image', 'Expression analytique'],
+            capacitesDetails: [{ capacite: 'Reconnaître application', contenu: 'homothétie' }, { capacite: 'Construire configuration', contenu: 'image par homothétie' }]
         },
-        // Leçon 6.2 Isométries
-        L13_isometries: {
-            titre: 'Isométries',
-            theme: 'Applications du plan',
-            prerequis: ['Symétries, translation, rotation (seconde)'],
-            materiel: ['Papier calque, règle, compas'],
-            contenusSynth: [
-                'Réciproque d’une isométrie (translation, symétrie, rotation)',
-                'Composée de deux symétries orthogonales',
-                'Composée de deux translations',
-                'Composée de deux rotations de même centre',
-                'Déplacement / antidéplacement',
-                'Triangles isométriques'
-            ],
-            strategies: [
-                'Partir d’activités pour caractériser les composées',
-                'Présenter les applications réciproques sans démonstration systématique',
-                'Utiliser trois points pour distinguer déplacement/antidéplacement'
-            ],
-            consignes: [
-                'Pour les symétries orthogonales, se référer aux axes étudiés en seconde.',
-                'La composée de deux symétries d’axes quelconques n’est pas au programme.',
-                'Les triangles isométriques permettent de caractériser l’isométrie échangeant deux triangles.'
-            ],
-            evaluation: [
-                'Construction de l’image d’une figure par composée d’isométries',
-                'Reconnaissance de la réciproque d’une isométrie',
-                'Caractérisation d’une isométrie échangeant deux triangles isométriques',
-                'Démonstration sur triangles isométriques'
-            ],
-            capacitesDetails: [
-                { capacite: 'Construire une configuration', contenu: 'image par composée de deux isométries (translation, symétries, rotation)' },
-                { capacite: 'Reconnaître une application', contenu: 'réciproque translation/symétrie/rotation ; composée rotations même centre ; composée translations ; déplacement/retournement' },
-                { capacite: 'Caractériser une application', contenu: 'réciproque, composée rotations même centre, composée translations, isométrie échangeant deux triangles isométriques' },
-                { capacite: 'Démontrer une propriété', contenu: 'triangles isométriques' },
-                { capacite: 'Déterminer une expression', contenu: 'rotation de centre origine du repère' }
-            ]
+        S_rotations: {
+            titre: 'Rotations',
+            serie: 'Seconde Scientifique',
+            prerequis: ['Angles orientés', 'Symétries'],
+            contenusSynth: ['Rotation échangeant deux figures', 'Construction d’images', 'Composée de rotations de même centre', 'Problèmes de construction'],
+            strategies: ['Composée de deux symétries orthogonales d’axes sécants', 'Faire construire images'],
+            consignes: ['Présenter rotation comme composée de symétries', 'Démontrer propriétés'],
+            evaluation: ['Reconnaissance rotation', 'Construction images', 'Résolution problèmes'],
+            capacitesDetails: [{ capacite: 'Reconnaître application', contenu: 'rotation' }, { capacite: 'Construire configuration', contenu: 'image par rotation' }]
         },
-        // Leçon 6.3 Similitudes
-        L14_similitudes: {
-            titre: 'Similitudes',
-            theme: 'Applications du plan',
-            prerequis: ['Homothéties', 'Isométries'],
-            materiel: ['Règle, compas'],
-            contenusSynth: [
-                'Similitude directe / indirecte',
-                'Rapport, angle d’une similitude directe',
-                'Triangles semblables',
-                'Expression analytique d’une similitude'
-            ],
-            strategies: [
-                'Introduire à partir de la proportionnalité des distances',
-                'Distinguer directe/indirecte par la composée isométrie+homothétie',
-                'Faire construire des images de figures simples'
-            ],
-            consignes: [
-                'La détermination du centre d’une similitude n’est pas au programme.',
-                'On utilise la propriété des triangles semblables pour démontrer.'
-            ],
-            evaluation: [
-                'Reconnaissance similitude directe/indirecte',
-                'Détermination du rapport et de l’angle',
-                'Construction d’image par similitude',
-                'Démonstration de triangles semblables',
-                'Expression analytique d’une similitude'
-            ],
-            capacitesDetails: [
-                { capacite: 'Reconnaître une application', contenu: 'similitude directe, indirecte ; transformation échangeant deux triangles semblables' },
-                { capacite: 'Caractériser une application', contenu: 'rapport d’une similitude directe, mesure de l’angle' },
-                { capacite: 'Construire une configuration', contenu: 'image par similitude directe' },
-                { capacite: 'Démontrer une propriété', contenu: 'triangles semblables' },
-                { capacite: 'Mathématiser une situation', contenu: 'exemples avec isométries ou similitudes' }
-            ]
-        },
-        // Leçon 7.1 Série statistique double
-        L15_stats_double: {
-            titre: 'Série statistique double',
-            theme: 'Organisation des données',
+        S_statistiques: {
+            titre: 'Statistiques (effectifs, variance, écart-type, histogramme)',
+            serie: 'Seconde Scientifique',
             prerequis: ['Statistiques 1er cycle'],
-            materiel: ['Tableur', 'Papier millimétré'],
-            contenusSynth: [
-                'Tableau à double entrée',
-                'Nuage de points, point moyen',
-                'Séries marginales',
-                'Ajustement linéaire : méthode de Mayer, moindres carrés',
-                'Coefficient de corrélation linéaire'
-            ],
-            strategies: [
-                'Proposer des situations concrètes',
-                'Présenter les deux méthodes d’ajustement',
-                'Donner les formules de covariance et corrélation'
-            ],
-            consignes: [
-                'L’enseignant choisira des exemples avec nombre de points pair ou impair.',
-                'Interpréter la valeur du coefficient de corrélation.'
-            ],
-            evaluation: [
-                'Construction du tableau, nuage, point moyen',
-                'Détermination de la droite d’ajustement (Mayer / moindres carrés)',
-                'Calcul du coefficient de corrélation',
-                'Interprétation du résultat'
-            ],
-            capacitesDetails: [
-                { capacite: 'Organiser les données', contenu: 'tableau à double entrée, séries marginales' },
-                { capacite: 'Construire une configuration', contenu: 'nuage de points, point moyen' },
-                { capacite: 'Calculer une grandeur', contenu: 'moyennes, variance, covariance, coefficient de corrélation' },
-                { capacite: 'Ajuster un nuage de points', contenu: 'droite d’ajustement (Mayer, moindres carrés)' },
-                { capacite: 'Interpréter un résultat', contenu: 'coefficient de corrélation' },
-                { capacite: 'Mathématiser une situation', contenu: 'exemples avec séries doubles' }
-            ]
-        },
-        // Leçon 7.2 Dénombrement – Probabilité
-        L16_denombrement: {
-            titre: 'Dénombrement – Probabilité',
-            theme: 'Organisation des données',
-            prerequis: ['Arbres, ensembles (seconde)'],
-            materiel: ['Dés, cartes, diagrammes'],
-            contenusSynth: [
-                'Cardinal, réunion, complémentaire, produit cartésien',
-                'p-uplets, arrangements, permutations',
-                'Combinaisons, triangle de Pascal',
-                'Binôme de Newton',
-                'Vocabulaire probabiliste (univers, événement)',
-                'Probabilité en situation d’équiprobabilité'
-            ],
-            strategies: [
-                'Utiliser des situations concrètes pour les dénombrements',
-                'Introduire les p-uplets par l’arbre de choix',
-                'Faire le lien avec les coefficients binomiaux',
-                'Définir la probabilité par quotient de cas favorables/cas possibles'
-            ],
-            consignes: [
-                'Donner les formules : Card(A∪B) = Card(A)+Card(B)−Card(A∩B), Card(A×B)=Card(A)×Card(B)',
-                'Introduire la notation factorielle.',
-                'Se limiter à l’équiprobabilité pour les probabilités.'
-            ],
-            evaluation: [
-                'Détermination du cardinal d’un ensemble',
-                'Calcul de nombre de p-uplets, arrangements, permutations, combinaisons',
-                'Utilisation du triangle de Pascal',
-                'Développement avec le binôme',
-                'Construction d’un univers, identification d’événements',
-                'Calcul de probabilité (équiprobabilité)'
-            ],
-            capacitesDetails: [
-                { capacite: 'Construire des tableaux', contenu: 'tableaux de données, arbres de choix' },
-                { capacite: 'Interpréter des données', contenu: 'tableaux, arbres, réunion, intersection, produit cartésien, complémentaire, modèles p-uplets, arrangements, permutations, combinaisons' },
-                { capacite: 'Déterminer un nombre', contenu: 'nombre d’éléments par arbre ou modèles, probabilité en équiprobabilité' },
-                { capacite: 'Mathématiser une situation', contenu: 'exemples avec dénombrements et équiprobabilité' }
-            ]
+            contenusSynth: ['Effectifs, fréquences, cumulés', 'Diagrammes (bâtons, circulaire, histogramme)', 'Moyenne, médiane, mode', 'Variance, écart-type, écart moyen'],
+            strategies: ['Situations concrètes', 'Construction manuelle ou tableur'],
+            consignes: ['Calculer médiane graphiquement pour classes', 'Utiliser les formules de variance'],
+            evaluation: ['Construction diagrammes', 'Calcul caractéristiques position/dispersion', 'Interprétation'],
+            capacitesDetails: [{ capacite: 'Calculer grandeur', contenu: 'effectifs, variance, écart-type' }, { capacite: 'Construire diagramme', contenu: 'histogramme, polygone' }]
         }
     };
 
-    // -------------------- LOGIQUE D'AFFICHAGE --------------------
     const select = document.getElementById('leconSelect');
     const dureeInput = document.getElementById('dureeField');
     const dateInput = document.getElementById('dateField');
     const btn = document.getElementById('btnGenerer');
     const ficheDiv = document.getElementById('ficheGeneree');
     const contenuFiche = document.getElementById('contenuFiche');
-
     const today = new Date().toISOString().split('T')[0];
     dateInput.value = today;
 
-    select.addEventListener('change', function() {
-        if (lecons[this.value]) dureeInput.value = '5h (progression)';
-    });
-
     function generer() {
         const id = select.value;
-        if (!id || !lecons[id]) { alert('Veuillez sélectionner une leçon.'); return; }
+        if (!id || !lecons[id]) { alert('Veuillez sélectionner une leçon du programme officiel Togo.'); return; }
         const lec = lecons[id];
         const duree = dureeInput.value || 'selon progression';
-        const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('fr-FR') : 'À déterminer';
-
+        const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('fr-FR') : 'À définir';
         const contenuItems = lec.contenusSynth.map(c => `<li>${c}</li>`).join('');
         const stratItems = lec.strategies.map(s => `<li>${s}</li>`).join('');
         const consignesDiv = lec.consignes.map(c => `<div class="badge-consigne">📣 ${c}</div>`).join('');
         const evalItems = lec.evaluation.map(e => `<li>${e}</li>`).join('');
-        const capRows = lec.capacitesDetails.map(item => 
-            `<tr><td style="font-weight:600; width:35%;">${item.capacite}</td><td>${item.contenu}</td></tr>`
-        ).join('');
-
+        const capRows = lec.capacitesDetails.map(item => `<tr><td style="font-weight:600; width:35%;">${item.capacite}</td><td>${item.contenu}</td></tr>`).join('');
         const html = `
             <div class="fiche-header">
                 <h2>${lec.titre}</h2>
-                <p style="font-size:clamp(0.9rem,2.5vw,1.15rem);">Thème : ${lec.theme} — Durée : ${duree} — Date : ${date}</p>
+                <p style="font-size:clamp(0.9rem,2.5vw,1.15rem);">Série : ${lec.serie} — Durée : ${duree} — Date : ${date}</p>
             </div>
-            <div class="section-guide"><h4>📋 CONTENUS (synthèse)</h4><ul class="bullet-list">${contenuItems}</ul></div>
-            <div class="section-guide"><h4>🧠 STRATÉGIES</h4><ul class="bullet-list">${stratItems}</ul></div>
-            <div class="section-guide"><h4>🗣️ CONSIGNES</h4>${consignesDiv}</div>
-            <div class="section-guide"><h4>✅ ÉVALUATION</h4><ul class="bullet-list">${evalItems}</ul></div>
-            <div class="section-guide"><h4>🔎 CAPACITÉS & CONTENUS</h4>
-                <table class="table-cap"><tr><th>Capacité</th><th>Contenu</th></tr>${capRows}</table>
-            </div>
-            ${lec.prerequis ? `<div class="section-guide"><h4>📦 PRÉREQUIS & MATÉRIEL</h4><p><strong>Prérequis :</strong> ${lec.prerequis.join(', ')}</p><p><strong>Matériel :</strong> ${lec.materiel.join(' · ')}</p></div>` : ''}
+            <div class="section-guide"><h4>📋 CONTENUS (extrait officiel)</h4><ul class="bullet-list">${contenuItems}</ul></div>
+            <div class="section-guide"><h4>🧠 STRATÉGIES PÉDAGOGIQUES</h4><ul class="bullet-list">${stratItems}</ul></div>
+            <div class="section-guide"><h4>🗣️ CONSIGNES DIDACTIQUES</h4>${consignesDiv}</div>
+            <div class="section-guide"><h4>✅ ÉVALUATION DES COMPÉTENCES</h4><ul class="bullet-list">${evalItems}</ul></div>
+            <div class="section-guide"><h4>🔎 CAPACITÉS & CONTENUS DÉTAILLÉS</h4><table class="table-cap"><tr><th>Capacité</th><th>Contenu</th></tr>${capRows}</table></div>
+            ${lec.prerequis ? `<div class="section-guide"><h4>📦 PRÉREQUIS & MATÉRIEL</h4><p><strong>Prérequis :</strong> ${lec.prerequis.join(', ')}</p><p><strong>Matériel :</strong> ${lec.materiel ? lec.materiel.join(' · ') : 'À déterminer selon activité'}</p></div>` : ''}
+            <div style="background:#eef5f0; border-radius:20px; padding:1rem; margin-top:1rem; text-align:center; font-style:italic;">Conforme au programme officiel de la République Togolaise – Septembre 2022 – Direction des programmes mathématiques.</div>
         `;
         contenuFiche.innerHTML = html;
         ficheDiv.classList.remove('hidden');
         ficheDiv.scrollIntoView({ behavior: 'smooth' });
     }
-
     btn.addEventListener('click', generer);
-    document.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') generer(); });
-
     window.exportWord = function() {
         if (ficheDiv.classList.contains('hidden')) return alert('Générez d’abord une fiche.');
-        const content = contenuFiche.innerHTML;
         const style = '<style>body { font-family: Arial; margin: 2cm; } .section-guide { margin-bottom:20px; } .table-cap { border-collapse: collapse; width:100%; } .table-cap td, .table-cap th { border:1px solid #aaa; padding:8px; } .badge-consigne { background:#fef7e5; padding:10px; border-left:6px solid #f3b33d; }</style>';
-        const full = `<!DOCTYPE html><html><head><meta charset="UTF-8">${style}</head><body>${content}</body></html>`;
+        const full = `<!DOCTYPE html><html><head><meta charset="UTF-8">${style}</head><body>${contenuFiche.innerHTML}</body></html>`;
         const blob = new Blob([full], {type: 'application/msword'});
-        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'Fiche_1ereD_maths.doc'; link.click();
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'Fiche_Mathematiques_Seconde_Togo.doc'; link.click();
     };
-    window.resetFiche = function() {
-        ficheDiv.classList.add('hidden');
-        select.value = '';
-        dureeInput.value = 'selon progression';
-        dateInput.value = today;
-    };
+    window.resetFiche = function() { ficheDiv.classList.add('hidden'); select.value = ''; dureeInput.value = 'selon progression (3h/5h)'; dateInput.value = today; };
 })();
 </script>
 </body>
