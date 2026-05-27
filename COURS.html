@@ -1,1467 +1,718 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Fiche de Leçon - Édition Enrichie</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --border-color: #bdc3c7;
-            --text-color: #333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--text-color);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .app-description {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-        
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        @media (max-width: 1100px) {
-            .app-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .form-section, .preview-section {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-        
-        h2 {
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.5rem;
-        }
-        
-        h2 i {
-            color: var(--secondary-color);
-            font-size: 1.3rem;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-        
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        button:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        .btn-success {
-            background-color: var(--success-color);
-        }
-        
-        .btn-warning {
-            background-color: var(--warning-color);
-        }
-        
-        .btn-danger {
-            background-color: var(--accent-color);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--secondary-color);
-            color: var(--secondary-color);
-        }
-        
-        .lesson-preview {
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 25px;
-            background-color: white;
-            min-height: 700px;
-            max-height: 800px;
-            overflow-y: auto;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .lesson-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        
-        .teacher-info, .school-info {
-            padding: 20px;
-            background-color: var(--light-color);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .teacher-info p, .school-info p {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .lesson-title {
-            text-align: center;
-            margin: 25px 0;
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--light-color) 0%, #dfe6e9 100%);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .section {
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .section-title {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .section-content {
-            padding: 20px;
-            background-color: white;
-        }
-        
-        .section-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            margin: 10px 0;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            display: block;
-        }
-        
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        .latex-output {
-            margin-top: 25px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .latex-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .latex-content {
-            padding: 20px;
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            font-family: 'Courier New', monospace;
-            max-height: 300px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            line-height: 1.5;
-        }
-        
-        .copy-btn {
-            background-color: transparent;
-            border: 1px solid white;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-        }
-        
-        .preview-placeholder {
-            text-align: center;
-            padding: 60px 20px;
-            color: #7f8c8d;
-            font-style: italic;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .preview-placeholder i {
-            font-size: 3rem;
-            color: var(--border-color);
-        }
-        
-        .form-tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .tab {
-            padding: 12px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        
-        .tab.active {
-            border-bottom: 3px solid var(--secondary-color);
-            color: var(--secondary-color);
-            font-weight: 600;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .status-message {
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: center;
-            font-weight: 600;
-            display: none;
-        }
-        
-        .success {
-            background-color: rgba(39, 174, 96, 0.15);
-            color: var(--success-color);
-            border: 1px solid var(--success-color);
-        }
-        
-        .error {
-            background-color: rgba(231, 76, 60, 0.15);
-            color: var(--accent-color);
-            border: 1px solid var(--accent-color);
-        }
-        
-        .saved-lessons {
-            margin-top: 30px;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-        
-        .saved-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .filter-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .filter-controls select, .filter-controls input {
-            flex: 1;
-        }
-        
-        .lessons-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .lesson-card {
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 20px;
-            background-color: white;
-            transition: all 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .lesson-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .lesson-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-        
-        .lesson-card-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--primary-color);
-        }
-        
-        .lesson-card-actions {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .lesson-card-action {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 6px;
-            border-radius: 4px;
-            transition: all 0.3s;
-            color: var(--secondary-color);
-        }
-        
-        .lesson-card-action:hover {
-            background-color: var(--light-color);
-            transform: scale(1.1);
-        }
-        
-        .lesson-card-meta {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .lesson-card-meta div {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .lesson-card-preview {
-            font-size: 0.9rem;
-            max-height: 100px;
-            overflow: hidden;
-            position: relative;
-            line-height: 1.4;
-        }
-        
-        .lesson-card-preview::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: linear-gradient(transparent, white);
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #7f8c8d;
-            grid-column: 1 / -1;
-        }
-        
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--border-color);
-        }
-        
-        /* Éditeur de texte enrichi amélioré */
-        .editor-container {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        
-        .ql-toolbar {
-            background-color: var(--light-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .ql-editor {
-            min-height: 150px;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        
-        .ql-editor table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-        }
-        
-        .ql-editor table, .ql-editor th, .ql-editor td {
-            border: 1px solid var(--border-color);
-        }
-        
-        .ql-editor th, .ql-editor td {
-            padding: 8px 12px;
-            text-align: left;
-        }
-        
-        .ql-editor th {
-            background-color: var(--light-color);
-            font-weight: 600;
-        }
-        
-        .ql-editor img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            margin: 10px 0;
-            display: block;
-        }
-        
-        .ql-editor blockquote {
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 15px;
-            margin: 10px 0;
-            font-style: italic;
-            color: #555;
-        }
-        
-        .ql-editor code {
-            background-color: var(--light-color);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .ql-editor pre {
-            background-color: var(--light-color);
-            padding: 12px;
-            border-radius: 6px;
-            overflow-x: auto;
-            margin: 10px 0;
-        }
-        
-        .ql-editor pre code {
-            background: none;
-            padding: 0;
-        }
-        
-        /* Styles pour les différentes polices */
-        .ql-font-arial { font-family: Arial, sans-serif; }
-        .ql-font-times { font-family: 'Times New Roman', serif; }
-        .ql-font-courier { font-family: 'Courier New', monospace; }
-        .ql-font-georgia { font-family: Georgia, serif; }
-        .ql-font-verdana { font-family: Verdana, sans-serif; }
-        .ql-font-tahoma { font-family: Tahoma, sans-serif; }
-        .ql-font-impact { font-family: Impact, sans-serif; }
-        .ql-font-comic { font-family: 'Comic Sans MS', cursive; }
-        
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .image-modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .image-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .image-modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark-color);
-        }
-        
-        .image-preview {
-            max-width: 100%;
-            max-height: 200px;
-            margin: 15px auto;
-            display: block;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-        
-        @media (max-width: 768px) {
-            .form-row, .actions {
-                grid-template-columns: 1fr;
-            }
-            
-            .lesson-header {
-                grid-template-columns: 1fr;
-            }
-            
-            .saved-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .filter-controls {
-                flex-direction: column;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
-            }
-        }
-        
-        /* Styles pour le texte coloré */
-        .text-red { color: #e74c3c !important; }
-        .text-blue { color: #3498db !important; }
-        .text-green { color: #27ae60 !important; }
-        .text-black { color: #2c3e50 !important; }
-        .text-purple { color: #9b59b6 !important; }
-        .text-orange { color: #e67e22 !important; }
-        .text-yellow { color: #f1c40f !important; }
-        .text-brown { color: #a0522d !important; }
-        
-        .section-content b, .section-content strong {
-            font-weight: 600;
-        }
-        
-        .section-content i, .section-content em {
-            font-style: italic;
-        }
-        
-        .section-content u {
-            text-decoration: underline;
-        }
-        
-        /* Styles pour les couleurs dans l'éditeur */
-        .ql-editor span[style*="color: #e74c3c"] { color: #e74c3c !important; }
-        .ql-editor span[style*="color: #3498db"] { color: #3498db !important; }
-        .ql-editor span[style*="color: #27ae60"] { color: #27ae60 !important; }
-        .ql-editor span[style*="color: #2c3e50"] { color: #2c3e50 !important; }
-        .ql-editor span[style*="color: #9b59b6"] { color: #9b59b6 !important; }
-        .ql-editor span[style*="color: #e67e22"] { color: #e67e22 !important; }
-        .ql-editor span[style*="color: #f1c40f"] { color: #f1c40f !important; }
-        .ql-editor span[style*="color: #a0522d"] { color: #a0522d !important; }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Quill.js pour l'éditeur de texte enrichi -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Générateur de Fiche Pédagogique — Complète</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --primary: #0a2463; --primary-light: #1e3a8a; --primary-mid: #3b82f6; --primary-surface: #eef2ff;
+    --accent: #f59e0b; --accent-light: #fef3c7; --success: #10b981; --success-light: #d1fae5;
+    --danger: #ef4444; --danger-light: #fee2e2; --orange: #f97316; --orange-light: #ffedd5;
+    --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0; --gray-300: #cbd5e1;
+    --gray-400: #94a3b8; --gray-500: #64748b; --gray-600: #475569; --gray-700: #334155; --gray-800: #1e293b;
+    --radius: 12px; --radius-sm: 8px; --radius-xs: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -2px rgba(0,0,0,.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.04);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--gray-100); color: var(--gray-800); line-height: 1.5; }
+  ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+  .app-layout { display: flex; min-height: 100vh; }
+  .sidebar { width: 500px; min-width: 500px; background: white; border-right: 1px solid var(--gray-200); overflow-y: auto; height: 100vh; position: sticky; top: 0; z-index: 50; }
+  .sidebar-inner { padding: 14px 12px; }
+  .sidebar-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--gray-100); }
+  .sidebar-header .logo { width: 30px; height: 30px; background: var(--primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white; font-size: .9rem; font-weight: 700; }
+  .sidebar-header h2 { font-size: .85rem; font-weight: 700; color: var(--gray-800); }
+  .sidebar-header .badge { font-size: .58rem; background: var(--accent-light); color: #92400e; padding: 1px 6px; border-radius: 20px; font-weight: 600; margin-left: auto; }
+  .form-cat { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--gray-400); margin: 10px 0 3px 0; display: flex; align-items: center; gap: 4px; }
+  .form-cat .act { font-size: .65rem; text-transform: none; color: var(--primary-mid); cursor: pointer; font-weight: 600; margin-left: auto; }
+  .form-row { display: flex; gap: 5px; } .form-row > * { flex: 1; }
+  .form-g { margin-bottom: 3px; }
+  .form-g label { display: block; font-size: .65rem; font-weight: 600; color: var(--gray-600); margin-bottom: 1px; }
+  .form-g input, .form-g textarea, .form-g select { width: 100%; padding: 4px 7px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-xs); font-size: .73rem; font-family: inherit; transition: all .2s; background: var(--gray-50); color: var(--gray-800); }
+  .form-g input:focus, .form-g textarea:focus { border-color: var(--primary-mid); outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,.12); background: white; }
+  .form-g textarea { min-height: 26px; resize: vertical; }
+  .sidebar-actions { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .btn { padding: 6px 10px; border: none; border-radius: var(--radius-sm); font-weight: 600; font-size: .75rem; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: inherit; }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--primary); color: white; } .btn-primary:hover { background: var(--primary-light); box-shadow: var(--shadow-md); }
+  .btn-success { background: var(--success); color: white; } .btn-success:hover { background: #059669; }
+  .btn-orange { background: var(--orange); color: white; } .btn-orange:hover { background: #ea580c; }
+  .btn-outline { background: transparent; color: var(--gray-600); border: 1.5px solid var(--gray-200); } .btn-outline:hover { background: var(--gray-50); }
+  .btn-sm { padding: 3px 7px; font-size: .7rem; }
+  .coll { margin-bottom: 1px; }
+  .coll .h { display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: .67rem; font-weight: 600; color: var(--gray-500); padding: 2px 5px; border-radius: 3px; background: var(--gray-50); user-select: none; }
+  .coll .h:hover { background: var(--gray-100); }
+  .coll .b { padding: 3px 5px 0 5px; display: none; }
+  .coll.open .b { display: block; }
+  .coll .h .arr { transition: transform .2s; font-size: .55rem; }
+  .coll.open .h .arr { transform: rotate(90deg); }
+  #seancesContainer { margin-bottom: 3px; }
+  .sc { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-xs); padding: 5px 7px; margin-bottom: 3px; position: relative; }
+  .sc .num { font-size: .62rem; font-weight: 700; color: var(--primary-mid); margin-bottom: 1px; }
+  .sc .r { display: flex; gap: 3px; margin-bottom: 1px; } .sc .r input { flex: 1; }
+  .sc .del { position: absolute; top: 1px; right: 1px; background: none; border: none; color: var(--gray-400); cursor: pointer; font-size: .8rem; line-height: 1; padding: 0 3px; border-radius: 2px; }
+  .sc .del:hover { background: var(--danger-light); color: var(--danger); }
+  .img-prev { max-width: 100%; max-height: 60px; border-radius: var(--radius-xs); margin-top: 2px; object-fit: cover; display: none; border: 1px solid var(--gray-200); }
+  .img-prev.show { display: block; }
+  .img-te { border-radius: var(--radius-xs); padding: 3px 5px; margin-top: 3px; background: var(--gray-50); border: 1px dashed var(--gray-300); display: flex; gap: 3px; }
+  .img-te input { flex: 1; font-size: .68rem; padding: 2px 5px; border: 1px solid var(--gray-200); border-radius: 3px; background: white; }
+  .img-te label { font-size: .6rem; color: var(--gray-400); white-space: nowrap; display: flex; align-items: center; }
+  .img-te input[type="file"] { flex: 1.3; font-size: .62rem; padding: 1px 2px; }
+  .main-content { flex: 1; padding: 16px 24px; display: flex; justify-content: center; }
+  .page-container { max-width: 1140px; width: 100%; }
+  .page { background: white; border-radius: var(--radius); box-shadow: var(--shadow-xl); overflow: hidden; }
+  .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 30px; text-align: center; }
+  .empty-state .icon { font-size: 2.8rem; margin-bottom: 10px; opacity: .4; }
+  .empty-state h3 { font-size: 1rem; color: var(--gray-400); font-weight: 600; }
+  .page-header { background: linear-gradient(135deg, var(--primary), #1e3a8a); padding: 8px 18px; display: flex; justify-content: space-between; align-items: center; font-size: .7rem; color: rgba(255,255,255,.9); }
+  .page-footer { background: var(--gray-50); border-top: 1px solid var(--gray-200); padding: 5px 18px; display: flex; justify-content: space-between; font-size: .64rem; color: var(--gray-500); }
+  .title-page { padding: 26px 22px 20px; text-align: center; background: linear-gradient(180deg, var(--primary-surface), white 60%); position: relative; }
+  .title-page::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, transparent, var(--primary-mid), transparent); }
+  .title-page h1 { font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 3px; letter-spacing: -1px; }
+  .title-page .subtitle { font-size: 1.1rem; font-weight: 600; color: var(--primary-mid); }
+  .title-page .theme { font-size: .95rem; color: var(--gray-600); font-weight: 500; margin-bottom: 10px; }
+  .title-page .info-line { font-size: .75rem; color: var(--gray-500); margin: 1px 0; }
+  .title-page .divider { margin: 10px auto; width: 70%; border: none; height: 2px; background: linear-gradient(90deg,transparent,var(--primary-mid),transparent); border-radius: 2px; }
+  .context-box { background: linear-gradient(135deg, var(--primary-surface), white); border: 1.5px solid var(--primary-mid); border-radius: var(--radius-sm); padding: 8px 14px; max-width: 620px; margin: 10px auto; font-size: .8rem; color: var(--gray-700); box-shadow: var(--shadow); position: relative; }
+  .context-box::before { content: '📌'; position: absolute; top: -7px; left: -7px; font-size: .8rem; background: white; padding: 1px 3px; border-radius: 4px; box-shadow: var(--shadow); }
+  .seance-table { margin: 10px auto; border-collapse: collapse; font-size: .74rem; border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow); }
+  .seance-table th { background: var(--primary); color: white; padding: 5px 9px; font-weight: 600; font-size: .7rem; text-transform: uppercase; letter-spacing: .2px; }
+  .seance-table td { padding: 4px 9px; border-bottom: 1px solid var(--gray-100); background: white; }
+  .section { padding: 14px 22px; border-bottom: 1px solid var(--gray-100); }
+  .section-title { font-size: .95rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+  .section-title::before { content: ''; display: inline-block; width: 3px; height: 14px; background: var(--primary-mid); border-radius: 2px; }
+  .sub-title { font-size: .8rem; font-weight: 700; color: var(--gray-700); margin: 6px 0 3px 0; display: flex; align-items: center; gap: 4px; }
+  .tbox { border-radius: var(--radius-sm); padding: 8px 12px; margin: 5px 0; box-shadow: var(--shadow); }
+  .tbox-title { font-weight: 700; font-size: .75rem; margin-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+  .tbox-info { background: linear-gradient(135deg, var(--primary-surface), white); border-left: 4px solid var(--primary-mid); } .tbox-info .tbox-title { color: var(--primary); }
+  .tbox-act { background: linear-gradient(135deg, var(--orange-light), white); border-left: 4px solid var(--orange); } .tbox-act .tbox-title { color: #9a3412; }
+  .tbox-eval { background: linear-gradient(135deg, var(--success-light), white); border-left: 4px solid var(--success); } .tbox-eval .tbox-title { color: #065f46; }
+  .tbox-trace { background: linear-gradient(135deg, var(--accent-light), white); border-left: 4px solid var(--accent); } .tbox-trace .tbox-title { color: #92400e; }
+  .tbox-imp { background: linear-gradient(135deg, var(--danger-light), white); border-left: 4px solid var(--danger); } .tbox-imp .tbox-title { color: #991b1b; }
+  .tbox-def { background: linear-gradient(135deg, #f0fdf4, white); border-left: 4px solid #22c55e; } .tbox-def .tbox-title { color: #166534; }
+  .tbox-prop { background: linear-gradient(135deg, #fef2f2, white); border-left: 4px solid var(--danger); } .tbox-prop .tbox-title { color: #991b1b; }
+  .tbox-ex { background: linear-gradient(135deg, #f5f3ff, white); border-left: 4px solid #8b5cf6; } .tbox-ex .tbox-title { color: #5b21b6; }
+  .bc { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-size: .6rem; flex-shrink: 0; }
+  .bc-info { background: var(--primary-surface); color: var(--primary-mid); }
+  .bc-act { background: var(--orange-light); color: #9a3412; }
+  .bc-eval { background: var(--success-light); color: #065f46; }
+  .bc-trace { background: var(--accent-light); color: #92400e; }
+  .bc-imp { background: var(--danger-light); color: #991b1b; }
+  .bc-def { background: #f0fdf4; color: #166534; }
+  .bc-prop { background: #fef2f2; color: #991b1b; }
+  .bc-ex { background: #f5f3ff; color: #5b21b6; }
+  .img-wrap { text-align: center; margin: 6px 0; padding: 4px; background: var(--gray-50); border-radius: var(--radius-xs); border: 1px dashed var(--gray-300); }
+  .img-wrap img { max-width: 100%; max-height: 160px; border-radius: var(--radius-xs); object-fit: contain; }
+  .img-wrap .cap { font-size: .68rem; color: var(--gray-400); margin-top: 2px; font-style: italic; }
+  .tbl { border-collapse: collapse; width: 100%; margin: 3px 0; font-size: .74rem; border-radius: var(--radius-xs); overflow: hidden; }
+  .tbl th { background: var(--gray-50); color: var(--gray-700); padding: 4px 7px; border: 1px solid var(--gray-200); text-align: left; font-weight: 600; font-size: .7rem; }
+  .tbl td { padding: 4px 7px; border: 1px solid var(--gray-200); vertical-align: top; }
+  .sig-tbl { margin: 5px auto; border-collapse: collapse; width: 55%; }
+  .sig-tbl th, .sig-tbl td { border: 1px solid var(--gray-300); padding: 3px 10px; }
+  .sig-tbl th { background: var(--gray-50); font-weight: 600; font-size: .72rem; }
+  .math { font-family: 'JetBrains Mono', monospace; font-style: italic; color: var(--primary); font-weight: 500; background: var(--primary-surface); padding: 1px 4px; border-radius: 3px; white-space: nowrap; font-size: .86em; }
+  .math-d { text-align: center; font-size: .86rem; margin: 3px 0; color: var(--primary); font-family: 'JetBrains Mono', monospace; padding: 3px; background: var(--gray-50); border-radius: var(--radius-xs); }
+  ul { padding-left: 14px; font-size: .8rem; }
+  ul.bsq { list-style: none; padding-left: 0; }
+  ul.bsq li { padding-left: 13px; position: relative; }
+  ul.bsq li::before { content: '▣'; position: absolute; left: 0; color: var(--primary-mid); font-size: .55rem; top: 2px; }
+  ul.btri { list-style: none; padding-left: 0; }
+  ul.btri li { padding-left: 13px; position: relative; }
+  ul.btri li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+  ol { padding-left: 16px; font-size: .8rem; } ol li { margin-bottom: 1px; }
+  .qbox { text-align: center; font-family: 'Playfair Display', serif; font-style: italic; color: var(--gray-500); padding: 5px; border-top: 1px solid var(--gray-200); margin-top: 5px; font-size: .8rem; }
+  .fe { text-align: center; padding: 10px; }
+  .fe hr { margin: 4px auto; border: none; height: 2px; background: linear-gradient(90deg,transparent,var(--primary-mid),transparent); width: 100%; border-radius: 2px; }
+  .fe .t { font-size: .78rem; font-weight: 700; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; }
+  .fe .s { font-size: .7rem; color: var(--gray-400); margin-top: 2px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  @media (max-width: 1100px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 800px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+  @media (max-width: 1000px) { .app-layout { flex-direction: column; } .sidebar { width: 100%; min-width: 100%; height: auto; position: static; } .main-content { padding: 10px; } }
+  .toast { position: fixed; bottom: 16px; right: 16px; background: var(--gray-900); color: white; padding: 7px 16px; border-radius: var(--radius-sm); font-size: .75rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 999; opacity: 0; transform: translateY(20px); transition: all .3s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  @media print { .sidebar { display: none !important; } .main-content { padding: 0 !important; } .page { box-shadow: none; border-radius: 0; } .section, .tbox, .grid-2, .grid-3 { page-break-inside: avoid; } body { background: white; } .toast { display: none !important; } }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-chalkboard-teacher"></i> Générateur de Fiche de Leçon</h1>
-            <p class="app-description">Créez, sauvegardez et gérez vos fiches de leçon avec éditeur de texte enrichi et export LaTeX.</p>
-        </header>
-        
-        <div class="app-container">
-            <section class="form-section">
-                <h2><i class="fas fa-edit"></i> Informations de la leçon</h2>
-                
-                <div class="form-tabs">
-                    <div class="tab active" data-tab="general">
-                        <i class="fas fa-info-circle"></i> Général
-                    </div>
-                    <div class="tab" data-tab="content">
-                        <i class="fas fa-book-open"></i> Contenu
-                    </div>
-                    <div class="tab" data-tab="exercises">
-                        <i class="fas fa-pen-fancy"></i> Exercices
-                    </div>
-                </div>
-                
-                <form id="lessonForm">
-                    <div class="tab-content active" id="general-tab">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="teacherName"><i class="fas fa-user"></i> Nom et Prénom de l'enseignant</label>
-                                <input type="text" id="teacherName" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="discipline"><i class="fas fa-book"></i> Discipline et Matière</label>
-                                <input type="text" id="discipline" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="teacherContact"><i class="fas fa-phone"></i> Contact de l'enseignant</label>
-                            <input type="text" id="teacherContact" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="schoolInfo"><i class="fas fa-school"></i> Informations de l'établissement et de l'inspection</label>
-                            <textarea id="schoolInfo" required></textarea>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="lessonDate"><i class="fas fa-calendar"></i> Date</label>
-                                <input type="date" id="lessonDate" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="sessionCount"><i class="fas fa-clock"></i> Nombre de séances</label>
-                                <input type="number" id="sessionCount" min="1" required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="content-tab">
-                        <!-- Les éditeurs de texte enrichi seront générés par JavaScript -->
-                    </div>
-                    
-                    <div class="tab-content" id="exercises-tab">
-                        <!-- Les éditeurs de texte enrichi seront générés par JavaScript -->
-                    </div>
-                    
-                    <button type="button" id="generateBtn">
-                        <i class="fas fa-magic"></i> Générer la fiche de leçon
-                    </button>
-                    
-                    <div id="statusMessage" class="status-message"></div>
-                </form>
-            </section>
-            
-            <section class="preview-section">
-                <h2><i class="fas fa-eye"></i> Aperçu de la fiche</h2>
-                <div class="lesson-preview" id="lessonPreview">
-                    <div class="preview-placeholder">
-                        <i class="fas fa-file-alt"></i>
-                        <p>Votre fiche de leçon apparaîtra ici après avoir rempli le formulaire et cliqué sur "Générer la fiche de leçon".</p>
-                    </div>
-                </div>
-                
-                <div class="actions">
-                    <button type="button" id="saveBtn" class="btn-success" disabled>
-                        <i class="fas fa-save"></i> Sauvegarder
-                    </button>
-                    <button type="button" id="latexBtn" class="btn-danger" disabled>
-                        <i class="fas fa-code"></i> Générer LaTeX
-                    </button>
-                    <button type="button" id="clearBtn" class="btn-outline">
-                        <i class="fas fa-broom"></i> Nouvelle fiche
-                    </button>
-                </div>
-                
-                <div class="latex-output" id="latexOutput" style="display: none;">
-                    <div class="latex-header">
-                        <span><i class="fas fa-file-code"></i> Code LaTeX généré</span>
-                        <button class="copy-btn" id="copyLatexBtn">
-                            <i class="fas fa-copy"></i> Copier
-                        </button>
-                    </div>
-                    <div class="latex-content" id="latexContent"></div>
-                </div>
-            </section>
+
+<div class="toast" id="toast"></div>
+
+<div class="app-layout">
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-header">
+        <div class="logo">📋</div>
+        <div><h2>Générateur de Fiche Pédagogique</h2></div>
+        <span class="badge">v4.0</span>
+      </div>
+
+      <!-- 1 INFOS GÉNÉRALES -->
+      <div class="form-cat">① Informations générales</div>
+      <div class="form-row">
+        <div class="form-g"><label>École / CEG</label><input type="text" id="f_ecole" value="CEG MASSEDENA"></div>
+        <div class="form-g"><label>Classe</label><input type="text" id="f_classe" value="Classe de 6ème"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-g"><label>Effectif</label><input type="text" id="f_effectif" value="38 élèves"></div>
+        <div class="form-g"><label>Matière</label><input type="text" id="f_matiere" value="Mathématiques"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-g"><label>Enseignant</label><input type="text" id="f_enseignant" value="KOLA Maniwah Essohouna"></div>
+        <div class="form-g"><label>Date</label><input type="text" id="f_date" value="02/02/2026"></div>
+      </div>
+      <div class="form-g"><label>Durée totale</label><input type="text" id="f_duree" value="3 séances de 60 min"></div>
+      <div class="form-g"><label>Compétence visée</label><textarea id="f_competence" rows="1">Résoudre des problèmes faisant appel au calcul numérique dans des situations concrètes de la vie quotidienne africaine, en mobilisant la notion de fraction comme outil de modélisation et de résolution.</textarea></div>
+      <div class="form-row">
+        <div class="form-g"><label>Références</label><input type="text" id="f_references" value="Programme officiel de mathématiques 6ème, Socle commun"></div>
+        <div class="form-g"><label>Séquence</label><input type="text" id="f_sequence" value="Séquence 3 — Deuxième trimestre"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-g"><label>Domaine</label><input type="text" id="f_domaine" value="Nombres et calculs"></div>
+        <div class="form-g"><label>Thème</label><input type="text" id="f_theme" value="Nombres et Calculs"></div>
+      </div>
+      <div class="form-g"><label>Titre de la leçon</label><input type="text" id="f_titre" value="Les Fractions : Notion, Comparaison et Opérations de Base"></div>
+      <div class="form-g"><label>Contexte pédagogique</label><textarea id="f_contexte" rows="1">Cette séquence vise à construire progressivement la notion de fraction chez les élèves de 6ème à travers des situations concrètes du quotidien africain.</textarea></div>
+
+      <!-- 2 OBJECTIFS & PRÉREQUIS -->
+      <div class="form-cat">② Objectifs &amp; Prérequis</div>
+      <div class="form-g"><label>Objectifs (un par ligne)</label><textarea id="f_objectifs" rows="2">Reconnaître et identifier des fractions dans des contextes variés
+Représenter graphiquement des fractions à l'aide de supports variés
+Comparer et ranger des fractions en utilisant des stratégies adaptées
+Effectuer des opérations élémentaires sur les fractions
+Utiliser les fractions pour résoudre des problèmes de partage</textarea></div>
+      <div class="form-g"><label>Prérequis (un par ligne)</label><textarea id="f_prerequis" rows="2">Connaissance des nombres entiers naturels jusqu'à 1000
+Maîtrise des opérations de base (+, −, ×, ÷)
+Notion intuitive de partage équitable
+Lecture et écriture correcte des nombres</textarea></div>
+
+      <!-- 3 MATÉRIEL & STRATÉGIES -->
+      <div class="form-cat">③ Matériel &amp; Stratégies</div>
+      <div class="grid-2">
+        <div class="form-g"><label>Matériel concret</label><textarea id="f_matConcret" rows="1">Fruits (oranges, bananes, mangues)
+Bandes de papier de différentes longueurs
+Disques en carton fractionnés
+Billes, cailloux, graines</textarea></div>
+        <div class="form-g"><label>Supports pédagogiques</label><textarea id="f_matSupports" rows="1">Fiches d'exercices différenciées (3 niveaux)
+Planches illustrées sur le partage
+Tableau magnétique avec fractions aimantées
+Calculatrices simples</textarea></div>
+      </div>
+      <div class="form-g"><label>Stratégies pédagogiques</label><textarea id="f_strategies" rows="1">Approche inductive : partir de situations concrètes pour dégager les concepts
+Différenciation : adapter les activités selon les profils d'apprentissage
+Manipulation : utiliser systématiquement du matériel concret avant l'abstraction
+Travail collaboratif : alterner phases individuelles, en binômes et en groupes
+Métacognition : faire verbaliser les démarches et les stratégies
+Contextualisation : ancrer les apprentissages dans la réalité africaine</textarea></div>
+      <div class="form-g"><label>Adaptations pédagogiques</label><textarea id="f_adaptations" rows="1">Pour les élèves en difficulté : réduire la quantité d'exercices, accentuer la manipulation
+Pour les élèves avancés : problèmes complexes, recherche documentaire
+Pour les élèves à besoins éducatifs particuliers : supports adaptés, temps supplémentaire</textarea></div>
+
+      <!-- 4 SÉANCES -->
+      <div class="form-cat">④ Séances <span class="act" onclick="ajouterSeance()">+ Ajouter</span></div>
+      <div id="seancesContainer"></div>
+
+      <!-- 5 IMAGE -->
+      <div class="form-cat">⑤ Image</div>
+      <div class="form-row">
+        <div class="form-g" style="flex:2"><label>Fichier image</label><input type="file" id="f_image" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_image');apercuImage();"></div>
+        <div class="form-g" style="flex:1"><label>Position</label><select id="f_imagePos"><option value="after-title">Après titre</option><option value="after-context">Après contexte</option><option value="custom">Bloc libre</option></select></div>
+      </div>
+      <div class="form-g"><label>Légende</label><input type="text" id="f_imageLegende" placeholder="Légende"></div>
+      <div><img class="img-prev" id="imgPreview" alt=""></div>
+
+      <!-- 5b DÉROULEMENT -->
+      <div class="form-cat">⓹ Déroulement des activités</div>
+      <div class="form-g"><textarea id="f_deroulement" rows="2" placeholder="Une étape par ligne">Phase 1 : Rappel des prérequis et mise en situation (10 min)
+Phase 2 : Activité de découverte par manipulation guidée (15 min)
+Phase 3 : Mise en commun et institutionnalisation (10 min)
+Phase 4 : Exercices d'application et entraînement (15 min)
+Phase 5 : Synthèse, évaluation et remédiation (10 min)</textarea></div>
+
+      <!-- 6 TRACE ÉCRITE -->
+      <div class="form-cat">⑥ Trace écrite complète</div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Définition</div><div class="b"><div class="form-g"><textarea id="f_def" rows="1">Une fraction est un nombre qui représente une ou plusieurs parties d'une unité divisée en parts égales.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_defImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_defImg');generer();"><input type="text" id="f_defImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Théorème / Propriété</div><div class="b"><div class="form-g"><textarea id="f_prop" rows="1">Propriété 1 : Un même nombre fractionnaire peut s'écrire de différentes façons (fractions équivalentes).
+Propriété 2 : Si on multiplie ou divise le numérateur et le dénominateur par un même nombre non nul, on obtient une fraction égale.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_propImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_propImg');generer();"><input type="text" id="f_propImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Remarque</div><div class="b"><div class="form-g"><textarea id="f_remarque" rows="1">Remarque : Une fraction peut représenter un nombre entier lorsque le numérateur est un multiple du dénominateur. Une fraction dont le numérateur est inférieur au dénominateur est appelée fraction propre.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_remarqueImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_remarqueImg');generer();"><input type="text" id="f_remarqueImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Exemple</div><div class="b"><div class="form-g"><textarea id="f_exemple" rows="1">Exemple 1 : Dans un gâteau partagé en 8 parts égales, si on prend 3 parts, on a 3/8 du gâteau.
+Exemple 2 : 2/3 de 15 = (2 × 15) ÷ 3 = 30 ÷ 3 = 10.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_exempleImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_exempleImg');generer();"><input type="text" id="f_exempleImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Activité</div><div class="b"><div class="form-g"><textarea id="f_activite" rows="1">Activité : À l'aide de bandes de papier, représenter les fractions 1/2, 1/4, 3/4 et 2/3. Comparer les longueurs obtenues et classer ces fractions par ordre croissant.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_activiteImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_activiteImg');generer();"><input type="text" id="f_activiteImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Solution activité</div><div class="b"><div class="form-g"><textarea id="f_solActivite" rows="1">Solution : 1/4 = 0,25 ; 1/2 = 0,5 ; 2/3 ≈ 0,67 ; 3/4 = 0,75. Ordre croissant : 1/4 < 1/2 < 2/3 < 3/4.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_solActiviteImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_solActiviteImg');generer();"><input type="text" id="f_solActiviteImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Exercice d'application</div><div class="b"><div class="form-g"><textarea id="f_exoApp" rows="1">1. Simplifier : 12/18, 20/25, 36/48.
+2. Calculer : 4/11 + 5/11 - 2/11.
+3. Un fermier vend 2/5 de sa récolte le matin et 1/4 l'après-midi. Fraction totale vendue ?</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_exoAppImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_exoAppImg');generer();"><input type="text" id="f_exoAppImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Solution exercices</div><div class="b"><div class="form-g"><textarea id="f_solExo" rows="1">1. 12/18 = 2/3 ; 20/25 = 4/5 ; 36/48 = 3/4.
+2. 4/11 + 5/11 - 2/11 = 7/11.
+3. 2/5 + 1/4 = 8/20 + 5/20 = 13/20.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_solExoImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_solExoImg');generer();"><input type="text" id="f_solExoImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Exercice de maison</div><div class="b"><div class="form-g"><textarea id="f_exoMaison" rows="1">Devoir : Famille Traoré.
+- 30 poulets à partager entre 5 familles
+- 48 L de boisson (verres de 1/3 L)
+- 60 sachets sucre : 2/5 pour le thé, 1/4 pour les gâteaux. Reste ?</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_exoMaisonImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_exoMaisonImg');generer();"><input type="text" id="f_exoMaisonImgLeg" placeholder="Légende"></div></div></div>
+      <div class="coll open"><div class="h" onclick="this.parentElement.classList.toggle('open')"><span class="arr">▶</span> Solution devoir</div><div class="b"><div class="form-g"><textarea id="f_solMaison" rows="1">1. 1/5 → 6 poulets/famille.
+2. 48 ÷ 1/3 = 144 verres.
+3. Thé : 60×2/5=24 ; Gâteaux : 60×1/4=15.
+4. Reste : 7/20 → 21 sachets.</textarea></div><div class="img-te"><label>🖼</label><input type="file" id="f_solMaisonImg" accept="image/jpeg,image/png,image/webp" onchange="loadImg('f_solMaisonImg');generer();"><input type="text" id="f_solMaisonImgLeg" placeholder="Légende"></div></div></div>
+
+      <!-- 7 CAPACITÉS VISÉES -->
+      <div class="form-cat">⑦ Capacités visées</div>
+      <div class="grid-2">
+        <div class="form-g"><label>Capacités col.1 (un par ligne)</label><textarea id="f_cap1" rows="2">Représenter : Traduire une fraction sous forme graphique, numérique et concrète
+Comparer : Utiliser des stratégies adaptées pour comparer et ordonner
+Calculer : Maîtriser les opérations élémentaires avec précision
+Résoudre : Appliquer les fractions à des problèmes du quotidien</textarea></div>
+        <div class="form-g"><label>Capacités col.2 (un par ligne)</label><textarea id="f_cap2" rows="2">Communiquer : Exprimer clairement sa démarche avec un vocabulaire adapté
+Modéliser : Traduire une situation réelle en langage mathématique
+Raisonner : Justifier ses choix et vérifier la cohérence des résultats
+Autonomiser : Développer des méthodes de travail personnelles</textarea></div>
+      </div>
+
+      <!-- 8 ÉVALUATION -->
+      <div class="form-cat">⑧ Modalités d'évaluation</div>
+      <div class="form-g"><textarea id="f_evalForm" rows="1" placeholder="Évaluation formative">Observation directe de la participation et de la manipulation
+Questionnement : questions orales ciblées, explications des démarches
+Exercices au tableau : correction immédiate avec rétroaction
+Auto-évaluation : fiche de positionnement après chaque séance</textarea></div>
+      <div class="form-g"><textarea id="f_evalSom" rows="1" placeholder="Évaluation sommative">Fiche d'exercices notés (coefficient 1) — 30 minutes
+Résolution de problème contextualisé (coefficient 2) — 45 minutes
+Présentation orale d'une démarche de résolution (coefficient 1)
+Questionnaire de synthèse (coefficient 3) — 60 minutes</textarea></div>
+      <div class="form-g"><textarea id="f_evalCrit" rows="1" placeholder="Critères">Exactitude des calculs et des représentations (40 %)
+Pertinence des méthodes utilisées (25 %)
+Clarté des explications et du vocabulaire (20 %)
+Capacité à appliquer dans des situations nouvelles (10 %)
+Autonomie et prise d'initiative (5 %)</textarea></div>
+
+      <!-- 9 CONTEXTE AFRICAIN -->
+      <div class="form-cat">⑨ Contexte africain &amp; Liens</div>
+      <div class="grid-2">
+        <div class="form-g"><label>Domaines d'application</label><textarea id="f_domaines" rows="1">Alimentation : Partage de nourriture, recettes traditionnelles
+Commerce : Mesures au marché, calcul des prix
+Agriculture : Répartition des récoltes, surfaces cultivables
+Artisanat : Proportions dans la fabrication, mesures</textarea></div>
+        <div class="form-g"><label>Liens transdisciplinaires</label><textarea id="f_liens" rows="1">SVT : Proportion dans l'alimentation, croissance
+Géographie : Répartition des ressources, démographie
+Histoire : Mesures anciennes, systèmes de comptage
+Éducation civique : Partage équitable, solidarité</textarea></div>
+      </div>
+      <div class="form-g"><textarea id="f_exemples" rows="1" placeholder="Exemples concrets">Partager 24 ignames entre 8 familles de façon équitable
+Mesurer 3/4 kg de riz avec une balance traditionnelle
+Calculer la part de chacun dans une tontine de 12 personnes avec 60 000 FCFA</textarea></div>
+
+      <!-- 10 ANNEXES -->
+      <div class="form-cat">⑩ Annexes pédagogiques</div>
+      <div class="form-g"><textarea id="f_diffDif" rows="1" placeholder="Élèves en difficulté">Utilisation systématique de matériel concret
+Fractions simples (1/2, 1/3, 1/4)
+Énoncés courts et illustrés
+Tutorat par des élèves avancés</textarea></div>
+      <div class="form-g"><textarea id="f_diffAv" rows="1" placeholder="Élèves avancés">Problèmes complexes en plusieurs étapes
+Introduction aux fractions décimales
+Création d'exercices pour les camarades
+Projets interdisciplinaires</textarea></div>
+      <div class="form-g"><textarea id="f_ressources" rows="1" placeholder="Ressources complémentaires">Manuel de mathématiques 6ème
+Fiches de travail photocopiables
+Matériel de manipulation à fabriquer
+Vidéos éducatives sur les fractions</textarea></div>
+      <div class="form-g"><textarea id="f_remarquesFin" rows="1" placeholder="Remarques finales">Insister sur le sens avant la technique
+Valoriser toutes les démarches de résolution
+Faire verbaliser les difficultés rencontrées
+Maintenir un lien constant avec le concret</textarea></div>
+
+      <!-- ACTIONS -->
+      <div class="sidebar-actions">
+        <button class="btn btn-primary" onclick="generer()">⚡ GÉNÉRER LA FICHE COMPLÈTE</button>
+        <div style="display:flex;gap:4px">
+          <button class="btn btn-success" onclick="window.print()" style="flex:1">🖨 Imprimer</button>
+          <button class="btn btn-orange" onclick="exporterLatex()" style="flex:1">📄 LaTeX</button>
         </div>
-        
-        <section class="saved-lessons">
-            <div class="saved-header">
-                <h2><i class="fas fa-archive"></i> Fiches sauvegardées</h2>
-                <button type="button" id="toggleSavedBtn" class="btn-outline">
-                    <i class="fas fa-chevron-down"></i> Masquer
-                </button>
-            </div>
-            
-            <div class="filter-controls">
-                <select id="filterDiscipline">
-                    <option value="">Toutes les disciplines</option>
-                </select>
-                <input type="text" id="filterSearch" placeholder="Rechercher...">
-                <button type="button" id="clearFilterBtn" class="btn-outline">
-                    <i class="fas fa-times"></i> Effacer
-                </button>
-            </div>
-            
-            <div class="lessons-list" id="lessonsList">
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>Aucune fiche sauvegardée pour le moment</p>
-                </div>
-            </div>
-        </section>
+        <div style="display:flex;gap:4px">
+          <button class="btn btn-outline btn-sm" onclick="exporterHTML()" style="flex:1">💾 HTML</button>
+          <button class="btn btn-outline btn-sm" onclick="if(confirm('Réinitialiser tous les champs ?')){resetTout()}" style="flex:1">↺ Reset</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configuration des champs avec éditeur riche
-            const richTextFieldsConfig = [
-                { id: 'prerequisites', label: 'Prérequis', icon: 'list-check', tab: 'content' },
-                { id: 'learningSituation', label: 'Situation d\'apprentissage', icon: 'brain', tab: 'content' },
-                { id: 'solution', label: 'Solution', icon: 'lightbulb', tab: 'content' },
-                { id: 'activity', label: 'Activité', icon: 'tasks', tab: 'content' },
-                { id: 'vocabulary', label: 'Définition / Vocabulaire / Théorème', icon: 'book-open', tab: 'content' },
-                { id: 'property', label: 'Propriété', icon: 'cube', tab: 'content' },
-                { id: 'proof', label: 'Preuve / Démonstration', icon: 'calculator', tab: 'content' },
-                { id: 'applicationExercise', label: 'Exercice d\'application', icon: 'pen', tab: 'exercises' },
-                { id: 'exerciseSolution', label: 'Solution de l\'exercice d\'application', icon: 'check', tab: 'exercises' },
-                { id: 'recap', label: 'Récapitulation de la séance', icon: 'sync', tab: 'exercises' },
-                { id: 'homework', label: 'Exercice de maison', icon: 'home', tab: 'exercises' }
-            ];
+  <!-- ===== PREVIEW ===== -->
+  <div class="main-content">
+    <div class="page-container" id="pageContainer">
+      <div class="page" id="emptyState">
+        <div class="empty-state"><div class="icon">📄</div><h3>Prêt à générer votre fiche</h3><p style="color:var(--gray-400);font-size:.78rem">Remplissez les 10 sections du panneau, puis cliquez sur <strong>"Générer la fiche complète"</strong>.</p></div>
+      </div>
 
-            // Variables globales
-            const form = document.getElementById('lessonForm');
-            const generateBtn = document.getElementById('generateBtn');
-            const saveBtn = document.getElementById('saveBtn');
-            const latexBtn = document.getElementById('latexBtn');
-            const clearBtn = document.getElementById('clearBtn');
-            const copyLatexBtn = document.getElementById('copyLatexBtn');
-            const toggleSavedBtn = document.getElementById('toggleSavedBtn');
-            const filterDiscipline = document.getElementById('filterDiscipline');
-            const filterSearch = document.getElementById('filterSearch');
-            const clearFilterBtn = document.getElementById('clearFilterBtn');
-            const preview = document.getElementById('lessonPreview');
-            const latexOutput = document.getElementById('latexOutput');
-            const latexContent = document.getElementById('latexContent');
-            const statusMessage = document.getElementById('statusMessage');
-            const lessonsList = document.getElementById('lessonsList');
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            let currentLessonId = null;
-            let savedLessons = JSON.parse(localStorage.getItem('savedLessons')) || [];
-            let savedLessonsVisible = true;
-            let quillEditors = [];
-            
-            // Set today's date as default
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('lessonDate').value = today;
-            
-            // Initialiser l'application
-            initApp();
-            
-            // Initialiser les éditeurs de texte enrichi avec Quill.js
-            function initRichTextEditors() {
-                richTextFieldsConfig.forEach(field => {
-                    createRichTextEditor(field);
-                });
-            }
-            
-            // Créer un éditeur de texte enrichi pour un champ avec Quill.js
-            function createRichTextEditor(fieldConfig) {
-                const tabContent = document.getElementById(`${fieldConfig.tab}-tab`);
-                if (!tabContent) return;
-                
-                const formGroup = document.createElement('div');
-                formGroup.className = 'form-group';
-                
-                const label = document.createElement('label');
-                label.htmlFor = fieldConfig.id;
-                label.innerHTML = `<i class="fas fa-${fieldConfig.icon}"></i> ${fieldConfig.label}`;
-                
-                const hiddenInput = document.createElement('input');
-                hiddenInput.type = 'hidden';
-                hiddenInput.id = fieldConfig.id;
-                hiddenInput.required = true;
-                
-                const editorContainer = document.createElement('div');
-                editorContainer.className = 'editor-container';
-                editorContainer.id = `${fieldConfig.id}Editor`;
-                
-                formGroup.appendChild(label);
-                formGroup.appendChild(hiddenInput);
-                formGroup.appendChild(editorContainer);
-                
-                tabContent.appendChild(formGroup);
-                
-                // Configuration personnalisée de la barre d'outils
-                const toolbarOptions = [
-                    [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'script': 'sub'}, { 'script': 'super' }],
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [{ 'indent': '-1'}, { 'indent': '+1' }],
-                    [{ 'align': [] }],
-                    ['blockquote', 'code-block'],
-                    ['link', 'image'],
-                    ['clean']
-                ];
-                
-                // Initialiser l'éditeur Quill.js
-                const quill = new Quill(`#${fieldConfig.id}Editor`, {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: toolbarOptions
-                    },
-                    placeholder: `Saisissez votre ${fieldConfig.label.toLowerCase()} ici...`
-                });
-                
-                // Mettre à jour le champ caché lorsque le contenu change
-                quill.on('text-change', function() {
-                    hiddenInput.value = quill.root.innerHTML;
-                });
-                
-                // Initialiser la valeur du champ caché
-                hiddenInput.value = quill.root.innerHTML;
-                
-                // Stocker la référence de l'éditeur
-                quillEditors.push({
-                    fieldId: fieldConfig.id,
-                    editor: quill,
-                    hiddenInput: hiddenInput
-                });
-            }
-            
-            // Tab switching
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.getAttribute('data-tab');
-                    
-                    // Update active tab
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    // Show corresponding content
-                    tabContents.forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === `${tabId}-tab`) {
-                            content.classList.add('active');
-                        }
-                    });
-                });
-            });
-            
-            // Événements pour les boutons principaux
-            generateBtn.addEventListener('click', function() {
-                generateLessonPlan();
-            });
-            
-            saveBtn.addEventListener('click', function() {
-                saveLesson();
-            });
-            
-            latexBtn.addEventListener('click', function() {
-                generateLaTeX();
-            });
-            
-            clearBtn.addEventListener('click', function() {
-                clearForm();
-            });
-            
-            copyLatexBtn.addEventListener('click', function() {
-                copyToClipboard(latexContent.textContent);
-                showStatus('Code LaTeX copié dans le presse-papiers !', 'success');
-            });
-            
-            toggleSavedBtn.addEventListener('click', function() {
-                toggleSavedLessons();
-            });
-            
-            filterDiscipline.addEventListener('change', function() {
-                filterLessons();
-            });
-            
-            filterSearch.addEventListener('input', function() {
-                filterLessons();
-            });
-            
-            clearFilterBtn.addEventListener('click', function() {
-                filterDiscipline.value = '';
-                filterSearch.value = '';
-                filterLessons();
-            });
-            
-            function initApp() {
-                initRichTextEditors();
-                updateDisciplineFilter();
-                renderSavedLessons();
-            }
-            
-            function generateLessonPlan() {
-                // Get all form values
-                const formData = getFormData();
-                
-                if (!formData.valid) {
-                    showStatus('Veuillez remplir tous les champs obligatoires', 'error');
-                    return;
-                }
-                
-                // Generate HTML for the lesson plan
-                const lessonHTML = createLessonHTML(formData);
-                
-                // Update preview
-                preview.innerHTML = lessonHTML;
-                
-                // Enable buttons
-                saveBtn.disabled = false;
-                latexBtn.disabled = false;
-                
-                showStatus('Fiche de leçon générée avec succès !', 'success');
-            }
-            
-            function getFormData() {
-                const teacherName = document.getElementById('teacherName').value;
-                const discipline = document.getElementById('discipline').value;
-                const teacherContact = document.getElementById('teacherContact').value;
-                const schoolInfo = document.getElementById('schoolInfo').value;
-                const lessonDate = document.getElementById('lessonDate').value;
-                const sessionCount = document.getElementById('sessionCount').value;
-                
-                // Récupérer le contenu des éditeurs riches
-                const formData = {
-                    teacherName,
-                    discipline,
-                    teacherContact,
-                    schoolInfo,
-                    lessonDate,
-                    sessionCount,
-                    valid: true
-                };
-                
-                // Vérifier que tous les champs requis sont remplis
-                richTextFieldsConfig.forEach(field => {
-                    const value = document.getElementById(field.id).value;
-                    formData[field.id] = value;
-                    
-                    if (!value || value.trim() === '' || value === '<br>') {
-                        formData.valid = false;
-                    }
-                });
-                
-                return formData;
-            }
-            
-            function createLessonHTML(data) {
-                // Format date
-                const formattedDate = new Date(data.lessonDate).toLocaleDateString('fr-FR', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
-                let sectionsHTML = '';
-                
-                richTextFieldsConfig.forEach(field => {
-                    sectionsHTML += `
-                        <div class="section">
-                            <div class="section-title">
-                                <i class="fas fa-${field.icon}"></i> ${field.label.toUpperCase()}
-                            </div>
-                            <div class="section-content">${data[field.id]}</div>
-                        </div>
-                    `;
-                });
-                
-                return `
-                    <div class="lesson-header">
-                        <div class="teacher-info">
-                            <p><strong><i class="fas fa-user"></i> Enseignant:</strong> ${data.teacherName}</p>
-                            <p><strong><i class="fas fa-book"></i> Discipline:</strong> ${data.discipline}</p>
-                            <p><strong><i class="fas fa-phone"></i> Contact:</strong> ${data.teacherContact}</p>
-                        </div>
-                        <div class="school-info">
-                            <p><strong><i class="fas fa-school"></i> Établissement:</strong></p>
-                            <p>${data.schoolInfo.replace(/\n/g, '<br>')}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="lesson-meta">
-                        <p><strong><i class="fas fa-calendar"></i> Date:</strong> ${formattedDate}</p>
-                        <p><strong><i class="fas fa-clock"></i> Nombre de séances:</strong> ${data.sessionCount}</p>
-                    </div>
-                    
-                    <h3 class="lesson-title">FICHE DE LEÇON - ${data.discipline.toUpperCase()}</h3>
-                    
-                    ${sectionsHTML}
-                `;
-            }
-            
-            function saveLesson() {
-                const formData = getFormData();
-                
-                if (!formData.valid) {
-                    showStatus('Impossible de sauvegarder: formulaire incomplet', 'error');
-                    return;
-                }
-                
-                const lesson = {
-                    id: currentLessonId || Date.now().toString(),
-                    title: formData.discipline,
-                    teacher: formData.teacherName,
-                    date: formData.lessonDate,
-                    discipline: formData.discipline,
-                    data: formData,
-                    createdAt: currentLessonId ? 
-                        (savedLessons.find(l => l.id === currentLessonId)?.createdAt || new Date().toISOString()) : 
-                        new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                };
-                
-                // Check if we're updating an existing lesson
-                const existingIndex = savedLessons.findIndex(l => l.id === lesson.id);
-                if (existingIndex !== -1) {
-                    savedLessons[existingIndex] = lesson;
-                    showStatus('Fiche mise à jour avec succès !', 'success');
-                } else {
-                    savedLessons.unshift(lesson);
-                    showStatus('Fiche sauvegardée avec succès !', 'success');
-                }
-                
-                // Save to localStorage
-                localStorage.setItem('savedLessons', JSON.stringify(savedLessons));
-                
-                // Update UI
-                updateDisciplineFilter();
-                renderSavedLessons();
-                
-                // Set current lesson ID
-                currentLessonId = lesson.id;
-            }
-            
-            function loadLesson(lessonId) {
-                const lesson = savedLessons.find(l => l.id === lessonId);
-                if (!lesson) return;
-                
-                // Fill basic form fields
-                document.getElementById('teacherName').value = lesson.data.teacherName;
-                document.getElementById('discipline').value = lesson.data.discipline;
-                document.getElementById('teacherContact').value = lesson.data.teacherContact;
-                document.getElementById('schoolInfo').value = lesson.data.schoolInfo;
-                document.getElementById('lessonDate').value = lesson.data.lessonDate;
-                document.getElementById('sessionCount').value = lesson.data.sessionCount;
-                
-                // Fill rich text editors
-                richTextFieldsConfig.forEach(field => {
-                    const hiddenInput = document.getElementById(field.id);
-                    const quillEditor = quillEditors.find(q => q.fieldId === field.id);
-                    
-                    if (hiddenInput && quillEditor) {
-                        hiddenInput.value = lesson.data[field.id] || '';
-                        quillEditor.editor.root.innerHTML = lesson.data[field.id] || '';
-                    }
-                });
-                
-                // Set current lesson ID
-                currentLessonId = lesson.id;
-                
-                // Generate preview
-                generateLessonPlan();
-                
-                showStatus('Fiche chargée avec succès !', 'success');
-            }
-            
-            function deleteLesson(lessonId) {
-                if (!confirm('Êtes-vous sûr de vouloir supprimer cette fiche ?')) {
-                    return;
-                }
-                
-                savedLessons = savedLessons.filter(l => l.id !== lessonId);
-                localStorage.setItem('savedLessons', JSON.stringify(savedLessons));
-                
-                // If we deleted the current lesson, clear the form
-                if (currentLessonId === lessonId) {
-                    clearForm();
-                }
-                
-                // Update UI
-                updateDisciplineFilter();
-                renderSavedLessons();
-                
-                showStatus('Fiche supprimée avec succès !', 'success');
-            }
-            
-            function clearForm() {
-                form.reset();
-                document.getElementById('lessonDate').value = today;
-                
-                // Clear rich text editors
-                richTextFieldsConfig.forEach(field => {
-                    const hiddenInput = document.getElementById(field.id);
-                    const quillEditor = quillEditors.find(q => q.fieldId === field.id);
-                    
-                    if (hiddenInput && quillEditor) {
-                        hiddenInput.value = '';
-                        quillEditor.editor.root.innerHTML = '';
-                    }
-                });
-                
-                preview.innerHTML = `
-                    <div class="preview-placeholder">
-                        <i class="fas fa-file-alt"></i>
-                        <p>Votre fiche de leçon apparaîtra ici après avoir rempli le formulaire et cliqué sur "Générer la fiche de leçon".</p>
-                    </div>
-                `;
-                
-                latexOutput.style.display = 'none';
-                saveBtn.disabled = true;
-                latexBtn.disabled = true;
-                currentLessonId = null;
-                
-                showStatus('Formulaire réinitialisé', 'success');
-            }
-            
-            function generateLaTeX() {
-                const formData = getFormData();
-                
-                if (!formData.valid) {
-                    showStatus('Impossible de générer LaTeX: formulaire incomplet', 'error');
-                    return;
-                }
-                
-                // Format date for LaTeX
-                const formattedDate = new Date(formData.lessonDate).toLocaleDateString('fr-FR');
-                
-                let sectionsLaTeX = '';
-                
-                richTextFieldsConfig.forEach(field => {
-                    // Convert HTML to basic LaTeX formatting
-                    let content = formData[field.id]
-                        .replace(/<b>/g, '\\textbf{')
-                        .replace(/<\/b>/g, '}')
-                        .replace(/<strong>/g, '\\textbf{')
-                        .replace(/<\/strong>/g, '}')
-                        .replace(/<i>/g, '\\textit{')
-                        .replace(/<\/i>/g, '}')
-                        .replace(/<em>/g, '\\textit{')
-                        .replace(/<\/em>/g, '}')
-                        .replace(/<u>/g, '\\underline{')
-                        .replace(/<\/u>/g, '}')
-                        .replace(/<s>/g, '\\sout{')
-                        .replace(/<\/s>/g, '}')
-                        .replace(/<br>/g, '\\\\')
-                        .replace(/<br\/>/g, '\\\\')
-                        .replace(/<ul>/g, '\\begin{itemize}')
-                        .replace(/<\/ul>/g, '\\end{itemize}')
-                        .replace(/<ol>/g, '\\begin{enumerate}')
-                        .replace(/<\/ol>/g, '\\end{enumerate}')
-                        .replace(/<li>/g, '\\item ')
-                        .replace(/<\/li>/g, '')
-                        .replace(/<img[^>]*src="([^"]*)"[^>]*>/g, '\\includegraphics[width=0.8\\textwidth]{$1}')
-                        .replace(/<table>/g, '\\begin{table}[h]\n\\centering\n\\begin{tabular}')
-                        .replace(/<\/table>/g, '\\end{tabular}\n\\end{table}')
-                        .replace(/<tr>/g, '')
-                        .replace(/<\/tr>/g, ' \\\\\n')
-                        .replace(/<th>/g, '\\textbf{')
-                        .replace(/<\/th>/g, '}')
-                        .replace(/<td>/g, '')
-                        .replace(/<\/td>/g, ' & ')
-                        .replace(/<pre>/g, '\\begin{verbatim}')
-                        .replace(/<\/pre>/g, '\\end{verbatim}')
-                        .replace(/<code>/g, '\\texttt{')
-                        .replace(/<\/code>/g, '}')
-                        .replace(/<blockquote>/g, '\\begin{quote}')
-                        .replace(/<\/blockquote>/g, '\\end{quote}')
-                        .replace(/<[^>]*>/g, '')
-                        .replace(/\n/g, '\\\\');
-                    
-                    sectionsLaTeX += `\\section*{${field.label}}\n${content}\n\n`;
-                });
-                
-                const latexCode = `\\documentclass[12pt,a4paper]{article}
-\\usepackage[utf8]{inputenc}
-\\usepackage[T1]{fontenc}
-\\usepackage[french]{babel}
-\\usepackage{amsmath,amsfonts,amssymb}
-\\usepackage{graphicx}
-\\usepackage{geometry}
-\\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
-\\usepackage{titlesec}
-\\usepackage{enumitem}
-\\usepackage{xcolor}
-\\usepackage{hyperref}
-\\usepackage{ulem}
+      <div class="page" id="fichePage" style="display:none">
+        <div class="page-header"><span id="g_hdrL">École – Classe</span><span id="g_hdrR">Fiche Pédagogique</span></div>
 
-\\titleformat{\\section}{\\large\\bfseries}{}{0em}{}
-\\titleformat{\\subsection}{\\normalsize\\bfseries}{}{0em}{}
+        <!-- ===== PAGE DE GARDE ===== -->
+        <div class="title-page">
+          <h1>FICHE PÉDAGOGIQUE DE LEÇON</h1>
+          <div class="subtitle" id="g_theme">Thème</div>
+          <div class="theme" id="g_titre">Titre</div><br>
+          <div class="info-line" id="g_ens">Enseignant</div>
+          <div class="info-line" id="g_etab">Établissement</div>
+          <div class="info-line" id="g_dates">Date</div>
+          <div class="info-line" id="g_duree">Durée</div>
+          <hr class="divider">
+          <div id="g_img1"></div>
+          <div class="context-box" id="g_ctx">Contexte</div>
+          <div id="g_img2"></div>
+          <div id="g_seanceTbl"></div>
+          <div id="g_img3"></div>
+        </div>
 
+        <!-- ===== INFORMATIONS GÉNÉRALES ===== -->
+        <div class="section">
+          <div class="section-title">Informations générales</div>
+          <div class="tbox tbox-info">
+            <table class="tbl">
+              <tr><th style="width:130px">COMPÉTENCE</th><td id="g_comp">—</td></tr>
+              <tr><th>RÉFÉRENCES</th><td id="g_ref">—</td></tr>
+              <tr><th>DOMAINE</th><td id="g_dom">—</td></tr>
+              <tr><th>SÉQUENCE</th><td id="g_seq">—</td></tr>
+            </table>
+          </div>
+          <div class="grid-2">
+            <div><div class="sub-title"><span class="bc bc-info">🎯</span> Objectifs spécifiques</div><ul class="bsq" id="g_obj"></ul></div>
+            <div><div class="sub-title"><span class="bc bc-info">📋</span> Prérequis</div><ul class="bsq" id="g_pre"></ul></div>
+          </div>
+          <div class="grid-2">
+            <div><div class="sub-title">📦 Matériel concret</div><ul id="g_matC"></ul></div>
+            <div><div class="sub-title">📦 Supports pédagogiques</div><ul id="g_matP"></ul></div>
+          </div>
+          <div class="sub-title"><span class="bc bc-info">🔧</span> Stratégies pédagogiques</div>
+          <ul class="btri" id="g_strat"></ul>
+          <div class="tbox tbox-imp"><div class="tbox-title"><span class="bc bc-imp">⚠️</span> Adaptations pédagogiques</div><ul id="g_adapt"></ul></div>
+        </div>
+
+        <!-- ===== DÉROULEMENT ===== -->
+        <div class="section">
+          <div class="section-title">Déroulement des activités</div>
+          <div id="g_seancesDet"></div>
+          <div id="g_deroulement"></div>
+        </div>
+
+        <!-- ===== TRACE ÉCRITE ===== -->
+        <div class="section">
+          <div class="section-title">Trace écrite complète</div>
+          <div class="tbox tbox-trace">
+            <div class="tbox-title"><span class="bc bc-trace">📖</span> Leçon : <span id="g_leconTitre">Les Fractions</span></div>
+            <div class="tbox tbox-def" id="b_def"><div class="tbox-title"><span class="bc bc-def">📌</span> Définition</div><div id="g_def"></div><div id="g_defImg"></div></div>
+            <div class="tbox tbox-prop" id="b_prop"><div class="tbox-title"><span class="bc bc-prop">⚡</span> Théorème &amp; Propriété</div><div id="g_prop"></div><div id="g_propImg"></div></div>
+            <div class="tbox tbox-imp" id="b_rem"><div class="tbox-title"><span class="bc bc-imp">💡</span> Remarque</div><div id="g_rem"></div><div id="g_remarqueImg"></div></div>
+            <div class="tbox tbox-ex" id="b_ex"><div class="tbox-title"><span class="bc bc-ex">✏️</span> Exemple</div><div id="g_ex"></div><div id="g_exempleImg"></div></div>
+            <div class="tbox tbox-act" id="b_act"><div class="tbox-title"><span class="bc bc-act">🔬</span> Activité</div><div id="g_act"></div><div id="g_activiteImg"></div></div>
+            <div class="tbox tbox-eval" id="b_solAct"><div class="tbox-title"><span class="bc bc-eval">✅</span> Solution de l'activité</div><div id="g_solAct"></div><div id="g_solActiviteImg"></div></div>
+            <div class="tbox tbox-act" id="b_exoApp"><div class="tbox-title"><span class="bc bc-act">📝</span> Exercice d'application</div><div id="g_exoApp"></div><div id="g_exoAppImg"></div></div>
+            <div class="tbox tbox-eval" id="b_solExo"><div class="tbox-title"><span class="bc bc-eval">✅</span> Solution des exercices</div><div id="g_solExo"></div><div id="g_solExoImg"></div></div>
+            <div class="tbox tbox-trace" id="b_maison"><div class="tbox-title"><span class="bc bc-trace">🏠</span> Exercice de maison</div><div id="g_maison"></div><div id="g_exoMaisonImg"></div><table class="sig-tbl"><tr><th>Signature parent</th><th>Date</th></tr><tr><td style="height:18px"></td><td></td></tr></table></div>
+            <div class="tbox tbox-eval" id="b_solMaison"><div class="tbox-title"><span class="bc bc-eval">✅</span> Solution du devoir</div><div id="g_solMaison"></div><div id="g_solMaisonImg"></div></div>
+            <div class="qbox">« Les mathématiques nous aident à mieux partager et mesurer notre monde quotidien. »</div>
+          </div>
+        </div>
+
+        <!-- ===== CAPACITÉS ===== -->
+        <div class="section">
+          <div class="section-title">Capacités visées</div>
+          <div class="grid-2"><ul class="btri" id="g_cap1"></ul><ul class="btri" id="g_cap2"></ul></div>
+        </div>
+
+        <!-- ===== CONTEXTE AFRICAIN ===== -->
+        <div class="section">
+          <div class="section-title">Contexte africain et liens transversaux</div>
+          <div class="tbox tbox-info">
+            <div class="grid-2">
+              <div><div class="sub-title">Domaines d'application</div><ul id="g_domaines"></ul></div>
+              <div><div class="sub-title">Liens transdisciplinaires</div><ul id="g_liens"></ul></div>
+            </div>
+            <div class="sub-title">Exemples concrets</div><ul id="g_exemples"></ul>
+          </div>
+        </div>
+
+        <!-- ===== ÉVALUATION ===== -->
+        <div class="section">
+          <div class="section-title">Modalités d'évaluation</div>
+          <div class="tbox tbox-eval">
+            <table class="tbl">
+              <tr><th style="width:110px">Formative</th><td id="g_evalF">—</td></tr>
+              <tr><th>Sommative</th><td id="g_evalS">—</td></tr>
+              <tr><th>Critères</th><td id="g_evalC">—</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===== ANNEXES ===== -->
+        <div class="section">
+          <div class="section-title">Annexes pédagogiques</div>
+          <div class="grid-2">
+            <div><div class="sub-title">Différenciation</div><p><b>En difficulté :</b></p><ul id="g_diffD"></ul><p><b>Avancés :</b></p><ul id="g_diffA"></ul></div>
+            <div><div class="sub-title">Ressources</div><ul id="g_ress"></ul><div class="sub-title">Remarques</div><ul id="g_remF"></ul></div>
+          </div>
+        </div>
+
+        <!-- ===== FIN ===== -->
+        <div class="section" style="border-bottom:none">
+          <div class="fe"><hr><div class="t">— Fiche pédagogique terminée —</div><hr style="width:100%;margin-top:3px"><div class="s" id="g_pied">Document généré</div></div>
+        </div>
+
+        <div class="page-footer"><span id="g_ftrL">Enseignant</span><span id="g_ftrC">1 / 1</span><span id="g_ftrR">Date</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);}
+const $=id=>document.getElementById(id);
+const v=id=>{const e=$(id);return e?e.value:'';};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const escA=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const nl2br=s=>esc(s).replace(/\n/g,'<br>');
+const imgData={};
+function loadImg(id){const i=$(id);const f=i.files[0];if(!f){imgData[id]='';return;}imgData[id+'_name']=f.name;const r=new FileReader();r.onload=e=>{imgData[id]=e.target.result;};r.readAsDataURL(f);}
+
+let sc=3;const PX=['s1','s2','s3','s4','s5','s6','s7','s8'];
+function gsv(p,f){const e=$('f_'+p+'_'+f);return e?e.value:'';}
+function rS(){
+  let h='';
+  for(let i=0;i<sc;i++){const p=PX[i]||'s'+(i+1);
+    h+=`<div class="sc"><button class="del" onclick="supS(${i})"${i<1?' style="display:none"':''}>✕</button>
+    <div class="num">◆ Séance ${i+1}</div>
+    <div class="r"><input type="text" id="f_${p}_titre" placeholder="Titre" value="${escA(gsv(p,'titre'))}"><input type="text" id="f_${p}_duree" placeholder="Durée" value="${escA(gsv(p,'duree'))}" style="width:60px"></div>
+    <div class="r"><input type="text" id="f_${p}_obj" placeholder="Objectif" value="${escA(gsv(p,'obj'))}"><input type="text" id="f_${p}_mat" placeholder="Matériel" value="${escA(gsv(p,'mat'))}"></div></div>`;}
+  $('seancesContainer').innerHTML=h;
+}
+function ajouterSeance(){if(sc>=8){toast('Max 8 séances');return;}sc++;rS();toast('Séance ajoutée');}
+function supS(idx){
+  if(sc<=1)return;const b=[];
+  for(let i=0;i<sc;i++){const p=PX[i]||'s'+(i+1);b.push({t:gsv(p,'titre'),d:gsv(p,'duree'),o:gsv(p,'obj'),m:gsv(p,'mat')});}
+  b.splice(idx,1);sc--;rS();
+  for(let i=0;i<sc&&i<b.length;i++){const p=PX[i]||'s'+(i+1);
+    if($('f_'+p+'_titre'))$('f_'+p+'_titre').value=b[i].t;
+    if($('f_'+p+'_duree'))$('f_'+p+'_duree').value=b[i].d;
+    if($('f_'+p+'_obj'))$('f_'+p+'_obj').value=b[i].o;
+    if($('f_'+p+'_mat'))$('f_'+p+'_mat').value=b[i].m;}
+}
+function apercuImage(){const u=imgData['f_image']||v('f_image'),img=$('imgPreview');if(u){img.src=u;img.classList.add('show');img.onerror=()=>img.classList.remove('show');}else img.classList.remove('show');}
+function imgHTML(){const u=imgData['f_image']||v('f_image');if(!u)return '';const c=v('f_imageLegende');return `<div class="img-wrap"><img src="${escA(u)}" alt="${escA(c||'')}">${c?'<div class="cap">'+esc(c)+'</div>':''}</div>`;}
+function lst(id,ulId,cls){const items=v(id).split('\n').filter(s=>s.trim());let h='';items.forEach(i=>{h+=`<li>${esc(i.trim())}</li>`;});$(ulId).innerHTML=h;if(cls)$(ulId).className=cls;}
+function txt(id,elId,boxId){const val=v(id);$(elId).innerHTML=nl2br(val||'');if(boxId){const b=$(boxId);if(b)b.style.display=(val&&val.trim())?'block':'none';}}
+function imgTE(pref,elId){const u=imgData[pref+'Img']||v(pref+'Img');if(!u){$(elId).innerHTML='';return;}const c=v(pref+'ImgLeg');$(elId).innerHTML=`<div class="img-wrap"><img src="${escA(u)}" alt="${escA(c||'')}">${c?'<div class="cap">'+esc(c)+'</div>':''}</div>`;}
+
+function generer(){
+  $('g_hdrL').textContent=v('f_ecole')+' – '+v('f_classe');
+  $('g_hdrR').textContent='Fiche Pédagogique – '+v('f_matiere');
+  $('g_ftrL').textContent=v('f_enseignant');
+  $('g_ftrR').textContent=v('f_date');
+  $('g_theme').textContent=v('f_theme');
+  $('g_titre').textContent=v('f_titre');
+  $('g_ens').textContent='Enseignant : '+v('f_enseignant');
+  $('g_etab').textContent=v('f_ecole')+' – '+v('f_classe')+' – Effectif : '+v('f_effectif');
+  $('g_dates').textContent='Date : '+v('f_date');
+  $('g_duree').textContent='Durée : '+v('f_duree');
+  $('g_ctx').textContent=v('f_contexte');
+  $('g_pied').textContent='Document généré le '+v('f_date')+' — '+v('f_ecole');
+  $('g_comp').textContent=v('f_competence');
+  $('g_ref').textContent=v('f_references');
+  $('g_dom').textContent=v('f_domaine');
+  $('g_seq').textContent=v('f_sequence');
+  $('g_leconTitre').textContent=v('f_titre');
+
+  const ih=imgHTML(),pos=v('f_imagePos');
+  $('g_img1').innerHTML=$('g_img2').innerHTML=$('g_img3').innerHTML='';
+  if(ih){if(pos==='after-title')$('g_img1').innerHTML=ih;else if(pos==='after-context')$('g_img2').innerHTML=ih;else $('g_img3').innerHTML=ih;}
+
+  let t='<table class="seance-table"><tr><th>Séance</th><th>Durée</th><th>Objectif</th><th>Matériel</th></tr>';
+  for(let i=0;i<sc;i++){const p=PX[i]||'s'+(i+1);t+=`<tr><td>${i+1}</td><td>${esc(gsv(p,'duree'))}</td><td>${esc(gsv(p,'obj'))}</td><td>${esc(gsv(p,'mat'))}</td></tr>`;}
+  t+='</table>';$('g_seanceTbl').innerHTML=t;
+
+  let d='';
+  for(let i=0;i<sc;i++){const p=PX[i]||'s'+(i+1);const tt=gsv(p,'titre')||'Séance '+(i+1);d+=`<div class="tbox tbox-act"><div class="tbox-title"><span class="bc bc-act">📘</span> Séance ${i+1} : ${esc(tt)}</div><table class="tbl"><tr><th style="width:85px">Étape 1</th><td>Situation déclenchante (10 min)</td></tr><tr><th>Étape 2</th><td>Manipulation / Recherche (15 min)</td></tr><tr><th>Étape 3</th><td>Mise en commun et synthèse (10 min)</td></tr></table></div>`;}
+  $('g_seancesDet').innerHTML=d;
+
+  const der=v('f_deroulement');let dh='';const dl=der.split('\n').filter(s=>s.trim());if(dl.length){dh='<ol style="margin-top:6px">';dl.forEach(s=>{dh+=`<li style="margin-bottom:3px">${esc(s)}</li>`;});dh+='</ol>';}$('g_deroulement').innerHTML=dh;
+
+  lst('f_objectifs','g_obj','bsq');
+  lst('f_prerequis','g_pre','bsq');
+  lst('f_matConcret','g_matC','');
+  lst('f_matSupports','g_matP','');
+  lst('f_strategies','g_strat','btri');
+  lst('f_adaptations','g_adapt','');
+
+  txt('f_def','g_def','b_def');imgTE('f_def','g_defImg');
+  txt('f_prop','g_prop','b_prop');imgTE('f_prop','g_propImg');
+  txt('f_remarque','g_rem','b_rem');imgTE('f_remarque','g_remarqueImg');
+  txt('f_exemple','g_ex','b_ex');imgTE('f_exemple','g_exempleImg');
+  txt('f_activite','g_act','b_act');imgTE('f_activite','g_activiteImg');
+  txt('f_solActivite','g_solAct','b_solAct');imgTE('f_solActivite','g_solActiviteImg');
+  txt('f_exoApp','g_exoApp','b_exoApp');imgTE('f_exoApp','g_exoAppImg');
+  txt('f_solExo','g_solExo','b_solExo');imgTE('f_solExo','g_solExoImg');
+  txt('f_exoMaison','g_maison','b_maison');imgTE('f_exoMaison','g_exoMaisonImg');
+  txt('f_solMaison','g_solMaison','b_solMaison');imgTE('f_solMaison','g_solMaisonImg');
+
+  lst('f_cap1','g_cap1','btri');
+  lst('f_cap2','g_cap2','btri');
+
+  $('g_evalF').innerHTML=nl2br(v('f_evalForm'));
+  $('g_evalS').innerHTML=nl2br(v('f_evalSom'));
+  $('g_evalC').innerHTML=nl2br(v('f_evalCrit'));
+
+  lst('f_domaines','g_domaines','');
+  lst('f_liens','g_liens','');
+  lst('f_exemples','g_exemples','');
+
+  lst('f_diffDif','g_diffD','');
+  lst('f_diffAv','g_diffA','');
+  lst('f_ressources','g_ress','');
+  lst('f_remarquesFin','g_remF','');
+
+  $('emptyState').style.display='none';
+  $('fichePage').style.display='block';
+  toast('✅ Fiche complète générée');
+}
+
+function exporterHTML(){
+  if($('fichePage').style.display==='none'){toast("Générez d'abord");return;}
+  const s=document.querySelector('style').outerHTML;
+  const b=new Blob([`<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Fiche Pédagogique</title>${s}</head><body style="background:white;padding:0"><div style="max-width:1140px;margin:0 auto">${$('fichePage').outerHTML}</div></body></html>`],{type:'text/html'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='fiche_pedagogique.html';a.click();URL.revokeObjectURL(a.href);
+  toast('💾 Exporté HTML');
+}
+
+function exporterLatex(){
+  if($('fichePage').style.display==='none'){toast("Générez d'abord");return;}
+  const el=s=>String(s).replace(/&/g,'\\&').replace(/%/g,'\\%').replace(/\$/g,'\\$').replace(/#/g,'\\#').replace(/_/g,'\\_').replace(/\{/g,'\\{').replace(/\}/g,'\\}').replace(/~/g,'\\textasciitilde{}');
+  const ecl=s=>el(s).replace(/\n/g,'\n  ');
+  let sRows='';
+  for(let i=0;i<sc;i++){const p=PX[i]||'s'+(i+1);sRows+=`    ${i+1} & ${el(gsv(p,'duree'))} & ${el(gsv(p,'obj'))} & ${el(gsv(p,'mat'))} \\\\\\hline\n`;}
+  const flds=['def','prop','remarque','exemple','activite','solActivite','exoApp','solExo','exoMaison','solMaison'];
+  const tb={};flds.forEach(k=>{tb[k]=ecl(v('f_'+k));const ui=imgData['f_'+k+'Img_name']||v('f_'+k+'Img');tb[k+'ImgLatex']=ui?'\\par{\\centering\\includegraphics[width=0.5\\textwidth]{'+el(ui)+'}\\par\\small\\textit{'+el(v('f_'+k+'ImgLeg')||'')+'}\\par}':'';});
+  const ltx=`% === FICHE PÉDAGOGIQUE GÉNÉRÉE LE ${el(v('f_date'))} ===
+\\documentclass[10pt,a4paper]{article}
+\\usepackage[T1]{fontenc}\\usepackage[french]{babel}\\usepackage{amsmath,amssymb}
+\\usepackage{geometry}\\usepackage{fancyhdr}\\usepackage{array}\\usepackage{enumitem}
+\\usepackage[skins,breakable]{tcolorbox}\\usepackage{multicol}\\usepackage{tabularx}
+\\usepackage{xcolor}\\usepackage{booktabs}\\usepackage{hyperref}\\usepackage{lmodern}
+\\usepackage{graphicx}\\usepackage{lastpage}\\usepackage{float}
+\\definecolor{headerblue}{RGB}{10,36,99}\\definecolor{lightblue}{RGB}{238,242,255}
+\\definecolor{mediumblue}{RGB}{59,130,246}\\definecolor{darkblue}{RGB}{15,23,42}
+\\definecolor{accentorange}{RGB}{249,115,22}\\definecolor{accentgreen}{RGB}{16,185,129}
+\\definecolor{accentyellow}{RGB}{245,158,11}\\definecolor{accentred}{RGB}{239,68,68}
+\\geometry{top=1.5cm,bottom=1.2cm,left=1cm,right=1cm,headheight=15pt}
+\\newtcolorbox{headerbox}[1][]{enhanced,colback=lightblue,colframe=mediumblue,arc=4pt,boxsep=10pt,left=8pt,right=8pt,top=8pt,bottom=8pt,fontupper=\\normalfont,before skip=12pt,after skip=12pt,breakable,#1}
+\\newtcolorbox{activitybox}[1][]{enhanced,colback=accentorange!5!white,colframe=accentorange,arc=3pt,boxsep=8pt,left=6pt,right=6pt,top=8pt,bottom=8pt,title=Activité,fonttitle=\\bfseries\\color{darkblue},drop fuzzy shadow=accentorange!50!black,breakable,#1}
+\\newtcolorbox{evaluationbox}[1][]{enhanced,colback=accentgreen!5!white,colframe=accentgreen,arc=3pt,boxsep=8pt,left=6pt,right=6pt,top=8pt,bottom=8pt,title=Évaluation,fonttitle=\\bfseries\\color{darkblue},drop fuzzy shadow=accentgreen!50!black,breakable,#1}
+\\newtcolorbox{tracebox}[1][]{enhanced,colback=accentyellow!5!white,colframe=accentyellow,arc=3pt,boxsep=8pt,left=6pt,right=6pt,top=8pt,bottom=8pt,title=Trace Écrite,fonttitle=\\bfseries\\color{darkblue},drop fuzzy shadow=accentyellow!50!black,breakable,#1}
+\\newtcolorbox{definitionbox}[1][]{enhanced,colback=lightblue!80,colframe=mediumblue,arc=2pt,boxsep=6pt,left=6pt,right=6pt,top=6pt,bottom=6pt,fontupper=\\small,before skip=6pt,after skip=6pt,breakable,#1}
+\\newtcolorbox{importantbox}{enhanced,colback=accentred!5!white,colframe=accentred,arc=3pt,boxsep=8pt,left=6pt,right=6pt,top=8pt,bottom=8pt,title=\\textbf{Important},fonttitle=\\bfseries\\color{darkblue},drop fuzzy shadow=accentred!50!black,breakable}
+\\newcommand{\\sectiontitle}[1]{\\section*{\\textcolor{headerblue}{\\Large\\underline{\\textbf{#1}}}}\\vspace{-0.3cm}}
+\\newcommand{\\subsectiontitle}[1]{\\subsection*{\\textcolor{mediumblue}{\\textbf{#1}}}}
+\\pagestyle{fancy}\\fancyhf{}
+\\fancyhead[L]{\\textcolor{headerblue}{\\small ${el(v('f_ecole'))} -- ${el(v('f_classe'))}}}
+\\fancyhead[R]{\\textcolor{headerblue}{\\small Fiche Pédagogique -- ${el(v('f_matiere'))}}}
+\\fancyfoot[L]{\\textcolor{headerblue}{\\small ${el(v('f_enseignant'))}}}
+\\fancyfoot[C]{\\textcolor{headerblue}{\\thepage/\\pageref{LastPage}}}
+\\fancyfoot[R]{\\textcolor{headerblue}{\\small ${el(v('f_date'))}}}
+\\renewcommand{\\headrulewidth}{0.4pt}\\renewcommand{\\footrulewidth}{0.4pt}
 \\begin{document}
-
-\\begin{center}
-\\Large \\textbf{FICHE DE LEÇON} \\\\
-\\large ${formData.discipline}
-\\end{center}
-
+\\title{\\vspace*{2cm}\\begin{minipage}{\\textwidth}\\centering\\textbf{\\Huge FICHE PÉDAGOGIQUE DE LEÇON} \\\\\\[0.4cm]\\color{headerblue}\\LARGE\\textbf{${el(v('f_theme'))}} \\\\\\[0.3cm]\\color{darkblue}\\Large\\textbf{${el(v('f_titre'))}} \\\\\\[0.5cm]\\begin{tabular}{@{}c@{}}\\normalsize\\color{gray}${el(v('f_enseignant'))} \\\\ ${el(v('f_ecole'))} -- ${el(v('f_classe'))} -- ${el(v('f_effectif'))} \\\\ Date : ${el(v('f_date'))} \\\\ Durée : ${el(v('f_duree'))}\\end{tabular}\\end{minipage}}\\author{}\\date{}\\maketitle
+\\begin{center}\\rule{\\textwidth}{2pt}\\end{center}
 \\vspace{0.5cm}
-
-\\noindent
-\\textbf{Enseignant :} ${formData.teacherName} \\\\
-\\textbf{Contact :} ${formData.teacherContact} \\\\
-\\textbf{Établissement :} ${formData.schoolInfo.replace(/\n/g, ' \\\\\\\\ ')} \\\\
-\\textbf{Date :} ${formattedDate} \\\\
-\\textbf{Nombre de séances :} ${formData.sessionCount}
-
-\\vspace{1cm}
-
-${sectionsLaTeX}
-
+\\begin{definitionbox}\\centering\\textbf{\\large Contexte :} ${ecl(v('f_contexte'))}\\end{definitionbox}
+\\vspace{0.3cm}
+\\begin{center}\\begin{tabular}{|c|c|c|c|}\\hline\\rowcolor{lightblue}\\textbf{Séance} & \\textbf{Durée} & \\textbf{Objectif} & \\textbf{Matériel} \\\\\\hline ${sRows}\\end{tabular}\\end{center}
+\\vspace{0.3cm}
+\\subsectiontitle{DÉROULEMENT DES ACTIVITÉS}
+\\begin{enumerate}[leftmargin=*,label=\\arabic*.,itemsep=3pt]
+${v('f_deroulement').split('\n').filter(s=>s.trim()).map(s=>'  \\item '+el(s.trim())).join('\n')}
+\\end{enumerate}
+\\newpage
+\\sectiontitle{INFORMATIONS GÉNÉRALES}
+\\begin{headerbox}\\begin{tabularx}{\\textwidth}{@{}>{\\bfseries\\color{darkblue}}lX@{}}COMPÉTENCE : & ${ecl(v('f_competence'))} \\\\ RÉFÉRENCES : & ${el(v('f_references'))} \\\\ DOMAINE : & ${el(v('f_domaine'))} \\\\ SÉQUENCE : & ${el(v('f_sequence'))} \\\\ \\end{tabularx}\\end{headerbox}
+\\vspace{0.3cm}
+\\begin{minipage}[t]{0.48\\textwidth}\\subsectiontitle{OBJECTIFS}\\begin{itemize}[leftmargin=*,label=\\textcolor{headerblue}{\\tiny$\\blacksquare$},itemsep=2pt]${v('f_objectifs').split('\n').filter(s=>s.trim()).map(s=>'\\n    \\\\item '+el(s.trim())).join('')}\\end{itemize}\\end{minipage}
+\\hfill
+\\begin{minipage}[t]{0.48\\textwidth}\\subsectiontitle{PRÉREQUIS}\\begin{itemize}[leftmargin=*,label=\\textcolor{headerblue}{\\tiny$\\blacksquare$},itemsep=2pt]${v('f_prerequis').split('\n').filter(s=>s.trim()).map(s=>'\\n    \\\\item '+el(s.trim())).join('')}\\end{itemize}\\end{minipage}
+\\vspace{0.3cm}\\subsectiontitle{STRATÉGIES}\\begin{itemize}[leftmargin=*,label=\\textcolor{headerblue}{$\\triangleright$}]${v('f_strategies').split('\n').filter(s=>s.trim()).map(s=>'\\n  \\\\item '+el(s.trim())).join('')}\\end{itemize}
+\\begin{importantbox}\\textbf{Adaptations :} ${v('f_adaptations').split('\n').filter(s=>s.trim()).map(s=>'\\\\begin{itemize}\\\\item '+el(s.trim())+'\\\\end{itemize}').join('')}\\end{importantbox}
+\\newpage
+\\sectiontitle{TRACE ÉCRITE COMPLÈTE}
+\\begin{tracebox}\\centering\\textbf{\\Large LEÇON : ${el(v('f_titre'))}}
+\\begin{definitionbox}${tb.def}${tb.defImgLatex}\\end{definitionbox}
+\\begin{importantbox}\\textbf{Propriété} \\\\ ${tb.prop}${tb.propImgLatex}\\end{importantbox}
+\\begin{importantbox}\\textbf{Remarque} \\\\ ${tb.remarque}${tb.remarqueImgLatex}\\end{importantbox}
+\\begin{activitybox}\\textbf{Exemple} \\\\ ${tb.exemple}${tb.exempleImgLatex}\\end{activitybox}
+\\begin{activitybox}\\textbf{Activité} \\\\ ${tb.activite}${tb.activiteImgLatex}\\end{activitybox}
+\\begin{evaluationbox}\\textbf{Solution} \\\\ ${tb.solActivite}${tb.solActiviteImgLatex}\\end{evaluationbox}
+\\begin{activitybox}\\textbf{Exercice d'application} \\\\ ${tb.exoApp}${tb.exoAppImgLatex}\\end{activitybox}
+\\begin{evaluationbox}\\textbf{Solution} \\\\ ${tb.solExo}${tb.solExoImgLatex}\\end{evaluationbox}
+\\begin{tracebox}\\textbf{Exercice de maison} \\\\ ${tb.exoMaison}${tb.exoMaisonImgLatex}
+\\begin{center}\\begin{tabular}{|c|c|}\\hline\\rowcolor{lightblue}\\textbf{Signature} & \\textbf{Date} \\\\\\hline & \\\\\\hline\\end{tabular}\\end{center}\\end{tracebox}
+\\begin{evaluationbox}\\textbf{Solution du devoir} \\\\ ${tb.solMaison}${tb.solMaisonImgLatex}\\end{evaluationbox}
+\\end{tracebox}
+\\vspace{0.5cm}\\begin{center}\\textbf{\\textcolor{headerblue}{FICHE PÉDAGOGIQUE TERMINÉE}} \\\\ \\rule{\\textwidth}{2pt} \\\\ \\small ${el(v('f_date'))} -- ${el(v('f_ecole'))}\\end{center}
 \\end{document}`;
-                
-                // Update LaTeX preview
-                latexContent.textContent = latexCode;
-                latexOutput.style.display = 'block';
-                
-                showStatus('Code LaTeX généré avec succès !', 'success');
-            }
-            
-            function renderSavedLessons() {
-                if (savedLessons.length === 0) {
-                    lessonsList.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-inbox"></i>
-                            <p>Aucune fiche sauvegardée pour le moment</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                const filteredLessons = filterLessons();
-                
-                if (filteredLessons.length === 0) {
-                    lessonsList.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-search"></i>
-                            <p>Aucune fiche ne correspond à vos critères de recherche</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                lessonsList.innerHTML = filteredLessons.map(lesson => `
-                    <div class="lesson-card">
-                        <div class="lesson-card-header">
-                            <div class="lesson-card-title">${lesson.title}</div>
-                            <div class="lesson-card-actions">
-                                <button class="lesson-card-action" onclick="loadLesson('${lesson.id}')" title="Charger">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="lesson-card-action" onclick="deleteLesson('${lesson.id}')" title="Supprimer">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="lesson-card-meta">
-                            <div><i class="fas fa-user"></i> ${lesson.teacher}</div>
-                            <div><i class="fas fa-calendar"></i> ${new Date(lesson.date).toLocaleDateString('fr-FR')}</div>
-                        </div>
-                        <div class="lesson-card-preview">
-                            ${lesson.data.prerequisites ? lesson.data.prerequisites.replace(/<[^>]*>/g, '').substring(0, 200) : ''}...
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            function filterLessons() {
-                const disciplineFilter = filterDiscipline.value;
-                const searchFilter = filterSearch.value.toLowerCase();
-                
-                const filtered = savedLessons.filter(lesson => {
-                    const matchesDiscipline = !disciplineFilter || lesson.discipline === disciplineFilter;
-                    const matchesSearch = !searchFilter || 
-                        lesson.title.toLowerCase().includes(searchFilter) ||
-                        lesson.teacher.toLowerCase().includes(searchFilter) ||
-                        (lesson.data.prerequisites && lesson.data.prerequisites.toLowerCase().includes(searchFilter));
-                    
-                    return matchesDiscipline && matchesSearch;
-                });
-                
-                renderSavedLessons();
-                return filtered;
-            }
-            
-            function updateDisciplineFilter() {
-                const disciplines = [...new Set(savedLessons.map(lesson => lesson.discipline))];
-                
-                filterDiscipline.innerHTML = `
-                    <option value="">Toutes les disciplines</option>
-                    ${disciplines.map(d => `<option value="${d}">${d}</option>`).join('')}
-                `;
-            }
-            
-            function toggleSavedLessons() {
-                const savedSection = document.querySelector('.saved-lessons');
-                const lessonsList = document.getElementById('lessonsList');
-                const filterControls = document.querySelector('.filter-controls');
-                
-                if (savedLessonsVisible) {
-                    savedSection.style.maxHeight = '120px';
-                    lessonsList.style.display = 'none';
-                    filterControls.style.display = 'none';
-                    toggleSavedBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Afficher';
-                } else {
-                    savedSection.style.maxHeight = 'none';
-                    lessonsList.style.display = 'grid';
-                    filterControls.style.display = 'flex';
-                    toggleSavedBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Masquer';
-                }
-                
-                savedLessonsVisible = !savedLessonsVisible;
-            }
-            
-            function copyToClipboard(text) {
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
-            
-            function showStatus(message, type) {
-                statusMessage.textContent = message;
-                statusMessage.className = `status-message ${type}`;
-                statusMessage.style.display = 'block';
-                
-                setTimeout(() => {
-                    statusMessage.style.display = 'none';
-                }, 4000);
-            }
-            
-            // Make functions available globally for onclick handlers
-            window.loadLesson = loadLesson;
-            window.deleteLesson = deleteLesson;
-        });
-    </script>
+  const b=new Blob([ltx],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='fiche_pedagogique.tex';a.click();URL.revokeObjectURL(a.href);
+  toast('📄 LaTeX exporté');
+}
+
+function resetTout(){
+  const defs={
+    f_ecole:'CEG MASSEDENA',f_classe:'Classe de 6ème',f_effectif:'38 élèves',f_matiere:'Mathématiques',
+    f_enseignant:'KOLA Maniwah Essohouna',f_date:'02/02/2026',f_duree:'3 séances de 60 min',
+    f_competence:'Résoudre des problèmes faisant appel au calcul numérique dans des situations concrètes de la vie quotidienne africaine, en mobilisant la notion de fraction comme outil de modélisation et de résolution.',
+    f_references:'Programme officiel de mathématiques 6ème, Socle commun',f_sequence:'Séquence 3 — Deuxième trimestre',
+    f_domaine:'Nombres et calculs',f_theme:'Nombres et Calculs',
+    f_titre:'Les Fractions : Notion, Comparaison et Opérations de Base',
+    f_contexte:'Cette séquence vise à construire progressivement la notion de fraction chez les élèves de 6ème à travers des situations concrètes du quotidien africain.',
+    f_objectifs:'Reconnaître et identifier des fractions dans des contextes variés\nReprésenter graphiquement des fractions à l\'aide de supports variés\nComparer et ranger des fractions en utilisant des stratégies adaptées\nEffectuer des opérations élémentaires sur les fractions\nUtiliser les fractions pour résoudre des problèmes de partage',
+    f_prerequis:'Connaissance des nombres entiers naturels jusqu\'à 1000\nMaîtrise des opérations de base (+, −, ×, ÷)\nNotion intuitive de partage équitable\nLecture et écriture correcte des nombres',
+    f_matConcret:'Fruits (oranges, bananes, mangues)\nBandes de papier de différentes longueurs\nDisques en carton fractionnés\nBilles, cailloux, graines',
+    f_matSupports:'Fiches d\'exercices différenciées (3 niveaux)\nPlanches illustrées sur le partage\nTableau magnétique avec fractions aimantées\nCalculatrices simples',
+    f_strategies:'Approche inductive : partir de situations concrètes pour dégager les concepts\nDifférenciation : adapter les activités selon les profils d\'apprentissage\nManipulation : utiliser systématiquement du matériel concret avant l\'abstraction\nTravail collaboratif : alterner phases individuelles, en binômes et en groupes\nMétacognition : faire verbaliser les démarches et les stratégies\nContextualisation : ancrer les apprentissages dans la réalité africaine',
+    f_adaptations:'Pour les élèves en difficulté : réduire la quantité d\'exercices, accentuer la manipulation\nPour les élèves avancés : problèmes complexes, recherche documentaire\nPour les élèves à besoins éducatifs particuliers : supports adaptés, temps supplémentaire',
+    f_image:'',f_imagePos:'after-title',f_imageLegende:'',
+    f_def:'Une fraction est un nombre qui représente une ou plusieurs parties d\'une unité divisée en parts égales.',
+    f_prop:'Propriété 1 : Un même nombre fractionnaire peut s\'écrire de différentes façons (fractions équivalentes).\nPropriété 2 : Si on multiplie ou divise le numérateur et le dénominateur par un même nombre non nul, on obtient une fraction égale.',
+    f_remarque:'Remarque : Une fraction peut représenter un nombre entier lorsque le numérateur est un multiple du dénominateur. Une fraction dont le numérateur est inférieur au dénominateur est appelée fraction propre.',
+    f_exemple:'Exemple 1 : Dans un gâteau partagé en 8 parts égales, si on prend 3 parts, on a 3/8 du gâteau.\nExemple 2 : 2/3 de 15 = (2 × 15) ÷ 3 = 30 ÷ 3 = 10.',
+    f_activite:'Activité : À l\'aide de bandes de papier, représenter les fractions 1/2, 1/4, 3/4 et 2/3. Comparer les longueurs obtenues et classer ces fractions par ordre croissant.',
+    f_solActivite:'Solution : 1/4 = 0,25 ; 1/2 = 0,5 ; 2/3 ≈ 0,67 ; 3/4 = 0,75. Ordre croissant : 1/4 < 1/2 < 2/3 < 3/4.',
+    f_exoApp:'1. Simplifier les fractions suivantes : 12/18, 20/25, 36/48.\n2. Calculer : 4/11 + 5/11 - 2/11.\n3. Un fermier vend 2/5 de sa récolte le matin et 1/4 l\'après-midi. Fraction totale vendue ?',
+    f_solExo:'1. 12/18 = 2/3 ; 20/25 = 4/5 ; 36/48 = 3/4.\n2. 4/11 + 5/11 - 2/11 = 7/11.\n3. 2/5 + 1/4 = 8/20 + 5/20 = 13/20.',
+    f_exoMaison:'Devoir : Famille Traoré.\n- 30 poulets à partager entre 5 familles\n- 48 L de boisson (verres de 1/3 L)\n- 60 sachets sucre : 2/5 pour le thé, 1/4 pour les gâteaux. Reste ?',
+    f_solMaison:'1. 1/5 → 6 poulets/famille.\n2. 48 ÷ 1/3 = 144 verres.\n3. Thé : 60×2/5=24 ; Gâteaux : 60×1/4=15.\n4. Reste : 7/20 → 21 sachets.',
+    f_cap1:'Représenter : Traduire une fraction sous forme graphique, numérique et concrète\nComparer : Utiliser des stratégies adaptées pour comparer et ordonner\nCalculer : Maîtriser les opérations élémentaires avec précision\nRésoudre : Appliquer les fractions à des problèmes du quotidien',
+    f_cap2:'Communiquer : Exprimer clairement sa démarche avec un vocabulaire adapté\nModéliser : Traduire une situation réelle en langage mathématique\nRaisonner : Justifier ses choix et vérifier la cohérence des résultats\nAutonomiser : Développer des méthodes de travail personnelles',
+    f_evalForm:'Observation directe de la participation et de la manipulation\nQuestionnement : questions orales ciblées, explications des démarches\nExercices au tableau : correction immédiate avec rétroaction\nAuto-évaluation : fiche de positionnement après chaque séance',
+    f_evalSom:'Fiche d\'exercices notés (coefficient 1) — 30 minutes\nRésolution de problème contextualisé (coefficient 2) — 45 minutes\nPrésentation orale d\'une démarche de résolution (coefficient 1)\nQuestionnaire de synthèse (coefficient 3) — 60 minutes',
+    f_evalCrit:'Exactitude des calculs et des représentations (40 %)\nPertinence des méthodes utilisées (25 %)\nClarté des explications et du vocabulaire (20 %)\nCapacité à appliquer dans des situations nouvelles (10 %)\nAutonomie et prise d\'initiative (5 %)',
+    f_domaines:'Alimentation : Partage de nourriture, recettes traditionnelles\nCommerce : Mesures au marché, calcul des prix\nAgriculture : Répartition des récoltes, surfaces cultivables\nArtisanat : Proportions dans la fabrication, mesures',
+    f_liens:'SVT : Proportion dans l\'alimentation, croissance\nGéographie : Répartition des ressources, démographie\nHistoire : Mesures anciennes, systèmes de comptage\nÉducation civique : Partage équitable, solidarité',
+    f_exemples:'Partager 24 ignames entre 8 familles de façon équitable\nMesurer 3/4 kg de riz avec une balance traditionnelle\nCalculer la part de chacun dans une tontine de 12 personnes avec 60 000 FCFA',
+    f_diffDif:'Utilisation systématique de matériel concret\nFractions simples (1/2, 1/3, 1/4)\nÉnoncés courts et illustrés\nTutorat par des élèves avancés',
+    f_diffAv:'Problèmes complexes en plusieurs étapes\nIntroduction aux fractions décimales\nCréation d\'exercices pour les camarades\nProjets interdisciplinaires',
+    f_ressources:'Manuel de mathématiques 6ème\nFiches de travail photocopiables\nMatériel de manipulation à fabriquer\nVidéos éducatives sur les fractions',
+    f_remarquesFin:'Insister sur le sens avant la technique\nValoriser toutes les démarches de résolution\nFaire verbaliser les difficultés rencontrées\nMaintenir un lien constant avec le concret',
+    f_deroulement:'Phase 1 : Rappel des prérequis et mise en situation (10 min)\nPhase 2 : Activité de découverte par manipulation guidée (15 min)\nPhase 3 : Mise en commun et institutionnalisation (10 min)\nPhase 4 : Exercices d\'application et entraînement (15 min)\nPhase 5 : Synthèse, évaluation et remédiation (10 min)',
+    f_defImg:'',f_defImgLeg:'',f_propImg:'',f_propImgLeg:'',f_remarqueImg:'',f_remarqueImgLeg:'',
+    f_exempleImg:'',f_exempleImgLeg:'',f_activiteImg:'',f_activiteImgLeg:'',f_solActiviteImg:'',f_solActiviteImgLeg:'',
+    f_exoAppImg:'',f_exoAppImgLeg:'',f_solExoImg:'',f_solExoImgLeg:'',f_exoMaisonImg:'',f_exoMaisonImgLeg:'',f_solMaisonImg:'',f_solMaisonImgLeg:'',
+    f_s1_titre:'Découverte et Représentation',f_s1_duree:'60 min',f_s1_obj:'Construire le concept de fraction',f_s1_mat:'Bandes de papier, fruits',
+    f_s2_titre:'Comparaison et Rangement',f_s2_duree:'75 min',f_s2_obj:'Développer des stratégies de comparaison',f_s2_mat:'Disques fractionnés',
+    f_s3_titre:'Opérations et Applications',f_s3_duree:'75 min',f_s3_obj:'Maîtriser les opérations élémentaires',f_s3_mat:'Calculatrices, fiches'
+  };
+  for(const[id,val]of Object.entries(defs)){const el=$(id);if(el&&el.type!=='file')el.value=val;}
+  Object.keys(imgData).forEach(k=>delete imgData[k]);sc=3;rS();apercuImage();generer();toast('↺ Réinitialisé');
+}
+
+rS();
+window.addEventListener('DOMContentLoaded',generer);
+</script>
 </body>
 </html>
